@@ -10,13 +10,13 @@ import pytest
 
 
 @pytest.mark.c3dc
-@pytest.mark.skip(reason='contains Katalon steps that were not converted: filter Diagnosis/AnatomicSite / C420_Blood: "\'C420_Blood\' is not a checkbox in Diagnosis/AnatomicSite in the Katalon Object Repository"')
+@pytest.mark.regression
 def test_TC04_C3DC_phs002599_AnatomicSite_Blood(c3dc):
     c3dc.load_query_file("TC04_C3DC_phs002599_AnatomicSite-Blood.xlsx")
     c3dc.accept_banner()
     c3dc.open_explore()
     c3dc.select_filter("Study/dbGaP_Accession", "phs002599")
-    # TODO not converted: filter Diagnosis/AnatomicSite / C420_Blood: "'C420_Blood' is not a checkbox in Diagnosis/AnatomicSite in the Katalon Object Repository"
+    c3dc.select_filter("Diagnosis/AnatomicSite", "C420_Blood")
     c3dc.read_statbar()
     c3dc.verify_tab("Participants")
     c3dc.verify_tab("Studies")

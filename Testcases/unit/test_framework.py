@@ -2,6 +2,8 @@
 
     pytest -m unit
 """
+import os
+
 import pytest
 
 from Commons.compare import (cells_match, compare_counts, compare_tables, normalize_list,
@@ -164,9 +166,9 @@ def test_environment_urls():
 
 
 def test_memgraph_password_is_never_read_from_config(monkeypatch):
-    monkeypatch.delenv("MEMGRAPH_PASSWORD", raising=False)
-    monkeypatch.delenv("MEMGRAPH_PASSWORD_C3DC", raising=False)
-    monkeypatch.delenv("MEMGRAPH_PASSWORD_GC", raising=False)
+    for key in list(os.environ):
+        if key.startswith("MEMGRAPH_PASSWORD"):
+            monkeypatch.delenv(key, raising=False)
     for app in ("C3DC", "GC"):
         assert get_app_settings(app, "qa").expected_source == "memgraph"
         assert get_app_settings(app, "qa").memgraph_password == ""
@@ -183,6 +185,19 @@ def test_ui_action_filter_labels():
 
     assert action_log.filter_facet_display("Study/dbGaP_Accession", "Study_Facet") == "Study"
     assert action_log.filter_subfilter_display("Demographics/SexAtBirth") == "Sex At Birth"
+
+
+def test_object_repo_resolves_newly_enabled_filter_tokens():
+    from Commons.object_repository import ObjectRepository
+
+    c3dc = ObjectRepository("C3DC")
+    gc = ObjectRepository("GC")
+    assert c3dc.filter_group("Diagnosis/AnatomicSite").checkbox_xpath("C420_Blood")
+    assert c3dc.filter_group("Diagnosis/Diagnosis").checkbox_xpath("AdenomaNOS")
+    assert gc.filter_group("GenomicFacet/LibrarySelection").checkbox_xpath("NotSpecifiedInData")
+    assert gc.filter_group("ImagingFacet/ImageModality").checkbox_xpath("NotSpecifiedInData")
+    assert gc.filter_group("SamplesFacet/SampleType").checkbox_xpath("Prim-Xenograft-Tissue")
+    assert gc.filter_group("DiagnosisFacet/PrimaryDiagnosis").checkbox_xpath("LymphomaNOS")
 
 
 def test_db_queries_enabled_default(monkeypatch):

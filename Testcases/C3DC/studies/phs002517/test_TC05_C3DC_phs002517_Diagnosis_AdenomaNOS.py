@@ -10,13 +10,13 @@ import pytest
 
 
 @pytest.mark.c3dc
-@pytest.mark.skip(reason='contains Katalon steps that were not converted: filter Study/dbGaP_Accession / phs0002517: "\'phs0002517\' is not a checkbox in Study/dbGaP_Accession in the Katalon Object Repository"; filter Diagnosis/')
+@pytest.mark.regression
 def test_TC05_C3DC_phs002517_Diagnosis_AdenomaNOS(c3dc):
     c3dc.load_query_file("TC05_C3DC_phs002517_Diagnosis-AdenomaNOS.xlsx")
     c3dc.accept_banner()
     c3dc.open_explore()
-    # TODO not converted: filter Study/dbGaP_Accession / phs0002517: "'phs0002517' is not a checkbox in Study/dbGaP_Accession in the Katalon Object Repository"
-    # TODO not converted: filter Diagnosis/Diagnosis / AdenomaNOS: "'AdenomaNOS' is not a checkbox in Diagnosis/Diagnosis in the Katalon Object Repository"
+    c3dc.select_filter("Study/dbGaP_Accession", "phs002517")
+    c3dc.select_filter("Diagnosis/Diagnosis", "AdenomaNOS")
     c3dc.read_statbar()
     c3dc.verify_tab("Participants")
     c3dc.verify_tab("Studies")

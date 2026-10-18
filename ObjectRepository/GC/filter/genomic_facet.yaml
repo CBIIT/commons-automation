@@ -37,6 +37,8 @@ groups:
       HybridSelection: //*[@id="checkbox_Library Selection_Hybrid Selection"]
       NotApplicable: //*[@id="checkbox_Library Selection_Not Applicable"]
       NotspecifiedinData: //*[@id="checkbox_Library Selection_Not specified in data"]
+      NotSpecifiedInData: //*[@id="checkbox_Library Selection_Not specified in data"]
+      NotSpecifiedinData: //*[@id="checkbox_Library Selection_Not specified in data"]
       OligodT: //*[@id="checkbox_Library Selection_Oligo-dT"]
       Poly-TEnrichment: //*[@id="checkbox_library selection_Poly-T Enrichment"]
       PolyA: //*[@id="checkbox_Library Selection_Poly-A Enriched Genomic Library"]

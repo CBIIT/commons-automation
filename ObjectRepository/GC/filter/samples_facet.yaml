@@ -19,3 +19,4 @@ groups:
       NotSpecifiedInData: //*[@id="checkbox_sample type_Not specified in data"]
       SolidTissueNormal: //*[@id="checkbox_sample type_Solid Tissue Normal"]
       TumorAdjacentNormal: //*[@id="checkbox_sample type_Tumor Adjacent Normal"]
+      Prim-Xenograft-Tissue: //*[@id="checkbox_sample type_Primary Xenograft Tissue"]

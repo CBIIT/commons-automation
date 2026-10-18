@@ -12,14 +12,13 @@ import pytest
 @pytest.mark.gc
 @pytest.mark.regression
 @pytest.mark.smoke
-@pytest.mark.skip(reason='contains Katalon steps that were not converted: filter GenomicFacet/LibrarySelection / NotSpecifiedinData: "\'NotSpecifiedinData\' is not a checkbox in GenomicFacet/LibrarySelection in the Katalon Objec')
 def test_TC05_GC_phs003155_LibraryStrategy_NSD_LibrarySelection_NSD(gc):
     gc.load_query_file("TC05_GC_phs003155_LibraryStrategy-NSD_LibrarySelection-NSD.xlsx")
     gc.accept_banner()
     gc.open_data()
     gc.select_filter("StudyFacet/PHS_Accession", "phs003155")
     gc.select_filter("GenomicFacet/LibraryStrategy", "NotSpecifiedindata")
-    # TODO not converted: filter GenomicFacet/LibrarySelection / NotSpecifiedinData: "'NotSpecifiedinData' is not a checkbox in GenomicFacet/LibrarySelection in the Katalon Object Repository"
+    gc.select_filter("GenomicFacet/LibrarySelection", "NotSpecifiedinData")
     gc.read_statbar()
     gc.verify_tab("Participants")
     gc.verify_tab("Samples")

@@ -11,14 +11,13 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.skip(reason='contains Katalon steps that were not converted: filter DiagnosisFacet/PrimaryDiagnosis / LymphomaNOS: "\'LymphomaNOS\' is not a checkbox in DiagnosisFacet/PrimaryDiagnosis in the Katalon Object Reposito')
 def test_TC05_GC_phs001980_Sex_Female_PrimDiag_Lymphoma_FileType_FASTQ(gc):
     gc.load_query_file("TC05_GC_phs001980_Sex-Female_PrimDiag_Lymphoma_FileType-FASTQ.xlsx")
     gc.accept_banner()
     gc.open_data()
     gc.select_filter("StudyFacet/PHS_Accession", "phs001980")
     gc.select_filter("DemographicsFacet/Sex", "Female")
-    # TODO not converted: filter DiagnosisFacet/PrimaryDiagnosis / LymphomaNOS: "'LymphomaNOS' is not a checkbox in DiagnosisFacet/PrimaryDiagnosis in the Katalon Object Repository"
+    gc.select_filter("DiagnosisFacet/PrimaryDiagnosis", "LymphomaNOS")
     gc.select_filter("FilesFacet/FileType", "fastq")
     gc.read_statbar()
     gc.verify_tab("Participants")

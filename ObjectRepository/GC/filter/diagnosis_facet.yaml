@@ -25,6 +25,7 @@ groups:
       ColorectalCarcinoma: //*[@id="checkbox_Primary Diagnosis_Colorectal Carcinoma"]
       Gliobastoma: //*[@id="checkbox_PRIMARY DIAGNOSIS_Glioblastoma"]
       LungCancer: //*[@id="checkbox_Primary Diagnosis_Lung Cancer"]
+      LymphomaNOS: //*[@id="checkbox_Primary Diagnosis_Lymphoma, NOS"]
       MelanomaNos: //*[@id="checkbox_Primary Diagnosis_Melanoma, NOS"]
       MixedGlioma: //*[@id="checkbox_Primary Diagnosis_Mixed Glioma"]
       MultipleMyeloma: //*[@id="checkbox_Primary Diagnosis_Multiple Myeloma"]

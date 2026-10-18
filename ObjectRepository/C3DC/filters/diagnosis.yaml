@@ -12,6 +12,7 @@ groups:
     facet: (//*[text()='Diagnosis'])[1]
     dropdown: (//*[@id="Anatomic Site"])[1]
     checkboxes:
+      C420_Blood: '//*[@id="checkbox_Diagnosis Anatomic Site_C42.0 : Blood"]'
       AdreGlndNOS: '//*[@id="checkbox_Anatomic Site_C74.9 : Adrenal gland, NOS"]'
       AutonNervSysNOS: '//*[@id="checkbox_Anatomic Site_C47.9 : Autonomic nervous system, NOS"]'
       Blood: '//*[@id="checkbox_Anatomic Site_C42.0 : Blood"]'
@@ -54,6 +55,7 @@ groups:
       AcuteLeukAmbLing: //*[@id="checkbox_Diagnosis_Acute Leukemias of Ambiguous Lineage"]
       AcuteLeukemiaNOS: '//*[@id="checkbox_Diagnosis_9801/3 : Acute leukemia, NOS"]'
       AcuteMyelLeukNOS: //*[@id="checkbox_Diagnosis_Acute myeloid leukemia, NOS"]
+      AdenomaNOS: //*[@id="checkbox_Diagnosis_Adenoma, NOS"]
       Ganglioneuroblastoma: //*[@id="checkbox_Diagnosis_Ganglioneuroblastoma"]
       JuvenileMyLeNOS: '//*[@id="checkbox_Diagnosis_9946/3 : Juvenile myelomonocytic leukemia, NOS"]'
       NeoplsmBen: //*[@id="checkbox_Diagnosis_Neoplasm, benign"]

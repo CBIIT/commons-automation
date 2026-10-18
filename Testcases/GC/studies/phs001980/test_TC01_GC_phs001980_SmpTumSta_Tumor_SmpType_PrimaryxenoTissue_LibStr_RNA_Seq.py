@@ -11,14 +11,13 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.skip(reason='contains Katalon steps that were not converted: filter SamplesFacet/SampleType / Prim-Xenograft-Tissue: "\'Prim-Xenograft-Tissue\' is not a checkbox in SamplesFacet/SampleType in the Katalon Object Repo')
 def test_TC01_GC_phs001980_SmpTumSta_Tumor_SmpType_PrimaryxenoTissue_LibStr_RNA_Seq(gc):
     gc.load_query_file("TC01_GC_phs001980_SmpTumSta-Tumor_SmpType-PrimaryxenoTissue_LibStr_RNA-Seq.xlsx")
     gc.accept_banner()
     gc.open_data()
     gc.select_filter("StudyFacet/PHS_Accession", "phs001980")
     gc.select_filter("SamplesFacet/SampleTumorStatus", "Tumor")
-    # TODO not converted: filter SamplesFacet/SampleType / Prim-Xenograft-Tissue: "'Prim-Xenograft-Tissue' is not a checkbox in SamplesFacet/SampleType in the Katalon Object Repository"
+    gc.select_filter("SamplesFacet/SampleType", "Prim-Xenograft-Tissue")
     gc.select_filter("GenomicFacet/LibraryStrategy", "RNASeq")
     gc.read_statbar()
     gc.verify_tab("Participants")

@@ -189,5 +189,5 @@ Map legacy suite names to pytest markers (e.g. CDS_Smoke → `-m "gc and smoke"`
 
 ## Known gaps
 
-- C3DC filters depend on `ObjectRepository/C3DC/filters/*.yaml` matching the Explore Participants UI; fix locators when facets change.
-- Some Katalon tests remain `pytest.mark.skip` until object-repo checkbox values are fixed—see `pytest -rs`.
+- C3DC/GC filter YAML must stay aligned with Explore/Data UI (`CCDI-C3DC-Integrated-UI`, General Commons). Re-check locators after UI releases.
+- Previously skipped conversion cases (missing checkboxes) are enabled; run headed once if a filter xpath drifts—see `pytest -rs` for any remaining skips.

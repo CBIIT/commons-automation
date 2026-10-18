@@ -12,7 +12,6 @@ import pytest
 @pytest.mark.gc
 @pytest.mark.regression
 @pytest.mark.smoke
-@pytest.mark.skip(reason='contains Katalon steps that were not converted: filter Imaging Facet/ImageModality / NotSpecifiedInData: "Filter group \'Imaging Facet/ImageModality\' not found for app CDS. Known: [\'DemographicsFacet/G')
 def test_TC04_GC_phs001554_RefGenAsbly_GRCh37_PrimDiag_ColoCarc(gc):
     gc.load_query_file("TC04_GC_phs001554_RefGenAsbly-GRCh37_PrimDiag_ColoCarc.xlsx")
     gc.accept_banner()
@@ -20,7 +19,7 @@ def test_TC04_GC_phs001554_RefGenAsbly_GRCh37_PrimDiag_ColoCarc(gc):
     gc.select_filter("StudyFacet/PHS_Accession", "phs001554")
     gc.select_filter("GenomicFacet/ReferenceGenomeAssembly", "GRCh37")
     gc.select_filter("DiagnosisFacet/PrimaryDiagnosis", "ColorectalCarcinoma")
-    # TODO not converted: filter Imaging Facet/ImageModality / NotSpecifiedInData: "Filter group 'Imaging Facet/ImageModality' not found for app CDS. Known: ['DemographicsFacet/Gender', 'DemographicsFacet/Sex', 'DiagnosisFacet/PrimaryDiagnosis', 'FilesFacet/FileType', 'GenomicFacet/InstrumentModel', 'GenomicFacet/LibraryLayout', 'GenomicFacet/LibrarySelection', 'GenomicFacet/LibrarySource', 'GenomicFacet/LibraryStrategy', 'GenomicFacet/Platform', 'GenomicFacet/ReferenceGenomeAssembly', 'ImagingFacet/ImageModality', 'SamplesFacet/SampleTumorStatus', 'SamplesFacet/SampleType', 'SequencingFacet/InstrumentModel', 'SequencingFacet/LibraryLayout', 'SequencingFacet/LibrarySelection', 'SequencingFacet/LibrarySource', 'SequencingFacet/LibraryStrategy', 'SequencingFacet/Platform', 'SequencingFacet/ReferenceGenomeAssembly', 'StudyFacet/ExperimentalStrategy', 'StudyFacet/PHS_Accession', 'StudyFacet/StudyDataTypes', 'StudyFacet/StudyName']"
+    gc.select_filter("ImagingFacet/ImageModality", "NotSpecifiedInData")
     gc.read_statbar()
     gc.verify_tab("Participants")
     gc.verify_tab("Samples")
