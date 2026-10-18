@@ -146,6 +146,13 @@ def test_memgraph_password_is_never_read_from_config(monkeypatch):
     assert get_app_settings("C3DC", "qa").memgraph_password == "c3dc-only"
 
 
+def test_ui_action_filter_labels():
+    from Commons import action_log
+
+    assert action_log.filter_facet_display("Study/dbGaP_Accession", "Study_Facet") == "Study"
+    assert action_log.filter_subfilter_display("Demographics/SexAtBirth") == "Sex At Birth"
+
+
 def test_parse_result_tab_count_from_tab_labels():
     assert parse_result_tab_count("Genetic Analyses (0)") == 0
     assert parse_result_tab_count("Participants (13)") == 13

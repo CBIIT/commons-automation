@@ -36,4 +36,4 @@ class GC(BaseApp):
     }
 
     def open_data(self):
-        self.click("NavBar/GC_Data-Btn")
+        self.click("NavBar/GC_Data-Btn", ui_message="GC Data page opened successfully.")

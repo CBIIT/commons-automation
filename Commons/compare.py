@@ -130,8 +130,8 @@ def compare_tables(
 
     with action_log.pytest_table_output_live():
         _compare_live("============== Verification of the data ==============")
-        _compare_live(f"This is the row size of the UIWeb Output data: {len(ui)}")
-        _compare_live(f"This is the row size of the TSV   Output data: {len(exp)}")
+        _compare_live(f"This is the row size of the UI Output data: {len(ui)}")
+        _compare_live(f"This is the row size of the DB Output data: {len(exp)}")
 
         if len(ui) != len(exp):
             problems.append("ROW COUNT MISMATCH")
@@ -155,7 +155,7 @@ def compare_tables(
             ui_row = ui[idx]
             exp_row = exp[idx]
             _compare_live(f"UI  Data Entire Row:  {ui_row}")
-            _compare_live(f"TSV Data Entire Row:  {exp_row}")
+            _compare_live(f"DB  Data Entire Row:  {exp_row}")
 
             if len(ui_row) != len(exp_row):
                 problems.append("COLUMN COUNT MISMATCH")
@@ -164,7 +164,7 @@ def compare_tables(
                     f"UI  Data Row: {ui_row_num} has {len(ui_row)} columns.", err=True
                 )
                 _compare_live(
-                    f"TSV Data Row: {db_row_num} has {len(exp_row)} columns.", err=True
+                    f"DB  Data Row: {db_row_num} has {len(exp_row)} columns.", err=True
                 )
                 if ui_header or expected_header:
                     _compare_live(
@@ -187,7 +187,7 @@ def compare_tables(
                     _compare_live(f"There is an empty cell in UI Data Row: {ui_row_num} Col: {col}")
                 if db_empty:
                     _compare_live(
-                        f"There is an empty cellin TSV Data Row: {db_row_num} Col: {col}"
+                        f"There is an empty cell in DB Data Row: {db_row_num} Col: {col}"
                     )
                 if ui_empty != db_empty:
                     _compare_live("********** EMPTY CELL MISMATCH **********", err=True)

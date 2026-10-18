@@ -96,7 +96,7 @@ class C3DC(BaseApp):
     def open_explore(self):
         """Open Explore Participants via navbar (Katalon: clickTab Explore-Tab)."""
         action_log.say("open_explore (Navbar/Explore-Tab)")
-        self.click("Navbar/Explore-Tab")
+        self.click("Navbar/Explore-Tab", ui_message="Explore Participants opened successfully.")
         self._wait_explore_results_ready()
 
     def select_filter(self, group: str, value: str):
@@ -220,6 +220,7 @@ class C3DC(BaseApp):
                 continue
             ui.scroll_into_view(nth)
             ui.js_click(nth, repo_key=f"ResultTabs/selectTab-{label}")
+            action_log.ui_action(f"Result tab opened successfully: {label}.")
             return True
 
         more_xp = self.MORE_TABS_BTN_XP
@@ -227,6 +228,7 @@ class C3DC(BaseApp):
         ui.scroll_into_view(more_xp)
         self.page.wait_for_timeout(400)
         ui.js_click(more_xp, repo_key="ResultTabs/More_Tabs-Btn")
+        action_log.ui_action("More tabs menu opened successfully.")
 
         deadline = time.time() + timeout_s
         menu_xp = self.MORE_MENU_ITEM_XP
@@ -238,6 +240,7 @@ class C3DC(BaseApp):
                 if not self._tab_label_matches(raw, label):
                     continue
                 ui.js_click(item_xp)
+                action_log.ui_action(f"Result tab opened successfully: {label}.")
                 return True
             self.page.wait_for_timeout(250)
 

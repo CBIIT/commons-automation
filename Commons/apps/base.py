@@ -97,6 +97,7 @@ class BaseApp:
                 self.ui.visible(xp).first.wait_for(state="visible", timeout=timeout_ms)
                 self.ui.click(xp, repo_key=key)
                 self.ui.loc(xp).first.wait_for(state="hidden", timeout=5000)
+                action_log.ui_action("Warning banner dismissed successfully.")
                 return
             except Exception:
                 continue
@@ -110,10 +111,12 @@ class BaseApp:
         return self.query_file
 
     # ------------------------------------------------------------------ generic clicks
-    def click(self, key: str):
+    def click(self, key: str, ui_message: Optional[str] = None):
         """Click any element by its object-repository key, e.g. 'Navbar/Explore-Tab'."""
         self.ui.click(self.repo.xpath(key), repo_key=key)
         self.ui.wait_idle()
+        if ui_message:
+            action_log.ui_action(ui_message)
 
     # ------------------------------------------------------------------ filters
     def select_filter(self, group: str, value: str):
@@ -143,6 +146,14 @@ class BaseApp:
         ui.click(chk, repo_key=f"{group}/{value}")
         ui.wait_idle()
         self.page.wait_for_timeout(500)
+        action_log.ui_action(self._filter_checkbox_message(group, value))
+
+    @staticmethod
+    def _filter_checkbox_message(group: str, value: str) -> str:
+        if group.startswith("Study/") and "Accession" in group:
+            return f"Study {value} selected successfully."
+        facet = action_log.filter_facet_display(group)
+        return f"{value} checkbox clicked successfully ({facet})."
 
     def _expand_group(self, g: FilterGroup, until_visible: Optional[str] = None, checkbox: Optional[str] = None):
         """Open left-panel facet, then sub-filter dropdown (Katalon clickTab *Facet / *-Ddn)."""
@@ -156,6 +167,8 @@ class BaseApp:
             ui.js_click(g.facet, repo_key=facet_repo or f"{facet_label}_Facet")
             ui.wait_idle(500)
             self.page.wait_for_timeout(400)
+            facet_name = action_log.filter_facet_display(g.key, g.facet_key)
+            action_log.ui_action(f"{facet_name} facet opened successfully.")
 
         if not dropdown:
             return
@@ -171,6 +184,8 @@ class BaseApp:
         if ui.is_present(dropdown):
             ui.js_click(dropdown, repo_key=f"{g.key}/dropdown")
             self.page.wait_for_timeout(400)
+            sub = action_log.filter_subfilter_display(g.key)
+            action_log.ui_action(f"{sub} filter dropdown opened successfully.")
             if until_visible:
                 try:
                     ui.wait_visible(until_visible, timeout_ms=15000)
@@ -191,6 +206,7 @@ class BaseApp:
         for s, raw in zip(self.STATS, values):
             self.stats[s.name] = raw.replace(",", "").strip()
         action_log.stat_bar(dict(self.stats))
+        action_log.ui_action(f"Stat bar read: {dict(self.stats)}")
         self._stat_checked = False
         return dict(self.stats)
 
@@ -256,12 +272,14 @@ class BaseApp:
         action_log.multifunc_stat(str(self.stats.get(spec.stat, stat_value)), stat_value)
         if stat_value == 0:
             action_log.skip_zero_stat()
+            action_log.ui_action(f"Skipped {spec.name} tab (stat bar count is 0).")
             self.results.append({"check": spec.name, "status": "SKIPPED", "detail": "stat bar count is 0"})
             return
         self.open_tab(name)
         tab_count = active_result_tab_record_count(self.ui)
         if tab_count == 0:
             action_log.skip_zero_tab_count()
+            action_log.ui_action(f"Skipped {spec.name} tab (result tab count is 0).")
             self.results.append(
                 {"check": spec.name, "status": "SKIPPED", "detail": "result tab count is 0"}
             )

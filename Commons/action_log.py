@@ -5,11 +5,15 @@ Enable with:
   pytest --trace-actions ...
   export COMMONS_VERBOSE=1
   COMMONS_VERBOSE=1 in gitignored .env
+
+Human-readable UI steps (always shown during tests unless disabled):
+  COMMONS_UI_ACTIONS=1   default on; set 0 to hide "[UI] …" lines
 """
 from __future__ import annotations
 
 import json
 import os
+import re
 from contextlib import contextmanager
 from typing import Any, Iterable, Iterator, List, Optional, Sequence
 
@@ -72,6 +76,42 @@ def set_enabled(on: bool) -> None:
 def say(msg: str) -> None:
     if enabled():
         print(msg, flush=True)
+
+
+_ui_actions: Optional[bool] = None
+
+
+def ui_actions_enabled() -> bool:
+    """Print plain-language confirmation for each UI step (on by default)."""
+    global _ui_actions
+    if _ui_actions is None:
+        raw = os.environ.get("COMMONS_UI_ACTIONS", "1").strip().lower()
+        _ui_actions = raw not in ("0", "false", "no", "off")
+    return _ui_actions
+
+
+def set_ui_actions(on: bool) -> None:
+    global _ui_actions
+    _ui_actions = on
+
+
+def ui_action(msg: str) -> None:
+    """Console line for a completed UI step, e.g. '[UI] Female checkbox clicked successfully.'"""
+    if not ui_actions_enabled():
+        return
+    with pytest_table_output_live():
+        print(f"[UI] {msg}", flush=True)
+
+
+def filter_facet_display(group_key: str, facet_key: Optional[str] = None) -> str:
+    if facet_key:
+        return facet_key.replace("_Facet", "").replace("_", " ")
+    return group_key.split("/")[0]
+
+
+def filter_subfilter_display(group_key: str) -> str:
+    tail = group_key.split("/")[-1] if "/" in group_key else group_key
+    return re.sub(r"([a-z])([A-Z])", r"\1 \2", tail).replace("_", " ")
 
 
 def navigate(url: str) -> None:
