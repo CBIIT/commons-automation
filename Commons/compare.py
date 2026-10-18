@@ -11,6 +11,7 @@ Compare flow (matches Katalon):
 
 Row count mismatch fails (Katalon silently passed when expected was empty; we still fail that case).
 """
+import os
 import re
 import sys
 from dataclasses import dataclass, field
@@ -20,6 +21,8 @@ from Commons import action_log
 
 _MATCH = "\u2713"
 _MISMATCH = "\u2717"
+_ANSI_RED = "\033[31m"
+_ANSI_RESET = "\033[0m"
 
 
 def normalize_list(value: str) -> str:
@@ -69,10 +72,22 @@ def _row_sort_key(row: Sequence[str]) -> tuple:
     return tuple(_cell_text(c) for c in row)
 
 
+def _stderr_use_color() -> bool:
+    if os.environ.get("NO_COLOR", "").strip():
+        return False
+    force = os.environ.get("FORCE_COLOR", "").strip().lower()
+    if force in ("1", "true", "yes", "on"):
+        return True
+    return sys.stderr.isatty()
+
+
 def _compare_live(msg: str, *, err: bool = False) -> None:
     """Katalon-style compare line (live under pytest via table reader wiring)."""
     if err:
-        print(msg, flush=True, file=sys.stderr)
+        text = msg
+        if _stderr_use_color():
+            text = f"{_ANSI_RED}{msg}{_ANSI_RESET}"
+        print(text, flush=True, file=sys.stderr)
     else:
         action_log.table_live_print(msg)
 

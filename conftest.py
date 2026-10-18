@@ -3,12 +3,13 @@ pytest wiring: browser, environment and one ready-to-use fixture per application
 
 Katalon equivalent: the Profile chosen at run time + the browser Katalon opened for you.
 
-    pytest --env qa                    # which environment (qa | stage | prod), default qa
-    pytest --headed                    # watch the browser
-    pytest --browser firefox           # chromium (default) | firefox | webkit
+    pytest --env qa                    # which environment (qa | stage | prod), default ENV or qa
+    pytest --headed                    # watch the browser (or HEADLESS=false / HEADED=true in .env)
+    pytest --browser firefox           # chromium (default) | firefox | webkit (or BROWSER=firefox)
     pytest -m "c3dc and smoke"         # a suite
     pytest Testcases/c3dc/studies/phs000466/test_TC01_C3DC_phs000466_SexAtBirth_Male.py   # one case
 """
+import os
 import re
 from pathlib import Path
 
@@ -18,7 +19,13 @@ from playwright.sync_api import sync_playwright
 from Commons.apps import APPS, BaseApp
 from Commons.memgraph_source import LazySource
 from Commons.object_repository import ObjectRepository
-from Commons.settings import ROOT, get_app_settings, get_browser_settings, load_config
+from Commons.settings import (
+    ROOT,
+    get_app_settings,
+    get_browser_settings,
+    load_config,
+    resolve_test_env,
+)
 
 SCREENSHOT_DIR = ROOT / "Reports" / "screenshots"
 
@@ -47,22 +54,25 @@ def pytest_configure(config):
 
 @pytest.fixture(scope="session")
 def env(request):
-    return request.config.getoption("--env")
+    return resolve_test_env(request.config.getoption("--env"))
 
 
 @pytest.fixture(scope="session")
 def browser_settings(request):
+    headless = False if request.config.getoption("--headed") else None
     return get_browser_settings(
         load_config(),
         name=request.config.getoption("--browser"),
-        headless=False if request.config.getoption("--headed") else None)
+        headless=headless,
+    )
 
 
 @pytest.fixture(scope="session")
 def browser(browser_settings, request):
     with sync_playwright() as p:
         launcher = getattr(p, browser_settings.name)
-        b = launcher.launch(headless=browser_settings.headless, slow_mo=request.config.getoption("--slowmo"))
+        slowmo = request.config.getoption("--slowmo") or int(os.environ.get("SLOWMO", "0") or 0)
+        b = launcher.launch(headless=browser_settings.headless, slow_mo=slowmo)
         yield b
         b.close()
 

@@ -9,6 +9,7 @@ live during the read while pytest capture is suspended.
 from __future__ import annotations
 
 import os
+import re
 import sys
 import time
 from typing import TYPE_CHECKING, List, Optional, Sequence
@@ -25,6 +26,45 @@ G_ROWCOUNT_FILES = int(os.environ.get("G_ROWCOUNT_FILES", "8"))
 G_ROWCOUNT_KATALON = int(os.environ.get("G_ROWCOUNT_KATALON", "13"))
 
 TABLE_APPS = frozenset({"GC", "ICDC", "C3DC", "INS", "Bento", "CTDC"})
+
+# Explore result tabs show counts in the label, e.g. "Genetic Analyses (0)".
+RESULT_TAB_SELECTED_XP = "//button[@role='tab' and @aria-selected='true']"
+
+
+def parse_result_tab_count(label: str) -> Optional[int]:
+    """Parse the trailing (N) or (N,NNN) count from a result tab label."""
+    if not label:
+        return None
+    text = re.sub(r"\s+", " ", str(label).replace("\u00a0", " ")).strip()
+    match = re.search(r"\(([\d,]+)\)\s*$", text)
+    if not match:
+        return None
+    try:
+        return int(match.group(1).replace(",", ""))
+    except ValueError:
+        return None
+
+
+def _is_more_menu_tab_button(raw: str, class_name: str = "") -> bool:
+    if "more-button" in (class_name or ""):
+        return True
+    return bool(re.match(r"^:?\s*More\b", (raw or "").strip(), re.I))
+
+
+def active_result_tab_record_count(ui: "Ui") -> Optional[int]:
+    """
+    Record count on the currently selected Explore result tab (top tab bar).
+    Returns None if the count cannot be read (caller should read the table as before).
+    """
+    xp = RESULT_TAB_SELECTED_XP
+    if not ui.is_visible(xp):
+        return None
+    loc = ui.loc(xp).first
+    raw = loc.evaluate("el => el.textContent") or ""
+    cls = loc.evaluate("el => el.className") or ""
+    if _is_more_menu_tab_button(raw, cls):
+        return None
+    return parse_result_tab_count(raw)
 
 
 def _inner_text(ui: "Ui", xpath: str) -> str:
@@ -390,6 +430,15 @@ def read_table_data(
     """Main entry: read header + paginated body for one results tab; returns UI Table."""
     if app_key not in TABLE_APPS:
         raise ValueError(f"read_table_data: app_key must be one of {sorted(TABLE_APPS)}, got {app_key!r}")
+
+    tab_count = active_result_tab_record_count(ui)
+    if tab_count == 0:
+        selected = ""
+        if ui.is_visible(RESULT_TAB_SELECTED_XP):
+            selected = (ui.loc(RESULT_TAB_SELECTED_XP).first.evaluate("el => el.textContent") or "").strip()
+        action_log.skip_zero_tab_count(selected)
+        action_log.say("No table body read (0 records on selected result tab).")
+        return Table()
 
     tbl_main = table_xpath
     tbl_bdy = tbl_main + "//tbody"

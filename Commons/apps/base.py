@@ -24,7 +24,7 @@ from Commons.memgraph_source import ExpectedDataSource, Table
 from Commons.object_repository import FilterGroup, ObjectRepository
 from Commons.settings import AppSettings, OUTPUT_ROOT, input_dir
 from Commons.query_reader import QueryFile, read_query_file
-from Commons.table_reader import options_from_spec, read_table_data
+from Commons.table_reader import active_result_tab_record_count, options_from_spec, read_table_data
 
 
 @dataclass
@@ -237,6 +237,13 @@ class BaseApp:
             self.results.append({"check": spec.name, "status": "SKIPPED", "detail": "stat bar count is 0"})
             return
         self.open_tab(name)
+        tab_count = active_result_tab_record_count(self.ui)
+        if tab_count == 0:
+            action_log.skip_zero_tab_count()
+            self.results.append(
+                {"check": spec.name, "status": "SKIPPED", "detail": "result tab count is 0"}
+            )
+            return
         ui_table = self.read_results_table(spec)
         action_log.say(f"ReadExcel.Memgraph sheet={spec.db_sheet!r} tab={spec.input_tab!r}")
         expected = self.source.fetch_tab_table(self.query_file, spec.input_tab)

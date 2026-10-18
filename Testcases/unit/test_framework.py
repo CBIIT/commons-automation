@@ -8,7 +8,8 @@ from Commons.compare import (cells_match, compare_counts, compare_tables, normal
                                strip_cpi_badge)
 from Commons.memgraph_source import format_memgraph_cell
 from Commons.object_repository import LocatorNotFound, ObjectRepository
-from Commons.settings import get_app_settings, input_dir
+from Commons.settings import get_app_settings, get_browser_settings, input_dir, resolve_test_env
+from Commons.table_reader import parse_result_tab_count
 from Commons.query_reader import read_query_file
 pytestmark = pytest.mark.unit
 
@@ -140,6 +141,34 @@ def test_memgraph_password_is_never_read_from_config(monkeypatch):
     monkeypatch.setenv("MEMGRAPH_PASSWORD_C3DC", "c3dc-only")
     assert get_app_settings("GC", "qa").memgraph_password == "gc-only"
     assert get_app_settings("C3DC", "qa").memgraph_password == "c3dc-only"
+
+
+def test_parse_result_tab_count_from_tab_labels():
+    assert parse_result_tab_count("Genetic Analyses (0)") == 0
+    assert parse_result_tab_count("Participants (13)") == 13
+    assert parse_result_tab_count("Survival (139,530)") == 139530
+    assert parse_result_tab_count("Studies (1)") == 1
+    assert parse_result_tab_count("More(4)") == 4  # ignored when tab is the More menu button
+    assert parse_result_tab_count("Diagnosis") is None
+
+
+def test_browser_and_env_from_dotenv_style_vars(monkeypatch):
+    monkeypatch.delenv("BROWSER", raising=False)
+    monkeypatch.delenv("HEADLESS", raising=False)
+    monkeypatch.delenv("HEADED", raising=False)
+    monkeypatch.delenv("ENV", raising=False)
+    assert resolve_test_env(None) == "qa"
+    monkeypatch.setenv("ENV", "stage")
+    assert resolve_test_env(None) == "stage"
+    assert resolve_test_env("qa") == "qa"
+    monkeypatch.setenv("BROWSER", "firefox")
+    monkeypatch.setenv("HEADLESS", "false")
+    bs = get_browser_settings()
+    assert bs.name == "firefox"
+    assert bs.headless is False
+    monkeypatch.delenv("HEADLESS", raising=False)
+    monkeypatch.setenv("HEADED", "true")
+    assert get_browser_settings().headless is False
 
 
 def test_c3dc_tab_label_matches_ui_counts():

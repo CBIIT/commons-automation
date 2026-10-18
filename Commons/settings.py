@@ -104,12 +104,34 @@ def load_config() -> dict:
         return yaml.safe_load(fh)
 
 
-def get_browser_settings(cfg: dict = None, name: str = None, headless: bool = None) -> BrowserSettings:
+def env_flag(name: str) -> bool | None:
+    """Parse HEADLESS=false / HEADED=true style env vars; unset → None."""
+    raw = os.environ.get(name)
+    if raw is None or not str(raw).strip():
+        return None
+    return str(raw).strip().lower() in ("1", "true", "yes", "on")
+
+
+def resolve_test_env(cli_env: str | None = None) -> str:
+    """pytest --env, then ENV, then default qa."""
+    return (cli_env or os.environ.get("ENV") or DEFAULT_ENV).lower()
+
+
+def get_browser_settings(cfg: dict = None, name: str = None, headless: bool | None = None) -> BrowserSettings:
     cfg = cfg or load_config()
     b = cfg.get("browser", {})
+    if headless is None:
+        headed = env_flag("HEADED")
+        headless_env = env_flag("HEADLESS")
+        if headed is not None:
+            headless = not headed
+        elif headless_env is not None:
+            headless = headless_env
+        else:
+            headless = b.get("headless", True)
     return BrowserSettings(
         name=name or os.environ.get("BROWSER") or b.get("name", "chromium"),
-        headless=b.get("headless", True) if headless is None else headless,
+        headless=headless,
         viewport=b.get("viewport", {"width": 1920, "height": 1080}),
         timeout_ms=int(os.environ.get("DEFAULT_TIMEOUT", b.get("timeout_ms", 30000))),
     )

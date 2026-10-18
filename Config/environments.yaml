@@ -39,7 +39,7 @@ apps:
         username: memgraph  
 
 browser:
-  name: chromium          # chromium | firefox | webkit   (override: --browser firefox)
-  headless: true          # override: --headed
+  name: chromium          # chromium | firefox | webkit   (override: BROWSER or --browser)
+  headless: true          # override: HEADLESS=false, HEADED=true, or pytest --headed
   viewport: {width: 1920, height: 1080}
   timeout_ms: 30000

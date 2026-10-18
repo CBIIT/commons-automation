@@ -182,5 +182,13 @@ def skip_zero_stat() -> None:
     say("Skipping data collection from neo4j and compare lists of web and db as the stat value is 0")
 
 
+def skip_zero_tab_count(tab_label: str = "") -> None:
+    detail = f" ({tab_label})" if tab_label else ""
+    say(
+        "Skipping table read and DB compare — selected result tab count is 0"
+        + detail
+    )
+
+
 def json_data_str(obj) -> None:
     say(f"Data STR:  {json.dumps(obj, separators=(',', ':'), ensure_ascii=False)}")
