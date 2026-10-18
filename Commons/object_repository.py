@@ -30,6 +30,7 @@ class LocatorNotFound(KeyError):
 class FilterGroup:
     key: str
     facet: Optional[str] = None
+    facet_key: Optional[str] = None  # element name on same YAML page (Katalon *Facet click)
     dropdown: Optional[str] = None
     dropdowns: List[str] = None
     values: List[str] = None
@@ -77,12 +78,20 @@ class ObjectRepository:
             doc = yaml.safe_load(f.read_text()) or {}
             page = doc.get("page", "")
             prefix = "" if page in ("", "(root)") else page + "/"
+            page_elements: Dict[str, str] = {}
             for name, xp in (doc.get("elements") or {}).items():
-                self._elements[prefix + name] = xp
+                full = prefix + name
+                self._elements[full] = xp
+                page_elements[name] = xp
             for key, g in (doc.get("groups") or {}).items():
+                facet = g.get("facet")
+                facet_key = g.get("facet_key")
+                if not facet and facet_key:
+                    facet = page_elements.get(facet_key) or self._elements.get(prefix + facet_key)
                 self._groups[key] = FilterGroup(
                     key=key,
-                    facet=g.get("facet"),
+                    facet=facet,
+                    facet_key=facet_key,
                     dropdown=g.get("dropdown"),
                     dropdowns=g.get("dropdowns") or [],
                     values=g.get("values") or [],

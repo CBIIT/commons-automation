@@ -132,7 +132,8 @@ class BaseApp:
                 self._expand_group(g, checkbox=chk)
             ui.fill(g.search, self._search_text(chk, value), repo_key=f"{group}/search")
             ui.wait_idle(3000)
-        elif not ui.is_visible(chk):
+        else:
+            # Katalon: click facet accordion, then sub-filter dropdown, then checkbox.
             self._expand_group(g, until_visible=chk, checkbox=chk)
 
         if not ui.is_visible(chk):
@@ -144,16 +145,37 @@ class BaseApp:
         self.page.wait_for_timeout(500)
 
     def _expand_group(self, g: FilterGroup, until_visible: Optional[str] = None, checkbox: Optional[str] = None):
+        """Open left-panel facet, then sub-filter dropdown (Katalon clickTab *Facet / *-Ddn)."""
         ui = self.ui
         dropdown = g.dropdown_for(checkbox) if checkbox else g.dropdown
-        if dropdown and not ui.is_visible(dropdown) and g.facet and ui.is_present(g.facet):
-            try:
-                ui.click(g.facet)
-            except Exception:
-                pass
-        if dropdown and not (until_visible and ui.is_visible(until_visible)):
-            ui.click(dropdown)
-            self.page.wait_for_timeout(300)
+        facet_label = g.facet_key or g.key.split("/")[0]
+        facet_repo = f"{g.key}/facet" if g.facet else None
+
+        if g.facet and ui.is_present(g.facet):
+            ui.scroll_into_view(g.facet)
+            ui.js_click(g.facet, repo_key=facet_repo or f"{facet_label}_Facet")
+            ui.wait_idle(500)
+            self.page.wait_for_timeout(400)
+
+        if not dropdown:
+            return
+        if until_visible and ui.is_visible(until_visible):
+            return
+
+        try:
+            ui.wait_visible(dropdown, timeout_ms=15000)
+        except Exception:
+            pass
+        if until_visible and ui.is_visible(until_visible):
+            return
+        if ui.is_present(dropdown):
+            ui.js_click(dropdown, repo_key=f"{g.key}/dropdown")
+            self.page.wait_for_timeout(400)
+            if until_visible:
+                try:
+                    ui.wait_visible(until_visible, timeout_ms=15000)
+                except Exception:
+                    pass
 
     @staticmethod
     def _search_text(checkbox_xpath: str, value: str) -> str:

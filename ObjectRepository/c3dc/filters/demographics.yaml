@@ -1,10 +1,10 @@
 # Converted from Katalon Object Repository/C3DC/Filters/Demographics
 page: Filters/Demographics
 elements:
-  Demographics_Facet: (//*[text()="Demographics"])
+  Demographics_Facet: (//*[text()="Demographics"])[1]
 groups:
   Demographics/Race:
-    facet: (//*[text()="Demographics"])
+    facet_key: Demographics_Facet
     dropdown: //*[@id='Race' and @role='button']
     checkbox_template: //*[@id="checkbox_Race_{value}"]
     values: [Asian, Unknown, White]
@@ -16,9 +16,9 @@ groups:
       NotAlwdToCollect: //*[@id="checkbox_Race_Not Allowed to Collect"]
       NotReported: //*[@id="checkbox_Race_Not Reported"]
   Demographics/SexAtBirth:
-    facet: (//*[text()="Demographics"])
-    dropdown: //*[@id="Sex At Birth"]
-    checkbox_template: //*[@id="checkbox_Sex At Birth_{value}"]
+    facet_key: Demographics_Facet
+    dropdown: (//*[@id="Sex at Birth"])[1]
+    checkbox_template: //*[@id="checkbox_Sex at Birth_{value}"]
     values: [Female, Male, Unknown]
     checkboxes:
       NotReported: //*[@id="checkbox_Sex At Birth_Not Reported"]

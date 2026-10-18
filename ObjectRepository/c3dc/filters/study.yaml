@@ -1,18 +1,18 @@
 # Converted from Katalon Object Repository/C3DC/Filters/Study
 page: Filters/Study
 elements:
-  Study_Facet: (//*[text()="Study"])
+  Study_Facet: (//*[text()="Study"])[1]
 groups:
   Study/StudyName:
-    facet: (//*[text()="Study"])
+    facet_key: Study_Facet
     dropdown: //*[@id="Study Short Title"]
     checkboxes:
       MolecularCharacterizationInitiative: //*[@id="checkbox_Study Short Title_TARGET Neuroblastoma"]
       TargetNeuroblastoma: //*[@id="checkbox_Study Short Title_Molecular Characterization Initiative"]
   Study/dbGaP_Accession:
-    facet: (//*[text()="Study"])
-    dropdown: (//*[@id="dbGaP ACCESSION"])[1]
-    checkbox_template: //*[@id="checkbox_dbGaP ACCESSION_{value}"]
+    facet_key: Study_Facet
+    dropdown: (//*[@id="dbGaP Accession"])[1]
+    checkbox_template: //*[@id="checkbox_dbGaP Accession_{value}"]
     values: [phs000463, phs000464, phs000466, phs000467, phs000468, phs000469, phs000470, phs000471, phs000720, phs001437, phs002371, phs002430, phs002431, phs002504, phs002517, phs002518, phs002529, phs002599, phs002620, phs002677, phs002790, phs003111, phs003164, phs003432, phs003519]
     other:
       dbGaPAccesFacet_Scroll: "//div[contains(@class,'MuiCollapse-root')]//div[\r\n  (contains(@style,'overflow') or contains(@class,'jss'))\r\n]"

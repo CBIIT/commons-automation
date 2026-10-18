@@ -1,67 +1,83 @@
-# commons-automation
+# Playwright + pytest UI automation
 
-Playwright + pytest version of the Katalon `Commons_Automation` framework, for **GC** (General Commons) and **C3DC**.
-Same idea as before: apply filters in the UI, read what the UI shows, and compare it with the expected data
-from the input Excel files. Now every test is a plain Python file, and you can run it alone, as a smoke
-suite, or as a regression suite.
+End-to-end regression framework for **Data Commons web apps**: open a browser, apply explore filters, read result tables from the UI, and compare them to expected data (usually **Memgraph Cypher** from per-test Excel workbooks). Tests are plain Python files run with **pytest**; each **application** (GC, C3DC, and others you add) gets its own app class, object repository, input data, and test tree.
 
-## Setup (once)
+Today the repo includes **GC** and **C3DC**; the same layout extends to additional projects under `Testcases/<APP>/`, `Commons/apps/<app>.py`, and `Config/environments.yaml`.
+
+## What one test does
+
+1. Load tab/stat queries from `InputFiles/<APP>/<case>.xlsx`
+2. Navigate and dismiss banners
+3. Open explore/data and set filters
+4. Read the stat bar
+5. For each result tab: open tab → read UI table → fetch expected rows → compare
+6. Fail once at the end with every failed check listed (screenshot on failure)
+
+Empty tabs (label shows **`(0)`**, e.g. Genetic Analyses) are **skipped**—no table scrape, no DB compare for that tab.
+
+## Setup
 
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-playwright install chromium
+playwright install chromium    # and/or: playwright install firefox
+cp .env.example .env           # gitignored; Memgraph passwords + optional run defaults
 ```
+
+## Configuration
+
+| Layer | Purpose |
+|--------|---------|
+| **`Config/environments.yaml`** | Per-app URLs and Memgraph host/username per `qa` / `stage` / `prod` (no secrets) |
+| **`.env`** | `MEMGRAPH_PASSWORD_<APP>`, optional `ENV`, `BROWSER`, `HEADLESS` / `HEADED`, `SLOWMO`, `COMMONS_VERBOSE`, `FORCE_COLOR` |
+| **`conftest.py`** | Session browser, `page` fixture, **`gc`** / **`c3dc`** fixtures (app opened at env URL) |
+| **`pytest.ini`** | Markers: `gc`, `c3dc`, `smoke`, `regression`, `quickrun`, `static`, `unit` |
+
+CLI flags override `.env` when both are set: `--env`, `--headed`, `--browser`, `--slowmo`, `--trace-actions`.
 
 ## Running tests
 
 ```bash
-pytest -m unit                              # Commons self-tests, no browser or network (2 seconds)
+pytest -m unit                                    # library tests, no browser
 
-pytest -m "gc and smoke"                   # GC smoke suite        (88 tests, = Katalon CDS_Smoke)
-pytest -m "gc and regression"              # GC regression         (193 tests, = CDS_Regression_Full)
-pytest -m "c3dc and smoke"                  # C3DC smoke suite
-pytest -m "c3dc and regression"             # C3DC regression
-pytest -m quickrun                          # the QuickRun suites
+pytest -m "gc and smoke"                          # one app + suite
+pytest -m "c3dc and regression"
+pytest -m quickrun
 
-pytest Testcases/gc/studies/phs001437/test_TC01_GC_phs001437_Sex_Unknown_ExperimentalStrategy_RNASeq.py   # ONE test
-pytest -k phs001437                         # every test whose name contains phs001437
-pytest -k "TC01 and phs001437"
+pytest Testcases/GC/studies/phs001437/test_TC01_GC_phs001437_Sex_Unknown_ExperimentalStrategy_RNASeq.py
+pytest Testcases/C3DC/studies/phs000463/test_TC01_C3DC_phs000463_SexAtBirth_Female.py
 
-pytest --env stage -m "gc and smoke"       # environment: qa (default) | stage | prod
-pytest --headed --slowmo 300 <test>         # watch the browser
-pytest --trace-actions <test>               # Katalon-style console log (xpaths, every UI/DB cell)
-# or: COMMONS_VERBOSE=1 in .env
-pytest --browser firefox <test>             # chromium (default) | firefox | webkit
-pytest -n 4 -m "gc and regression"         # 4 tests in parallel (needs pytest-xdist, in requirements)
+pytest -k phs000463                               # by name fragment
+pytest --env stage -m "gc and smoke"
+pytest --headed --browser firefox <path-or-k>
+pytest --trace-actions <test>                     # verbose steps (or COMMONS_VERBOSE=1 in .env)
+pytest -n 4 -m "gc and regression"              # parallel (pytest-xdist)
+pytest --junitxml=Reports/junit.xml
 ```
 
-Results: the terminal shows one line per check (`Participants PASSED UI=8 expected=8`); on failure it prints the
-rows that differ. A screenshot of the failing page goes to `Reports/screenshots/`, and what the UI showed and what
-was expected go to `OutputFiles/<app>/<ENV>/<test>_UI.xlsx` / `_DB.xlsx` (e.g. `OutputFiles/GC/QA/…`; worksheets named e.g. `UI_Participants`, `DB_Participants`; folder is gitignored and created on run).
-`pytest --junitxml=Reports/junit.xml` gives a JUnit file for Jenkins.
+**Output:** per-check summary in the report (`Participants PASSED UI=13 expected=13`); compare mismatches on stderr (red when terminal or `FORCE_COLOR=1`). Failures: `Reports/screenshots/`, `OutputFiles/<APP>/<ENV>/` → `*_UI.xlsx` / `*_DB.xlsx` (gitignored).
 
-### Where "expected data" comes from
+### Expected data (Memgraph)
 
-| App | Source | What you need |
-|---|---|---|
-| **C3DC** | Cypher in the input Excel, run against **Memgraph** | Host/username: `apps.C3DC.memgraph` in `Config/environments.yaml`. Password: **`MEMGRAPH_PASSWORD_C3DC`** in `.env` (only). |
-| **GC** | Cypher in the input Excel, run against **Memgraph** | Host/username: `apps.GC.memgraph`. Password: **`MEMGRAPH_PASSWORD_GC`**. C3DC and GC do **not** share Memgraph credentials. |
+| App | Excel | Credentials |
+|-----|--------|-------------|
+| **C3DC** | Cypher in `TabQuery` / `StatQuery` columns | `MEMGRAPH_PASSWORD_C3DC` (+ optional `MEMGRAPH_ENDPOINT_C3DC`, etc.) |
+| **GC** | Same pattern | `MEMGRAPH_PASSWORD_GC` |
 
-**Memgraph auth (`Authentication failure`)** — wrong password for that app’s Bolt host, or still using legacy `MEMGRAPH_PASSWORD` (ignored now). Set the matching `MEMGRAPH_PASSWORD_<APP>` key. Passwords are never in YAML.
+Each app uses its **own** Memgraph cluster; do not reuse one password for both. Legacy `MEMGRAPH_PASSWORD` alone is not used.
 
-## How a test looks
+## Example tests
+
+**GC**
 
 ```python
 @pytest.mark.gc
 @pytest.mark.smoke
-def test_TC01_GC_phs001437_Sex_Unknown_ExperimentalStrategy_RNASeq(gc):
-    gc.load_query_file("TC01_GC_phs001437_Sex-Unknown_ExperimentalStrategy-RNASeq.xlsx")
+def test_TC01_GC_example(gc):
+    gc.load_query_file("TC01_GC_….xlsx")
     gc.accept_banner()
     gc.open_data()
     gc.select_filter("StudyFacet/PHS_Accession", "phs001437")
-    gc.select_filter("DemographicsFacet/Sex", "Unknown")
-    gc.select_filter("StudyFacet/ExperimentalStrategy", "RNASeq")
     gc.read_statbar()
     gc.verify_tab("Participants")
     gc.verify_tab("Samples")
@@ -69,107 +85,109 @@ def test_TC01_GC_phs001437_Sex_Unknown_ExperimentalStrategy_RNASeq(gc):
     gc.assert_no_failures()
 ```
 
-| Katalon | Here |
-|---|---|
-| `RunKatalon('X.xlsx')` | `app.load_query_file("X.xlsx")` |
-| `clickTab('.../WarningBan_Continue_Btn')` | `app.accept_banner()` |
-| `clickTab(Explore-Tab)` / `clickTabCDSStat(CDS_Data-Btn)` | `app.open_explore()` / `app.open_data()` (GC: `NavBar/GC_Data-Btn`) |
-| filter facet + dropdown + checkbox (3 clicks) | `app.select_filter("Study/dbGaP_Accession", "phs000466")` |
-| `readStatBarC3DC / readStatBarCDS` | `app.read_statbar()` |
-| `openTab` + `multiFunction(...)` (10 arguments) | `app.verify_tab("Participants")` |
-| `ReadCasesTableKatalon` (per-app switches) | `Commons/table_reader.py` — `read_table_header_data` / `read_table_row_data`; pagination via `max_pages` on `TabSpec` in `Commons/apps/*.py` |
-| `validateStatBar` | done inside `verify_tab` |
-| `WebUI.waitForElementPresent`, `WebUI.delay`, `Thread.sleep` | gone, Playwright waits automatically |
-| `KeywordUtil.markFailed` (stops at first failure) | all tabs are checked, then the test fails once with every difference listed |
-| `ReadExcel.Memgraph` / ConnectMemgraph | `Commons/memgraph_source.py` (`MemgraphSource`, no subprocess) |
+**C3DC** (Explore Participants, URL-backed filters, eight result tabs)
 
-## Folder map
-
-```
-Config/environments.yaml     URLs per env, expected-data source per app           (Katalon: Profiles/*.glbl)
-ObjectRepository/<app>/     locators, one YAML per page or facet
-InputFiles/<app>/              input Excel files (+ C3DC TSV data)
-Commons/                     browser actions, table reader, compare, Memgraph, app objects
-Commons/apps/{c3dc,gc}.py  per-app config: tabs, stat bar, navigation
-Testcases/<app>/...           the test cases, same folder layout as Katalon
-conftest.py                  browser + fixtures (`c3dc`, `gc`), --env, --headed
-Tools/                       converters (see below)
-Reports/                     screenshots, JUnit (git-ignored except .gitkeep)
-OutputFiles/                 UI/DB Excel per run: <app>/<ENV>/ (git-ignored, created on run)
+```python
+@pytest.mark.c3dc
+@pytest.mark.regression
+def test_TC01_C3DC_example(c3dc):
+    c3dc.load_query_file("TC01_C3DC_….xlsx")
+    c3dc.accept_banner()
+    c3dc.open_explore()
+    c3dc.select_filter("Study/dbGaP_Accession", "phs000463")
+    c3dc.select_filter("Demographics/SexAtBirth", "Female")
+    c3dc.read_statbar()
+    c3dc.verify_tab("Participants")
+    c3dc.verify_tab("Studies")
+    c3dc.verify_tab("Diagnosis")
+    c3dc.verify_tab("Genetic Analysis")
+    c3dc.verify_tab("Treatments")
+    c3dc.verify_tab("Treatment Responses")
+    c3dc.verify_tab("Survival")
+    c3dc.verify_tab("Samples")
+    c3dc.assert_no_failures()
 ```
 
-### Object repository
+Use the **`gc`** or **`c3dc`** fixture (defined in `conftest.py`); add a new fixture when you add an app to `Commons/apps/__init__.py` → `APPS`.
 
-`ObjectRepository/gc/data_page/filter/study_facet.yaml` (abridged):
+## Framework layout
+
+```
+Config/environments.yaml       URLs, Memgraph endpoints per app/env
+ObjectRepository/<app>/        YAML locators (pages, filters, tabs, stat bar)
+InputFiles/<app>/              Per-test Excel query workbooks
+Commons/
+  apps/base.py                 BaseApp: filters, stat bar, verify_tab, failures
+  apps/{gc,c3dc}.py            TabSpec, stats, navigation, app-specific behavior
+  browser_actions.py           Playwright helpers (Ui)
+  table_reader.py              Paginated table read; tab (0) skip
+  compare.py                   UI vs expected row compare (Katalon-style logging)
+  memgraph_source.py           Bolt driver, Cypher from Excel
+  object_repository.py         Load YAML, resolve filter xpaths
+Testcases/<APP>/…              pytest tests (mirrors legacy Katalon folders)
+Testcases/unit/                Framework unit tests
+conftest.py                    pytest options + browser + app fixtures
+Tools/                         Katalon → YAML / test generator (optional)
+Reports/                       Screenshots, JUnit
+OutputFiles/                   Run artifacts (gitignored)
+```
+
+### Core API (per app instance)
+
+| Step | Method |
+|------|--------|
+| Load queries | `load_query_file("TC….xlsx")` |
+| Banner | `accept_banner()` |
+| Enter explore | `open_data()` (GC) / `open_explore()` (C3DC) |
+| Filter | `select_filter("Group/Name", "value")` — facet expand, dropdown, **checkbox click** (C3DC & GC) |
+| Stat bar | `read_statbar()` |
+| Result tab | `verify_tab("Participants")` — opens tab, reads UI, Memgraph, compare, stat bar once |
+| End | `assert_no_failures()` |
+
+Table pagination limits: **C3DC** `max_pages=2` per tab; **GC** `max_pages=10` (see `Commons/apps/*.py`). Table scraping rules live in `Commons/table_reader.py` (GC, ICDC, C3DC, INS, Bento, CTDC).
+
+### Object repository (filters)
 
 ```yaml
-page: Data_page/Filter/StudyFacet
+# ObjectRepository/gc/…/study_facet.yaml (abridged)
 groups:
   StudyFacet/PHS_Accession:
     dropdown: //*[@id="PHS Accession"]/div[2]
-    search: //input[@placeholder='e.g. phs000000']
-    checkbox_template: //*[@id="checkbox_PHS Accession_{value}"]     # any study works, no new locator
-    checkboxes:                                                      # only the irregular ones
-      phs001554: //*[@id='checkbox_PHS Accession_phs001554']
+    checkbox_template: //*[@id="checkbox_PHS Accession_{value}"]
+    checkboxes:
+      phs001554: //*[@id='checkbox_PHS Accession_phs001554']   # exceptions only
 ```
 
-`{value}` is the token from the Katalon object name (`phs001437_Chkbx` -> `phs001437`). A value that is not
-in `checkboxes:` and has no template raises an error listing the known values.
-Plain elements are looked up by `Folder/Name`, e.g. `app.click("NavBar/GC_Data-Btn")`.
-Katalon's 284 (C3DC) + 453 (GC) `.rs` files became 32 YAML files.
+## Adding another application
 
-## Jenkins
+1. **`Config/environments.yaml`** — `apps.<NAME>.urls`, optional `memgraph`, `expected_source`
+2. **`Commons/apps/<name>.py`** — subclass `BaseApp`: `TABS`, `STATS`, navigation, filters if special
+3. **`Commons/apps/__init__.py`** — register in `APPS`
+4. **`ObjectRepository/<NAME>/`** — YAML locators
+5. **`conftest.py`** — `@pytest.fixture def myapp(...)` using `_make_app("NAME", …)`
+6. **`pytest.ini`** — `@pytest.mark.myapp` marker
+7. **`Testcases/<NAME>/`** — tests; **`InputFiles/<NAME>/`** — Excel inputs
 
-Replace the Katalon step with:
+Regenerate or copy tests from Katalon with `Tools/generate_tests.py` and `Tools/convert_object_repository.py` when migrating legacy scripts.
+
+## CI (Jenkins)
 
 ```bash
 pip install -r requirements.txt && playwright install --with-deps chromium
-# copy `.env.example` → `.env` (gitignored; auto-loaded), e.g. MEMGRAPH_PASSWORD_C3DC=... and MEMGRAPH_PASSWORD_GC=...
+# .env on the agent: MEMGRAPH_PASSWORD_GC=… MEMGRAPH_PASSWORD_C3DC=…
 pytest -m "gc and smoke" --env qa -n 4 --junitxml=Reports/junit.xml
 ```
 
-`jenkins/Test-Schedule.csv` rows map straight onto this: `Katalon_Suite` becomes a `-m` expression
-(`Test Suites/CDS_Smoke` -> `-m "gc and smoke"`) and `Profile` becomes `--env`.
+Map legacy suite names to pytest markers (e.g. CDS_Smoke → `-m "gc and smoke"`, profile → `--env`).
 
-## Adding a test
+## Behaviour notes
 
-1. Put the input Excel in `InputFiles/<APP>/`.
-2. Copy any existing test file and change the Excel name and the `select_filter` lines, or re-run the generator.
-3. Add `@pytest.mark.smoke` / `@pytest.mark.regression` to put it in a suite.
+- **Compare:** rows sorted left-to-right, then positional cell compare; ✓ / ✗ console output; row-count mismatch fails.
+- **Deferred failure:** all tabs run; failures collected; one `AssertionError` at `assert_no_failures()`.
+- **Skip:** stat bar count 0 for that tab’s gate stat, or selected tab label **`(0)`**.
+- **Katalon migration:** optional Tools and marker naming preserved where useful; exact historical test counts are not maintained in this doc—use `pytest --collect-only -m "<marker>"`.
 
-## Tools
+## Known gaps
 
-```bash
-python Tools/convert_object_repository.py --katalon ../Commons_Automation --apps C3DC GC   # .rs XML -> YAML
-python Tools/generate_tests.py            --katalon ../Commons_Automation --apps C3DC GC   # Katalon scripts + suites -> Testcases/
-```
-
-The generator turned 553 Katalon scripts into 553 test files (238 C3DC + 315 GC); with the 2 hand-written
-static-page tests that is **555 tests**. Suite membership is copied from the `.ts` suites, and the marker counts match
-Katalon exactly (GC smoke 88, regression 193, quickrun 14; C3DC smoke 21, regression 151, quickrun 2).
-
-Not generated on purpose: the two standalone Python quick-run scripts (`TC00_C3DC_QuickRun_Of_TsvFiles`,
-`GC_QuickRunupdates`), and the two `*_StaticData` tests, which are hand-written.
-
-**11 tests are marked `skip`** (see `pytest -rs`). Their Katalon script clicks a checkbox that has no locator in the
-Katalon Object Repository either, so they could not have passed there. Typical causes are a typo in the script
-(`phs0002517`, `Imaging Facet` with a space) or a value that was never added (`Saliva`, `Illumina`).
-Fix the script value or add the locator under `checkboxes:` in the facet's YAML and delete the `skip` line.
-
-## Differences from Katalon worth knowing
-
-* **Row comparison** follows Katalon `compareSheetsByRow` / `compareTwoLists`: both sides are sorted by whole row,
-  compared positionally, with the same cell-by-cell console output (match ✓ / mismatch ✗).
-* **A different row count is a failure.** Katalon passed when the expected side returned no rows.
-* **All rows are read.** Katalon stopped after 10 pages.
-* **Table reads** — `read_table_data` → **GC, ICDC, C3DC, INS, Bento, CTDC** (that order in `read_table_header_data` / `read_table_row_data`). GC `first_child=True` on `TabSpec`. Env: `G_ROWCOUNT_FILES`, `G_ROWCOUNT_KATALON`.
-* CPI-badge stripping and multi-value (`a;b`) normalisation are the same rules as `Utils.groovy`.
-* The CDS_PROD Katalon profile pointed at the stage URL; `prod` here points at production.
-
-## Known issues
-
-* **C3DC filters without URL mapping** (e.g. age sliders, some sample facets) still use legacy checkbox XPaths and may
-  need UI clicks updated. Common study/demographics/diagnosis/survival filters are applied via Explore Participants
-  query parameters in `Commons/apps/c3dc.py`.
-* In the C3DC Object Repository, `Study/StudyName` has `MolecularCharacterizationInitiative` and
-  `TargetNeuroblastoma` pointing at each other's XPath. Carried over as-is.
+- C3DC filters depend on `ObjectRepository/c3dc/filters/*.yaml` matching the Explore Participants UI; fix locators when facets change.
+- Some Katalon tests remain `pytest.mark.skip` until object-repo checkbox values are fixed—see `pytest -rs`.

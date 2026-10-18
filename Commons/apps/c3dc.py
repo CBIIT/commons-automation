@@ -2,12 +2,10 @@
 import re
 import time
 from typing import Dict, List, Optional
-from urllib.parse import quote
 
 from Commons import action_log
 from Commons.apps.base import BaseApp, StatSpec, TabSpec
 from Commons.compare import compare_counts
-from Commons.object_repository import FilterGroup, LocatorNotFound
 
 
 def _tab(name, label, input_tab, stat, ui, db, max_pages=2):
@@ -21,30 +19,6 @@ def _tab(name, label, input_tab, stat, ui, db, max_pages=2):
         max_pages=max_pages, label=label,
     )
 
-
-# Object-repository filter group -> Explore Participants URL query key (see dashTemplate.queryParams).
-FILTER_GROUP_TO_PARAM: Dict[str, str] = {
-    "Study/dbGaP_Accession": "dbgap_accession",
-    "Study/StudyName": "study_name",
-    "Demographics/SexAtBirth": "sex_at_birth",
-    "Demographics/Race": "race",
-    "Diagnosis/Diagnosis": "diagnosis",
-    "Diagnosis/AnatomicSite": "diagnosis_anatomic_site",
-    "Diagnosis/DiagsClasifctnSystem": "diagnosis_classification_system",
-    "Diagnosis/DiagnosisBasis": "diagnosis_basis",
-    "Diagnosis/DiseasePhase": "disease_phase",
-    "Survival/FirstEvent": "first_event",
-    "Survival/LastKnownSurStatus": "last_known_survival_status",
-    "Survival/CauseOfDeath": "cause_of_death",
-    "Treatment/TreatmentAgent": "treatment_agent",
-    "Treatment/TreatmentType": "treatment_type",
-    "TreatmentResp/Response": "response",
-    "TreatmentResp/RespCategory": "response_category",
-    "TreatmentResp/RespSystem": "response_system",
-    "Samples/AnatomicSite": "sample_anatomic_site",
-    "Samples/SampleTumorStatus": "sample_tumor_status",
-    "Samples/SampleTumorClassification": "tumor_spatial_extent",
-}
 
 class C3DC(BaseApp):
     NAME = "C3DC"
@@ -119,71 +93,20 @@ class C3DC(BaseApp):
                                 "UI_Samples", "DB_Samples"),
     }
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._url_filters: Dict[str, List[str]] = {}
-
-    def load_query_file(self, file_name: str):
-        qf = super().load_query_file(file_name)
-        self._url_filters.clear()
-        return qf
-
     def open_explore(self):
-        """Open Explore Participants (replaces legacy Explore tab)."""
-        action_log.say(f"open_explore -> /{self.EXPLORE_PATH}")
-        self.goto(self.EXPLORE_PATH)
-        self.page.locator("#statsbar_count_1").first.wait_for(state="visible", timeout=self.ui.timeout_ms)
+        """Open Explore Participants via navbar (Katalon: clickTab Explore-Tab)."""
+        action_log.say("open_explore (Navbar/Explore-Tab)")
+        self.click("Navbar/Explore-Tab")
+        self._wait_explore_results_ready()
 
     def select_filter(self, group: str, value: str):
-        param = FILTER_GROUP_TO_PARAM.get(group)
-        if not param:
-            super().select_filter(group, value)
-            return
-        url_value = self._url_filter_value(group, value)
-        bucket = self._url_filters.setdefault(param, [])
-        if url_value not in bucket:
-            bucket.append(url_value)
-        action_log.say(f"select_filter (URL) group={group!r} value={value!r} -> {param}={url_value!r}")
-        self._navigate_with_url_filters()
+        """Apply filters via left-panel facet UI (expand, dropdown, checkbox click)."""
+        super().select_filter(group, value)
+        self._wait_explore_results_ready()
 
-    def _navigate_with_url_filters(self):
-        query = "&".join(
-            f"{quote(k, safe='')}={'|'.join(quote(v, safe='') for v in vals)}"
-            for k, vals in sorted(self._url_filters.items())
-        )
-        path = self.EXPLORE_PATH + (f"?{query}" if query else "")
-        self.goto(path)
+    def _wait_explore_results_ready(self):
         self.page.locator("#statsbar_count_1").first.wait_for(state="visible", timeout=self.ui.timeout_ms)
-        self.page.wait_for_timeout(500)
-
-    @staticmethod
-    def _facet_value_from_checkbox(group: FilterGroup, checkbox_xpath: str) -> Optional[str]:
-        dd = group.dropdown
-        if not dd:
-            return None
-        m = re.search(r'@id\s*=\s*["\']([^"\']+)["\']', dd)
-        if not m:
-            return None
-        facet_id = m.group(1)
-        id_m = re.search(r'checkbox_([^"\']+)', checkbox_xpath)
-        if not id_m:
-            return None
-        rest = id_m.group(1)
-        prefix = f"{facet_id}_"
-        if rest.startswith(prefix):
-            return rest[len(prefix):]
-        return None
-
-    def _url_filter_value(self, group: str, value: str) -> str:
-        try:
-            g = self.repo.filter_group(group)
-            xp = g.checkbox_xpath(value)
-            parsed = self._facet_value_from_checkbox(g, xp)
-            if parsed is not None:
-                return parsed
-        except LocatorNotFound:
-            pass
-        return value
+        self.ui.wait_idle()
 
     @staticmethod
     def _normalize_tab_label(raw: str) -> str:
