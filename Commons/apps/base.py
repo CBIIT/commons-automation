@@ -56,6 +56,8 @@ class BaseApp:
     NAME = ""
     TABS: Dict[str, TabSpec] = {}
     STATS: List[StatSpec] = []          # order = column order of the StatQuery result
+    STAT_UI_SHEET = "StatOutput"        # Katalon WebExcel / UI workbook stat sheet
+    STAT_DB_SHEET = "StatOutput"        # Katalon TsvExcel / DB workbook stat sheet
     BANNER_KEYS: List[str] = []
     STATIC_DATA_EXCEL = ""
     MAX_PAGES = int(os.environ.get("MAX_PAGES", "1000"))
@@ -205,6 +207,7 @@ class BaseApp:
         values = self.ui.stable_texts([(self.repo.xpath(s.key), s.use_html) for s in self.STATS])
         for s, raw in zip(self.STATS, values):
             self.stats[s.name] = raw.replace(",", "").strip()
+            action_log.stat_bar_count_from_ui(s.name, self.stats[s.name])
         action_log.stat_bar(dict(self.stats))
         action_log.ui_action(f"Stat bar read: {dict(self.stats)}")
         self._stat_checked = False
@@ -216,26 +219,65 @@ class BaseApp:
         except ValueError:
             return 0
 
+    def _expected_stat_dict(self, expected: Table) -> Dict[str, str]:
+        """Map StatQuery result row to stat-bar names (Studies, Participants, …)."""
+        if not expected.rows:
+            return {}
+        exp_row = expected.rows[0]
+        by_header: Dict[str, str] = {}
+        if expected.header:
+            by_header = {
+                str(h).strip(): exp_row[i]
+                for i, h in enumerate(expected.header)
+                if i < len(exp_row)
+            }
+        exp: Dict[str, str] = {}
+        for i, spec in enumerate(self.STATS):
+            if spec.name in by_header:
+                exp[spec.name] = by_header[spec.name]
+                continue
+            lower = spec.name.lower()
+            key = next((k for k in by_header if k.lower() == lower), None)
+            if key is not None:
+                exp[spec.name] = by_header[key]
+            elif i < len(exp_row):
+                exp[spec.name] = exp_row[i]
+        return exp
+
     def verify_statbar(self):
-        """Compare the stat bar with the StatQuery result (Katalon validateStatBar)."""
+        """Compare stat bar UI vs StatQuery (Katalon validateStatBar); write StatOutput to *_UI/_DB.xlsx."""
         if self._stat_checked:
             return
+        if self.query_file is None:
+            raise RuntimeError("Call load_query_file() first")
         self._stat_checked = True
         expected = self.source.fetch_stat_bar_table(self.query_file)
         if not expected.rows:
             self._fail("Stat bar: the StatQuery returned no rows")
             return
-        exp_row = expected.rows[0]
-        if expected.header:
-            exp = {
-                str(h).strip(): exp_row[i]
-                for i, h in enumerate(expected.header)
-                if i < len(exp_row)
-            }
-        else:
-            exp = {s.name: exp_row[i] for i, s in enumerate(self.STATS) if i < len(exp_row)}
-        cmp = compare_counts(self.stats, exp)
-        self._record("StatBar", cmp, ui_count=len(self.stats), exp_count=len(exp))
+        exp = self._expected_stat_dict(expected)
+        for spec in self.STATS:
+            action_log.stat_bar_count_from_db(spec.name, exp.get(spec.name, ""))
+        header = [s.name for s in self.STATS]
+        ui_row = [self.stats.get(s.name, "") for s in self.STATS]
+        exp_row = [str(exp.get(s.name, "")) for s in self.STATS]
+        base = self.output_dir / self.query_file.name
+        excel_writer.write_sheet(
+            base.with_name(base.name + "_UI.xlsx"), self.STAT_UI_SHEET, header, [ui_row]
+        )
+        excel_writer.write_sheet(
+            base.with_name(base.name + "_DB.xlsx"), self.STAT_DB_SHEET, header, [exp_row]
+        )
+        action_log.compare_step(self.STAT_UI_SHEET, self.STAT_DB_SHEET)
+        cmp_table = compare_tables([ui_row], [exp_row], header, header)
+        cmp_counts = compare_counts(self.stats, exp)
+        cmp = Comparison(
+            cmp_table.passed and cmp_counts.passed,
+            1,
+            1,
+            list(dict.fromkeys(cmp_table.problems + cmp_counts.problems)),
+        )
+        self._record("StatBar", cmp, ui_count=1, exp_count=1)
 
     # ------------------------------------------------------------------ result tabs
     def open_tab(self, name: str):

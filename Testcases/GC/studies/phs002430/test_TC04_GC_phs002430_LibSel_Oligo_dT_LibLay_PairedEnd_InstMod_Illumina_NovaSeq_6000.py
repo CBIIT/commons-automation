@@ -10,7 +10,6 @@ import pytest
 
 
 @pytest.mark.gc
-@pytest.mark.quickrun
 @pytest.mark.regression
 def test_TC04_GC_phs002430_LibSel_Oligo_dT_LibLay_PairedEnd_InstMod_Illumina_NovaSeq_6000(gc):
     gc.load_query_file("TC04_GC_phs002430_LibSel-Oligo-dT_LibLay-PairedEnd_InstMod-Illumina NovaSeq 6000.xlsx")

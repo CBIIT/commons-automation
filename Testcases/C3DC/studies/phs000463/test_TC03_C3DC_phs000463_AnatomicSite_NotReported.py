@@ -11,6 +11,7 @@ import pytest
 
 @pytest.mark.c3dc
 @pytest.mark.regression
+@pytest.mark.quickrun
 def test_TC03_C3DC_phs000463_AnatomicSite_NotReported(c3dc):
     c3dc.load_query_file("TC03_C3DC_phs000463_AnatomicSite-NotReported.xlsx")
     c3dc.accept_banner()

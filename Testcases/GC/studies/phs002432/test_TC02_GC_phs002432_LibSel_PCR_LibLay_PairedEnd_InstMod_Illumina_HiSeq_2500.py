@@ -10,7 +10,6 @@ import pytest
 
 
 @pytest.mark.gc
-@pytest.mark.quickrun
 @pytest.mark.regression
 def test_TC02_GC_phs002432_LibSel_PCR_LibLay_PairedEnd_InstMod_Illumina_HiSeq_2500(gc):
     gc.load_query_file("TC02_GC_phs002432_LibSel-PCR_LibLay-PairedEnd_InstMod- Illumina HiSeq 2500.xlsx")

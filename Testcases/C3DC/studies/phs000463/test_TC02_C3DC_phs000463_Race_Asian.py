@@ -11,6 +11,7 @@ import pytest
 
 @pytest.mark.c3dc
 @pytest.mark.regression
+@pytest.mark.quickrun
 def test_TC02_C3DC_phs000463_Race_Asian(c3dc):
     c3dc.load_query_file("TC02_C3DC_phs000463_Race-Asian.xlsx")
     c3dc.accept_banner()

@@ -10,7 +10,6 @@ import pytest
 
 
 @pytest.mark.gc
-@pytest.mark.quickrun
 @pytest.mark.regression
 def test_TC01_GC_phs002432_RefGen_GRCh37_Platform_Illumina_LibSrc_Genomic(gc):
     gc.load_query_file("TC01_GC_phs002432_RefGen_GRCh37_Platform-Illumina_LibSrc-Genomic.xlsx")

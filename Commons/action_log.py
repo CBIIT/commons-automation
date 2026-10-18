@@ -8,6 +8,9 @@ Enable with:
 
 Human-readable UI steps (always shown during tests unless disabled):
   COMMONS_UI_ACTIONS=1   default on; set 0 to hide "[UI] …" lines
+
+Memgraph Cypher (always shown when a query runs unless disabled):
+  COMMONS_DB_QUERIES=1   default on; set 0 to hide "[DB] …" query text
 """
 from __future__ import annotations
 
@@ -103,6 +106,23 @@ def ui_action(msg: str) -> None:
         print(f"[UI] {msg}", flush=True)
 
 
+_db_queries: Optional[bool] = None
+
+
+def db_queries_enabled() -> bool:
+    """Print Memgraph Cypher to the console when executed (on by default)."""
+    global _db_queries
+    if _db_queries is None:
+        raw = os.environ.get("COMMONS_DB_QUERIES", "1").strip().lower()
+        _db_queries = raw not in ("0", "false", "no", "off")
+    return _db_queries
+
+
+def set_db_queries(on: bool) -> None:
+    global _db_queries
+    _db_queries = on
+
+
 def filter_facet_display(group_key: str, facet_key: Optional[str] = None) -> str:
     if facet_key:
         return facet_key.replace("_Facet", "").replace("_", " ")
@@ -137,6 +157,18 @@ def xpath_info(label: str, xpath: str) -> None:
 
 def stat_bar(values: dict) -> None:
     say(f"Stat bar read: {values}")
+
+
+def stat_bar_count_from_ui(name: str, value: str) -> None:
+    """Katalon readStatBar*: 'This is the value of Participants count from Stat bar: …'"""
+    with pytest_table_output_live():
+        print(f"This is the value of {name} count from Stat bar: {value}", flush=True)
+
+
+def stat_bar_count_from_db(name: str, value: str) -> None:
+    """Katalon validateStatBar: 'This is the value of Participants Count from DB result: …'"""
+    with pytest_table_output_live():
+        print(f"This is the value of {name} Count from DB result: {value}", flush=True)
 
 
 def multifunc_stat(stat_str: str, stat_int: int) -> None:
@@ -198,7 +230,11 @@ def memgraph_connection(user: str, server: str, output: str = "") -> None:
 
 
 def memgraph_query(label: str, query: str) -> None:
-    say(f"This is the value of {label}:\n{query}")
+    if db_queries_enabled():
+        with pytest_table_output_live():
+            print(f"[DB] {label}:\n{query}", flush=True)
+    elif enabled():
+        say(f"This is the value of {label}:\n{query}")
 
 
 def memgraph_db_row(cells: Sequence[str]) -> None:

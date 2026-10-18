@@ -5,9 +5,6 @@ from typing import Dict, List, Optional
 
 from Commons import action_log
 from Commons.apps.base import BaseApp, StatSpec, TabSpec
-from Commons.compare import compare_counts
-
-
 def _tab(name, label, input_tab, stat, ui, db, max_pages=2):
     return TabSpec(
         name=name,
@@ -245,32 +242,6 @@ class C3DC(BaseApp):
             self.page.wait_for_timeout(250)
 
         return False
-
-    def verify_statbar(self):
-        """Match Katalon C3DC: Memgraph stat row is Studies, Participants, Samples, Files by column index."""
-        if self._stat_checked:
-            return
-        self._stat_checked = True
-        expected = self.source.fetch_stat_bar_table(self.query_file)
-        if not expected.rows:
-            self._fail("Stat bar: the StatQuery returned no rows")
-            return
-        exp_row = expected.rows[0]
-        by_header = {}
-        if expected.header:
-            by_header = {
-                str(h).strip(): exp_row[i]
-                for i, h in enumerate(expected.header)
-                if i < len(exp_row)
-            }
-        exp = {}
-        for i, spec in enumerate(self.STATS):
-            if spec.name in by_header:
-                exp[spec.name] = by_header[spec.name]
-            elif i < len(exp_row):
-                exp[spec.name] = exp_row[i]
-        cmp = compare_counts(self.stats, exp)
-        self._record("StatBar", cmp, ui_count=len(self.stats), exp_count=len(exp))
 
     def _open_from_more_menu(self, spec: TabSpec):
         """Fallback if BaseApp.open_tab is used — same as Katalon selectTab + More menu."""

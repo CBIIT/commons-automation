@@ -10,7 +10,6 @@ import pytest
 
 
 @pytest.mark.gc
-@pytest.mark.quickrun
 @pytest.mark.regression
 def test_TC03_GC_phs002431_SmpTumSta_Normal_SmpType_Blood_LibStr_RNA_Seq(gc):
     gc.load_query_file("TC03_GC_phs002431_SmpTumSta-Normal_SmpType-Blood_LibStr_RNA-Seq.xlsx")

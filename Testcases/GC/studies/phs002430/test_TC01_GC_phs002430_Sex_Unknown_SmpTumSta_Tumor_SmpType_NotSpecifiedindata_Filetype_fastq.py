@@ -10,7 +10,6 @@ import pytest
 
 
 @pytest.mark.gc
-@pytest.mark.quickrun
 @pytest.mark.regression
 def test_TC01_GC_phs002430_Sex_Unknown_SmpTumSta_Tumor_SmpType_NotSpecifiedindata_Filetype_fastq(gc):
     gc.load_query_file("TC01_GC_phs002430_Sex-Unknown_SmpTumSta-Tumor_SmpType-NotSpecifiedindata_Filetype-fastq.xlsx")

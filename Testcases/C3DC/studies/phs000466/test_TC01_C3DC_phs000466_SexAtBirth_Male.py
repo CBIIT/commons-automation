@@ -10,7 +10,6 @@ import pytest
 
 
 @pytest.mark.c3dc
-@pytest.mark.quickrun
 @pytest.mark.regression
 @pytest.mark.smoke
 def test_TC01_C3DC_phs000466_SexAtBirth_Male(c3dc):

@@ -11,6 +11,7 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
+@pytest.mark.quickrun
 def test_TC02_GC_phs000720_Sex_Male(gc):
     gc.load_query_file("TC02_GC_phs000720_Sex_Male.xlsx")
     gc.accept_banner()

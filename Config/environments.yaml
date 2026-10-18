@@ -2,7 +2,7 @@
 #
 # Secrets (Memgraph passwords) are NOT stored here. Put them in a gitignored `.env` or the shell:
 #   MEMGRAPH_PASSWORD_C3DC=...     # required for C3DC tests (cluster host under apps.C3DC.memgraph)
-#   MEMGRAPH_PASSWORD_GC=...       # required for GC tests (different cluster)
+#   MEMGRAPH_PASSWORD_GC_QA=... MEMGRAPH_PASSWORD_GC_QA2=...  # GC: one password per env
 # Optional overrides: MEMGRAPH_ENDPOINT_C3DC, MEMGRAPH_USERNAME_C3DC_QA, etc. (see Commons/settings.py)
 
 apps:

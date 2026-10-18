@@ -10,7 +10,6 @@ import pytest
 
 
 @pytest.mark.gc
-@pytest.mark.quickrun
 @pytest.mark.regression
 def test_TC06_GC_phs002430_RefGenAsbly_NSD_PrimDiag_Acutemyloidleukemia(gc):
     gc.load_query_file("TC06_GC_phs002430_RefGenAsbly-NSD_PrimDiag-Acutemyloidleukemia.xlsx")

@@ -10,7 +10,6 @@ import pytest
 
 
 @pytest.mark.gc
-@pytest.mark.quickrun
 @pytest.mark.regression
 def test_TC05_GC_phs002431_Sex_Female_PrimDiag_AbdominslFibro_FileType_CRAM(gc):
     gc.load_query_file("TC05_GC_phs002431_Sex-Female_PrimDiag_AbdominslFibro_FileType-CRAM.xlsx")
