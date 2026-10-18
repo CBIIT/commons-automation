@@ -1,0 +1,21 @@
+# Converted from Katalon Object Repository/CDS/Data_page/Filter/SamplesFacet
+page: Data_page/Filter/SamplesFacet
+groups:
+  SamplesFacet/SampleTumorStatus:
+    dropdown: //*[@id="Sample Tumor Status"]/div[2]
+    checkboxes:
+      Normal: //*[@id="checkbox_Sample Tumor Status_Normal"]
+      NotSpecifiedInData: //*[@id="checkbox_Sample Tumor Status_Not specified in data"]
+      Tumor: //*[@id="checkbox_Sample Tumor Status_Tumor"]
+  SamplesFacet/SampleType:
+    dropdown: //*[@id="sample type"]/div[2]
+    checkbox_template: //*[@id="checkbox_sample type_{value}"]
+    values: [Analyte, Ascites, Blood, DNA, Metastatic, RNA, Skin, Thymus, Tissue, Unknown]
+    checkboxes:
+      BDC-BoneMarrow: //*[@id="checkbox_sample type_Blood Derived Cancer - Bone Marrow"]
+      BloodClot: //*[@id="checkbox_sample type_Blood Clot"]
+      BloodDerivedNormal: //*[@id="checkbox_sample type_Blood Derived Normal"]
+      BuffyCoat: //*[@id="checkbox_sample type_Buffy Coat"]
+      NotSpecifiedInData: //*[@id="checkbox_sample type_Not specified in data"]
+      SolidTissueNormal: //*[@id="checkbox_sample type_Solid Tissue Normal"]
+      TumorAdjacentNormal: //*[@id="checkbox_sample type_Tumor Adjacent Normal"]

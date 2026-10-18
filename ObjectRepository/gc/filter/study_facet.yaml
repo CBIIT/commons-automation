@@ -1,0 +1,97 @@
+# Converted from Katalon Object Repository/CDS/Data_page/Filter/StudyFacet
+page: Data_page/Filter/StudyFacet
+elements:
+  Study_Facet: (//*[@id="[object Object]"])[2]
+groups:
+  StudyFacet/ExperimentalStrategy:
+    facet: (//*[@id="[object Object]"])[2]
+    dropdown: //*[@id="Experimental Strategy" and text()="Experimental Strategy"]
+    checkbox_template: //*[@id="checkbox_Experimental Strategy_{value}"]
+    values: [Amplicon, GWA, Radiological, Sequencing, WGA, WGS, WXS]
+    checkboxes:
+      ArcherFusion: //*[@id="checkbox_Experimental Strategy_Archer Fusion"]
+      BisulfiteSeq: //*[@id="checkbox_Experimental Strategy_Bisulfite-Seq"]
+      DNASeq: //*[@id="checkbox_Experimental Strategy_DNA-Seq"]
+      GenotypingArray: //*[@id="checkbox_Experimental Strategy_Genotyping Array"]
+      MethylationArray: //*[@id="checkbox_Experimental Strategy_Methylation Array"]
+      Other: //*[@id="checkbox_Experimental Strategy_OTHER"]
+      RNASeq: //*[@id="checkbox_Experimental Strategy_RNA-Seq"]
+      TargetedCapture: //*[@id="checkbox_Experimental Strategy_Targeted-Capture"]
+      TargetedSequencing: //*[@id="checkbox_Experimental Strategy_Targeted Sequencing"]
+  StudyFacet/PHS_Accession:
+    facet: (//*[@id="[object Object]"])[2]
+    dropdown: //*[@id="PHS Accession"]/div[2]
+    search: //input[@placeholder='e.g. phs000000']
+    checkbox_template: //*[@id="checkbox_PHS Accession_{value}"]
+    values: [phs000720, phs001287, phs001437, phs001524, phs001819, phs001905, phs001980, phs002250, phs002293, phs002366, phs002371_image, phs002430, phs002431, phs002432, phs002479, phs002517, phs002518, phs002529, phs002599, phs002620, phs002637, phs002677, phs002790, phs003111, phs003155, phs003164, phs003432, phs003519, phs004225]
+    checkboxes:
+      phs001554: //*[@id='checkbox_PHS Accession_phs001554']
+      phs001713: //*[@id='checkbox_PHS Accession_phs001713']
+      phs001787: //*[@id='checkbox_PHS Accession_phs001787']
+      phs002050: //*[@id='checkbox_PHS Accession_phs002050']
+      phs002305: //*[@id='checkbox_PHS Accession_phs002305']
+      phs002371: //*[@id='checkbox_PHS Accession_phs002371']
+      phs002504: //*[@id='checkbox_PHS Accession_phs002504']
+  StudyFacet/StudyDataTypes:
+    facet: (//*[@id="[object Object]"])[2]
+    dropdown: //*[@id="Study Data Types" and text()="Study Data Types"]
+    checkboxes:
+      Genomic: //*[@id="checkbox_Study Data Types_Genomics"]
+      Imaging: //*[@id="checkbox_Study Data Types_Imaging"]
+  StudyFacet/StudyName:
+    facet: (//*[@id="[object Object]"])[2]
+    dropdown: (//*[@id="Study Name"])[1]
+    checkboxes:
+      CDS-Study-AAPMRTMAC: //*[@id="checkbox_Study Name_AAPM RT-MAC Grand Challenge 2019"]
+      CDS-Study-ACRIN6677RTOG0625: //*[@id="checkbox_Study Name_ACRIN 6677/RTOG 0625"]
+      CDS-Study-ACRIN6684: //*[@id="checkbox_Study Name_ACRIN 6684"]
+      CDS-Study-ACRIN6685: //*[@id="checkbox_Study Name_ACRIN 6685"]
+      CDS-Study-AntiPD1MELANOMA: //*[@id="checkbox_Study Name_Anti-PD-1 Immunotherapy Melanoma"]
+      CDS-Study-AwholebodyFDGPETCT: //*[@id="checkbox_Study Name_A whole-body FDG-PET/CT dataset with manually annotated tumor lesions"]
+      CDS-Study-BrainTumorProgression: //*[@id="checkbox_Study Name_Brain-Tumor-Progression"]
+      CDS-Study-BrainTumorRecurrenceGammaKnife: '//*[@id="checkbox_Study Name_Brain Tumor Recurrence Prediction after Gamma Knife Radiotherapy from MRI and Related DICOM-RT: An Open Annotated Dataset and Baseline Algorithm"]'
+      CDS-Study-BurdenkoGBMProgression: //*[@id="checkbox_Study Name_Burdenko's Glioblastoma Progression Dataset"]
+      CDS-Study-CCDI: //*[@id="checkbox_Study Name_A whole-body FDG-PET/CT dataset with manually annotated tumor lesions"]
+      CDS-Study-CIDR Glioma Sample: '//*[@id="checkbox_Study Name_CIDR: Discovery, Biology, and Risk of Inherited Variants in Glioma sample"]'
+      CDS-Study-CIDR-The Role of Rare Coding Variation: '//*[@id="checkbox_Study_CIDR: The Role of Rare Coding Variation in Prostate Cancer in Men of African Ancestry - RESPOND Project 2"]'
+      CDS-Study-CIDRAggressiveProstateCancer: '//*[@id="checkbox_Study_CIDR: The Genetic Basis of Aggressive Prostate Cancer: The Role of Rare Variation"]'
+      CDS-Study-CPTAC Proteogenomic Study: //*[@id="checkbox_Study_CPTAC Proteogenomic Study"]
+      CDS-Study-CPTACGlioblastomaMultiformeCollection: //*[@id="checkbox_Study Name_The Clinical Proteomic Tumor Analysis Consortium Glioblastoma Multiforme Collection"]
+      CDS-Study-CPTACHeadNeckSquamousCellCarcinomaCollection: //*[@id="checkbox_Study Name_The Clinical Proteomic Tumor Analysis Consortium Head and Neck Squamous Cell Carcinoma Collection"]
+      CDS-Study-CTRTSTRUCTRTDOSERTPLAN: '//*[@id="checkbox_Study Name_CT-RTSTRUCT-RTDOSE-RTPLAN Sets of Head and Neck Cancers Treated with Identical Prescriptions using IMRT: An Open Dataset for Deep Learning in Treatment Planning"]'
+      CDS-Study-ColonalEvolution: //*[@id="checkbox_Study_Clonal evolution during metastatic spread in high-rish neuroblastoma"]
+      CDS-Study-ComputedTomographyImagesfromLargeHeadandNeckCohort: //*[@id="checkbox_Study Name_Computed Tomography Images from Large Head and Neck Cohort"]
+      CDS-Study-DiscOfColrCancrSuscpGensInHghRskFam: //*[@id="checkbox_Study Name_Discovery of Colorectal Cancer Susceptibility Genes in High-Risk Families"]
+      CDS-Study-Feasibility and Clinical Utility: //*[@id="checkbox_Study_Feasibility and Clinical Utility of Whole Genome Profiling in Pediatric and Young Adult Cancers"]
+      CDS-Study-GammaKnifeHippocampal: //*[@id="checkbox_Study Name_Gamma Knife MR/CT/RTSTRUCT Sets With Hippocampal Contours"]
+      CDS-Study-GliomaDSCMRIPerfusion: //*[@id="checkbox_Study Name_Glioma DSC-MRI Perfusion Data with Standard Imaging and ROIs"]
+      CDS-Study-GliomaImageSegmentationforRadiotherapy: '//*[@id="checkbox_Study Name_Glioma Image Segmentation for Radiotherapy: RT targets, barriers to cancer spread, and organs at risk"]'
+      CDS-Study-HEADNECKRADIOMICSHN1: //*[@id="checkbox_Study Name_HEAD-NECK-RADIOMICS-HN1"]
+      CDS-Study-HNSCC: //input[contains(@id,'checkbox_') and contains(@id,'HNSCC')]
+      CDS-Study-HTAN: //*[@id="checkbox_Study Name_Human Tumor Atlas Network (HTAN) imaging data"]
+      CDS-Study-HeadNeckCetuximab: //*[@id="checkbox_Study Name_Head-Neck Cetuximab"]
+      CDS-Study-HeadNeckPETCT: //*[@id="checkbox_Study Name_Head-Neck-PET-CT"]
+      CDS-Study-Headandnecksquamouscellcarcinoma: //*[@id="checkbox_Study Name_Head-and-neck squamous cell carcinoma patients with CT taken during pre-treatment, mid-treatment, and post-treatment"]
+      CDS-Study-IvyGlioblastomaAtlasProject: //*[@id="checkbox_Study Name_Ivy Glioblastoma Atlas Project"]
+      CDS-Study-LCCC1108: '//*[@id="checkbox_Study Name_LCCC 1108: Development of a Tumor Molecular Analyses Program and Its Use to Support Treatment Decisions (UNCseqTM)"]'
+      CDS-Study-LGG1p19qDeletion: //*[@id="checkbox_Study Name_LGG-1p19qDeletion"]
+      CDS-Study-LowDoseCTImageandProjectionData: //*[@id="checkbox_Study Name_Low Dose CT Image and Projection Data"]
+      CDS-Study-LowDoseCTImagesofHealthyCohort: //*[@id="checkbox_Study Name_Low-Dose CT Images of Healthy Cohort"]
+      CDS-Study-MeningiomaSEGCLASS: '//*[@id="checkbox_Study Name_Segmentation and Classification of Grade I and II Meningiomas from Magnetic Resonance Imaging: An Open Annotated Dataset"]'
+      CDS-Study-Molecular Characterization (CTSMC): //*[@id="checkbox_Study Name_Clinical Trial Specimen Molecular Characterization (CTSMC)"]
+      CDS-Study-NCI-CCSG_CCDI: //*[@id="checkbox_Study_NCI CCSG CCDI Supplement Additional Genomic Submission"]
+      CDS-Study-QINGBMTreatmentResponse: //*[@id="checkbox_Study Name_QIN GBM Treatment Response"]
+      CDS-Study-QINHEADNECK: //*[@id="checkbox_Study Name_QIN-HEADNECK"]
+      CDS-Study-QINSARCOMA: //*[@id="checkbox_Study Name_QIN-SARCOMA"]
+      CDS-Study-REMBRANDT: //*[@id="checkbox_Study Name_REMBRANDT"]
+      CDS-Study-RIDERNEUROMRI: //*[@id="checkbox_Study Name_RIDER NEURO MRI"]
+      CDS-Study-RioHortegaGBMdataset: '//*[@id="checkbox_Study Name_The Rio Hortega University Hospital Glioblastoma dataset: a comprehensive collection of preoperative, early postoperative and recurrence MRI scans"]'
+      CDS-Study-TCGAGlioblastomaMultiformeCollection: //*[@id="checkbox_Study Name_The Cancer Genome Atlas Glioblastoma Multiforme Collection"]
+      CDS-Study-TCGAHeadNeckSquamousCellCarcinomaCollection: //*[@id="checkbox_Study Name_The Cancer Genome Atlas Head-Neck Squamous Cell Carcinoma Collection"]
+      CDS-Study-TCGALowGradeGliomaCollection: //*[@id="checkbox_Study Name_The Cancer Genome Atlas Low Grade Glioma Collection"]
+      CDS-Study-TheHeadandNeckLymphNodesDatasetDefinitiveNoncontrast: //*[@id="checkbox_Study Name_The Head and Neck Lymph Nodes Dataset, Definitive, Non-contrast"]
+      CDS-Study-UCSF: //input[contains(@id,'checkbox_Study_UCSF Database for the Advancement of JMML')]
+      CDS-Study-UnivofTexas: //*[@id="checkbox_Study Name_University of Texas PDX Development and Trial Center Grant"]
+      CDS-Study-WashingtonUniv: //*[@id="checkbox_Study Name_Washington University PDX Development and Trial Center"]
+    other:
+      CDS-Study-DetectionofCCS-Chkbx-removed: //*[@id="checkbox_Study_Washington University in St. Louis ccRCC snRNA-seq and snATAC-seq study"]

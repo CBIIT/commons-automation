@@ -1,0 +1,8 @@
+# Converted from Katalon Object Repository/CDS/Data_page/Filter/ImagingFacet
+page: Data_page/Filter/ImagingFacet
+groups:
+  ImagingFacet/ImageModality:
+    dropdown: //*[@id="Image Modality"]/div[2]
+    checkboxes:
+      CT: //*[@id="checkbox_Image Modality_CT"]
+      NotSpecifiedInData: //*[@id="checkbox_Image Modality_Not specified in data"]

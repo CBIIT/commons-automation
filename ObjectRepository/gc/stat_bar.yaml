@@ -1,0 +1,8 @@
+# Converted from Katalon Object Repository/CDS/StatBar (locator keys renamed GC for General Commons).
+page: StatBar
+elements:
+  GC_StatBar-DiseaseSites: //*[@id="statsbar_count_2"]
+  GC_StatBar-Files: //*[@id="statsbar_count_4"]
+  GC_StatBar-Participants: //*[@id="statsbar_count_2"]
+  GC_StatBar-Samples: //*[@id="statsbar_count_3"]
+  GC_StatBar-Studies: //*[@id="statsbar_count_1"]

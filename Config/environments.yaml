@@ -1,0 +1,45 @@
+# Replaces the Katalon Profiles (*.glbl). Pick one with:  pytest --env qa   (or ENV=qa)
+#
+# Secrets (Memgraph passwords) are NOT stored here. Put them in a gitignored `.env` or the shell:
+#   MEMGRAPH_PASSWORD_C3DC=...     # required for C3DC tests (cluster host under apps.C3DC.memgraph)
+#   MEMGRAPH_PASSWORD_GC=...       # required for GC tests (different cluster)
+# Optional overrides: MEMGRAPH_ENDPOINT_C3DC, MEMGRAPH_USERNAME_C3DC_QA, etc. (see Commons/settings.py)
+
+apps:
+  C3DC:
+    # Expected data = Cypher in the input Excel, run against Memgraph (Katalon: ReadExcel.Memgraph).
+    expected_source: memgraph
+    urls:
+      qa:    https://clinicalcommons-qa.ccdi.cancer.gov/
+      stage: https://clinicalcommons-stage.ccdi.cancer.gov/
+      prod:  https://clinicalcommons.ccdi.cancer.gov/
+    memgraph:
+      # Override host/user: MEMGRAPH_ENDPOINT_C3DC, MEMGRAPH_USERNAME_C3DC, etc.
+      dev:
+        endpoint: bolt://gen-dev-cdk-nlb-ecd70c3cab6cb63f.elb.us-east-1.amazonaws.com:7687
+        username: memgraph
+      qa:
+        endpoint: bolt://ccdi-dcc-qa-99d933a8c11c2ea3.elb.us-east-1.amazonaws.com:7687
+        username: memgraph
+
+  GC:
+    # Expected data = Cypher in the input Excel, run against Memgraph.
+    expected_source: memgraph
+    urls:
+      qa:    https://general-qa.datacommons.cancer.gov/
+      qa2:   https://general-qa2.datacommons.cancer.gov/
+      stage: https://general-stage.datacommons.cancer.gov/
+      prod:  https://datacommons.cancer.gov/
+    memgraph:
+      qa:
+        endpoint: bolt://gen-dev-cdk-nlb-ecd70c3cab6cb63f.elb.us-east-1.amazonaws.com:7687
+        username: memgraph
+      qa2:
+        endpoint: bolt://gen-qa2-cdk-nlb-a4d830d9cb17f0ac.elb.us-east-1.amazonaws.com:7687
+        username: memgraph  
+
+browser:
+  name: chromium          # chromium | firefox | webkit   (override: --browser firefox)
+  headless: true          # override: --headed
+  viewport: {width: 1920, height: 1080}
+  timeout_ms: 30000

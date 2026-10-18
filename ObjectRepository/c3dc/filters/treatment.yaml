@@ -1,0 +1,19 @@
+# Converted from Katalon Object Repository/C3DC/Filters/Treatment
+page: Filters/Treatment
+elements:
+  Treatment-Facet: (//*[text()="Treatment"])[1]
+groups:
+  Treatment/TreatmentAgent:
+    facet: (//*[text()="Treatment"])[1]
+    dropdown: //*[@id="Treatment Agent"]
+    checkbox_template: //*[@id="checkbox_Treatment Agent_{value}"]
+    values: [Asparaginase, Azacitidine, Bleomycin, Carboplatin, Cisplatin, Other, Unknown]
+    checkboxes:
+      NotReported: //*[@id="checkbox_Treatment Agent_Not Reported"]
+  Treatment/TreatmentType:
+    facet: (//*[text()="Treatment"])[1]
+    dropdown: //*[@id="Treatment Type"]
+    checkboxes:
+      Brachthrpy: //*[@id="checkbox_Treatment Type_Brachytherapy"]
+      Chemotherapy: //*[@id="checkbox_Treatment Type_Chemotherapy"]
+      Imunothrpy: //*[@id="checkbox_Treatment Type_Immunotherapy"]

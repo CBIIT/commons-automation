@@ -1,0 +1,5 @@
+# Converted from Katalon Object Repository/CDS/Header
+page: Header
+elements:
+  CDS_logo: //img[@alt='CDS Logo']
+  Header_Text: //*[contains(text(),'Data for the Adv')]

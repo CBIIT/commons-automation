@@ -1,0 +1,186 @@
+"""
+Katalon-style console tracing (System.out.println / clickTab / table row dumps).
+
+Enable with:
+  pytest --trace-actions ...
+  export COMMONS_VERBOSE=1
+  COMMONS_VERBOSE=1 in gitignored .env
+"""
+from __future__ import annotations
+
+import json
+import os
+from contextlib import contextmanager
+from typing import Any, Iterable, Iterator, List, Optional, Sequence
+
+_pytest_config: Any = None
+
+
+def set_pytest_config(config: Any) -> None:
+    """Registered from conftest pytest_configure (get_config() alone has no capturemanager)."""
+    global _pytest_config
+    _pytest_config = config
+
+
+def _capture_manager() -> Any:
+    if _pytest_config is None:
+        return None
+    try:
+        return _pytest_config.pluginmanager.getplugin("capturemanager")
+    except Exception:
+        return None
+
+
+def table_live_print(msg: str) -> None:
+    """Katalon-style table line (one print; use with pytest_table_output_live during reads)."""
+    print(msg, flush=True)
+
+
+@contextmanager
+def pytest_table_output_live() -> Iterator[None]:
+    """
+    While reading a table, let stdout/stderr go straight to the terminal (pytest -s effect).
+
+    Only active under pytest when global capture is on; no-op elsewhere.
+    """
+    capman = _capture_manager()
+    suspended = False
+    if capman is not None and capman.is_globally_capturing():
+        capman.suspend_global_capture(in_=False)
+        suspended = True
+    try:
+        yield
+    finally:
+        if suspended and capman is not None:
+            capman.resume_global_capture()
+
+_enabled: Optional[bool] = None
+
+
+def enabled() -> bool:
+    global _enabled
+    if _enabled is None:
+        _enabled = os.environ.get("COMMONS_VERBOSE", "").strip().lower() in ("1", "true", "yes", "on")
+    return _enabled
+
+
+def set_enabled(on: bool) -> None:
+    global _enabled
+    _enabled = on
+
+
+def say(msg: str) -> None:
+    if enabled():
+        print(msg, flush=True)
+
+
+def navigate(url: str) -> None:
+    say(f"This is URL: {url}")
+
+
+def click(repo_key: Optional[str], xpath: str) -> None:
+    if repo_key:
+        say(f"clickTab ({repo_key})")
+    say(f"xpath: {xpath}")
+
+
+def fill(xpath: str, text: str, repo_key: Optional[str] = None) -> None:
+    if repo_key:
+        say(f"fill ({repo_key})")
+    say(f"xpath: {xpath}")
+    say(f"text: {text}")
+
+
+def xpath_info(label: str, xpath: str) -> None:
+    say(f"This is the value of {label}: {xpath}")
+
+
+def stat_bar(values: dict) -> None:
+    say(f"Stat bar read: {values}")
+
+
+def multifunc_stat(stat_str: str, stat_int: int) -> None:
+    say(f"This is the value of stat (string) obtained from multifunction: {stat_str}")
+    say(f"This is the value of stat (integer) obtained from multifunction: {stat_int}")
+
+
+def table_setup(tbl_xpath: str, body_xpath: str, hdr_xpath: str, next_xpath: str) -> None:
+    say(f"This is the value of tbl main : {tbl_xpath}")
+    say(f"This is the value of table body: {body_xpath}")
+    say(f"This is the value of the xpath of nextbtn : {next_xpath}")
+    say(f"This is the value of the hdr string - xpath : {hdr_xpath}")
+
+
+def table_header_columns(columns: Sequence[str]) -> None:
+    hdrdata = "||".join(columns) + ("||" if columns else "")
+    say(f"Table header data: {hdrdata}")
+
+
+def table_header_complete(app_key: str, hdr: Sequence[str], raw_th_count: int) -> None:
+    """
+    Katalon ReadCasesTableKatalon header pass (always printed, like System.out.println).
+
+    Example::
+        Inside C3DC switch case for header data:  12
+        Number of columns in the current result tab is:  10
+        Complete list of column headers in current tab:  Study||Participants||...
+    """
+    hdrdata = "||".join(str(h) for h in hdr) + ("||" if hdr else "")
+    table_live_print(f"Inside {app_key} switch case for header data:  {raw_th_count}")
+    table_live_print(f"Number of columns in the current result tab is:  {len(hdr)}")
+    table_live_print(f"Complete list of column headers in current tab:  {hdrdata}")
+    if enabled():
+        say(f"Table header data: {hdrdata}")
+
+
+def table_page_size(rows_on_page: int) -> None:
+    say(f"This is the size of the rows in the results table in first page: {rows_on_page}")
+
+
+def table_row_cells(row_index: int, cells: Sequence[str]) -> None:
+    """One UI row, Katalon-style (cells joined with ||); verbose-only duplicate of table_reader prints."""
+    data = "||".join(str(c) for c in cells) + "||"
+    say(f"This is the value of data : {data}")
+
+
+def table_page_rows(rows: Iterable[Sequence[str]], page: int = 1) -> None:
+    for idx, cells in enumerate(rows, start=1):
+        table_row_cells(idx, cells)
+    say(f"COLLECTED DATA FROM PAGE - {page}")
+
+
+def table_body_line(data: str) -> None:
+    say(f"Table body data from current page is: {data}")
+
+
+def memgraph_connection(user: str, server: str, output: str = "") -> None:
+    say(f"Connection data for Memgraph is: user={user} output={output} server={server}")
+
+
+def memgraph_query(label: str, query: str) -> None:
+    say(f"This is the value of {label}:\n{query}")
+
+
+def memgraph_db_row(cells: Sequence[str]) -> None:
+    """Katalon ConnectNeo4jV4: System.out.println('Data STR:  '+str)"""
+    line = "||".join(str(c) for c in cells) + "||"
+    say(f"Data STR:  {line}")
+
+
+def memgraph_db_table(header: Sequence[str], rows: Sequence[Sequence[str]]) -> None:
+    if header:
+        say(f"DB header: {'||'.join(header)}||")
+    for row in rows:
+        memgraph_db_row(row)
+
+
+def compare_step(web_sheet: str, db_sheet: str) -> None:
+    say(f"compareSheetsByRow({web_sheet}, {db_sheet})")
+
+
+def skip_zero_stat() -> None:
+    say("Skipping data collection from neo4j and compare lists of web and db as the stat value is 0")
+
+
+def json_data_str(obj) -> None:
+    say(f"Data STR:  {json.dumps(obj, separators=(',', ':'), ensure_ascii=False)}")

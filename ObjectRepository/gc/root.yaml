@@ -1,0 +1,4 @@
+# Converted from Katalon Object Repository/CDS/
+page: (root)
+elements:
+  Popup_Continue_Btn: //span[contains(text(),'Continue')]

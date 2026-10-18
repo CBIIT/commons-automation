@@ -1,0 +1,39 @@
+# Converted from Katalon Object Repository/C3DC/ResultTabs (Explore Participants tab order)
+page: ResultTabs
+elements:
+  All_Tabs_Next-Btn: //button[@type='button' and @aria-label='Next page']
+  Diagnosis-Tab: //button[@role='tab' and contains(., 'Diagnosis')]
+  Diagnosis-Tbl: //*[@id='diagnosis_tab_table']
+  Diagnosis-TblHdr: //*[@id="diagnosis_tab_table"]//thead
+  GeneticAnalysis-Tab: //button[@role='tab' and contains(., 'Genetic Analys')]
+  GeneticAnalysis-Tbl: //*[@id='genetic_analysis_tab_table']
+  GeneticAnalysis-TblHdr: //*[@id="genetic_analysis_tab_table"]//thead
+  More_Tabs-Btn: //button[contains(@class,'more-button') or contains(normalize-space(.),'More')]
+  Participants-Tab: //button[@role='tab' and contains(., 'Participants')]
+  Participants-Tbl: //*[@id='participant_tab_table']
+  Participants-TblHdr: //*[@id="participant_tab_table"]//thead
+  RowPerPage-100: //li[@data-value='100']
+  RowPerPage-50: //li[@data-value='50']
+  RowPerPage-Dd: //*[contains(@id,'mui-') and @role='button']
+  SortByDiagnosisId-Colm: //span[text()='Diagnosis Id']
+  SortByGeneticAnalysisID-Colm: //span[text()='Genetic Analysis ID']
+  SortByParticipantsId-Colm: //span[text()='Participant ID']
+  SortByRace-Colm: //span[text()='Race']
+  SortBySurvivalID-Colm: //span[text()='Survival ID']
+  SortByTreatmentID-Colm: //span[text()='Treatment ID']
+  SortByTreatmentRespID-Colm: //span[text()='Treatment Response ID']
+  Studies-Tab: //button[@role='tab' and contains(., 'Studies')]
+  Studies-Tbl: //*[@id='study_tab_table']
+  Studies-TblHdr: //*[@id="study_tab_table"]//table//thead
+  Survival-Tab: //button[@role='tab' and contains(., 'Survival')]
+  Survival-Tbl: //*[@id='survival_tab_table']
+  Survival-TblHdr: //*[@id="survival_tab_table"]//table/thead
+  Samples-Tab: //button[@role='tab' and contains(., 'Samples')]
+  Samples-Tbl: //*[@id='sample_tab_table']
+  Samples-TblHdr: //*[@id="sample_tab_table"]//thead
+  Treatment-Tab: //button[@role='tab' and contains(., 'Treatments')]
+  Treatment-Tbl: //*[@id='treatment_tab_table']
+  Treatment-TblHdr: //*[@id="treatment_tab_table"]//table//thead
+  TreatmentResp-Tab: //button[@role='tab' and contains(., 'Treatment Response')]
+  TreatmentResp-Tbl: //*[@id='treatment_response_tab_table']
+  TreatmentResp-TblHdr: //*[@id="treatment_response_tab_table"]//thead

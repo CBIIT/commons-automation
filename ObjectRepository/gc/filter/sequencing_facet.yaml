@@ -1,0 +1,90 @@
+# Converted from Katalon Object Repository/CDS/Data_page/Filter/SequencingFacet
+page: Data_page/Filter/SequencingFacet
+groups:
+  SequencingFacet/InstrumentModel:
+    dropdown: //*[@id="Instrument Model"]/div[2]
+    checkboxes:
+      DNBSEQ-G400: //*[@id="checkbox_instrument model_DNBSEQ-G400"]
+      HiSeqXFive: //*[@id="checkbox_instrument model_HiSeq X Five"]
+      HiSeqXTen: //*[@id="checkbox_instrument model_HiSeq X Ten"]
+      IlluminaHiSeq2000: //*[@id="checkbox_Instrument Model_Illumina HiSeq 2000"]
+      IlluminaHiSeq2500: //*[@id="checkbox_instrument model_Illumina HiSeq 2500"]
+      IlluminaHiSeq4000: //*[@id="checkbox_instrument model_Illumina HiSeq 4000"]
+      IlluminaHiSeqXTen: //*[@id="checkbox_Instrument Model_Illumina HiSeq X Ten"]
+      IlluminaHiSeq: //*[@id="checkbox_instrument model_Illumina HiSeq"]
+      IlluminaMiSeq: //*[@id="checkbox_instrument model_Illumina MiSeq"]
+      IlluminaNextSeq500: //*[@id="checkbox_Instrument Model_Illumina NextSeq 500"]
+      IlluminaNextSeq: //*[@id="checkbox_instrument model_Illumina NextSeq"]
+      IlluminaNovaSeq6000: //*[@id="checkbox_Instrument Model_Illumina NovaSeq 6000"]
+      IlluminaNovaSeqXPlus: //*[@id="checkbox_Instrument Model_Illumina NovaSeq X Plus"]
+      IlluminaNovaSeq: //*[@id="checkbox_instrument model_Illumina NovaSeq"]
+      NextSeq500: //*[@id="checkbox_instrument model_NextSeq 500"]
+      NotSpecifiedindata: //*[@id="checkbox_instrument model_Not specified in data"]
+      Notapplicable: //*[@id="checkbox_instrument model_Not applicable"]
+      Unknown: //*[@id="checkbox_instrument model_Unknown"]
+  SequencingFacet/LibraryLayout:
+    dropdown: //*[@id="Library Layout"]/div[2]
+    checkboxes:
+      NotSpecifiedinData: //*[@id="checkbox_library layout_Not specified in data"]
+      Pairedend: //*[@id="checkbox_Library Layout_Paired-End"]
+      Singleend: //*[@id="checkbox_library layout_Single-end"]
+  SequencingFacet/LibrarySelection:
+    dropdown: //*[@id="Library Selection"]/div[2]
+    checkboxes:
+      HybridSelection: //*[@id="checkbox_Library Selection_Hybrid Selection"]
+      NotspecifiedinData: //*[@id="checkbox_Library Selection_Not specified in data"]
+      PCR: //*[@id="checkbox_library selection_PCR"]
+      Poly-TEnrichment: //*[@id="checkbox_library selection_Poly-T Enrichment"]
+      PolyA: //*[@id="checkbox_library selection_PolyA"]
+      RAND: //*[@id="checkbox_library selection_Random"]
+      Random: //*[@id="checkbox_Library Selection_Random"]
+      cDNA: //*[@id="checkbox_Library Selection_cDNA"]
+      other: //*[@id="checkbox_library selection_Other"]
+      rRNADepletion: //*[@id="checkbox_Library Selection_rRNA Depletion"]
+  SequencingFacet/LibrarySource:
+    dropdown: //*[@id="Library Source"]/div[2]
+    checkboxes:
+      BulkWholeCell: //*[@id="checkbox_library source_Bulk Whole Cell"]
+      GenomicSingleCell: //*[@id="checkbox_library source_Genomic Single Cell"]
+      Genomic: //*[@id="checkbox_Library Source_Genomic"]
+      NotSpecifiedinData: //*[@id="checkbox_library source_Not specified in data"]
+      SingleCell: //*[@id="checkbox_library source_Single Cell"]
+      SingleNucleus: //*[@id="checkbox_library source_Single Nucleus"]
+      TransSingleCell: //*[@id="checkbox_library source_TRANSCRIPTOMIC SINGLE CELL"]
+      Transcriptomic: //*[@id="checkbox_Library Source_Transcriptomic"]
+      ViralRNA: //*[@id="checkbox_library source_VIRAL RNA"]
+  SequencingFacet/LibraryStrategy:
+    dropdown: //*[@id="Library Strategy"]/div[2]
+    checkbox_template: //*[@id="checkbox_library strategy_{value}"]
+    values: [OTHER, WGA, WGS]
+    checkboxes:
+      ATACSeq: //*[@id="checkbox_library strategy_ATAC-seq"]
+      Amplicon: //*[@id="checkbox_Library Strategy_AMPLICON"]
+      ArcherFusion: //*[@id="checkbox_library strategy_Archer Fusion"]
+      BisulfiteSeq: //*[@id="checkbox_library strategy_Bisulfite-Seq"]
+      NotSpecifiedindata: //*[@id="checkbox_Library Strategy_Not specified in data"]
+      RNASeq: //*[@id="checkbox_library strategy_RNA-Seq"]
+      TargetedCapture: //*[@id="checkbox_Library Strategy_Targeted-Capture"]
+      WXS: //*[@id="checkbox_Library Strategy_WXS"]
+  SequencingFacet/Platform:
+    dropdown: //*[@id="Platform"]/div[2]
+    checkbox_template: //*[@id="checkbox_platform_{value}"]
+    values: [BGISEQ, NovaSeqS4, ULTIMA, Unknown]
+    checkboxes:
+      HiSeq2500: //*[@id="checkbox_platform_Illumina HiSeq 2500"]
+      HiSeqXTen: //*[@id="checkbox_platform_Illumina HiSeq X Ten"]
+      ILLUMINA: //*[@id="checkbox_Platform_Illumina"]
+      NextSeq: //*[@id="checkbox_platform_Illumina NextSeq"]
+      NextSeq500: //*[@id="checkbox_platform_Illumina Next Seq 500"]
+      NextSeq550: //*[@id="checkbox_platform_Illumina Next Seq 550"]
+      NotSpecified: //*[@id="checkbox_platform_Not specified in data"]
+      NotSpecifiedindata: //*[@id="checkbox_platform_Not specified in data"]
+      NovaSeq6000: //*[@id="checkbox_platform_Illumina NovaSeq 6000"]
+  SequencingFacet/ReferenceGenomeAssembly:
+    dropdown: //*[@id="Reference Genome Assembly"]/div[2]
+    checkboxes:
+      GRCh37-lite: //*[@id="checkbox_reference genome assembly_GRCh37-lite"]
+      GRCh37: //*[@id="checkbox_Reference Genome Assembly_GRCh37"]
+      GRCh38: //*[@id="checkbox_Reference Genome Assembly_GRCh38"]
+      NotAvailable: //*[@id="checkbox_reference genome assembly_Not Available"]
+      Notspecifiedindata: //*[@id="checkbox_reference genome assembly_Not specified in data"]

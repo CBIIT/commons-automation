@@ -1,0 +1,5 @@
+# Converted from Katalon Object Repository/C3DC/HomePage
+page: HomePage
+elements:
+  Add-New-Locators: //*[@id='tile1_button']/a
+  WarningBan_Continue_Btn: //*[contains(text(),"Continue")]

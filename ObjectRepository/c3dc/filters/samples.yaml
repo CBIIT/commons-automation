@@ -1,0 +1,33 @@
+# Converted from Katalon Object Repository/C3DC/Filters/Samples
+page: Filters/Samples
+elements:
+  Samples_Facet: (//*[@id="[object Object]"])[3]
+groups:
+  Samples/AnatomicSite:
+    facet: (//*[@id="[object Object]"])[3]
+    dropdown: //*[@id="Anatomic site"]
+    checkboxes:
+      BloodC42.0: '//*[@id="checkbox_Anatomic site_C42.0 : Blood"]'
+      Blood: //*[@id="checkbox_Anatomic site_Blood"]
+      InvalidValue: //*[@id="checkbox_Anatomic site_Invalid value"]
+      Kidney: '//*[@id="checkbox_Anatomic site_C64.9 : Kidney, NOS"]'
+      NasalCavity: '//*[@id="checkbox_Anatomic site_C30.0 : Nasal cavity"]'
+      NotReported: //*[@id="checkbox_Anatomic site_Not Reported"]
+      Retroperitoneum: '//*[@id="checkbox_Anatomic site_C48.0 : Retroperitoneum"]'
+      UnknownPrimSite: '//*[@id="checkbox_Anatomic site_C80 : UNKNOWN PRIMARY SITE"]'
+      UpperLimb: '//*[@id="checkbox_Anatomic site_C76.4 : Upper limb, NOS"]'
+    other:
+      LymphNodeLeg: '//*[@id="checkbox_Anatomic site_C77.4 : Lymph nodes of inguinal region or leg"]'
+  Samples/SampleTumorClassification:
+    facet: (//*[@id="[object Object]"])[3]
+    dropdown: //*[@id="Tumor classification"]
+    checkbox_template: //*[@id="checkbox_Tumor classification_{value}"]
+    values: [Metastatic, Primary, Regional, Unknown]
+    checkboxes:
+      NotApplicable: //*[@id="checkbox_Tumor classification_Not Applicable"]
+      NotReported: //*[@id="checkbox_Tumor classification_Not Reported"]
+  Samples/SampleTumorStatus:
+    facet: (//*[@id="[object Object]"])[3]
+    dropdown: //*[@id="Sample tumor status"]
+    checkbox_template: //*[@id="checkbox_Sample tumor status_{value}"]
+    values: [Normal, Tumor, Unknown]

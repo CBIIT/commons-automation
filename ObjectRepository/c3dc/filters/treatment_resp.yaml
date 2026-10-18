@@ -1,0 +1,22 @@
+# Converted from Katalon Object Repository/C3DC/Filters/TreatmentResp
+page: Filters/TreatmentResp
+elements:
+  TreatReponse-Facet: (//*[text()="Treatment Response"])[1]
+groups:
+  TreatmentResp/RespCategory:
+    facet: (//*[text()="Treatment Response"])[1]
+    dropdown: //*[@id="Response Category"]
+    checkboxes:
+      NotReported: //*[@id="checkbox_Response Category_Not Reported"]
+      Unknown: //*[@id="checkbox_Response Category_Unknown"]
+  TreatmentResp/RespSystem:
+    facet: (//*[text()="Treatment Response"])[1]
+    dropdown: //*[@id="Response System"]
+    checkboxes:
+      NotReported: //*[@id="checkbox_Response System_Not Reported"]
+  TreatmentResp/Response:
+    facet: (//*[text()="Treatment Response"])[1]
+    dropdown: //*[@id="Response"]
+    checkboxes:
+      NotDone: //*[@id="checkbox_Response_Not Done"]
+      StableDisease: //*[@id="checkbox_Response_Stable Disease"]

@@ -1,0 +1,19 @@
+# Converted from Katalon Object Repository/CDS/Home_page
+page: Home_page
+elements:
+  AboutBento_ReadMore_Btn: //*[@id='tile1_button']/a
+  AboutBento_Title: //*[@id="about_title"]/span
+  AboutPage_Resources_title: //span[text()="Resources"]
+  Bento_logo: //img[@alt='Bento Logo']
+  Body_titile: //*[@id="root"]/div[2]/div[1]/div[1]/div/div/div[2]/div/div[1]
+  ExploreTheSite_Btn: (//*[@href="#/cases"])[1]
+  Explore_Btn: //*[@id='tile1_button']/a
+  HomePage_ExploreTheSite_Btn: //*[text()='EXPLORE THE SITE']
+  HomePage_StatBar-Arms: //*[@id="count_2"]
+  HomePage_StatBar-Assays: //*[@id="count_5"]
+  HomePage_StatBar-Cases: //*[@id="count_3"]
+  HomePage_StatBar-Files: //*[@id="count_6"]
+  HomePage_StatBar-Programs: //*[@id="count_1"]
+  HomePage_StatBar-Samples: //*[@id="count_4"]
+  Programs_View_Btn: //*[text()='View']
+  Resources_ReadMore_Btn: //*[@id="tile3_button"]/a

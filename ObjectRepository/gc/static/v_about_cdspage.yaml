@@ -1,0 +1,12 @@
+# Converted from Katalon Object Repository/CDS/Static/V_AboutCDSPage
+page: Static/V_AboutCDSPage
+elements:
+  AboutDescription: //div[.='ABOUT CDS']/parent::span
+  BannerTitle: //*[@id = 'about_title']
+  CGCLink: //a[@title='Velsera-CGC']
+  CGCLink2: (//a[@title='Velsera Cancer Genomics Cloud'])[2]
+  CRDCEmailLink: //a[@title='NCICRDC@mail.nih.gov']
+  DBGAPLink: //a[@title='dbGaP']
+  ISBLink: //a[@title='ISB Cancer Genomics Cloud']
+  ImportingFilesLink: //a[@title='Learn more about importing files from CDS Portal to Velsera']
+  VelseraLink: //a[@title='Velsera website']

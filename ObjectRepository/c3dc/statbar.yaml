@@ -1,0 +1,7 @@
+# Explore Participants stat bar (Studies, Participants, Samples, Files)
+page: Statbar
+elements:
+  Studies-Count: //*[@id="statsbar_count_1"]
+  Participants-Count: //*[@id="statsbar_count_2"]
+  Samples-Count: //*[@id="statsbar_count_3"]
+  Files-Count: //*[@id="statsbar_count_4"]

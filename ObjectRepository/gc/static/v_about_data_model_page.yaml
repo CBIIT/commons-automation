@@ -1,0 +1,7 @@
+# Converted from Katalon Object Repository/CDS/Static/V_AboutDataModelPage
+page: Static/V_AboutDataModelPage
+elements:
+  BannerTitle: //*[@id = 'about_title']
+  BentoLink: //a[@title='Bento platform']
+  DataModelDescription: //div[.='The Core Data Model']/../div[1]
+  DataModelLink: //a[@title='https://github.com/CBIIT/cds-model']

@@ -1,0 +1,30 @@
+# Converted from Katalon Object Repository/CDS/Data_page/Filter/FilesFacet
+page: Data_page/Filter/FilesFacet
+groups:
+  FilesFacet/FileType:
+    dropdown: //*[@id="File Type"]/div[2]
+    search: //input[@placeholder='e.g. BAM']
+    checkboxes:
+      CSV: //*[@id="checkbox_File Type_CSV"]
+      GCT: //*[@id="checkbox_File Type_GCT/RES FORMAT"]
+      HIC: //*[@id="checkbox_File Type_HIC"]
+      NotSpecified: //*[@id="checkbox_File Type_Not specified in data"]
+      bai: //*[@id="checkbox_File Type_BAI"]
+      bam: //*[@id="checkbox_File Type_MAF"]
+      bw: //*[@id="checkbox_File Type_BW"]
+      crai: //*[@id="checkbox_File Type_CRAI"]
+      cram: //*[@id="checkbox_File Type_CRAM"]
+      dicom: //*[@id="checkbox_File Type_DICOM"]
+      fastq: //*[@id="checkbox_File Type_FASTQ"]
+      hdf5: //*[@id="checkbox_File Type_HDF5"]
+      html: //*[@id="checkbox_File Type_HTML"]
+      idat: //*[@id="checkbox_File Type_IDAT"]
+      json: //*[@id="checkbox_File Type_JSON"]
+      maf: //*[@id="checkbox_File Type_MAF"]
+      pdf: //*[@id="checkbox_File Type_PDF"]
+      rds: //*[@id="checkbox_File Type_RDS"]
+      tiff: //*[@id="checkbox_File Type_TIFF"]
+      tsv: //*[@id="checkbox_File Type_TSV"]
+      txt: //*[@id="checkbox_File Type_TXT"]
+      vcf: //*[@id="checkbox_File Type_VCF"]
+      xlsx: //*[@id="checkbox_File Type_XLSX"]

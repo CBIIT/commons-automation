@@ -1,0 +1,7 @@
+playwright>=1.49
+pytest>=8.0
+pytest-xdist>=3.5        # optional: run tests in parallel (-n 4)
+openpyxl>=3.1
+XlsxWriter>=3.2
+PyYAML>=6.0
+neo4j>=5.20              # Memgraph expected data (C3DC and GC)
