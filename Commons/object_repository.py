@@ -69,7 +69,7 @@ class ObjectRepository:
         self.app = app
         self._elements: Dict[str, str] = {}
         self._groups: Dict[str, FilterGroup] = {}
-        self._load(Path(root) / app.lower())
+        self._load(Path(root) / app)
 
     def _load(self, folder: Path):
         if not folder.is_dir():

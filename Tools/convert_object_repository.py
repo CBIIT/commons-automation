@@ -172,7 +172,7 @@ def convert_app(katalon_root: Path, app: str, out_root: Path) -> dict:
     n_entries = 0
     for page_dir, page in pages.items():
         parts = [slug(p) for p in page_dir.split("/")] if page_dir else ["root"]
-        out_file = out_root / app.lower() / Path(*parts[:-1]) / f"{parts[-1]}.yaml"
+        out_file = out_root / app / Path(*parts[:-1]) / f"{parts[-1]}.yaml"
         out_file.parent.mkdir(parents=True, exist_ok=True)
         doc = {"page": page_dir or "(root)"}
         if page["elements"]:

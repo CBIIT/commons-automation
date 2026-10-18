@@ -149,7 +149,7 @@ Table pagination limits: **C3DC** `max_pages=2` per tab; **GC** `max_pages=10` (
 ### Object repository (filters)
 
 ```yaml
-# ObjectRepository/gc/…/study_facet.yaml (abridged)
+# ObjectRepository/GC/…/study_facet.yaml (abridged)
 groups:
   StudyFacet/PHS_Accession:
     dropdown: //*[@id="PHS Accession"]/div[2]
@@ -189,5 +189,5 @@ Map legacy suite names to pytest markers (e.g. CDS_Smoke → `-m "gc and smoke"`
 
 ## Known gaps
 
-- C3DC filters depend on `ObjectRepository/c3dc/filters/*.yaml` matching the Explore Participants UI; fix locators when facets change.
+- C3DC filters depend on `ObjectRepository/C3DC/filters/*.yaml` matching the Explore Participants UI; fix locators when facets change.
 - Some Katalon tests remain `pytest.mark.skip` until object-repo checkbox values are fixed—see `pytest -rs`.
