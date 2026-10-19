@@ -162,14 +162,15 @@ def test_c3dc_repository_lookup_and_katalon_paths():
     assert xp == repo.xpath("C3DC/ResultTabs/Studies-Tab") == repo.xpath("Object Repository/C3DC/ResultTabs/Studies-Tab")
 
 
-def test_filter_template_and_explicit_checkbox():
+def test_filter_facet_dropdown_and_explicit_checkbox():
     repo = ObjectRepository("C3DC")
     g = repo.filter_group("Study/dbGaP_Accession")
-    assert g.facet_key == "Study_Facet"
+    assert g.facet_key is None
     assert g.facet == '(//*[text()="Study"])[1]'
     assert g.dropdown == '(//*[@id="dbGaP Accession"])[1]'
     assert g.checkbox_xpath("phs000466") == '//*[@id="checkbox_dbGaP Accession_phs000466"]'
-    assert g.checkbox_xpath("phs999999").endswith('phs999999"]')          # any new study works with no new locator
+    with pytest.raises(LocatorNotFound):
+        g.checkbox_xpath("phs999999")
 
 
 def test_unknown_locator_gives_helpful_error():

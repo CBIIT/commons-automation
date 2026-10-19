@@ -1,11 +1,5 @@
-"""TC01_C3DC_StaticData: static text and links on the C3DC home / Resources / About pages.
+"""Verify static page content on the home page, resources, about, and other pages listed in the test."""
 
-Katalon: Test Cases/C3DC_TestCases/Studies/StaticData/TC01_C3DC_StaticData
-Input:   InputFiles/C3DC/C3DC_StaticData.xlsx  (one sheet per page)
-
-Katalon navigated to /resources and /about by URL because clicking the menu did not work in the
-pipeline; the same is done here.
-"""
 import pytest
 
 

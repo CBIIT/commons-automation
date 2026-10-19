@@ -1,8 +1,5 @@
-"""TC01_GC_StaticData: static text and links on the GC home / About pages.
+"""Verify static page content on the pages exercised in this test."""
 
-Katalon: Test Cases/CDS_TestCases/Studies/StaticData/TC01_GC_StaticData
-Input:   InputFiles/GC/CDS_StaticData.xlsx  (one sheet per page)
-"""
 import pytest
 
 
