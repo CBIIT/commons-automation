@@ -19,7 +19,6 @@ def test_TC04_GC_phs001554_RefGenAsbly_GRCh37_PrimDiag_ColoCarc(gc):
     gc.select_filter("StudyFacet/PHS_Accession", "phs001554")
     gc.select_filter("GenomicFacet/ReferenceGenomeAssembly", "GRCh37")
     gc.select_filter("DiagnosisFacet/PrimaryDiagnosis", "ColorectalCarcinoma")
-    gc.select_filter("ImagingFacet/ImageModality", "NotSpecifiedInData")
     gc.read_statbar()
     gc.verify_tab("Participants")
     gc.verify_tab("Samples")

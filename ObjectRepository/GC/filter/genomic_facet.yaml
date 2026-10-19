@@ -9,7 +9,7 @@ groups:
       HiSeqXTen: //*[@id="checkbox_Instrument Model_HiSeq X Ten"]
       IlluminaHiSeq2000: //*[@id="checkbox_Instrument Model_Illumina HiSeq 2000"]
       IlluminaHiSeq2500: //*[@id="checkbox_Instrument Model_Illumina HiSeq 2500"]
-      IlluminaHiSeq4000: //*[@id="checkbox_instrument model_Illumina HiSeq 4000"]
+      IlluminaHiSeq4000: //*[@id="checkbox_Instrument Model_Illumina HiSeq 4000"]
       IlluminaHiSeqXTen: //*[@id="checkbox_Instrument Model_Illumina HiSeq X Ten"]
       IlluminaHiSeq: //*[@id="checkbox_instrument model_Illumina HiSeq"]
       IlluminaMiSeq: //*[@id="checkbox_instrument model_Illumina MiSeq"]

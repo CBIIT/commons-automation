@@ -10,7 +10,7 @@ groups:
       HIC: //*[@id="checkbox_File Type_HIC"]
       NotSpecified: //*[@id="checkbox_File Type_Not specified in data"]
       bai: //*[@id="checkbox_File Type_BAI"]
-      bam: //*[@id="checkbox_File Type_MAF"]
+      bam: //*[@id="checkbox_File Type_BAM"]
       bw: //*[@id="checkbox_File Type_BW"]
       crai: //*[@id="checkbox_File Type_CRAI"]
       cram: //*[@id="checkbox_File Type_CRAM"]
