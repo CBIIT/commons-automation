@@ -1,14 +1,13 @@
 # Converted from Katalon Object Repository/C3DC/Filters/Demographics
 page: Filters/Demographics
-elements:
-  Demographics_Facet: (//*[text()="Demographics"])[1]
 groups:
   Demographics/Race:
-    facet_key: Demographics_Facet
+    facet: (//*[text()="Demographics"])[1]
     dropdown: //*[@id='Race' and @role='button']
-    checkbox_template: //*[@id="checkbox_Race_{value}"]
-    values: [Asian, Unknown, White]
     checkboxes:
+      Asian: //*[@id="checkbox_Race_Asian"]
+      Unknown: //*[@id="checkbox_Race_Unknown"]
+      White: //*[@id="checkbox_Race_White"]
       AmerIndAlaskan: //*[@id="checkbox_Race_American Indian or Alaska Native"]
       BlkAfricAmer: //*[@id="checkbox_Race_Black or African American"]
       HispOrLatino: //*[@id="checkbox_Race_Hispanic or Latino"]
@@ -16,9 +15,10 @@ groups:
       NotAlwdToCollect: //*[@id="checkbox_Race_Not Allowed to Collect"]
       NotReported: //*[@id="checkbox_Race_Not Reported"]
   Demographics/SexAtBirth:
-    facet_key: Demographics_Facet
+    facet: (//*[text()="Demographics"])[1]
     dropdown: (//*[@id="Sex at Birth"])[1]
-    checkbox_template: //*[@id="checkbox_Sex at Birth_{value}"]
-    values: [Female, Male, Unknown]
     checkboxes:
+      Female: //*[@id="checkbox_Sex at Birth_Female"]
+      Male: //*[@id="checkbox_Sex at Birth_Male"]
+      Unknown: //*[@id="checkbox_Sex at Birth_Unknown"]
       NotReported: //*[@id="checkbox_Sex At Birth_Not Reported"]

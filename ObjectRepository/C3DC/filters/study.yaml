@@ -1,18 +1,42 @@
-# Converted from Katalon Object Repository/C3DC/Filters/Study
 page: Filters/Study
-elements:
-  Study_Facet: (//*[text()="Study"])[1]
 groups:
   Study/StudyName:
-    facet_key: Study_Facet
     dropdown: //*[@id="Study Short Title"]
     checkboxes:
-      MolecularCharacterizationInitiative: //*[@id="checkbox_Study Short Title_TARGET Neuroblastoma"]
-      TargetNeuroblastoma: //*[@id="checkbox_Study Short Title_Molecular Characterization Initiative"]
+      MolecularCharacterizationInitiative: //*[@id="checkbox_Study Short Title_TARGET
+        Neuroblastoma"]
+      TargetNeuroblastoma: //*[@id="checkbox_Study Short Title_Molecular Characterization
+        Initiative"]
+    facet: (//*[text()="Study"])[1]
   Study/dbGaP_Accession:
-    facet_key: Study_Facet
     dropdown: (//*[@id="dbGaP Accession"])[1]
-    checkbox_template: //*[@id="checkbox_dbGaP Accession_{value}"]
-    values: [phs000463, phs000464, phs000466, phs000467, phs000468, phs000469, phs000470, phs000471, phs000720, phs001437, phs002371, phs002430, phs002431, phs002504, phs002517, phs002518, phs002529, phs002599, phs002620, phs002677, phs002790, phs003111, phs003164, phs003432, phs003519]
     other:
-      dbGaPAccesFacet_Scroll: "//div[contains(@class,'MuiCollapse-root')]//div[\r\n  (contains(@style,'overflow') or contains(@class,'jss'))\r\n]"
+      dbGaPAccesFacet_Scroll: "//div[contains(@class,'MuiCollapse-root')]//div[\r\n\
+        \  (contains(@style,'overflow') or contains(@class,'jss'))\r\n]"
+    facet: (//*[text()="Study"])[1]
+    checkboxes:
+      phs000463: //*[@id="checkbox_dbGaP Accession_phs000463"]
+      phs000464: //*[@id="checkbox_dbGaP Accession_phs000464"]
+      phs000466: //*[@id="checkbox_dbGaP Accession_phs000466"]
+      phs000467: //*[@id="checkbox_dbGaP Accession_phs000467"]
+      phs000468: //*[@id="checkbox_dbGaP Accession_phs000468"]
+      phs000469: //*[@id="checkbox_dbGaP Accession_phs000469"]
+      phs000470: //*[@id="checkbox_dbGaP Accession_phs000470"]
+      phs000471: //*[@id="checkbox_dbGaP Accession_phs000471"]
+      phs000720: //*[@id="checkbox_dbGaP Accession_phs000720"]
+      phs001437: //*[@id="checkbox_dbGaP Accession_phs001437"]
+      phs002371: //*[@id="checkbox_dbGaP Accession_phs002371"]
+      phs002430: //*[@id="checkbox_dbGaP Accession_phs002430"]
+      phs002431: //*[@id="checkbox_dbGaP Accession_phs002431"]
+      phs002504: //*[@id="checkbox_dbGaP Accession_phs002504"]
+      phs002517: //*[@id="checkbox_dbGaP Accession_phs002517"]
+      phs002518: //*[@id="checkbox_dbGaP Accession_phs002518"]
+      phs002529: //*[@id="checkbox_dbGaP Accession_phs002529"]
+      phs002599: //*[@id="checkbox_dbGaP Accession_phs002599"]
+      phs002620: //*[@id="checkbox_dbGaP Accession_phs002620"]
+      phs002677: //*[@id="checkbox_dbGaP Accession_phs002677"]
+      phs002790: //*[@id="checkbox_dbGaP Accession_phs002790"]
+      phs003111: //*[@id="checkbox_dbGaP Accession_phs003111"]
+      phs003164: //*[@id="checkbox_dbGaP Accession_phs003164"]
+      phs003432: //*[@id="checkbox_dbGaP Accession_phs003432"]
+      phs003519: //*[@id="checkbox_dbGaP Accession_phs003519"]

@@ -9,8 +9,9 @@ Katalon is still findable. Filter facets are looked up as *groups*:
 
     repo.filter_group('Study/dbGaP_Accession').checkbox_xpath('phs000466')
 
-Katalon needed one .rs file per checkbox; a group holds the dropdown, the search box and a
-`checkbox_template` with a {value} placeholder, so a new study value needs no new locator.
+Each filter group is YAML with `facet`, `dropdown`, and `checkboxes` (short key → xpath).
+Optional: `search` (typeahead facets), `dropdowns` (two sub-lists), `other` (scroll helpers).
+Legacy `checkbox_template` / `values` / `facet_key` are still loaded if present but prefer explicit checkboxes.
 """
 from dataclasses import dataclass
 from pathlib import Path

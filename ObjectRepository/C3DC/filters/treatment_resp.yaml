@@ -1,7 +1,4 @@
-# Converted from Katalon Object Repository/C3DC/Filters/TreatmentResp
 page: Filters/TreatmentResp
-elements:
-  TreatReponse-Facet: (//*[text()="Treatment Response"])[1]
 groups:
   TreatmentResp/RespCategory:
     facet: (//*[text()="Treatment Response"])[1]

@@ -1,4 +1,3 @@
-# Converted from Katalon Object Repository/CDS/Data_page/Filter/SamplesFacet
 page: Data_page/Filter/SamplesFacet
 groups:
   SamplesFacet/SampleTumorStatus:
@@ -9,8 +8,6 @@ groups:
       Tumor: //*[@id="checkbox_Sample Tumor Status_Tumor"]
   SamplesFacet/SampleType:
     dropdown: //*[@id="sample type"]/div[2]
-    checkbox_template: //*[@id="checkbox_sample type_{value}"]
-    values: [Analyte, Ascites, Blood, DNA, Metastatic, RNA, Skin, Thymus, Tissue, Unknown]
     checkboxes:
       BDC-BoneMarrow: //*[@id="checkbox_sample type_Blood Derived Cancer - Bone Marrow"]
       BloodClot: //*[@id="checkbox_sample type_Blood Clot"]
@@ -20,3 +17,13 @@ groups:
       SolidTissueNormal: //*[@id="checkbox_sample type_Solid Tissue Normal"]
       TumorAdjacentNormal: //*[@id="checkbox_sample type_Tumor Adjacent Normal"]
       Prim-Xenograft-Tissue: //*[@id="checkbox_sample type_Primary Xenograft Tissue"]
+      Analyte: //*[@id="checkbox_sample type_Analyte"]
+      Ascites: //*[@id="checkbox_sample type_Ascites"]
+      Blood: //*[@id="checkbox_sample type_Blood"]
+      DNA: //*[@id="checkbox_sample type_DNA"]
+      Metastatic: //*[@id="checkbox_sample type_Metastatic"]
+      RNA: //*[@id="checkbox_sample type_RNA"]
+      Skin: //*[@id="checkbox_sample type_Skin"]
+      Thymus: //*[@id="checkbox_sample type_Thymus"]
+      Tissue: //*[@id="checkbox_sample type_Tissue"]
+      Unknown: //*[@id="checkbox_sample type_Unknown"]

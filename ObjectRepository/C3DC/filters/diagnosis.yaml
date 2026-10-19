@@ -1,7 +1,4 @@
-# Converted from Katalon Object Repository/C3DC/Filters/Diagnosis
 page: Filters/Diagnosis
-elements:
-  Diagnosis-Facet: (//*[text()='Diagnosis'])[1]
 groups:
   Diagnosis/AgeAtDiagnosis:
     facet: (//*[text()='Diagnosis'])[1]
@@ -14,22 +11,30 @@ groups:
     checkboxes:
       C420_Blood: '//*[@id="checkbox_Diagnosis Anatomic Site_C42.0 : Blood"]'
       AdreGlndNOS: '//*[@id="checkbox_Anatomic Site_C74.9 : Adrenal gland, NOS"]'
-      AutonNervSysNOS: '//*[@id="checkbox_Anatomic Site_C47.9 : Autonomic nervous system, NOS"]'
+      AutonNervSysNOS: '//*[@id="checkbox_Anatomic Site_C47.9 : Autonomic nervous
+        system, NOS"]'
       Blood: '//*[@id="checkbox_Anatomic Site_C42.0 : Blood"]'
       BoneNOS: '//*[@id="checkbox_Anatomic Site_C41.9 : Bone, NOS"]'
-      C01.9.BaseOfTongue,NOS: '//*[@id="checkbox_Anatomic Site_C01.9 : Base of tongue, NOS"]'
+      C01.9.BaseOfTongue,NOS: '//*[@id="checkbox_Anatomic Site_C01.9 : Base of tongue,
+        NOS"]'
       C029TongueNOS: '//*[@id="checkbox_Anatomic Site_C02.9 : Tongue, NOS"]'
       C05.0.HardPalate: '//*[@id="checkbox_Anatomic Site_C05.0 : Hard palate"]'
-      C05.1.SoftPalate,NOS: '//*[@id="checkbox_Anatomic Site_C05.1 : Soft palate, NOS"]'
+      C05.1.SoftPalate,NOS: '//*[@id="checkbox_Anatomic Site_C05.1 : Soft palate,
+        NOS"]'
       C06.9.Mouth,NOS: '//*[@id="checkbox_Anatomic Site_C06.9 : Mouth, NOS"]'
       C060CheekMucosa: '//*[@id="checkbox_Anatomic Site_C06.0 : Cheek mucosa"]'
       C07.9 ParotidGland: '//*[@id="checkbox_Anatomic Site_C07.9 : Parotid gland"]'
-      C08.0.SubmandibularGland: '//*[@id="checkbox_Anatomic Site_C08.0 : Submandibular gland"]'
-      C08.9.MajorSalivaryGland,NOS: '//*[@id="checkbox_Anatomic Site_C08.9 : Major salivary gland, NOS"]'
+      C08.0.SubmandibularGland: '//*[@id="checkbox_Anatomic Site_C08.0 : Submandibular
+        gland"]'
+      C08.9.MajorSalivaryGland,NOS: '//*[@id="checkbox_Anatomic Site_C08.9 : Major
+        salivary gland, NOS"]'
       C10.9.Oropharynx,NOS: '//*[@id="checkbox_Anatomic Site_C10.9 : Oropharynx, NOS"]'
-      C11.2.LateralWallOfNasopharynx: '//*[@id="checkbox_Anatomic Site_C11.2 : Lateral wall of nasopharynx"]'
-      C11.9.Nasopharynx,NOS: '//*[@id="checkbox_Anatomic Site_C11.9 : Nasopharynx, NOS"]'
-      C22LiverIntrehapatic: '//*[@id="checkbox_Anatomic Site_C22 : LIVER AND INTRAHEPATIC BILE DUCTS"]'
+      C11.2.LateralWallOfNasopharynx: '//*[@id="checkbox_Anatomic Site_C11.2 : Lateral
+        wall of nasopharynx"]'
+      C11.9.Nasopharynx,NOS: '//*[@id="checkbox_Anatomic Site_C11.9 : Nasopharynx,
+        NOS"]'
+      C22LiverIntrehapatic: '//*[@id="checkbox_Anatomic Site_C22 : LIVER AND INTRAHEPATIC
+        BILE DUCTS"]'
       C421BoneMarrow: '//*[@id="checkbox_Anatomic Site_C42.1 : Bone marrow"]'
       C649KidneyNOS: '//*[@id="checkbox_Anatomic Site_C64.9 : Kidney, NOS"]'
       CerbralMenings: '//*[@id="checkbox_Anatomic Site_C70.0 : Cerebral meninges"]'
@@ -41,15 +46,20 @@ groups:
     facet: (//*[text()='Diagnosis'])[1]
     dropdown: //*[@id='Diagnosis' and @role='button']
     checkboxes:
-      8000-0-Neoplasm,benign: '//*[@id="checkbox_Diagnosis Classification_8000/0 : Neoplasm, benign"]'
-      8000-1-Neoplasm,uncertainwhether,benign: '//*[@id="checkbox_Diagnosis Classification_8000/1 : Neoplasm, uncertain whether benign or malignant"]'
-      8000-3-Neoplasm,malignant: '//*[@id="checkbox_Diagnosis Classification_8000/3 : Neoplasm, malignant"]'
+      8000-0-Neoplasm,benign: '//*[@id="checkbox_Diagnosis Classification_8000/0 :
+        Neoplasm, benign"]'
+      8000-1-Neoplasm,uncertainwhether,benign: '//*[@id="checkbox_Diagnosis Classification_8000/1
+        : Neoplasm, uncertain whether benign or malignant"]'
+      8000-3-Neoplasm,malignant: '//*[@id="checkbox_Diagnosis Classification_8000/3
+        : Neoplasm, malignant"]'
       80103CarciNOS: //*[@id="checkbox_Diagnosis_Carcinoma, NOS"]
       88003SarcomaNOS: '//*[@id="checkbox_Diagnosis_8800/3 : Sarcoma, NOS"]'
       89643ClearSarcKidney: //*[@id="checkbox_Diagnosis_Clear cell sarcoma of kidney"]
       95003NeurNOS: '//*[@id="checkbox_Diagnosis_9500/3 : Neuroblastoma, NOS"]'
-      9540NeurofibroNOS: '//*[@id="checkbox_Diagnosis_9540/1 : Neurofibromatosis, NOS"]'
-      98113.B.lymphoblaLeukNOS: '//*[@id="checkbox_Diagnosis_9811/3 : B lymphoblastic leukemia/lymphoma, NOS"]'
+      9540NeurofibroNOS: '//*[@id="checkbox_Diagnosis_9540/1 : Neurofibromatosis,
+        NOS"]'
+      98113.B.lymphoblaLeukNOS: '//*[@id="checkbox_Diagnosis_9811/3 : B lymphoblastic
+        leukemia/lymphoma, NOS"]'
       98373TlymphLymphoma: '//*[@id="checkbox_Diagnosis_9837/3 : T lymphoblastic leukemia/lymphoma"]'
       AcuteBip: '//*[@id="checkbox_Diagnosis_9805/3 : Acute biphenotypic leukemia"]'
       AcuteLeukAmbLing: //*[@id="checkbox_Diagnosis_Acute Leukemias of Ambiguous Lineage"]
@@ -57,7 +67,8 @@ groups:
       AcuteMyelLeukNOS: //*[@id="checkbox_Diagnosis_Acute myeloid leukemia, NOS"]
       AdenomaNOS: //*[@id="checkbox_Diagnosis_Adenoma, NOS"]
       Ganglioneuroblastoma: //*[@id="checkbox_Diagnosis_Ganglioneuroblastoma"]
-      JuvenileMyLeNOS: '//*[@id="checkbox_Diagnosis_9946/3 : Juvenile myelomonocytic leukemia, NOS"]'
+      JuvenileMyLeNOS: '//*[@id="checkbox_Diagnosis_9946/3 : Juvenile myelomonocytic
+        leukemia, NOS"]'
       NeoplsmBen: //*[@id="checkbox_Diagnosis_Neoplasm, benign"]
       NephroblastomaNOS: //*[@id="checkbox_Diagnosis_Nephroblastoma, NOS"]
       Neuroblastoma: //*[@id="checkbox_Diagnosis_Neuroblastoma"]
@@ -69,26 +80,32 @@ groups:
       SarcomaNOS: //*[@id="checkbox_Diagnosis_Sarcoma, NOS"]
       SmalCelCarciNOS: //*[@id="checkbox_Diagnosis_Small cell carcinoma, NOS"]
     other:
-      OsteosarNOS-Chkbx - Copy: '//*[@id="checkbox_Diagnosis_9180/3 : Osteosarcoma, NOS"]'
+      OsteosarNOS-Chkbx - Copy: '//*[@id="checkbox_Diagnosis_9180/3 : Osteosarcoma,
+        NOS"]'
   Diagnosis/DiagnosisBasis:
     facet: (//*[text()='Diagnosis'])[1]
     dropdown: (//*[@id="Diagnosis Basis"])[1]
-    checkbox_template: //*[@id="checkbox_Diagnosis Basis_{value}"]
-    values: [Clinical, Pathology, Unknown]
+    checkboxes:
+      Clinical: //*[@id="checkbox_Diagnosis Basis_Clinical"]
+      NotReported: //*[@id="checkbox_Diagnosis Basis_Not Reported"]
+      Pathology: //*[@id="checkbox_Diagnosis Basis_Pathology"]
+      Unknown: //*[@id="checkbox_Diagnosis Basis_Unknown"]
   Diagnosis/DiagsClasifctnSystem:
     facet: (//*[text()='Diagnosis'])[1]
     dropdown: (//*[@id="Diagnosis Classification System"])[1]
     checkboxes:
       ICD-O-3.2: //*[@id="checkbox_Diagnosis Classification System_ICD-O-3.2"]
-      IndForStudy: //*[@id="checkbox_Diagnosis Classification System_Indication for Study"]
+      IndForStudy: //*[@id="checkbox_Diagnosis Classification System_Indication for
+        Study"]
       WHO: //*[@id="checkbox_Diagnosis Classification System_WHO CNS5 Integrated Diagnosis"]
   Diagnosis/DiseasePhase:
     facet: (//*[text()='Diagnosis'])[1]
     dropdown: (//*[@id="Disease Phase"])[1]
-    checkbox_template: //*[@id="checkbox_Disease Phase_{value}"]
-    values: [Progression, Relapse, Unknown]
     checkboxes:
       IndicationForStudy: //*[@id="checkbox_Race_Asian"]
       InitialDiag: //*[@id="checkbox_Disease Phase_Initial Diagnosis"]
       NotReported: //*[@id="checkbox_Disease Phase_Not Reported"]
       RelapProgrsion: //*[@id="checkbox_Disease Phase_Relapse/Progression"]
+      Progression: //*[@id="checkbox_Disease Phase_Progression"]
+      Relapse: //*[@id="checkbox_Disease Phase_Relapse"]
+      Unknown: //*[@id="checkbox_Disease Phase_Unknown"]

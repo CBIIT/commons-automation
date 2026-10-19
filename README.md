@@ -149,14 +149,17 @@ Table pagination limits: **C3DC** `max_pages=2` per tab; **GC** `max_pages=10` (
 ### Object repository (filters)
 
 ```yaml
-# ObjectRepository/GC/…/study_facet.yaml (abridged)
+# ObjectRepository/C3DC/filters/demographics.yaml (pattern for all filter groups)
 groups:
-  StudyFacet/PHS_Accession:
-    dropdown: //*[@id="PHS Accession"]/div[2]
-    checkbox_template: //*[@id="checkbox_PHS Accession_{value}"]
+  Demographics/Race:
+    facet: (//*[text()="Demographics"])[1]
+    dropdown: //*[@id='Race' and @role='button']
     checkboxes:
-      phs001554: //*[@id='checkbox_PHS Accession_phs001554']   # exceptions only
+      Asian: //*[@id="checkbox_Race_Asian"]
+      BlkAfricAmer: //*[@id="checkbox_Race_Black or African American"]
 ```
+
+Add one `checkboxes` entry per value tests pass to `select_filter`. Some GC groups omit `facet` when the sub-filter opens without expanding the accordion; optional `search` / `dropdowns` / `other` stay as needed.
 
 ## Adding another application
 

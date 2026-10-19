@@ -1,4 +1,3 @@
-# Converted from Katalon Object Repository/CDS/Data_page/Filter/SequencingFacet
 page: Data_page/Filter/SequencingFacet
 groups:
   SequencingFacet/InstrumentModel:
@@ -16,7 +15,8 @@ groups:
       IlluminaNextSeq500: //*[@id="checkbox_Instrument Model_Illumina NextSeq 500"]
       IlluminaNextSeq: //*[@id="checkbox_instrument model_Illumina NextSeq"]
       IlluminaNovaSeq6000: //*[@id="checkbox_Instrument Model_Illumina NovaSeq 6000"]
-      IlluminaNovaSeqXPlus: //*[@id="checkbox_Instrument Model_Illumina NovaSeq X Plus"]
+      IlluminaNovaSeqXPlus: //*[@id="checkbox_Instrument Model_Illumina NovaSeq X
+        Plus"]
       IlluminaNovaSeq: //*[@id="checkbox_instrument model_Illumina NovaSeq"]
       NextSeq500: //*[@id="checkbox_instrument model_NextSeq 500"]
       NotSpecifiedindata: //*[@id="checkbox_instrument model_Not specified in data"]
@@ -55,8 +55,6 @@ groups:
       ViralRNA: //*[@id="checkbox_library source_VIRAL RNA"]
   SequencingFacet/LibraryStrategy:
     dropdown: //*[@id="Library Strategy"]/div[2]
-    checkbox_template: //*[@id="checkbox_library strategy_{value}"]
-    values: [OTHER, WGA, WGS]
     checkboxes:
       ATACSeq: //*[@id="checkbox_library strategy_ATAC-seq"]
       Amplicon: //*[@id="checkbox_Library Strategy_AMPLICON"]
@@ -66,10 +64,11 @@ groups:
       RNASeq: //*[@id="checkbox_library strategy_RNA-Seq"]
       TargetedCapture: //*[@id="checkbox_Library Strategy_Targeted-Capture"]
       WXS: //*[@id="checkbox_Library Strategy_WXS"]
+      OTHER: //*[@id="checkbox_library strategy_OTHER"]
+      WGA: //*[@id="checkbox_library strategy_WGA"]
+      WGS: //*[@id="checkbox_library strategy_WGS"]
   SequencingFacet/Platform:
     dropdown: //*[@id="Platform"]/div[2]
-    checkbox_template: //*[@id="checkbox_platform_{value}"]
-    values: [BGISEQ, NovaSeqS4, ULTIMA, Unknown]
     checkboxes:
       HiSeq2500: //*[@id="checkbox_platform_Illumina HiSeq 2500"]
       HiSeqXTen: //*[@id="checkbox_platform_Illumina HiSeq X Ten"]
@@ -80,6 +79,10 @@ groups:
       NotSpecified: //*[@id="checkbox_platform_Not specified in data"]
       NotSpecifiedindata: //*[@id="checkbox_platform_Not specified in data"]
       NovaSeq6000: //*[@id="checkbox_platform_Illumina NovaSeq 6000"]
+      BGISEQ: //*[@id="checkbox_platform_BGISEQ"]
+      NovaSeqS4: //*[@id="checkbox_platform_NovaSeqS4"]
+      ULTIMA: //*[@id="checkbox_platform_ULTIMA"]
+      Unknown: //*[@id="checkbox_platform_Unknown"]
   SequencingFacet/ReferenceGenomeAssembly:
     dropdown: //*[@id="Reference Genome Assembly"]/div[2]
     checkboxes:
@@ -87,4 +90,5 @@ groups:
       GRCh37: //*[@id="checkbox_Reference Genome Assembly_GRCh37"]
       GRCh38: //*[@id="checkbox_Reference Genome Assembly_GRCh38"]
       NotAvailable: //*[@id="checkbox_reference genome assembly_Not Available"]
-      Notspecifiedindata: //*[@id="checkbox_reference genome assembly_Not specified in data"]
+      Notspecifiedindata: //*[@id="checkbox_reference genome assembly_Not specified
+        in data"]

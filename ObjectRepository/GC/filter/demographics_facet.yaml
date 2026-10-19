@@ -1,20 +1,19 @@
-# Converted from Katalon Object Repository/CDS/Data_page/Filter/DemographicsFacet
 page: Data_page/Filter/DemographicsFacet
-elements:
-  DemographicsFacet: (//*[text()="Demographics"])[1]
 groups:
   DemographicsFacet/Gender:
     facet: (//*[text()="Demographics"])[1]
     dropdown: //*[@id="Gender"]
-    checkbox_template: //*[@id="checkbox_Gender_{value}"]
-    values: [Female, Male, Unknown]
     checkboxes:
       NotSpecifiedinData: //*[@id="checkbox_Gender_Not specified in data"]
+      Female: //*[@id="checkbox_Gender_Female"]
+      Male: //*[@id="checkbox_Gender_Male"]
+      Unknown: //*[@id="checkbox_Gender_Unknown"]
   DemographicsFacet/Sex:
     facet: (//*[text()="Demographics"])[1]
     dropdown: //*[@id="Sex"]
-    checkbox_template: //*[@id="checkbox_Sex_{value}"]
-    values: [Female, Male, Unknown]
     checkboxes:
       NotReported: //*[@id="checkbox_Gender_Not Reported"]
       NotSpecifiedinData: //*[@id="checkbox_Sex_Not specified in data"]
+      Female: //*[@id="checkbox_Sex_Female"]
+      Male: //*[@id="checkbox_Sex_Male"]
+      Unknown: //*[@id="checkbox_Sex_Unknown"]

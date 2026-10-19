@@ -1,7 +1,4 @@
-# Converted from Katalon Object Repository/C3DC/Filters/Samples
 page: Filters/Samples
-elements:
-  Samples_Facet: (//*[@id="[object Object]"])[3]
 groups:
   Samples/AnatomicSite:
     facet: (//*[@id="[object Object]"])[3]
@@ -17,17 +14,22 @@ groups:
       UnknownPrimSite: '//*[@id="checkbox_Anatomic site_C80 : UNKNOWN PRIMARY SITE"]'
       UpperLimb: '//*[@id="checkbox_Anatomic site_C76.4 : Upper limb, NOS"]'
     other:
-      LymphNodeLeg: '//*[@id="checkbox_Anatomic site_C77.4 : Lymph nodes of inguinal region or leg"]'
+      LymphNodeLeg: '//*[@id="checkbox_Anatomic site_C77.4 : Lymph nodes of inguinal
+        region or leg"]'
   Samples/SampleTumorClassification:
     facet: (//*[@id="[object Object]"])[3]
     dropdown: //*[@id="Tumor classification"]
-    checkbox_template: //*[@id="checkbox_Tumor classification_{value}"]
-    values: [Metastatic, Primary, Regional, Unknown]
     checkboxes:
       NotApplicable: //*[@id="checkbox_Tumor classification_Not Applicable"]
       NotReported: //*[@id="checkbox_Tumor classification_Not Reported"]
+      Metastatic: //*[@id="checkbox_Tumor classification_Metastatic"]
+      Primary: //*[@id="checkbox_Tumor classification_Primary"]
+      Regional: //*[@id="checkbox_Tumor classification_Regional"]
+      Unknown: //*[@id="checkbox_Tumor classification_Unknown"]
   Samples/SampleTumorStatus:
     facet: (//*[@id="[object Object]"])[3]
     dropdown: //*[@id="Sample tumor status"]
-    checkbox_template: //*[@id="checkbox_Sample tumor status_{value}"]
-    values: [Normal, Tumor, Unknown]
+    checkboxes:
+      Normal: //*[@id="checkbox_Sample tumor status_Normal"]
+      Tumor: //*[@id="checkbox_Sample tumor status_Tumor"]
+      Unknown: //*[@id="checkbox_Sample tumor status_Unknown"]

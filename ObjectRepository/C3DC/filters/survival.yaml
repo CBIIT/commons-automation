@@ -1,7 +1,4 @@
-# Converted from Katalon Object Repository/C3DC/Filters/Survival
 page: Filters/Survival
-elements:
-  Survival-Facet: (//*[text()="Survival"])[1]
 groups:
   Survival/CauseOfDeath:
     facet: (//*[text()="Survival"])[1]
@@ -15,14 +12,17 @@ groups:
   Survival/FirstEvent:
     facet: (//*[text()="Survival"])[1]
     dropdown: //*[@id="First Event"]
-    checkbox_template: //*[@id="checkbox_First Event_{value}"]
-    values: [Death, Progression, Relapse, Unknown]
     checkboxes:
       NotReported: //*[@id="checkbox_First Event_Not Reported"]
+      Death: //*[@id="checkbox_First Event_Death"]
+      Progression: //*[@id="checkbox_First Event_Progression"]
+      Relapse: //*[@id="checkbox_First Event_Relapse"]
+      Unknown: //*[@id="checkbox_First Event_Unknown"]
   Survival/LastKnownSurStatus:
     facet: (//*[text()="Survival"])[1]
     dropdown: //*[@id="Last Known Survival Status"]
-    checkbox_template: //*[@id="checkbox_Last Known Survival Status_{value}"]
-    values: [Alive, Dead, Unknown]
     checkboxes:
       NotReported: //*[@id="checkbox_Last Known Survival Status_Not reported"]
+      Alive: //*[@id="checkbox_Last Known Survival Status_Alive"]
+      Dead: //*[@id="checkbox_Last Known Survival Status_Dead"]
+      Unknown: //*[@id="checkbox_Last Known Survival Status_Unknown"]
