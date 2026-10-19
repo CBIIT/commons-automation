@@ -25,6 +25,130 @@ if TYPE_CHECKING:
 G_ROWCOUNT_FILES = int(os.environ.get("G_ROWCOUNT_FILES", "8"))
 G_ROWCOUNT_KATALON = int(os.environ.get("G_ROWCOUNT_KATALON", "13"))
 
+
+def _table_debug_enabled() -> bool:
+    return os.environ.get("COMMONS_TABLE_DEBUG", "").strip().lower() in ("1", "true", "yes", "on")
+
+
+def _table_debug(msg: str) -> None:
+    if _table_debug_enabled():
+        print(f"[TABLE_DEBUG] {msg}", flush=True)
+
+
+# C3DC Explore tabs: data rows live in an inner <table> for some tabs (see ObjectRepository headers).
+C3DC_TABLE_BODY_XPATH: dict = {
+    "//*[@id='study_tab_table']": "//*[@id='study_tab_table']//table/tbody",
+    "//*[@id='treatment_tab_table']": "//*[@id='treatment_tab_table']//table/tbody",
+    "//*[@id='survival_tab_table']": "//*[@id='survival_tab_table']//table/tbody",
+}
+
+
+def resolve_table_body_xpath(app_key: str, tbl_main: str) -> str:
+    """tbody xpath for the active results grid (nested table where the UI uses one)."""
+    if app_key == "C3DC":
+        return C3DC_TABLE_BODY_XPATH.get(tbl_main, f"{tbl_main}//tbody")
+    return f"{tbl_main}//tbody"
+
+
+def _tbody_page_signature(ui: "Ui", tbl_bdy: str) -> str:
+    """Pipe-delimited first-row cell text from the resolved tbody (pagination wait)."""
+    try:
+        return ui.page.evaluate(
+            """(bodyXp) => {
+              const r = document.evaluate(bodyXp, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+              const tb = r.singleNodeValue;
+              if (!tb) return '';
+              const tr = tb.querySelector(':scope > tr');
+              if (!tr) return '';
+              return Array.from(tr.querySelectorAll(':scope > td'))
+                .map(td => (td.innerText || '').replace(/\\s+/g, ' ').trim())
+                .join('|');
+            }""",
+            tbl_bdy,
+        )
+    except Exception:
+        return ""
+
+
+def _tbody_row_stats(ui: "Ui", tbl_bdy: str) -> dict:
+    """Direct vs descendant tr counts and first-row hint (debug)."""
+    try:
+        return ui.page.evaluate(
+            """(bodyXp) => {
+              const r = document.evaluate(bodyXp, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+              const tb = r.singleNodeValue;
+              if (!tb) return { error: 'no tbody' };
+              const direct = tb.querySelectorAll(':scope > tr').length;
+              const all = tb.querySelectorAll('tr').length;
+              let firstPid = '';
+              for (const tr of tb.querySelectorAll(':scope > tr')) {
+                const tds = tr.querySelectorAll(':scope > td');
+                for (const td of tds) {
+                  const t = (td.innerText || '').replace(/\\s+/g, ' ').trim();
+                  if (t) { firstPid = t; break; }
+                }
+                if (firstPid) break;
+              }
+              return { direct, all, firstPid };
+            }""",
+            tbl_bdy,
+        )
+    except Exception as exc:
+        return {"error": str(exc)}
+
+
+def _snapshot_first_col(rows: List[List[str]]) -> str:
+    if not rows or not rows[0]:
+        return ""
+    return str(rows[0][0])[:80]
+
+
+def pagination_next_xpath(table_xpath: str, fallback: str) -> str:
+    """
+    Next-page control for the active results table.
+
+    MUI TablePagination re-mounts on page change; a document-wide Next xpath can
+    point at a detached or hidden copy. Scope to the table wrapper (e.g. #participant_tab_table).
+    """
+    base = (table_xpath or "").strip()
+    if base:
+        return f"({base})//button[@type='button' and @aria-label='Next page']"
+    return fallback
+
+
+def pagination_prev_xpath(table_xpath: str, fallback_next: str) -> str:
+    base = (table_xpath or "").strip()
+    if base:
+        return f"({base})//button[@type='button' and @aria-label='Previous page']"
+    return fallback_next.replace("Next page", "Previous page")
+
+
+def _pagination_next_disabled(ui: "Ui", next_xp: str) -> bool:
+    """Fresh locator each call (avoid holding ElementHandle across re-render)."""
+    if not ui.is_visible(next_xp):
+        return True
+    nxt = ui.visible(next_xp).first
+    if nxt.get_attribute("disabled") is not None:
+        return True
+    if nxt.get_attribute("aria-disabled") == "true":
+        return True
+    return False
+
+
+def _refresh_pagination_controls(ui: "Ui", tbl_bdy: str, table_xpath: str, fallback_next: str) -> str:
+    """
+    Re-bind tbody + Next xpath after MUI re-mounts the table footer.
+
+    Avoid networkidle here — Explore keeps background requests alive and an 8s
+    idle wait added no stability beyond tbody visible + page-change polling.
+    """
+    ui.wait_visible(tbl_bdy)
+    next_xp = pagination_next_xpath(table_xpath, fallback_next)
+    _wait_for_pagination(ui, next_xp, timeout_ms=4000)
+    _table_debug(f"pagination refreshed next_xp={next_xp!r} dom={_tbody_row_stats(ui, tbl_bdy)}")
+    return next_xp
+
+
 TABLE_APPS = frozenset({"GC", "ICDC", "C3DC", "INS", "Bento", "CTDC"})
 
 # Explore result tabs show counts in the label, e.g. "Genetic Analyses (0)".
@@ -222,21 +346,21 @@ def read_table_row_data(
             tblcol = tblcol - 2
             for j in range(1, tblcol):
                 if _header_at(col_header, j) != "Available CPI Mapping":
-                    add(_inner_text(ui, f"{tbl_bdy}//tr[{row_index}]//td[{j + 1}]"), j)
+                    add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
         elif tbl_main == "//*[@id='study_tab_table']":
             tblcol = tblcol + 5
             for j in range(0, tblcol):
                 if _header_at(col_header, j) != "Manifest":
-                    add(_inner_text(ui, f"{tbl_bdy}//tr[{row_index}]//td[{j + 1}]"), j)
+                    add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
         elif tbl_main == "//*[@id='diagnosis_tab_table']":
             tblcol = tblcol - 1
             for j in range(0, tblcol):
-                add(_inner_text(ui, f"{tbl_bdy}//tr[{row_index}]//td[{j + 1}]"), j)
+                add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
         elif tbl_main == "//*[@id='genetic_analysis_tab_table']":
             tblcol = tblcol + 1
             for j in range(0, tblcol):
                 if _header_at(col_header, j) != "Manifest":
-                    add(_inner_text(ui, f"{tbl_bdy}//tr[{row_index}]//td[{j + 1}]"), j)
+                    add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
         elif tbl_main == "//*[@id='treatment_tab_table']":
             tblcol = tblcol - 1
             for j in range(0, tblcol):
@@ -335,8 +459,17 @@ def _read_table_body_page(
     trace: bool = True,
 ) -> List[List[str]]:
     """All data rows on the current page (trace=False when polling pagination only)."""
-    row_loc = ui.loc(f"{tbl_bdy}//tr")
+    t0 = time.time()
+    row_loc = ui.loc(f"{tbl_bdy}/tr")
     rows_count = row_loc.count()
+    if rows_count == 0:
+        row_loc = ui.loc(f"{tbl_bdy}//tr")
+        rows_count = row_loc.count()
+    if _table_debug_enabled():
+        _table_debug(
+            f"read_body start trace={trace} xpath_rows={rows_count} "
+            f"dom={_tbody_row_stats(ui, tbl_bdy)}"
+        )
     action_log.table_page_size(rows_count)
     out: List[List[str]] = []
     for i in range(1, rows_count + 1):
@@ -354,6 +487,10 @@ def _read_table_body_page(
         )
         action_log.table_row_cells(i, cells)
         out.append(cells)
+        if _table_debug_enabled() and i in (1, rows_count):
+            _table_debug(f"read_body row {i}/{rows_count} first_cell={cells[0] if cells else ''!r}")
+    if _table_debug_enabled():
+        _table_debug(f"read_body done trace={trace} rows={len(out)} elapsed={time.time() - t0:.2f}s")
     return out
 
 
@@ -373,10 +510,15 @@ def _wait_for_pagination(ui: "Ui", next_xp: str, timeout_ms: int = 4000) -> None
         pass
 
 
-def _rewind_to_first_page(ui: "Ui", next_xp: str, max_steps: int, page_reader) -> None:
-    prev_xp = next_xp.replace("Next page", "Previous page")
-    if prev_xp == next_xp:
-        return
+def _rewind_to_first_page(
+    ui: "Ui",
+    prev_xp: str,
+    table_xpath: str,
+    fallback_next: str,
+    tbl_bdy: str,
+    max_steps: int,
+    page_reader,
+) -> None:
     for _ in range(max_steps):
         if not ui.is_visible(prev_xp):
             return
@@ -384,33 +526,90 @@ def _rewind_to_first_page(ui: "Ui", next_xp: str, max_steps: int, page_reader) -
         if prev.get_attribute("disabled") is not None or prev.get_attribute("aria-disabled") == "true":
             return
         before = page_reader()
+        before_sig = _tbody_page_signature(ui, tbl_bdy)
         ui.click(prev_xp)
-        _wait_page_change(ui, page_reader, before)
+        _wait_page_change(ui, page_reader, before, tbl_bdy=tbl_bdy, before_dom_sig=before_sig)
+        prev_xp = pagination_prev_xpath(table_xpath, fallback_next)
+        _refresh_pagination_controls(ui, tbl_bdy, table_xpath, fallback_next)
 
 
-def _wait_page_change(ui: "Ui", page_reader, previous: List[List[str]], timeout_s: float = 10.0) -> bool:
+def _wait_page_change(
+    ui: "Ui",
+    page_reader,
+    previous: List[List[str]],
+    *,
+    tbl_bdy: str = "",
+    before_dom_sig: str = "",
+    timeout_s: float = 15.0,
+) -> bool:
+    """
+    Wait until the table body reflects a new page.
+
+    When tbl_bdy is set, poll the first visible row signature in the DOM (fast).
+    """
+    prev_snap = _snapshot_first_col(previous)
+    _table_debug(
+        f"wait_page_change start timeout={timeout_s}s prev_first={prev_snap!r} prev_rows={len(previous)}"
+    )
+    if tbl_bdy:
+        prev_sig = before_dom_sig or _tbody_page_signature(ui, tbl_bdy)
+        _table_debug(f"wait_page_change dom prev_sig={prev_sig!r}")
+        end = time.time() + timeout_s
+        poll = 0
+        while time.time() < end:
+            poll += 1
+            now_sig = _tbody_page_signature(ui, tbl_bdy)
+            changed = bool(now_sig) and now_sig != prev_sig
+            _table_debug(f"wait_page_change light poll={poll} now_sig={now_sig!r} changed={changed}")
+            if changed:
+                _table_debug("wait_page_change success (light)")
+                return True
+            time.sleep(0.15)
+        _table_debug("wait_page_change TIMEOUT (first row DOM signature unchanged)")
+        return False
+
     end = time.time() + timeout_s
+    poll = 0
     while time.time() < end:
+        poll += 1
+        t0 = time.time()
         now = page_reader()
-        if now != previous:
+        elapsed = time.time() - t0
+        now_snap = _snapshot_first_col(now)
+        changed = now != previous
+        _table_debug(
+            f"wait_page_change poll={poll} elapsed={elapsed:.2f}s changed={changed} "
+            f"now_rows={len(now)} now_first={now_snap!r}"
+        )
+        if changed:
+            _table_debug("wait_page_change success")
             return True
         time.sleep(0.1)
+    _table_debug("wait_page_change TIMEOUT (tbody snapshot unchanged vs previous page read)")
     return False
 
 
-def _advance_to_page(ui: "Ui", next_xp: str, page_reader, target_page: int) -> None:
+def _advance_to_page(
+    ui: "Ui",
+    next_xp: str,
+    table_xpath: str,
+    fallback_next: str,
+    tbl_bdy: str,
+    page_reader,
+    target_page: int,
+) -> str:
     if target_page <= 1:
-        return
+        return next_xp
     for _ in range(target_page - 1):
-        if not ui.is_visible(next_xp):
-            return
-        nxt = ui.visible(next_xp).first
-        if nxt.get_attribute("disabled") is not None or nxt.get_attribute("aria-disabled") == "true":
-            return
+        if _pagination_next_disabled(ui, next_xp):
+            return next_xp
         before = page_reader()
+        before_sig = _tbody_page_signature(ui, tbl_bdy)
         ui.click(next_xp)
-        if not _wait_page_change(ui, page_reader, before):
-            return
+        if not _wait_page_change(ui, page_reader, before, tbl_bdy=tbl_bdy, before_dom_sig=before_sig):
+            return next_xp
+        next_xp = _refresh_pagination_controls(ui, tbl_bdy, table_xpath, fallback_next)
+    return next_xp
 
 
 def read_table_data(
@@ -441,8 +640,11 @@ def read_table_data(
         return Table()
 
     tbl_main = table_xpath
-    tbl_bdy = tbl_main + "//tbody"
+    tbl_bdy = resolve_table_body_xpath(app_key, tbl_main)
     ui.wait_visible(tbl_bdy)
+    fallback_next = next_xpath
+    next_xpath = pagination_next_xpath(tbl_main, fallback_next)
+    prev_xpath = pagination_prev_xpath(tbl_main, fallback_next)
     action_log.table_setup(tbl_main, tbl_bdy, header_xpath, next_xpath)
     action_log.say(f"This is the value of tbl main : {tbl_main}")
     action_log.say(f"This is the value of table body: {tbl_bdy}")
@@ -474,8 +676,12 @@ def read_table_data(
             return page_reader(trace=False)
 
         _wait_for_pagination(ui, next_xpath)
-        _rewind_to_first_page(ui, next_xpath, max_pages, page_reader_silent)
-        _advance_to_page(ui, next_xpath, page_reader_silent, first_page)
+        _rewind_to_first_page(
+            ui, prev_xpath, tbl_main, fallback_next, tbl_bdy, max_pages, page_reader_silent
+        )
+        next_xpath = _advance_to_page(
+            ui, next_xpath, tbl_main, fallback_next, tbl_bdy, page_reader_silent, first_page
+        )
 
         rows: List[List[str]] = []
         last_page = first_page + max_pages - 1
@@ -488,15 +694,21 @@ def read_table_data(
 
             if counter >= last_page:
                 break
-            if not ui.is_visible(next_xpath):
-                break
-            nxt = ui.visible(next_xpath).first
-            if nxt.get_attribute("disabled") is not None or nxt.get_attribute("aria-disabled") == "true":
+            next_xpath = pagination_next_xpath(tbl_main, fallback_next)
+            if _pagination_next_disabled(ui, next_xpath):
                 break
             action_log.say("Clicked next button")
+            _table_debug(f"click_next page={counter} dom={_tbody_row_stats(ui, tbl_bdy)}")
+            before_sig = _tbody_page_signature(ui, tbl_bdy)
             ui.click(next_xpath, repo_key=next_repo_key or None)
-            if not _wait_page_change(ui, page_reader_silent, page_rows):
+            if not _wait_page_change(
+                ui, page_reader_silent, page_rows, tbl_bdy=tbl_bdy, before_dom_sig=before_sig
+            ):
+                _table_debug(f"pagination stopped after page {counter} (wait failed or next disabled)")
                 break
+            next_xpath = _refresh_pagination_controls(ui, tbl_bdy, tbl_main, fallback_next)
+            _table_debug(f"after_click dom={_tbody_row_stats(ui, tbl_bdy)}")
+            _table_debug(f"starting traced read for page {counter + 1} dom={_tbody_row_stats(ui, tbl_bdy)}")
             counter += 1
 
         return Table(header=header, rows=rows)

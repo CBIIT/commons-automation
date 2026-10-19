@@ -129,9 +129,16 @@ def filter_facet_display(group_key: str, facet_key: Optional[str] = None) -> str
     return group_key.split("/")[0]
 
 
+def _filter_token_display(token: str) -> str:
+    """One underscore segment, e.g. dbGaP or SexAtBirth → display text for [UI] logs."""
+    if token == "dbGaP":
+        return "dbGaP"
+    return re.sub(r"([a-z])([A-Z])", r"\1 \2", token)
+
+
 def filter_subfilter_display(group_key: str) -> str:
     tail = group_key.split("/")[-1] if "/" in group_key else group_key
-    return re.sub(r"([a-z])([A-Z])", r"\1 \2", tail).replace("_", " ")
+    return " ".join(_filter_token_display(part) for part in tail.split("_"))
 
 
 def navigate(url: str) -> None:

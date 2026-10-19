@@ -79,6 +79,34 @@ def test_read_table_header_data_c3dc_and_gc(capsys):
     assert "Complete list of column headers in current tab:  Study||Participants||" in out
 
 
+def test_pagination_xpaths_scope_to_active_table():
+    from Commons.table_reader import pagination_next_xpath, pagination_prev_xpath
+
+    tbl = "//*[@id='participant_tab_table']"
+    fallback = "(//button[@aria-label='Next page'])[1]"
+    assert pagination_next_xpath(tbl, fallback) == (
+        "(//*[@id='participant_tab_table'])//button[@type='button' and @aria-label='Next page']"
+    )
+    assert pagination_prev_xpath(tbl, fallback) == (
+        "(//*[@id='participant_tab_table'])//button[@type='button' and @aria-label='Previous page']"
+    )
+    assert pagination_next_xpath("", fallback) == fallback
+
+
+def test_c3dc_resolve_table_body_xpath_nested_tables():
+    from Commons.table_reader import resolve_table_body_xpath
+
+    assert resolve_table_body_xpath("C3DC", "//*[@id='survival_tab_table']") == (
+        "//*[@id='survival_tab_table']//table/tbody"
+    )
+    assert resolve_table_body_xpath("C3DC", "//*[@id='participant_tab_table']") == (
+        "//*[@id='participant_tab_table']//tbody"
+    )
+    assert resolve_table_body_xpath("GC", "//*[@id='case_tab_table']") == (
+        "//*[@id='case_tab_table']//tbody"
+    )
+
+
 def test_compare_tables_column_count_mismatch():
     r = compare_tables([["1", "a"]], [["1"]])
     assert not r.passed and "COLUMN COUNT" in r.summary()
@@ -185,6 +213,7 @@ def test_ui_action_filter_labels():
 
     assert action_log.filter_facet_display("Study/dbGaP_Accession", "Study_Facet") == "Study"
     assert action_log.filter_subfilter_display("Demographics/SexAtBirth") == "Sex At Birth"
+    assert action_log.filter_subfilter_display("Study/dbGaP_Accession") == "dbGaP Accession"
 
 
 def test_object_repo_resolves_newly_enabled_filter_tokens():

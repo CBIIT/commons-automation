@@ -350,7 +350,9 @@ class BaseApp:
     # ------------------------------------------------------------------ results
     def _record(self, check: str, cmp: Comparison, ui_count: int, exp_count: int):
         status = "PASSED" if cmp.passed else "FAILED"
-        self.results.append({"check": check, "status": status, "detail": cmp.summary(), "ui": ui_count, "expected": exp_count})
+        self.results.append(
+            {"check": check, "status": status, "detail": cmp.summary(), "ui": ui_count, "db": exp_count}
+        )
         if not cmp.passed:
             self.failures.append(f"[{check}] {cmp.summary()}")
 
@@ -365,7 +367,15 @@ class BaseApp:
                                  f"{len(self.failures)} check(s) failed\n\n" + "\n\n".join(self.failures))
 
     def report(self) -> str:
-        lines = [f"{r['check']:<16} {r['status']:<8} "
-                 f"{'UI=%s expected=%s' % (r['ui'], r['expected']) if 'ui' in r else r.get('detail', '')}"
-                 for r in self.results]
+        lines: List[str] = []
+        for r in self.results:
+            if "ui" in r:
+                tail = f"UI={r['ui']} DB={r['db']}"
+                if r["status"] == "FAILED" and r.get("detail"):
+                    head = r["detail"].split("\n", 1)[0]
+                    if not head.startswith("OK"):
+                        tail = f"{tail}  — {head}"
+            else:
+                tail = r.get("detail", "")
+            lines.append(f"{r['check']:<16} {r['status']:<8} {tail}")
         return "\n".join(lines)

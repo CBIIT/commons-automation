@@ -75,8 +75,6 @@ groups:
     dropdown: (//*[@id="Diagnosis Basis"])[1]
     checkbox_template: //*[@id="checkbox_Diagnosis Basis_{value}"]
     values: [Clinical, Pathology, Unknown]
-    checkboxes:
-      NotReported: //*[@id="checkbox_Diagnosis Basis_Not Reported"]
   Diagnosis/DiagsClasifctnSystem:
     facet: (//*[text()='Diagnosis'])[1]
     dropdown: (//*[@id="Diagnosis Classification System"])[1]

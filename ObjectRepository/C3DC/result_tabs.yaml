@@ -1,7 +1,7 @@
 # Converted from Katalon Object Repository/C3DC/ResultTabs (Explore Participants tab order)
 page: ResultTabs
 elements:
-  All_Tabs_Next-Btn: //button[@type='button' and @aria-label='Next page']
+  All_Tabs_Next-Btn: (//button[@type='button' and @aria-label='Next page'])[1]
   Diagnosis-Tab: //button[@role='tab' and contains(., 'Diagnosis')]
   Diagnosis-Tbl: //*[@id='diagnosis_tab_table']
   Diagnosis-TblHdr: //*[@id="diagnosis_tab_table"]//thead
