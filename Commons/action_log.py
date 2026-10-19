@@ -11,6 +11,9 @@ Human-readable UI steps (always shown during tests unless disabled):
 
 Memgraph Cypher (always shown when a query runs unless disabled):
   COMMONS_DB_QUERIES=1   default on; set 0 to hide "[DB] …" query text
+
+Browser open/close and navigation (always shown during tests unless disabled):
+  COMMONS_BROWSER_LOG=1  default on; set 0 to hide "[Browser] …" lines
 """
 from __future__ import annotations
 
@@ -106,6 +109,30 @@ def ui_action(msg: str) -> None:
         print(f"[UI] {msg}", flush=True)
 
 
+_browser_log: Optional[bool] = None
+
+
+def browser_log_enabled() -> bool:
+    """Print browser launch, teardown, and navigation (on by default)."""
+    global _browser_log
+    if _browser_log is None:
+        raw = os.environ.get("COMMONS_BROWSER_LOG", "1").strip().lower()
+        _browser_log = raw not in ("0", "false", "no", "off")
+    return _browser_log
+
+
+def set_browser_log(on: bool) -> None:
+    global _browser_log
+    _browser_log = on
+
+
+def browser_log(msg: str) -> None:
+    if not browser_log_enabled():
+        return
+    with pytest_table_output_live():
+        print(f"[Browser] {msg}", flush=True)
+
+
 _db_queries: Optional[bool] = None
 
 
@@ -142,6 +169,7 @@ def filter_subfilter_display(group_key: str) -> str:
 
 
 def navigate(url: str) -> None:
+    browser_log(f"Navigating to {url}")
     say(f"This is URL: {url}")
 
 

@@ -88,7 +88,9 @@ class BaseApp:
         """Open another page of the same site, e.g. app.goto('resources') (Katalon: WebUI.navigateToUrl)."""
         from urllib.parse import urlsplit
         u = urlsplit(self.settings.url)
-        self.page.goto(f"{u.scheme}://{u.netloc}/{path.lstrip('/')}", wait_until="domcontentloaded")
+        url = f"{u.scheme}://{u.netloc}/{path.lstrip('/')}"
+        action_log.navigate(url)
+        self.page.goto(url, wait_until="domcontentloaded")
         self.ui.wait_idle()
 
     def accept_banner(self, timeout_ms: int = 8000):

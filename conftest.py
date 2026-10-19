@@ -19,6 +19,7 @@ from playwright.sync_api import sync_playwright
 from Commons.apps import APPS, BaseApp
 from Commons.memgraph_source import LazySource
 from Commons.object_repository import ObjectRepository
+from Commons import action_log
 from Commons.settings import (
     ROOT,
     get_app_settings,
@@ -45,8 +46,6 @@ def pytest_addoption(parser):
 
 
 def pytest_configure(config):
-    from Commons import action_log
-
     action_log.set_pytest_config(config)
     if config.getoption("--trace-actions", default=False):
         action_log.set_enabled(True)
@@ -73,7 +72,11 @@ def browser(browser_settings, request):
         launcher = getattr(p, browser_settings.name)
         slowmo = request.config.getoption("--slowmo") or int(os.environ.get("SLOWMO", "0") or 0)
         b = launcher.launch(headless=browser_settings.headless, slow_mo=slowmo)
+        action_log.browser_log(
+            f"Opened {browser_settings.name} (headless={browser_settings.headless}, slow_mo={slowmo} ms)"
+        )
         yield b
+        action_log.browser_log("Closing browser (session end)")
         b.close()
 
 
@@ -82,7 +85,9 @@ def page(browser, browser_settings):
     context = browser.new_context(viewport=browser_settings.viewport)
     context.set_default_timeout(browser_settings.timeout_ms)
     pg = context.new_page()
+    action_log.browser_log("Opened browser context for test")
     yield pg
+    action_log.browser_log("Closing browser context (END of TEST)")
     context.close()
 
 
