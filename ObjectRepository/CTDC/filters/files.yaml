@@ -1,0 +1,15 @@
+# CTDC object repository (files.yaml)
+page: Filters/Files
+groups:
+  Files/FileType:
+    facet: (//*[contains(normalize-space(.), "Filter by Data Files")])[1]
+    dropdown: //*[@id='File Type' and @role='button']
+    checkboxes:
+      VariantCallFile: //*[@id='checkbox_File Type_Variant Call File']
+      VariantReport: //*[@id='checkbox_File Type_Variant Report']
+  Files/FileFormat:
+    facet: (//*[contains(normalize-space(.), "Filter by Data Files")])[1]
+    dropdown: //*[@id='File Format' and @role='button']
+    checkboxes:
+      pdf: //*[@id='checkbox_File Format_pdf']
+      vcf: //*[@id='checkbox_File Format_vcf']

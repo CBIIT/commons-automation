@@ -1,0 +1,7 @@
+# Converted from Katalon Object Repository/CTDC/Static/V_ResourcesInfoPage
+page: Static/V_ResourcesInfoPage
+elements:
+  AdditionalInfoDescription: //span[text()='Additional Information']/following::div[1]
+  BannerTitle: //span[text()='Additional Information']
+  CTDCGithubLink: //a[contains(@href,'CBIIT/crdc-ctdc-ui')]
+  GraphQLApiLink: //a[contains(@href,'graphql')]

@@ -1,0 +1,22 @@
+# CTDC object repository (result_tabs.yaml)
+page: ResultTabs
+elements:
+  All_Tabs_Next-Btn: (//button[@type='button' and @aria-label='Next page'])[1]
+  Biospecimens-Tab: //button[@role='tab' and contains(., 'Biospecimens')]
+  Biospecimens-Tbl: //*[@id="biospecimens_tab_table"]
+  Biospecimens-TblHdr: //*[@id="biospecimens_tab_table"]//thead
+  Files-Tab: //button[@role='tab' and contains(., 'Files')]
+  Files-Tbl: //*[@id="file_tab_table"]
+  Files-TblHdr: //*[@id="file_tab_table"]//thead
+  StudyFiles-Tab: //button[@role='tab' and contains(., 'Study Files')]
+  StudyFiles-Tbl: //*[@id="study_file_tab_table"]
+  StudyFiles-TblHdr: //*[@id="study_file_tab_table"]//thead
+  Participants-Tab: //button[@role='tab' and contains(., 'Participants')]
+  Participants-Tbl: //*[@id="participants_tab_table"]
+  Participants-TblHdr: //*[@id="participants_tab_table"]//thead
+  Trials_CloseView_Btn: //*[@id="root"]/div[2]/div/div[2]/div/div[2]/div[1]/div[1]/div[2]/label/button/span[1]
+  Trials_GoToFiles: //span[contains(text(),'GO TO FILES')]//parent::button
+  Trials_LocalFind_TxtBx: //input[@id='localSearch']
+  Trials_LocalFind_option: //li[@id='localSearch-option-0']
+  Trials_LocalFind_popup: //*[@id='localSearch-popup']
+  Trials_SelectAll: //div[@id="table_cases"]//thead/tr/th

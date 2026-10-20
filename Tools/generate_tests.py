@@ -1,7 +1,7 @@
 """
 Generate pytest test files from the Katalon test-case scripts and suites.
 
-    python Tools/generate_tests.py --katalon ../Commons_Automation --apps C3DC GC
+    python Tools/generate_tests.py --katalon ../Commons_Automation --apps C3DC GC CTDC
 
 For every Katalon test case  Test Cases/<APP>_TestCases/<...>/<TC name>  it writes
     Testcases/<app>/<...>/test_<TC_name>.py
@@ -47,9 +47,16 @@ SUITE_MARKERS = {
     "CDS_Subset-1": "regression",
     "CDS_Subset-2": "regression",
     "CDS_QuickRun": "quickrun",              # GC quickrun
+    "CTDC_Regression": "regression",
 }
-FIXTURE = {"C3DC": "c3dc", "GC": "gc"}
+FIXTURE = {"C3DC": "c3dc", "CTDC": "ctdc", "GC": "gc"}
 # All Explore Participants result tabs (after read_statbar) — matches hand-maintained C3DC tests.
+CTDC_VERIFY_TABS = (
+    "Participants",
+    "Biospecimens",
+    "Files",
+    "Study Files",
+)
 C3DC_VERIFY_TABS = (
     "Participants",
     "Studies",
@@ -62,6 +69,23 @@ C3DC_VERIFY_TABS = (
 )
 # Framework app GC is stored under CDS_* paths in the Katalon project.
 KATALON_APP = {"GC": "CDS"}
+
+# Katalon CTDC/Filters/<facet> → ObjectRepository group keys (Participants/…, Biospecimens/…, Files/…).
+CTDC_FILTER_GROUP_MAP = {
+    "Filters/Sex": "Participants/Sex",
+    "Filters/Race": "Participants/Race",
+    "Filters/Ethnicity": "Participants/Ethnicity",
+    "Filters/Diagnosis": "Participants/Diagnosis",
+    "Filters/CarcinExposure": "Participants/CarcinogenExposure",
+    "Filters/TargetedTherapy": "Participants/TargetedTherapy",
+    "Filters/AnatoCollecSite": "Biospecimens/AnatomicalCollectionSite",
+    "Filters/TissueCategory": "Biospecimens/TissueCategory",
+    "Filters/ColTimepoint": "Biospecimens/CollectionTimepoint",
+    "Filters/FileType": "Files/FileType",
+    "Filters/FileFormat": "Files/FileFormat",
+}
+# Katalon checkbox object stem → YAML checkboxes key (when they differ).
+CTDC_CHECKBOX_ALIASES = {"Vcf": "vcf"}
 
 # tests that are hand-written instead of generated (static pages etc.)
 HAND_WRITTEN_MARKERS = ("verifyStaticData",)
@@ -178,11 +202,12 @@ class Translator:
 
     def translate(self, calls):
         v = self.v
-        c3dc_read_statbar = False
+        expand_tabs_after_statbar = False
         for kind, name, args, owner in calls:
             if kind == "webui":
                 if name in ("closeBrowser", "openBrowser", "delay", "waitForElementPresent",
-                            "waitForElementVisible", "setViewPortSize", "maximizeWindow"):
+                            "waitForElementVisible", "waitForElementClickable",
+                            "setViewPortSize", "maximizeWindow"):
                     continue
                 self.unconverted(f"WebUI.{name}({', '.join(args)})")
                 continue
@@ -192,25 +217,31 @@ class Translator:
                 self.click(_unquote(args[0]))
             elif name.startswith("readStatBar"):
                 self.emit(f"{v}.read_statbar()")
-                if self.app == "C3DC":
-                    c3dc_read_statbar = True
+                if self.app in ("C3DC", "CTDC"):
+                    expand_tabs_after_statbar = True
             elif name == "multiFunction":
-                if self.app == "C3DC" and c3dc_read_statbar:
+                if self.app in ("C3DC", "CTDC") and expand_tabs_after_statbar:
                     continue
                 self.emit(f'{v}.verify_tab("{self.tab_name(args)}")')
             elif name in ("openTab", "selectTab", "selectTabByDropdown", "scrollFacetDownUntilVisible", "ScrollToStudyName"):
                 continue           # C3DC: verify_tab uses selectTab-style open_tab; select_filter scrolls checkboxes
             else:
                 self.unconverted(f"{owner}.{name}({', '.join(args)})")
-        if self.app == "C3DC" and c3dc_read_statbar:
+        if self.app == "C3DC" and expand_tabs_after_statbar:
             for tab in C3DC_VERIFY_TABS:
+                self.emit(f'{v}.verify_tab("{tab}")')
+        if self.app == "CTDC" and expand_tabs_after_statbar:
+            for tab in CTDC_VERIFY_TABS:
                 self.emit(f'{v}.verify_tab("{tab}")')
 
     def tab_name(self, args):
         table = _unquote(args[2])
         base = table.split("/")[-1]
-        if self.app == "C3DC":
-            return re.sub(r"-Tbl$", "", base)
+        if self.app in ("C3DC", "CTDC"):
+            stem = re.sub(r"-Tbl$", "", base)
+            if stem == "StudyFiles":
+                return "Study Files"
+            return stem
         return re.sub(r"^(GC|CDS)_|Table$", "", base)     # GC_ParticipantsTable -> Participants
 
     def click(self, path):
@@ -221,13 +252,20 @@ class Translator:
             if not self.banner_done:
                 self.emit(f"{v}.accept_banner()")
                 self.banner_done = True
-        elif name == "Explore-Tab":
-            self.emit(f"{v}.open_explore()")
+        elif name in ("Explore-Tab", "Explore-Btn"):
+            if self.app in ("C3DC", "CTDC"):
+                self.emit(f"{v}.open_explore()")
+            else:
+                self.unconverted(f"click {path} (open_explore not defined for {self.app})")
         elif name in ("CDS_Data-Btn", "GC_Data-Btn"):
             self.emit(f"{v}.open_data()")
         elif re.search(r"[-_]Chkbx$", name):
             group = "/".join(parts[-3:-1])
+            if self.app == "CTDC":
+                group = CTDC_FILTER_GROUP_MAP.get(group, group)
             value = re.sub(r"[-_]Chkbx$", "", name)
+            if self.app == "CTDC":
+                value = CTDC_CHECKBOX_ALIASES.get(value, value)
             try:
                 g = self.repo.filter_group(group)
                 if not g.knows(value):
@@ -340,9 +378,11 @@ def generate(katalon: Path, app: str, out_root: Path, force: bool):
             stats["kept (hand edited)"].append(tc_name)
             continue
         out_dir.mkdir(parents=True, exist_ok=True)
-        for d in [out_dir, *out_dir.relative_to(out_root).parents]:
-            init = (out_root / d / "__init__.py") if d != Path(".") else None
-            if init and not init.exists():
+        cursor = out_root
+        for part in out_dir.relative_to(out_root).parts:
+            cursor = cursor / part
+            init = cursor / "__init__.py"
+            if not init.exists():
                 init.write_text("")
         out_file.write_text(text)
         stats["with unconverted steps (marked skip)" if tr.todo else "generated"].append(tc_name)

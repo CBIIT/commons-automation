@@ -1,0 +1,17 @@
+# Converted from Katalon Object Repository/CTDC/NavBar
+page: NavBar
+elements:
+  About-ContactUs-Btn: //*[@id = 'navbar-dropdown-item-contact-us']
+  About-Purpose-Btn: //*[@id = 'navbar-dropdown-item-purpose']
+  About-Tab: //div[@id='navbar-dropdown-about' and .='About']
+  Data-Cloud-Btn: //a[contains(@href,'cloud-computing')]
+  Data-Harmonization-Btn: //a[contains(@href,'harmonization')]
+  Data-Model-Btn: //*[@id = 'navbar-dropdown-item-CTDC-data-model']
+  Data-Submission-Btn: //*[@id = 'navbar-dropdown-item-data-submission']
+  Data-Tab: //div[@id='navbar-dropdown-about' and .='Data']
+  Data-Terms-Btn: //*[@id = 'navbar-dropdown-item-data-use']
+  Explore-Btn: //a[contains(@href,'explore')]
+  RequestAccess-Btn: //*[@id = 'navbar-link-request-access']
+  Resources-AddtlInfo-Btn: //*[@id = 'navbar-dropdown-item-developers']
+  Resources-GraphQL-Btn: //*[@id = 'navbar-dropdown-item-graphql']
+  Resources-Tab: //div[@id='navbar-dropdown-about' and .='Resources']

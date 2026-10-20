@@ -1,0 +1,71 @@
+# CTDC object repository (participants.yaml)
+page: Filters/Participants
+groups:
+  Participants/Diagnosis:
+    facet: (//*[contains(normalize-space(.), "Filter by Participants")])[1]
+    dropdown: //*[@id='Diagnosis' and @role='button']
+    checkboxes:
+      AdenoCarcinomaNOS: //*[contains(@id,'checkbox_Diagnosis_Adenocarcinoma, NOS')]
+      AdenoCervix: //*[contains(@id,'checkbox_Diagnosis_Adenocarcinoma of the cervix')]
+      AdenoColon: //*[contains(@id,'checkbox_Diagnosis_Adenocarcinoma of the colon')]
+      AdenoGastro: //*[contains(@id,'checkbox_Diagnosis_Adenocarcinoma of the gastroesophageal junction')]
+      AdenoIntestine: //*[contains(@id,'checkbox_Diagnosis_Adenocarcinoma of the small intestine')]
+      AdenoRectum: //*[contains(@id,'checkbox_Diagnosis_Adenocarcinoma of the rectum')]
+      BoneCancer: //*[contains(@id,'checkbox_Diagnosis_Bone cancer, NOS')]
+      CarcinoUterus: //*[contains(@id,'checkbox_Diagnosis_Cholangiocarcinoma, intrahepatic and extrahepatic bile ducts (adenocarcinoma)')]
+      Cholangio: //*[contains(@id,'checkbox_Diagnosis_Cholangiocarcinoma, intrahepatic and extrahepatic bile ducts (adenocarcinoma)')]
+      ColorectalCarcin: //*[@id='checkbox_Diagnosis_Colorectal Carcinoma']
+      Endometrioid: //*[contains(@id,'checkbox_Diagnosis_Endometrioid endometrial adenocarcinoma')]
+      FemaleReprod: //*[contains(@id,'checkbox_Diagnosis_Female reproductive system cancer, NOS')]
+      GallBladder: //*[contains(@id,'checkbox_Diagnosis_Gall bladder carcinoma (adenocarcinoma)')]
+      HurthleCell: //*[contains(@id,'checkbox_Diagnosis_Hurthle cell neoplasm (thyroid)')]
+      InvasiveBrCarcinoma: //*[contains(@id,'checkbox_Diagnosis_Leiomyosarcoma of the uterus')]
+      Leiomyosarcoma: //*[@id='checkbox_Diagnosis_Leiomyosarcoma of the uterus']
+      LungAdeno: //*[contains(@id,'checkbox_Diagnosis_Lung adenocarcinoma')]
+      LungCancer: //*[contains(@id,'checkbox_Diagnosis_Lung cancer, NOS')]
+      OvarianEpith: //*[contains(@id,'checkbox_Diagnosis_Ovarian epithelial cancer')]
+      Parathyroid: //*[contains(@id,'checkbox_Diagnosis_Prostate cancer, NOS')]
+      PlasmaCellMyeloma: //*[@id='checkbox_Diagnosis_Plasma Cell Myeloma']
+      Prostate: //*[@id='checkbox_Diagnosis_Prostate cancer, NOS']
+      SalivaryGland: //*[contains(@id,'checkbox_Diagnosis_Serous endometrial adenocarcinoma')]
+      SerousEndoAdeno: //*[@id='checkbox_Diagnosis_Serous endometrial adenocarcinoma']
+      SmallCellLung: //*[@id='checkbox_Diagnosis_Small Cell Lung Carcinoma']
+      SquamCellLung: //*[contains(@id,'checkbox_Diagnosis_Squamous cell lung carcinoma')]
+      UterineCancer: //*[contains(@id,'checkbox_Diagnosis_Uterine cancer, NOS')]
+  Participants/Sex:
+    facet: (//*[contains(normalize-space(.), "Filter by Participants")])[1]
+    dropdown: (//*[@id='Sex'])[1]
+    checkboxes:
+      Female: //*[@id="checkbox_Sex_Female"]
+      Male: //*[@id="checkbox_Sex_Male"]
+  Participants/Race:
+    facet: (//*[contains(normalize-space(.), "Filter by Participants")])[1]
+    dropdown: //*[@id='Race' and @role='button']
+    checkboxes:
+      AmerIndAlsk: //*[@id='checkbox_Race_American Indian or Alaska Native']
+      Asian: //*[@id='checkbox_Race_Asian']
+      BlkAfrAmer: //*[@id='checkbox_Race_Black or African American']
+      NatHawaiPacifIsld: //*[@id='checkbox_Race_Native Hawaiian or other Pacific Islander']
+      NotReported: //*[@id='checkbox_Race_Not Reported']
+      Unknown: //*[@id='checkbox_Race_Unknown']
+      White: //*[@id='checkbox_Race_White']
+  Participants/Ethnicity:
+    facet: (//*[contains(normalize-space(.), "Filter by Participants")])[1]
+    dropdown: //*[@id='Ethnicity' and @role='button']
+    checkboxes:
+      HispLanitno: //*[@id='checkbox_Ethnicity_Hispanic or Latino']
+      NotHispLatino: //*[@id='checkbox_Ethnicity_Not Hispanic or Latino']
+      Unknown: //*[@id='checkbox_Ethnicity_Unknown']
+  Participants/CarcinogenExposure:
+    facet: (//*[contains(normalize-space(.), "Filter by Participants")])[1]
+    dropdown: //*[@id='Carcinogen Exposure' and @role='button']
+    checkboxes:
+      'No': //*[@id='checkbox_Carcinogen Exposure_No']
+      Unknown: //*[@id='checkbox_Carcinogen Exposure_Unknown']
+      'Yes': //*[@id='checkbox_Carcinogen Exposure_Yes']
+  Participants/TargetedTherapy:
+    facet: (//*[contains(normalize-space(.), "Filter by Participants")])[1]
+    dropdown: (//*[@id='Trial Arm'])[1]
+    checkboxes:
+      Q: //input[@id='checkbox_Trial Arm_Q_Ado-trastuzumab Emtansine']
+      Z1D: //input[@id='checkbox_Trial Arm_Z1D_Nivolumab']

@@ -1,0 +1,9 @@
+# Converted from Katalon Object Repository/CTDC/Static/V_DataTermsPage
+page: Static/V_DataTermsPage
+elements:
+  BannerTitle: //span[contains(text(),'Data Terms of Use')]
+  CTDCLink: //a[@title='clinical.datacommons.cancer.gov']
+  ContactLink: (//a[@title='NCICTDCHelpDesk@mail.nih.gov'])[1]
+  ContactLink2: (//a[@title='NCICTDCHelpDesk@mail.nih.gov'])[2]
+  DataTermsDescription: //span[contains(text(),'Data Terms of Use')]/following::div[1]
+  RequestAccessLink: //a[@title='Request Access']

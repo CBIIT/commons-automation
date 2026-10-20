@@ -126,6 +126,14 @@ def gc(page, env, browser_settings, _repos):
     source.close()
 
 
+@pytest.fixture
+def ctdc(page, env, browser_settings, _repos):
+    """CTDC (Clinical Trials Data Commons), already opened at the environment's URL."""
+    app, source = _make_app("CTDC", page, env, browser_settings, _repos)
+    yield app
+    source.close()
+
+
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     """Fail a test whose tab/stat-bar checks failed (they are collected, not raised one by one),

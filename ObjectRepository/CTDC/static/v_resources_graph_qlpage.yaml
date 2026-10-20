@@ -1,0 +1,7 @@
+# Converted from Katalon Object Repository/CTDC/Static/V_ResourcesGraphQLPage
+page: Static/V_ResourcesGraphQLPage
+elements:
+  ApiLink: //a[contains(@href,'v1/graphql')]
+  BannerTitle: //span[text()='GraphQL']
+  GraphQLDescription: //span[text()='GraphQL']/following::div[1]
+  GraphQLLink: //a[contains(@href,'graphql.org')]

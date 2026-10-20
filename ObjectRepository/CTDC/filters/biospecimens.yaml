@@ -1,0 +1,26 @@
+# CTDC object repository (biospecimens.yaml)
+page: Filters/Biospecimens
+groups:
+  Biospecimens/AnatomicalCollectionSite:
+    facet: (//*[contains(normalize-space(.), "Filter by Biospecimens")])[1]
+    dropdown: //*[@id='Anatomical Collection Site' and @role='button']
+    checkboxes:
+      AbdominalWall: //*[@id='checkbox_Anatomical Collection Site_Abdominal Wall']
+      IliacCrest: //*[@id='checkbox_Anatomical Collection Site_Iliac Crest']
+      LymphNode: //*[@id='checkbox_Anatomical Collection Site_Lymph Node']
+      Neck: //*[@id='checkbox_Anatomical Collection Site_Neck']
+  Biospecimens/TissueCategory:
+    facet: (//*[contains(normalize-space(.), "Filter by Biospecimens")])[1]
+    dropdown: //*[@id='Tissue Category' and @role='button']
+    checkboxes:
+      AdjacentNonTumor: //*[@id='checkbox_Tissue Category_Adjacent Non-Tumor']
+      Metastatic: //*[@id='checkbox_Tissue Category_Metastatic']
+      NoValue: //*[@id='checkbox_Tissue Category_No value']
+      Primary: //*[@id='checkbox_Tissue Category_Primary']
+  Biospecimens/CollectionTimepoint:
+    facet: (//*[contains(normalize-space(.), "Filter by Biospecimens")])[1]
+    dropdown: //*[@id='Collection Timepoint' and @role='button']
+    checkboxes:
+      Archival: //*[@id='checkbox_Collection Timepoint_Archival']
+      BaselineFresh: //*[@id='checkbox_Collection Timepoint_Baseline (Fresh)']
+      PostTreatNoProgrs: //*[@id='checkbox_Collection Timepoint_Post-Treatment (No progression)']

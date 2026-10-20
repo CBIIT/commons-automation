@@ -436,6 +436,11 @@ def read_table_row_data(
             for j in range(1, tblcol):
                 if _header_at(col_header, j) != "Access":
                     add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
+        elif tbl_main == '//*[@id="study_file_tab_table"]':
+            tblcol = tblcol + 3
+            for j in range(1, tblcol):
+                if _header_at(col_header, j) != "Access":
+                    add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
         else:
             print("Check CTDC switch statment for this error", file=sys.stderr)
 

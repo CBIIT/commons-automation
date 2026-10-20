@@ -1,0 +1,8 @@
+# Converted from Katalon Object Repository/CTDC/Static/V_AboutPurposePage
+page: Static/V_AboutPurposePage
+elements:
+  BannerTitle: //span[text()='Purpose']
+  CGCLink: //a[contains(@href,'seven-bridges')]
+  CRDCLink: //a[@title='Cancer Research Data Commons']
+  FAIRLink: //a[contains(@href,'fair')]
+  PurposeDescription: //span[text()='Purpose']/following::div[1]

@@ -2,7 +2,7 @@
 
 End-to-end regression framework for **Data Commons web apps**: open a browser, apply explore filters, read result tables from the UI, and compare them to expected data (usually **Memgraph Cypher** from per-test Excel workbooks). Tests are plain Python files run with **pytest**; each **application** (GC, C3DC, and others you add) gets its own app class, object repository, input data, and test tree.
 
-Today the repo includes **GC** and **C3DC**; the same layout extends to additional projects under `Testcases/<APP>/`, `Commons/apps/<app>.py`, and `Config/environments.yaml`.
+Today the repo includes **GC**, **C3DC**, and an **ObjectRepository/CTDC** (locators ready; app wiring/tests can follow). The same layout extends under `Testcases/<APP>/`, `Commons/apps/<app>.py`, and `Config/environments.yaml`.
 
 ## What one test does
 
@@ -68,24 +68,7 @@ Each app uses its **own** Memgraph cluster; do not reuse one password for both. 
 
 ## Example tests
 
-**GC**
-
-```python
-@pytest.mark.gc
-@pytest.mark.smoke
-def test_TC01_GC_example(gc):
-    gc.load_query_file("TC01_GC_….xlsx")
-    gc.accept_banner()
-    gc.open_data()
-    gc.select_filter("StudyFacet/PHS_Accession", "phs001437")
-    gc.read_statbar()
-    gc.verify_tab("Participants")
-    gc.verify_tab("Samples")
-    gc.verify_tab("Files")
-    gc.assert_no_failures()
-```
-
-**C3DC** (Explore Participants, URL-backed filters, eight result tabs)
+**C3DC** 
 
 ```python
 @pytest.mark.c3dc
@@ -114,7 +97,7 @@ Use the **`gc`** or **`c3dc`** fixture (defined in `conftest.py`); add a new fix
 
 ```
 Config/environments.yaml       URLs, Memgraph endpoints per app/env
-ObjectRepository/<app>/        YAML locators (pages, filters, tabs, stat bar)
+ObjectRepository/<app>/        YAML locators (pages, filters, tabs, stat bar). CTDC: `python3 Tools/build_ctdc_object_repository.py` (Katalon + UI facet labels)
 InputFiles/<app>/              Per-test Excel query workbooks
 Commons/
   apps/base.py                 BaseApp: filters, stat bar, verify_tab, failures

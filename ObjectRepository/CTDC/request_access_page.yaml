@@ -1,0 +1,7 @@
+# Request Access page accordions (Katalon CTDC/RequestAccess_page)
+page: RequestAccess_page
+elements:
+  ObtainCommonsDropdown: //p[contains(text(),'Commons account')]
+  ObtainDbgapDropdown: //p[contains(text(),'Obtain dbGaP')]
+  RequestAccessDropdown: //p[contains(text(),'Request access')]
+  AccessDatasetsDropdown: //p[contains(text(),'Access approved')]

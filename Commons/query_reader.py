@@ -1,7 +1,7 @@
 """
 Load Cypher/SQL queries from per-test Excel workbooks (InputFiles/<app>/TC*.xlsx).
 
-Sheet 1 columns: TabName, TabQuery (or query), StatQuery, WebExcel (optional).
+Sheet 1 columns: TabName, TabQuery (or query), StatQuery, DbExcel / UIExcel (CTDC) or TsvExcel / WebExcel (legacy).
 Each TabName row (e.g. ParticipantsTab) maps to the query run for that result tab.
 """
 from dataclasses import dataclass, field
@@ -58,13 +58,21 @@ def _parse_workbook(path: Path) -> QueryFile:
 
     headers = [str(h).strip() if h is not None else "" for h in rows[0]]
     col = {h: i for i, h in enumerate(headers)}
+    col.update({k.lower(): v for k, v in col.items() if k})
     query_col = col.get("TabQuery", col.get("query"))
 
     def cell(row, name: str) -> str:
-        i = col.get(name)
+        i = col.get(name) if name in col else col.get(name.lower())
         if i is None or i >= len(row) or row[i] is None:
             return ""
         return str(row[i]).strip()
+
+    def cell_any(row, *names: str) -> str:
+        for name in names:
+            v = cell(row, name)
+            if v:
+                return v
+        return ""
 
     doc = QueryFile(path=path)
     for row in rows[1:]:
@@ -75,6 +83,7 @@ def _parse_workbook(path: Path) -> QueryFile:
             doc.queries_by_tab[tab_key] = str(row[query_col]).strip()
         if cell(row, "StatQuery") and not doc.stat_bar_query:
             doc.stat_bar_query = cell(row, "StatQuery")
-        if cell(row, "WebExcel") and not doc.ui_output_workbook:
-            doc.ui_output_workbook = cell(row, "WebExcel")
+        ui = cell_any(row, "UIExcel", "WebExcel")
+        if ui and not doc.ui_output_workbook:
+            doc.ui_output_workbook = ui
     return doc

@@ -1,0 +1,4 @@
+# Converted from Katalon Object Repository/CTDC/Header
+page: Header
+elements:
+  Trials_Header_Img: //img[@alt='NCI CTDC Logo - Clinical Trials Data Commons']

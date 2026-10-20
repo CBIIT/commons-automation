@@ -1,0 +1,4 @@
+# Converted from Katalon Object Repository/CTDC/Home
+page: Home
+elements:
+  WarningBan_Continue_Btn: //*[contains(text(),"Continue")]

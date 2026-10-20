@@ -1,0 +1,7 @@
+# Converted from Katalon Object Repository/CTDC/Static/V_DataCloudPage
+page: Static/V_DataCloudPage
+elements:
+  BannerTitle: //span[contains(text(),'Cloud computing')]
+  CGCLink: //a[@title='Seven Bridges Cancer Genomics Cloud']
+  CloudDescription: //span[contains(text(),'Cloud computing')]/following::div[1]
+  GettingStartedLink: //a[@title='https://www.cancergenomicscloud.org/getting-started']

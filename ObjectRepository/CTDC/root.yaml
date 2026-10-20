@@ -1,0 +1,10 @@
+# Converted from Katalon Object Repository/CTDC/
+page: (root)
+elements:
+  Trials_DownloadManifest: //button[text()='download manifest']
+  Trials_FileTableBody: //div[@id='table_case_detail']//parent::div//parent::span//parent::th//parent::tr//parent::thead//parent::table/tbody
+  Trials_File_NextBtn: //div[@id='table_case_detail']//div/table/tfoot/tr/td/div/div[3]/button[2]
+  Trials_FilesTable: //div[@id='table_case_detail']//parent::div//parent::span//parent::th//parent::tr//parent::thead//parent::table
+  Trials_FilesTable_Hdr: //div[@id='table_case_detail']//parent::div//parent::span//parent::th//parent::tr//parent::thead
+  Trials_SaveToMycases: //*[contains(text(),'SAVE TO MY CASES')]
+  Trials_TRIALS_Btn: //a[contains(@href,'trials')]

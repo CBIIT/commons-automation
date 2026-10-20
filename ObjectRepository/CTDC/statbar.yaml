@@ -1,0 +1,9 @@
+# CTDC object repository (statbar.yaml)
+page: Statbar
+elements:
+  Studies-Count: //*[@id="statsbar_count_1"]
+  Participants-Count: //*[@id="statsbar_count_2"]
+  Diagnoses-Count: //*[@id="statsbar_count_3"]
+  TargetedTherapies-Count: //*[@id="statsbar_count_4"]
+  Biospecimens-Count: //*[@id="statsbar_count_5"]
+  Files-Count: //*[@id="statsbar_count_6"]

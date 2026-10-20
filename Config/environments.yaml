@@ -2,6 +2,7 @@
 #
 # Secrets (Memgraph passwords) are NOT stored here. Put them in a gitignored `.env` or the shell:
 #   MEMGRAPH_PASSWORD_C3DC=...     # required for C3DC tests (cluster host under apps.C3DC.memgraph)
+#   MEMGRAPH_PASSWORD_CTDC=...     # required for CTDC tests
 #   MEMGRAPH_PASSWORD_GC_QA=... MEMGRAPH_PASSWORD_GC_QA2=...  # GC: one password per env
 # Optional overrides: MEMGRAPH_ENDPOINT_C3DC, MEMGRAPH_USERNAME_C3DC_QA, etc. (see Commons/settings.py)
 
@@ -21,6 +22,18 @@ apps:
       qa:
         endpoint: bolt://ccdi-dcc-qa-99d933a8c11c2ea3.elb.us-east-1.amazonaws.com:7687
         username: memgraph
+
+  CTDC:
+    expected_source: memgraph
+    urls:
+      qa:    https://clinical-qa.datacommons.cancer.gov/#/
+      stage: https://clinical-stage.datacommons.cancer.gov/#/
+      prod:  https://clinical.datacommons.cancer.gov/#/
+    memgraph:
+      # Override: MEMGRAPH_ENDPOINT_CTDC, MEMGRAPH_USERNAME_CTDC, MEMGRAPH_PASSWORD_CTDC
+      qa:
+        endpoint: bolt://crdc-c-nlbC3-PnIdn9bEEnH4-90d8fb37076e1f8b.elb.us-east-1.amazonaws.com:7687
+        username: admin
 
   GC:
     # Expected data = Cypher in the input Excel, run against Memgraph.
