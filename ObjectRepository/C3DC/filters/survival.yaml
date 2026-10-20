@@ -2,13 +2,15 @@ page: Filters/Survival
 groups:
   Survival/CauseOfDeath:
     facet: (//*[text()="Survival"])[1]
-    dropdown: //*[@id="Cause Of Death"]
+    dropdown: //*[@id="Cause of Death"]
     checkboxes:
-      DueToOtherCause: //*[@id="checkbox_Cause Of Death_Due to other cause"]
-      DueToThisDisease: //*[@id="checkbox_Cause Of Death_Due to this disease"]
-      NotApplicable: //*[@id="checkbox_Cause Of Death_Not Applicable"]
-      NotReported: //*[@id="checkbox_Cause Of Death_Not Reported"]
-      Unknown: //*[@id="checkbox_Cause Of Death_Unknown"]
+      DueToOtherCause: //*[@id="checkbox_Cause of Death_Due to other cause"]
+      DueToProtocolTreatment: //*[@id="checkbox_Cause of Death_Due to protocol treatment"]
+      DueToSecondaryPrimaryCancer: //*[@id="checkbox_Cause of Death_Due to secondary primary cancer"]
+      DueToThisDisease: //*[@id="checkbox_Cause of Death_Due to this disease"]
+      NotApplicable: //*[@id="checkbox_Cause of Death_Not Applicable"]
+      NotReported: //*[@id="checkbox_Cause of Death_Not Reported"]
+      Unknown: //*[@id="checkbox_Cause of Death_Unknown"]
   Survival/FirstEvent:
     facet: (//*[text()="Survival"])[1]
     dropdown: //*[@id="First Event"]
@@ -17,6 +19,7 @@ groups:
       Death: //*[@id="checkbox_First Event_Death"]
       Progression: //*[@id="checkbox_First Event_Progression"]
       Relapse: //*[@id="checkbox_First Event_Relapse"]
+      SecondMalignantNeoplasm: //*[@id="checkbox_First Event_Second Malignant Neoplasm"]
       Unknown: //*[@id="checkbox_First Event_Unknown"]
   Survival/LastKnownSurStatus:
     facet: (//*[text()="Survival"])[1]

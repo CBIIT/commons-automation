@@ -7,41 +7,41 @@ groups:
       Age-Slidr: //*[@id="checkbox_Race_Asian"]
   Diagnosis/AnatomicSite:
     facet: (//*[text()='Diagnosis'])[1]
-    dropdown: (//*[@id="Anatomic Site"])[1]
+    dropdown: (//*[@id="Diagnosis Anatomic Site"])[1]
     checkboxes:
       C420_Blood: '//*[@id="checkbox_Diagnosis Anatomic Site_C42.0 : Blood"]'
-      AdreGlndNOS: '//*[@id="checkbox_Anatomic Site_C74.9 : Adrenal gland, NOS"]'
-      AutonNervSysNOS: '//*[@id="checkbox_Anatomic Site_C47.9 : Autonomic nervous
+      AdrenalGland: '//*[@id="checkbox_Diagnosis Anatomic Site_adrenal gland"]'
+      AutonNervSysNOS: '//*[@id="checkbox_Diagnosis Anatomic Site_C47.9 : Autonomic nervous
         system, NOS"]'
-      Blood: '//*[@id="checkbox_Anatomic Site_C42.0 : Blood"]'
-      BoneNOS: '//*[@id="checkbox_Anatomic Site_C41.9 : Bone, NOS"]'
-      C01.9.BaseOfTongue,NOS: '//*[@id="checkbox_Anatomic Site_C01.9 : Base of tongue,
+      Blood: '//*[@id="checkbox_Diagnosis Anatomic Site_C42.0 : Blood"]'
+      BoneNOS: '//*[@id="checkbox_Diagnosis Anatomic Site_C41.9 : Bone, NOS"]'
+      C01.9.BaseOfTongue,NOS: '//*[@id="checkbox_Diagnosis Anatomic Site_C01.9 : Base of tongue,
         NOS"]'
-      C029TongueNOS: '//*[@id="checkbox_Anatomic Site_C02.9 : Tongue, NOS"]'
-      C05.0.HardPalate: '//*[@id="checkbox_Anatomic Site_C05.0 : Hard palate"]'
-      C05.1.SoftPalate,NOS: '//*[@id="checkbox_Anatomic Site_C05.1 : Soft palate,
+      C029TongueNOS: '//*[@id="checkbox_Diagnosis Anatomic Site_C02.9 : Tongue, NOS"]'
+      C05.0.HardPalate: '//*[@id="checkbox_Diagnosis Anatomic Site_C05.0 : Hard palate"]'
+      C05.1.SoftPalate,NOS: '//*[@id="checkbox_Diagnosis Anatomic Site_C05.1 : Soft palate,
         NOS"]'
-      C06.9.Mouth,NOS: '//*[@id="checkbox_Anatomic Site_C06.9 : Mouth, NOS"]'
-      C060CheekMucosa: '//*[@id="checkbox_Anatomic Site_C06.0 : Cheek mucosa"]'
-      C07.9 ParotidGland: '//*[@id="checkbox_Anatomic Site_C07.9 : Parotid gland"]'
-      C08.0.SubmandibularGland: '//*[@id="checkbox_Anatomic Site_C08.0 : Submandibular
+      C06.9.Mouth,NOS: '//*[@id="checkbox_Diagnosis Anatomic Site_C06.9 : Mouth, NOS"]'
+      C060CheekMucosa: '//*[@id="checkbox_Diagnosis Anatomic Site_C06.0 : Cheek mucosa"]'
+      C07.9 ParotidGland: '//*[@id="checkbox_Diagnosis Anatomic Site_C07.9 : Parotid gland"]'
+      C08.0.SubmandibularGland: '//*[@id="checkbox_Diagnosis Anatomic Site_C08.0 : Submandibular
         gland"]'
-      C08.9.MajorSalivaryGland,NOS: '//*[@id="checkbox_Anatomic Site_C08.9 : Major
+      C08.9.MajorSalivaryGland,NOS: '//*[@id="checkbox_Diagnosis Anatomic Site_C08.9 : Major
         salivary gland, NOS"]'
-      C10.9.Oropharynx,NOS: '//*[@id="checkbox_Anatomic Site_C10.9 : Oropharynx, NOS"]'
-      C11.2.LateralWallOfNasopharynx: '//*[@id="checkbox_Anatomic Site_C11.2 : Lateral
+      C10.9.Oropharynx,NOS: '//*[@id="checkbox_Diagnosis Anatomic Site_C10.9 : Oropharynx, NOS"]'
+      C11.2.LateralWallOfNasopharynx: '//*[@id="checkbox_Diagnosis Anatomic Site_C11.2 : Lateral
         wall of nasopharynx"]'
-      C11.9.Nasopharynx,NOS: '//*[@id="checkbox_Anatomic Site_C11.9 : Nasopharynx,
+      C11.9.Nasopharynx,NOS: '//*[@id="checkbox_Diagnosis Anatomic Site_C11.9 : Nasopharynx,
         NOS"]'
-      C22LiverIntrehapatic: '//*[@id="checkbox_Anatomic Site_C22 : LIVER AND INTRAHEPATIC
+      C22LiverIntrehapatic: '//*[@id="checkbox_Diagnosis Anatomic Site_C22 : LIVER AND INTRAHEPATIC
         BILE DUCTS"]'
-      C421BoneMarrow: '//*[@id="checkbox_Anatomic Site_C42.1 : Bone marrow"]'
-      C649KidneyNOS: '//*[@id="checkbox_Anatomic Site_C64.9 : Kidney, NOS"]'
-      CerbralMenings: '//*[@id="checkbox_Anatomic Site_C70.0 : Cerebral meninges"]'
-      LipNOS: '//*[@id="checkbox_Anatomic Site_C00.9 : Lip, NOS"]'
-      Liver: '//*[@id="checkbox_Anatomic Site_C22.0 : Liver"]'
-      NotReported: //*[@id="checkbox_Anatomic Site_Not Reported"]
-      ParotidGland: '//*[@id="checkbox_Anatomic Site_C07.9 : Parotid gland"]'
+      C421BoneMarrow: '//*[@id="checkbox_Diagnosis Anatomic Site_C42.1 : Bone marrow"]'
+      C649KidneyNOS: '//*[@id="checkbox_Diagnosis Anatomic Site_C64.9 : Kidney, NOS"]'
+      CerbralMenings: '//*[@id="checkbox_Diagnosis Anatomic Site_C70.0 : Cerebral meninges"]'
+      LipNOS: '//*[@id="checkbox_Diagnosis Anatomic Site_C00.9 : Lip, NOS"]'
+      Liver: '//*[@id="checkbox_Diagnosis Anatomic Site_C22.0 : Liver"]'
+      NotReported: //*[@id="checkbox_Diagnosis Anatomic Site_Not Reported"]
+      ParotidGland: '//*[@id="checkbox_Diagnosis Anatomic Site_C07.9 : Parotid gland"]'
   Diagnosis/Diagnosis:
     facet: (//*[text()='Diagnosis'])[1]
     dropdown: //*[@id='Diagnosis' and @role='button']
