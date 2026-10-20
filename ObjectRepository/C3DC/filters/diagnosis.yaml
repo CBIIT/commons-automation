@@ -39,7 +39,7 @@ groups:
       C649KidneyNOS: '//*[@id="checkbox_Diagnosis Anatomic Site_C64.9 : Kidney, NOS"]'
       CerbralMenings: '//*[@id="checkbox_Diagnosis Anatomic Site_C70.0 : Cerebral meninges"]'
       LipNOS: '//*[@id="checkbox_Diagnosis Anatomic Site_C00.9 : Lip, NOS"]'
-      Liver: '//*[@id="checkbox_Diagnosis Anatomic Site_C22.0 : Liver"]'
+      Liver: '//*[@id="checkbox_Diagnosis Anatomic Site_liver"]'
       NotReported: //*[@id="checkbox_Diagnosis Anatomic Site_Not Reported"]
       ParotidGland: '//*[@id="checkbox_Diagnosis Anatomic Site_C07.9 : Parotid gland"]'
   Diagnosis/Diagnosis:

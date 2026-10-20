@@ -5,6 +5,7 @@ from typing import Dict, List, Optional
 
 from Commons import action_log
 from Commons.apps.base import BaseApp, StatSpec, TabSpec
+from Commons.table_reader import resolve_table_body_xpath
 def _tab(name, label, input_tab, stat, ui, db, max_pages=2):
     return TabSpec(
         name=name,
@@ -22,6 +23,10 @@ class C3DC(BaseApp):
     BANNER_KEYS = ["HomePage/WarningBan_Continue_Btn"]
     STATIC_DATA_EXCEL = "C3DC_StaticData.xlsx"
     EXPLORE_PATH = "exploreParticipants"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._active_study_accession: Optional[str] = None
 
     # Visible text on result tabs — Katalon selectTab('Participants', 10), etc.
     TAB_SELECT_LABELS: Dict[str, List[str]] = {
@@ -93,17 +98,63 @@ class C3DC(BaseApp):
     def open_explore(self):
         """Open Explore Participants via navbar (Katalon: clickTab Explore-Tab)."""
         action_log.say("open_explore (Navbar/Explore-Tab)")
+        self._active_study_accession = None
         self.click("Navbar/Explore-Tab", ui_message="Explore Participants opened successfully.")
         self._wait_explore_results_ready()
 
     def select_filter(self, group: str, value: str):
         """Apply filters via left-panel facet UI (expand, dropdown, checkbox click)."""
         super().select_filter(group, value)
+        if group == "Study/dbGaP_Accession":
+            self._active_study_accession = value
         self._wait_explore_results_ready()
 
     def _wait_explore_results_ready(self):
         self.page.locator("#statsbar_count_1").first.wait_for(state="visible", timeout=self.ui.timeout_ms)
+        self.ui.stable_text(
+            self.repo.xpath("Statbar/Participants-Count"),
+            settle_s=0.75,
+            timeout_s=30,
+            label="participants_stat",
+        )
         self.ui.wait_idle()
+        self._wait_participant_table_for_study()
+
+    def _wait_participant_table_for_study(self, timeout_s: float = 30.0) -> None:
+        """After filters, the grid can lag the stat bar; require visible rows to match the study filter."""
+        acc = self._active_study_accession
+        if not acc:
+            return
+        tbl = self.repo.xpath("ResultTabs/Participants-Tbl")
+        tbl_bdy = resolve_table_body_xpath("C3DC", tbl)
+        end = time.time() + timeout_s
+        while time.time() < end:
+            ok = self.page.evaluate(
+                """({ bodyXp, acc }) => {
+                  const r = document.evaluate(bodyXp, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+                  const tb = r.singleNodeValue;
+                  if (!tb) return false;
+                  const rows = tb.querySelectorAll(':scope > tr');
+                  if (!rows.length) return false;
+                  for (const tr of rows) {
+                    const cells = Array.from(tr.querySelectorAll(':scope > td'))
+                      .map(td => (td.innerText || '').replace(/\\s+/g, ' ').trim());
+                    const phs = cells.filter(t => /^phs\\d+$/.test(t));
+                    if (!phs.length) return false;
+                    if (phs.some(t => t !== acc)) return false;
+                  }
+                  return true;
+                }""",
+                {"bodyXp": tbl_bdy, "acc": acc},
+            )
+            if ok:
+                action_log.ui_action(f"Participant table shows study {acc} on all visible rows.")
+                return
+            time.sleep(0.25)
+        raise TimeoutError(
+            f"Participant table did not show only study {acc!r} within {timeout_s}s "
+            "(study filter may not have applied)."
+        )
 
     @staticmethod
     def _normalize_tab_label(raw: str) -> str:

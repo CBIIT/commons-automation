@@ -3,6 +3,14 @@ import json
 from dataclasses import dataclass, field
 from typing import List, Optional
 
+
+def memgraph_tab_query_label(tab_key: str, display_name: Optional[str] = None) -> str:
+    """Console label for [DB] … when running a result-tab Cypher query."""
+    name = (display_name or "").strip()
+    if not name:
+        name = tab_key[:-3] if tab_key.endswith("Tab") else tab_key
+    return f"{name} tab query from memgraph"
+
 from Commons import action_log
 from Commons.settings import AppSettings, memgraph_password_env_keys
 from Commons.query_reader import QueryFile
@@ -17,7 +25,9 @@ class Table:
 class ExpectedDataSource:
     """Expected UI results from Memgraph."""
 
-    def fetch_tab_table(self, query_file: QueryFile, tab_key: str) -> Table:
+    def fetch_tab_table(
+        self, query_file: QueryFile, tab_key: str, tab_display_name: Optional[str] = None
+    ) -> Table:
         raise NotImplementedError
 
     def fetch_stat_bar_table(self, query_file: QueryFile) -> Table:
@@ -98,16 +108,19 @@ class MemgraphSource(ExpectedDataSource):
         action_log.memgraph_db_table(table.header, table.rows)
         return table
 
-    def fetch_tab_table(self, query_file: QueryFile, tab_key: str) -> Table:
+    def fetch_tab_table(
+        self, query_file: QueryFile, tab_key: str, tab_display_name: Optional[str] = None
+    ) -> Table:
         """Run the TabQuery for one result tab (e.g. ParticipantsTab) from the input Excel."""
         cypher = query_file.query_for_tab(tab_key)
-        return self.run_cypher_as_table(cypher, "tab query from memgraph")
+        label = memgraph_tab_query_label(tab_key, tab_display_name)
+        return self.run_cypher_as_table(cypher, label)
 
     def fetch_stat_bar_table(self, query_file: QueryFile) -> Table:
         """Run the StatQuery from the input Excel for stat-bar verification."""
         if not query_file.stat_bar_query:
             raise ValueError(f"{query_file.path.name} has no StatQuery")
-        return self.run_cypher_as_table(query_file.stat_bar_query, "stat query")
+        return self.run_cypher_as_table(query_file.stat_bar_query, "Stat bar query from memgraph")
 
     def close_connection(self):
         """Close the Bolt driver when the test session ends."""
@@ -147,8 +160,12 @@ class LazySource(ExpectedDataSource):
             self._connected = create_expected_data_source(self._settings)
         return self._connected
 
-    def fetch_tab_table(self, query_file: QueryFile, tab_key: str) -> Table:
-        return self.get_connected_source().fetch_tab_table(query_file, tab_key)
+    def fetch_tab_table(
+        self, query_file: QueryFile, tab_key: str, tab_display_name: Optional[str] = None
+    ) -> Table:
+        return self.get_connected_source().fetch_tab_table(
+            query_file, tab_key, tab_display_name=tab_display_name
+        )
 
     def fetch_stat_bar_table(self, query_file: QueryFile) -> Table:
         return self.get_connected_source().fetch_stat_bar_table(query_file)

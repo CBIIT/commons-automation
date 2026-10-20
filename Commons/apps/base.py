@@ -330,7 +330,10 @@ class BaseApp:
             return
         ui_table = self.read_results_table(spec)
         action_log.say(f"ReadExcel.Memgraph sheet={spec.db_sheet!r} tab={spec.input_tab!r}")
-        expected = self.source.fetch_tab_table(self.query_file, spec.input_tab)
+        tab_label = spec.label or spec.name
+        expected = self.source.fetch_tab_table(
+            self.query_file, spec.input_tab, tab_display_name=tab_label
+        )
         base = self.output_dir / self.query_file.name
         excel_writer.write_sheet(base.with_name(base.name + "_UI.xlsx"), spec.ui_sheet, ui_table.header, ui_table.rows)
         excel_writer.write_sheet(base.with_name(base.name + "_DB.xlsx"), spec.db_sheet, expected.header, expected.rows)
@@ -362,11 +365,37 @@ class BaseApp:
         self.failures.append(message)
         self.results.append({"check": "check", "status": "FAILED", "detail": message})
 
+    def _failed_result_tab_labels(self) -> List[str]:
+        """Human-readable tab names for result-tab checks that failed (excludes stat bar / static)."""
+        labels: List[str] = []
+        tabs = getattr(self, "TABS", {})
+        for r in self.results:
+            if r.get("status") != "FAILED":
+                continue
+            check = r.get("check", "")
+            if check in ("StatBar", "check") or str(check).startswith("Static "):
+                continue
+            spec = tabs.get(check)
+            label = (spec.label or spec.name) if spec else check
+            if label not in labels:
+                labels.append(label)
+        return labels
+
     def assert_no_failures(self):
         """Fail the test if any tab / stat bar check failed. Called automatically at the end of a test."""
         if self.failures:
-            raise AssertionError(f"{self.NAME} {self.query_file.name if self.query_file else ''}: "
-                                 f"{len(self.failures)} check(s) failed\n\n" + "\n\n".join(self.failures))
+            tab_summary = self._failed_result_tab_labels()
+            summary_block = "\n".join(f"Mismatch in {name} tab" for name in tab_summary)
+            if summary_block:
+                print(summary_block, flush=True)
+            detail = (
+                f"{self.NAME} {self.query_file.name if self.query_file else ''}: "
+                f"{len(self.failures)} check(s) failed"
+            )
+            body = "\n\n".join(self.failures)
+            if summary_block:
+                raise AssertionError(f"{detail}\n\n{summary_block}\n\n{body}")
+            raise AssertionError(f"{detail}\n\n{body}")
 
     def report(self) -> str:
         lines: List[str] = []
