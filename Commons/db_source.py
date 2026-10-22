@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from typing import List, Optional
 
 from Commons import action_log
+from Commons.tab_compare import apply_tab_row_limit
 from Commons.query_reader import QueryFile
 from Commons.settings import AppSettings, memgraph_password_env_keys, neo4j_password_env_keys
 
@@ -59,7 +60,15 @@ format_memgraph_cell = format_db_cell
 
 
 class MemgraphSource(ExpectedDataSource):
-    def __init__(self, endpoint: str, username: str, password: str, app: str = "", env: str = ""):
+    def __init__(
+        self,
+        endpoint: str,
+        username: str,
+        password: str,
+        app: str = "",
+        env: str = "",
+        tab_row_limit: Optional[int] = None,
+    ):
         missing = []
         if not endpoint:
             missing.append("Memgraph endpoint (Config/environments.yaml or MEMGRAPH_ENDPOINT_<APP>)")
@@ -76,6 +85,7 @@ class MemgraphSource(ExpectedDataSource):
             )
         self.endpoint, self.username, self.password = endpoint, username, password
         self._app, self._env = app, env
+        self._tab_row_limit = tab_row_limit
         self._driver = None
         self._logged_connection = False
 
@@ -90,6 +100,10 @@ class MemgraphSource(ExpectedDataSource):
                 encrypted=False,
             )
         return self._driver
+
+    def _tab_cypher(self, query_file: QueryFile, tab_key: str) -> str:
+        raw = query_file.query_for_tab(tab_key)
+        return apply_tab_row_limit(raw, self._tab_row_limit)
 
     def run_cypher_as_table(self, cypher: str, query_label: str = "tab query from memgraph") -> Table:
         """Execute Cypher and return header + rows as strings."""
@@ -123,7 +137,7 @@ class MemgraphSource(ExpectedDataSource):
         self, query_file: QueryFile, tab_key: str, tab_display_name: Optional[str] = None
     ) -> Table:
         """Run the TabQuery for one result tab (e.g. ParticipantsTab) from the input Excel."""
-        cypher = query_file.query_for_tab(tab_key)
+        cypher = self._tab_cypher(query_file, tab_key)
         label = memgraph_tab_query_label(tab_key, tab_display_name)
         return self.run_cypher_as_table(cypher, label)
 
@@ -155,6 +169,7 @@ class Neo4jSource(MemgraphSource):
         app: str = "",
         env: str = "",
         ui_env: str = "",
+        tab_row_limit: Optional[int] = None,
     ):
         missing = []
         if not endpoint:
@@ -177,6 +192,7 @@ class Neo4jSource(MemgraphSource):
         self.endpoint, self.username, self.password = endpoint, username, password
         self._app, self._env = app, env
         self._ui_env = ui_env or env
+        self._tab_row_limit = tab_row_limit
         self._driver = None
         self._logged_connection = False
 
@@ -229,7 +245,7 @@ class Neo4jSource(MemgraphSource):
     def fetch_tab_table(
         self, query_file: QueryFile, tab_key: str, tab_display_name: Optional[str] = None
     ) -> Table:
-        query = query_file.query_for_tab(tab_key)
+        query = self._tab_cypher(query_file, tab_key)
         label = neo4j_tab_query_label(tab_key, tab_display_name)
         return self.run_cypher_as_table(query, label)
 
@@ -248,6 +264,7 @@ def create_expected_data_source(settings: AppSettings) -> ExpectedDataSource:
             db.password,
             app=settings.app,
             env=db.bolt_env or settings.env,
+            tab_row_limit=settings.tab_row_limit,
         )
     if db.expected_source == "neo4j":
         bolt_env = db.bolt_env or settings.env
@@ -258,6 +275,7 @@ def create_expected_data_source(settings: AppSettings) -> ExpectedDataSource:
             app=settings.app,
             env=bolt_env,
             ui_env=settings.env,
+            tab_row_limit=settings.tab_row_limit,
         )
     raise ValueError(
         f"Unknown expected_source '{db.expected_source}' for {settings.app}. "

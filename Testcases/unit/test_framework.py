@@ -305,6 +305,34 @@ def test_memgraph_endpoint_per_app(monkeypatch):
     assert get_db_settings("C3DC", "qa").endpoint == c3dc
 
 
+def test_tab_row_limit_from_tab_compare_yaml():
+    from Commons.tab_compare import apply_tab_row_limit, settings_for_app
+
+    gc = settings_for_app("GC")
+    assert gc.tab_row_limit == 100
+    assert gc.pagination_max_pages >= 10
+    cypher = "MATCH (n) RETURN n ORDER BY n.id\nLIMIT 50;"
+    assert apply_tab_row_limit(cypher, 200).rstrip().endswith("LIMIT 200")
+    assert "LIMIT 50" not in apply_tab_row_limit(cypher, 200)
+
+
+def test_app_settings_includes_tab_row_limit():
+    s = get_app_settings("C3DC", "qa")
+    assert s.tab_row_limit == 100
+    assert s.pagination_max_pages >= 10
+    assert s.tab_execution.get("Diagnosis") is True
+
+
+def test_tab_is_enabled_respects_yaml_and_c3dc_aliases():
+    from Commons.tab_compare import tab_is_enabled
+
+    execution = {"Treatments": False, "Participants": True}
+    aliases = {"Treatments": "Treatment", "Genetic Analysis": "GeneticAnalysis"}
+    assert tab_is_enabled(execution, "Treatment", aliases) is False
+    assert tab_is_enabled(execution, "Participants", aliases) is True
+    assert tab_is_enabled(execution, "Studies", aliases) is True
+
+
 def test_read_c3dc_query_file():
     qf = read_query_file("C3DC", "TC01_C3DC_phs000463_SexAtBirth-Female.xlsx")
     assert {"StudiesTab", "ParticipantsTab", "SurvivalTab"} <= set(qf.queries_by_tab)

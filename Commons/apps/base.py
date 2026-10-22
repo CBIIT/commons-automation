@@ -304,14 +304,35 @@ class BaseApp:
             header_xpath=self.repo.xpath(spec.header),
             next_xpath=self.repo.xpath(spec.next),
             next_repo_key=spec.next,
-            **options_from_spec(spec, self.MAX_PAGES),
+            **options_from_spec(
+                spec,
+                self.MAX_PAGES,
+                pagination_max_pages=self.settings.pagination_max_pages,
+                tab_row_limit=self.settings.tab_row_limit,
+            ),
         )
+
+    def _tab_enabled_for_verify(self, tabs_key: str) -> bool:
+        from Commons.tab_compare import tab_is_enabled
+
+        aliases = getattr(self, "TAB_VERIFY_ALIASES", None)
+        return tab_is_enabled(self.settings.tab_execution, tabs_key, aliases)
 
     def verify_tab(self, name: str):
         """Katalon multiFunction: read the tab from the UI, get the expected data, compare, check stat bar."""
         spec = self.TABS[name]
         if self.query_file is None:
             raise RuntimeError("Call load_query_file() first")
+        if not self._tab_enabled_for_verify(name):
+            action_log.ui_action(f"Skipped {spec.name} tab (disabled in Config/tab_compare.yaml).")
+            self.results.append(
+                {
+                    "check": spec.name,
+                    "status": "SKIPPED",
+                    "detail": "disabled in Config/tab_compare.yaml",
+                }
+            )
+            return
         stat_value = self._stat_value(spec.stat)
         action_log.multifunc_stat(str(self.stats.get(spec.stat, stat_value)), stat_value)
         if stat_value == 0:

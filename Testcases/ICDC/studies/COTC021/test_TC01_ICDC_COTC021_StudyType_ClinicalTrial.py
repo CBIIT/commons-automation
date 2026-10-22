@@ -6,6 +6,7 @@ _INPUT = "TC01_ICDC_COTC021_StudyType-ClinicalTrial.xlsx"
 
 
 @pytest.mark.icdc
+@pytest.mark.quickrun
 @pytest.mark.regression
 def test_TC01_ICDC_COTC021_StudyType_ClinicalTrial(icdc):
     icdc.load_query_file(_INPUT)

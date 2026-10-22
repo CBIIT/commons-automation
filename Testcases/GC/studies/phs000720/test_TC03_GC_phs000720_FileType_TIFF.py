@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.quickrun
 def test_TC03_GC_phs000720_FileType_TIFF(gc):
     gc.load_query_file("TC03_GC_phs000720_FileType_TIFF.xlsx")
     gc.accept_banner()

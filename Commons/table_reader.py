@@ -499,12 +499,23 @@ def _read_table_body_page(
     return out
 
 
-def options_from_spec(spec: "TabSpec", default_max_pages: int) -> dict:
-    """Map TabSpec fields to read_table_data kwargs (max_pages, first_page, first_child)."""
+def options_from_spec(
+    spec: "TabSpec",
+    default_max_pages: int,
+    *,
+    pagination_max_pages: Optional[int] = None,
+    tab_row_limit: Optional[int] = None,
+) -> dict:
+    """Map TabSpec to read_table_data (row limit from Config/tab_compare.yaml wins over max_pages)."""
+    if tab_row_limit and tab_row_limit > 0 and pagination_max_pages:
+        max_pages = pagination_max_pages
+    else:
+        max_pages = spec.max_pages if spec.max_pages is not None else default_max_pages
     return dict(
-        max_pages=spec.max_pages if spec.max_pages is not None else default_max_pages,
+        max_pages=max_pages,
         first_page=spec.first_page,
         first_child=spec.first_child,
+        max_rows=tab_row_limit if tab_row_limit and tab_row_limit > 0 else None,
     )
 
 
@@ -628,6 +639,7 @@ def read_table_data(
     max_pages: int = 10,
     first_page: int = 1,
     first_child: bool = False,
+    max_rows: Optional[int] = None,
     g_rowcount_files: Optional[int] = None,
     g_rowcount_katalon: Optional[int] = None,
 ) -> Table:
@@ -696,6 +708,10 @@ def read_table_data(
             action_log.say(f"Number of rows per page is: {len(page_rows)}")
             action_log.say(f"COLLECTED DATA FROM PAGE - {counter}")
             rows.extend(page_rows)
+            if max_rows and max_rows > 0 and len(rows) >= max_rows:
+                rows = rows[:max_rows]
+                action_log.say(f"Stopped UI read at tab_row_limit={max_rows}")
+                break
 
             if counter >= last_page:
                 break

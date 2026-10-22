@@ -14,6 +14,8 @@ Use this when you need to change something—not to memorize every module.
 | Portal URL or graph DB host | `Config/environments.yaml` (committed); passwords in gitignored `.env` |
 | Fix a filter, tab, or stat-bar locator | `ObjectRepository/<app>/*.yaml` |
 | Fix expected query or stat counts | `InputFiles/<app>/TC*.xlsx` columns `TabQuery`, `StatQuery` |
+| Change how many tab rows UI vs DB compare | `Config/tab_compare.yaml` (`tab_row_limit` per app; env `TAB_ROW_LIMIT_<APP>`) |
+| Skip a result tab (no UI/DB for that tab) | `Config/tab_compare.yaml` → `apps.<APP>.tabs.<TabName>: false` |
 | Fix how the UI table is scraped | `Commons/table_reader.py` and tab settings in `Commons/apps/<app>.py` |
 | Bulk-convert old SQL in Excel to Cypher | `Tools/convert_*_sql_to_cypher.py` and `Tools/cypher/` (**not** imported during pytest) |
 | Regenerate tests from Katalon | `Tools/generate_tests.py`, `Tools/convert_object_repository.py` |
@@ -113,6 +115,7 @@ Use the **`gc`** or **`c3dc`** fixture (defined in `conftest.py`); add a new fix
 
 ```
 Config/environments.yaml     URLs and DB hosts (no secrets)
+Config/tab_compare.yaml      Tab row cap + which tabs verify_tab runs, per app
 .env                         Passwords and local overrides (gitignored)
 
 InputFiles/<app>/            TC*.xlsx — TabQuery / StatQuery for each test
