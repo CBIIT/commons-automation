@@ -53,7 +53,7 @@ apps:
     tab_row_limit: 18
     pagination_max_pages: 25
     tabs:
-      Cases: false          # Canine cases
+      Cases: true          # Canine cases
       Samples: true        # Samples linked to cases
       "Case Files": true   # Files attached to cases
       "Study Files": true  # Files at study level
