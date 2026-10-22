@@ -54,11 +54,25 @@ def strip_cpi_badge(value: str) -> str:
     return out.strip()
 
 
+def _icdc_opensearch_array(ui: str, expected: str) -> bool:
+    """ICDC Explore tables show some Neo4j scalars as one-element JSON arrays in the UI."""
+    m = re.match(r'^\["(.*)"\]$', ui.strip())
+    if not m:
+        return False
+    return m.group(1).strip() == expected.strip()
+
+
 def cells_match(ui: str, expected: str) -> bool:
     ui = "" if ui is None else str(ui)
     expected = "" if expected is None else str(expected)
     clean = strip_cpi_badge(ui)
-    return ui == expected or clean == expected or normalize_list(clean) == normalize_list(expected)
+    return (
+        ui == expected
+        or clean == expected
+        or normalize_list(clean) == normalize_list(expected)
+        or _icdc_opensearch_array(ui, expected)
+        or _icdc_opensearch_array(clean, expected)
+    )
 
 
 def _cell_text(cell) -> str:

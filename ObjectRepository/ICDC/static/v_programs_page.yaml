@@ -1,0 +1,12 @@
+# Converted from Katalon Object Repository/ICDC/Static/V_ProgramsPage
+page: Static/V_ProgramsPage
+elements:
+  BannerTitle: //h2[text()='Programs']
+  CardDescription1: (//h3)[1]/following::p[1]
+  CardDescription2: (//h3)[2]/following::p[1]
+  CardDescription3: (//h3)[3]/following::p[1]
+  CardDescription4: (//h3)[4]/following::p[1]
+  CardTitle1: (//h3)[1]
+  CardTitle2: (//h3)[2]
+  CardTitle3: (//h3)[3]
+  CardTitle4: (//h3)[4]

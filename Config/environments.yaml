@@ -3,6 +3,9 @@
 # Secrets (Memgraph passwords) are NOT stored here. Put them in a gitignored `.env` or the shell:
 #   MEMGRAPH_PASSWORD_C3DC=...     # required for C3DC tests (cluster host under apps.C3DC.memgraph)
 #   MEMGRAPH_PASSWORD_CTDC=...     # required for CTDC tests
+#   NEO4J_PASSWORD_ICDC=...        # ICDC QA (see NEO4J_PASSWORD_ICDC_PROD for prod)
+#   NEO4J_ENDPOINT_ICDC=...        # optional bolt URI override per app/env
+#   NEO4J_ENV=qa                   # ICDC: UI env can differ from Neo4j bolt env (local dev)
 #   MEMGRAPH_PASSWORD_GC_QA=... MEMGRAPH_PASSWORD_GC_QA2=...  # GC: one password per env
 # Optional overrides: MEMGRAPH_ENDPOINT_C3DC, MEMGRAPH_USERNAME_C3DC_QA, etc. (see Commons/settings.py)
 
@@ -35,6 +38,21 @@ apps:
         endpoint: bolt://crdc-c-nlbC3-PnIdn9bEEnH4-90d8fb37076e1f8b.elb.us-east-1.amazonaws.com:7687
         username: admin
 
+  ICDC:
+    # Expected data = Cypher in input Excel, run against Neo4j (not Memgraph).
+    expected_source: neo4j
+    urls:
+      qa:    https://caninecommons-qa.cancer.gov/#/
+      stage: https://caninecommons-stage.cancer.gov/#/
+      prod:  https://caninecommons.cancer.gov/#/
+    neo4j:
+      # Hosts match Katalon Profiles/ICDC_*.glbl (G_server). Override: NEO4J_ENDPOINT_ICDC_<ENV>
+      qa:
+        endpoint: bolt://ncidb-q600-c.nci.nih.gov:7687
+        username: neo4j
+      stage:
+        endpoint: bolt://ncias-s2261-c.nci.nih.gov:7687
+        username: neo4j
   GC:
     # Expected data = Cypher in the input Excel, run against Memgraph.
     expected_source: memgraph

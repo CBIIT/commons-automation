@@ -1,0 +1,5 @@
+# Converted from Katalon Object Repository/ICDC/StudiesPage
+page: StudiesPage
+elements:
+  COTC007B_Hplink: //*[@href="#/study/COTC007B"]
+  NCATS_Hplink: //*[@href="#/study/NCATS-COP01"]

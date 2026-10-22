@@ -1,0 +1,14 @@
+# Converted from Katalon Object Repository/ICDC/Static/V_ResourcesDeveloperPage
+page: Static/V_ResourcesDeveloperPage
+elements:
+  BackendLink: //a[@title='bento-icdc-backend']
+  BannerTitle: //span[text()='Developers']
+  BioinformaticsLink: //a[@title='icdc-bioinformatics']
+  DevelopersDescription1: //span[text()='Developers']/following::span/div[1]
+  DevelopersDescription2: //span[text()='Developers']/following::span/div[3]
+  FrontendLink: //a[@title='bento-icdc-frontend']
+  GithubDescription: //span[text()='Developers']/following::span/div[5]
+  GithubTitle: //div[text()='GitHub']
+  GraphqlLink: //a[contains(@title,'graphql')]
+  InteroperationLink: //a[@title='bento-icdc-interoperation']
+  ToolsLink: //a[@title='icdc-model-tools']

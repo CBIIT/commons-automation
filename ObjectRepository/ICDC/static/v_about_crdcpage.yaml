@@ -1,0 +1,23 @@
+# Converted from Katalon Object Repository/ICDC/Static/V_AboutCRDCPage
+page: Static/V_AboutCRDCPage
+elements:
+  BannerTitle: //span[text()='Cancer Research Data Commons (CRDC) and Analysis']
+  CbiitLink: //a[@title='CBIIT']
+  CgcDescription: //span[contains(text(),'Seven Bridges')]/..
+  CgcLink: //a[@title='Seven Bridges Cancer Genomics Cloud powered by Velsera ']
+  CrdcCloudDescription1: //div[text()='The CRDC Cloud Resources']/following::div[1]
+  CrdcCloudDescription2: //div[text()='The CRDC Cloud Resources']/following::div[2]
+  CrdcCloudDescription3: //div[text()='The CRDC Cloud Resources']/following::div[3]
+  CrdcCloudTitle: //div[text()='The CRDC Cloud Resources']
+  CrdcDescription: //div[text()='The CRDC']/following::div[1]
+  CrdcLink: //a[@title='The Cancer Research Data Commons (CRDC)']
+  CrdcTitle: //div[text()='The CRDC']
+  FirecloudDescription: //span[contains(text(),'Firecloud')]/..
+  FirecloudLink: //a[@title='Broad Firecloud ']
+  IcdcCloudDescription1: //span[text()='From the ICDC to the Cloud Resources']/following::div[1]
+  IcdcCloudDescription2: //span[text()='From the ICDC to the Cloud Resources']/following::div[2]
+  IcdcCloudDescription3: //span[text()='From the ICDC to the Cloud Resources']/following::div[3]
+  IcdcCloudDescription4: //span[text()='From the ICDC to the Cloud Resources']/following::div[4]
+  IcdcCloudTitle: //span[text()='From the ICDC to the Cloud Resources']
+  IsbCgcDescription: //span[contains(text(),'ISB-CGC')]/..
+  IsbCgcLink: //a[@title='ISB Cancer Genomics Cloud ']

@@ -61,6 +61,7 @@ class AppSettings:
     memgraph_endpoint: str = ""
     memgraph_username: str = ""
     memgraph_password: str = ""          # env only (see _memgraph_env); never from YAML
+    db_env: str = ""                     # Neo4j bolt env when it differs from UI `env` (ICDC)
 
 
 def memgraph_password_env_keys(app: str, env: str) -> tuple[str, str]:
@@ -70,6 +71,72 @@ def memgraph_password_env_keys(app: str, env: str) -> tuple[str, str]:
         f"MEMGRAPH_PASSWORD_{app_u}_{env_u}",
         f"MEMGRAPH_PASSWORD_{app_u}",
     )
+
+
+def neo4j_password_env_keys(app: str, env: str) -> tuple[str, str]:
+    app_u, env_u = app.upper(), env.upper()
+    return (
+        f"NEO4J_PASSWORD_{app_u}_{env_u}",
+        f"NEO4J_PASSWORD_{app_u}",
+    )
+
+
+def _neo4j_env(app: str, env: str, field: str, yaml_value: str = "") -> str:
+    """Resolve Neo4j bolt endpoint / username (env overrides, then YAML).
+
+    Falls back to MEMGRAPH_* env names so existing ICDC `.env` entries keep working.
+    Passwords use `_expected_db_password` (NEO4J_PASSWORD_* first).
+    """
+    app_u, env_u = app.upper(), env.upper()
+    field_u = field.upper()
+    keys = [
+        f"NEO4J_{field_u}_{app_u}_{env_u}",
+        f"NEO4J_{field_u}_{app_u}",
+        f"MEMGRAPH_{field_u}_{app_u}_{env_u}",
+        f"MEMGRAPH_{field_u}_{app_u}",
+    ]
+    if field_u != "PASSWORD":
+        keys.extend([f"NEO4J_{field_u}", f"MEMGRAPH_{field_u}"])
+    for key in keys:
+        val = os.environ.get(key)
+        if val:
+            return val
+    return yaml_value or ""
+
+
+def neo4j_bolt_env(app: str, ui_env: str) -> str:
+    """Which env block to use for Neo4j bolt (ICDC only). UI may be prod while bolt is qa locally."""
+    for key in (f"NEO4J_ENV_{app.upper()}", "NEO4J_ENV"):
+        raw = os.environ.get(key)
+        if raw and str(raw).strip():
+            return str(raw).strip().lower()
+    return ui_env
+
+
+def _neo4j_yaml_for_env(app_cfg: dict, env: str) -> dict:
+    """Per-env Neo4j host block; `neo4j:` in YAML, else legacy `memgraph:` (ICDC only today)."""
+    bolt = app_cfg.get("neo4j") or app_cfg.get("memgraph") or {}
+    per_env = dict(bolt.get(env) or {})
+    if not per_env.get("endpoint") and env != "qa":
+        per_env = dict(bolt.get("qa") or {})
+    return per_env
+
+
+def _expected_db_password(app: str, env: str, expected_source: str) -> str:
+    """Password for Memgraph or Neo4j bolt (env only)."""
+    if expected_source == "neo4j":
+        app_u, env_u = app.upper(), env.upper()
+        for key in (
+            f"NEO4J_PASSWORD_{app_u}_{env_u}",
+            f"NEO4J_PASSWORD_{app_u}",
+            f"MEMGRAPH_PASSWORD_{app_u}_{env_u}",
+            f"MEMGRAPH_PASSWORD_{app_u}",
+        ):
+            val = os.environ.get(key)
+            if val:
+                return val
+        return ""
+    return _memgraph_env(app, env, "password", "")
 
 
 def _memgraph_env(app: str, env: str, field: str, yaml_value: str = "") -> str:
@@ -150,15 +217,28 @@ def get_app_settings(app: str, env: str = None, cfg: dict = None) -> AppSettings
     if not url:
         raise ValueError(f"No URL for app={app} env={env}. Add it to {CONFIG_FILE} "
                          f"or set URL_{app.upper()}_{env.upper()}.")
-    mg = (a.get("memgraph") or {}).get(env, {})
+    expected_source = a.get("expected_source", "memgraph")
+    db_env = env
+    if expected_source == "neo4j":
+        db_env = neo4j_bolt_env(app, env)
+        nj = _neo4j_yaml_for_env(a, db_env)
+        endpoint = _neo4j_env(app, db_env, "endpoint", nj.get("endpoint", ""))
+        username = _neo4j_env(app, db_env, "username", nj.get("username", ""))
+        password = _expected_db_password(app, db_env, expected_source)
+    else:
+        mg = (a.get("memgraph") or {}).get(env, {})
+        endpoint = _memgraph_env(app, env, "endpoint", mg.get("endpoint", ""))
+        username = _memgraph_env(app, env, "username", mg.get("username", ""))
+        password = _expected_db_password(app, env, expected_source)
     return AppSettings(
         app=app,
         env=env,
         url=url,
-        expected_source=a.get("expected_source", "memgraph"),
-        memgraph_endpoint=_memgraph_env(app, env, "endpoint", mg.get("endpoint", "")),
-        memgraph_username=_memgraph_env(app, env, "username", mg.get("username", "")),
-        memgraph_password=_memgraph_env(app, env, "password", ""),
+        expected_source=expected_source,
+        memgraph_endpoint=endpoint,
+        memgraph_username=username,
+        memgraph_password=password,
+        db_env=db_env,
     )
 
 

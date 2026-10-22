@@ -1,0 +1,8 @@
+# Converted from Katalon Object Repository/ICDC/Static/V_AboutDGABPage
+page: Static/V_AboutDGABPage
+elements:
+  BannerTitle: //span[text()='Data Governance Advisory Board']
+  DgabDescription1: //span[text()='Data Governance Advisory Board']/following::span/div[1]
+  DgabDescription2: //span[text()='Data Governance Advisory Board']/following::span/div[3]
+  GuidelinesLink: //a[@title='Data Submission Guidelines']
+  SubmissionLink: //a[contains(@href,'ICDC_DGAB')]

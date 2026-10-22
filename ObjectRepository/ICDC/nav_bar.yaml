@@ -1,0 +1,21 @@
+# Converted from Katalon Object Repository/ICDC/NavBar
+page: NavBar
+elements:
+  Canine_AboutBpsc_Btn: //a[@href = '#/BPSC']
+  Canine_AboutCrdc_Btn: //a[@href = '#/crdc']
+  Canine_AboutDgab_Btn: //a[@href = '#/DGAB']
+  Canine_AboutPurpose_Btn: //a[@href = '#/purpose']
+  Canine_AboutSteering_Btn: //a[@href = '#/steeringCommittee']
+  Canine_AboutSupport_Btn: //a[@href = '#/support']
+  Canine_AboutWorkGroups_Btn: //a[contains(@href, '#/Working Groups')]
+  Canine_About_Btn: //*[@id = 'navbar-dropdown-about']
+  Canine_Cases_Btn: //a[contains(@href,'#/explore')]
+  Canine_DataSubmission_Btn: //a[@href = '#/submit']
+  Canine_DataUse_Btn: //a[@href = '#/guideline']
+  Canine_Data_Btn: //*[@id = 'navbar-dropdown-data']
+  Canine_Home_Btn: //*[@title = concat('//a[contains(text(),' , "'" , 'home' , "'" , ')]')]
+  Canine_MyFilesCart: //a[contains(@href,'#/fileCentricCart')]
+  Canine_Programs_Btn: //*[@href="#/programs"]
+  Canine_ResourcesDevelopers_Btn: //a[@href = '#/developers' and (text() = 'Developers' or . = 'Developers')]
+  Canine_Resources_Btn: //*[@id = 'navbar-dropdown-resources']
+  Canine_Studies_Btn: //a[contains(text(),'Studies')]

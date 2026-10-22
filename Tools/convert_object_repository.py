@@ -25,7 +25,7 @@ from pathlib import Path
 import yaml
 
 # Katalon Object Repository folder name (Commons_Automation still uses CDS for General Commons).
-KATALON_APP = {"GC": "CDS"}
+KATALON_APP = {"GC": "CDS", "ICDC": "Canine"}
 
 
 def framework_element_name(app: str, katalon_name: str) -> str:

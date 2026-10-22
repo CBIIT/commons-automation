@@ -1,0 +1,25 @@
+# Converted from Katalon Object Repository/ICDC/CaseDetailsPage
+page: CaseDetailsPage
+elements:
+  Age_Lbl: //*[@id="root"]/div[4]/div[2]/div[2]/div/div[1]/div/div[2]/div[5]/div/div[1]/span
+  Age_Value: //*[@id="root"]/div[4]/div[2]/div[2]/div/div[1]/div/div[2]/div[5]/div/div[2]
+  Breed: //*[@id="root"]/div[4]/div[2]/div[2]/div/div[1]/div/div[2]/div[1]
+  Breed_Lbl: //*[@id="root"]/div[4]/div[2]/div[2]/div/div[1]/div/div[2]/div[1]/div/div[1]/span
+  Breed_Value: //*[@id="root"]/div[4]/div[2]/div[2]/div/div[1]/div/div[2]/div[1]/div/div[2]
+  CaseDetails_FilesHdr: //*[@id="table_case_detail_samples"]/div/div/div[2]/div[1]/div/div/div[3]/table/thead
+  CaseDetails_FilesTable: //*[@id="table_case_detail_samples"]/div/div/div[2]/div[1]/div/div/div[3]/table
+  CaseDetails_FilesTable_NxtBtn: //*[@id="table_case_detail"]/div[1]/div/div[2]/div[1]/div/div/table/tfoot/tr/td/div/div[3]/button[2]
+  CaseDetails_SamplesHdr: //*[@id="table_case_detail"]/div[1]/div/div[2]/div[1]/div/div/div[3]/table/thead
+  CaseDetails_SamplesTable: //*[@id="table_case_detail"]/div[1]/div/div[2]/div[1]/div/div/div[3]/table
+  CaseDetails_SamplesTable_NxtBtn: //*[@id="table_case_detail"]/div[1]/div/div[2]/div[1]/div/div/table/tfoot/tr/td/div/div[3]/button[2]
+  DemographicsContainer: //*[@id="root"]/div[4]/div[2]/div[2]/div/div[1]/div/div[2]
+  DiagnosisContainer: //*[@id="root"]/div[4]/div[2]/div[2]/div/div[2]/div/div[2]
+  InfoBase: //*[@id="root"]/div[4]/div[2]/div[2]/div/
+  NeutStat_Lbl: //*[@id="root"]/div[4]/div[2]/div[2]/div/div[1]/div/div[2]/div[3]/div/div[1]/span
+  NeutStat_Value: //*[@id="root"]/div[4]/div[2]/div[2]/div/div[1]/div/div[2]/div[3]/div/div[2]
+  Sex_Lbl: //*[@id="root"]/div[4]/div[2]/div[2]/div/div[1]/div/div[2]/div[2]/div/div[1]/span
+  Sex_Value: //*[@id="root"]/div[4]/div[2]/div[2]/div/div[1]/div/div[2]/div[2]/div/div[2]
+  Size_col: //*[@id="table_case_detail_samples"]/div/div/div[2]/div[1]/div/div/div[3]/table/thead/tr/th[7]/span/div/div[1]
+  StudyContainer: //*[@id="root"]/div[4]/div[2]/div[2]/div/div[3]/div/div[2]
+  Weight_Lbl: //*[@id="root"]/div[4]/div[2]/div[2]/div/div[1]/div/div[2]/div[4]/div/div[1]/span
+  Weight_Value: //*[@id="root"]/div[4]/div[2]/div[2]/div/div[1]/div/div[2]/div[4]/div/div[2]

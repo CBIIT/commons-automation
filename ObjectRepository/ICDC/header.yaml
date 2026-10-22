@@ -1,0 +1,4 @@
+# Converted from Katalon Object Repository/ICDC/Header
+page: Header
+elements:
+  Canine_Header_Img: //img[@alt='ICDC Logo']

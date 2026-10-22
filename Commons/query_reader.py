@@ -1,7 +1,7 @@
 """
 Load Cypher/SQL queries from per-test Excel workbooks (InputFiles/<app>/TC*.xlsx).
 
-Sheet 1 columns: TabName, TabQuery (or query), StatQuery, DbExcel / UIExcel (CTDC) or TsvExcel / WebExcel (legacy).
+Sheet 1 columns: TabName, TabQuery (or query), StatQuery, TsvExcel (DB output name) / WebExcel (UI output name).
 Each TabName row (e.g. ParticipantsTab) maps to the query run for that result tab.
 """
 from dataclasses import dataclass, field

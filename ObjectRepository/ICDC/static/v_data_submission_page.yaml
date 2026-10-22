@@ -1,0 +1,20 @@
+# Converted from Katalon Object Repository/ICDC/Static/V_DataSubmissionPage
+page: Static/V_DataSubmissionPage
+elements:
+  BannerTitle: //span[text()='Submitting Data']
+  NavigatorDescription1: //div[text()='The Data Model Navigator and Data Preparation']/following::div[1]
+  NavigatorDescription2: //div[text()='The Data Model Navigator and Data Preparation']/following::div[2]
+  NavigatorDescription3: //div[text()='The Data Model Navigator and Data Preparation']/following::div[3]
+  NavigatorLink: //a[@title='Data Model Navigator']
+  NavigatorTitle: //div[text()='The Data Model Navigator and Data Preparation']
+  OnboardingDescription1: //div[text()='The Data Onboarding Process']/following::div[1]
+  OnboardingDescription2: //div[text()='The Data Onboarding Process']/following::div[2]
+  OnboardingDescription3: //div[text()='The Data Onboarding Process']/following::div[3]
+  OnboardingTitle: //div[text()='The Data Onboarding Process']
+  SubmissionsDGABLink: //a[@title='(DGAB)']
+  SubmissionsDescription1: //div[text()='Data Submission Requests and Approvals']/following::div[1]
+  SubmissionsDescription2: //div[text()='Data Submission Requests and Approvals']/following::div[2]
+  SubmissionsDescription3: //div[text()='Data Submission Requests and Approvals']/following::div[3]
+  SubmissionsProcessLink: //a[contains(@href,'Guidelines')]
+  SubmissionsTemplateLink: //a[contains(@href,'Template')]
+  SubmissionsTitle: //div[text()='Data Submission Requests and Approvals']

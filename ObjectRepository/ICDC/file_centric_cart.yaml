@@ -1,0 +1,10 @@
+# Converted from Katalon Object Repository/ICDC/fileCentricCart
+page: fileCentricCart
+elements:
+  Canine_DownloadManifest_Btn: //*[contains(text(),'DOWNLOAD MANIFEST')]
+  Canine_myFilesTable_Nxtbtn: //button[@title='Next page']
+  Canine_myFiles_Tbl: //table
+  Canine_myFiles_TblHdr: //table/thead
+  Canine_totalCount: //div[contains(.,'Files in your cart')]/span
+  fileCentricCart_Btn: //a[@href="#/fileCentricCart"]
+  myFiles_TblBdy: //div[@id="table_selected_files"]//div//div//div/div[2]/div[3]/table/tbody

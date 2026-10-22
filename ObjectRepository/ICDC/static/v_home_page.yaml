@@ -1,0 +1,25 @@
+# Converted from Katalon Object Repository/ICDC/Static/V_HomePage
+page: Static/V_HomePage
+elements:
+  BannerDescription: //div[text()='Why Canine Cancer data? ICDC studies highlight  the impact of canine research on human cancer research']/../following-sibling::div[1]
+  BannerTitle: //div[text()='Why Canine Cancer data? ICDC studies highlight  the impact of canine research on human cancer research']
+  FooterCRDCLink: //div[(text() = 'CRDC')]/..
+  FooterContactInfoLabel: //div[(text() = 'Contact Information')]
+  FooterHelpdeskLink: //div[(text() = 'ICDC Help Desk')]/..
+  FooterICDCHomeLink: //div[(text() = 'ICDC Home')]/..
+  FooterMoreInfoLabel: //div[(text() = 'More Information')]
+  FooterNCILink: //a[@href='https://www.cancer.gov/']
+  FooterPoliciesAccessibilityLink: //div[(text() = 'Accessibility')]/..
+  FooterPoliciesDisclaimerLink: //div[(text() = 'Disclaimer')]/..
+  FooterPoliciesFOIALink: //div[(text() = 'FOIA')]/..
+  FooterPoliciesLabel: //div[(text() = 'Policies')]
+  FooterPoliciesPrivacyLabel: //button[(text() = 'Privacy')]
+  FooterPoliciesVulnerabilityLink: //div[(text() = 'HHS Vulnerability Disclosure')]/..
+  FooterReleaseNotesLink: //div[(text() = 'Release Notes')]/..
+  FooterSteeringCommitteeLink: //div[(text() = 'Steering Committee')]/..
+  FooterSystemInfoLabel: //div[(text() = 'System Info')]
+  FooterSystemInfoPageLink: //div[(text() = 'System Info Page')]/..
+  SpotlightPanelLink1: (//div[contains(@class,'MuiPaper-elevation')])[1]/a
+  SpotlightPanelLink2: (//div[contains(@class,'MuiPaper-elevation')])[2]/a
+  SpotlightPanelLink3: (//div[contains(@class,'MuiPaper-elevation')])[3]/a
+  SpotlightPanelLink4: (//div[contains(@class,'MuiPaper-elevation')])[4]/a

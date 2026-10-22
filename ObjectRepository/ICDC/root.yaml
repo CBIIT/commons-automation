@@ -1,0 +1,52 @@
+# ICDC object repository (root.yaml)
+page: (root)
+elements:
+  CanineResults_CaseFiles_Tab: //button[@role='tab' and contains(., 'Case Files')]
+  CanineResults_Cases_Tab: //button[@role='tab' and contains(., 'Cases')]
+  CanineResults_Samples_Tab: //button[@role='tab' and contains(., 'Samples')]
+  CanineResults_StudyFiles_Tab: //button[@role='tab' and contains(., 'Study Files')]
+  Canine_CasesTabNextBtn: (//button[@type='button' and @aria-label='Next page'])[1]
+  Canine_CasesTable: //*[@id='case_tab_table']
+  Canine_FileTableBody: //div[@id='table_case_detail']//parent::div//parent::span//parent::th//parent::tr//parent::thead//parent::table/tbody
+  Canine_File_NextBtn: //*[@title='Next page']
+  Canine_FilesTabNextBtn: //*[@title='Next page']
+  Canine_FilesTable: //*[@id='file_tab_table']
+  Canine_FilesTable_Hdr: //div[@id='case_tab_table']//parent::div//parent::span//parent::th//parent::tr//parent::thead
+  Canine_Files_Table: //*[@id='file_tab_table']
+  Canine_Files_TableHdr: //*[@id="file_tab_table"]//thead
+  Canine_GoToFiles: //a[text()='Go to My Files > ']
+  Canine_MyCasesFiles_SelectAll: //input[@type="checkbox"]
+  Canine_PopUp_Continue_Btn: //*[contains(text(),'Continue')]
+  Canine_SamplesTabNextBtn: (//button[@type='button' and @aria-label='Next page'])[1]
+  Canine_Samples_Table: //*[@id='sample_tab_table']
+  Canine_Samples_TableHdr: //*[@id="sample_tab_table"]//thead
+  Canine_SaveToMycases: (//*[contains(text(),'Add Associated Files')])[2]
+  Canine_Select100: //ul[@role='listbox']/li[4]
+  Canine_StudiesTabNextBtn: //*[@title='Next page']
+  Canine_StudiesTabTblHeader: //*[@id='table_studies']//thead
+  Canine_StudiesTable: //*[@id="table_studies"]/div/div[3]/table
+  Canine_StudyFilesTabNextBtn: //*[@title='Next page']
+  Canine_StudyFiles_Table: //table
+  Canine_StudyFiles_TableHdr: //table//thead
+  Canine_TableBody: //*[@id="case_tab_table"]//tbody
+  Canine_TableHeader: //*[@id="case_tab_table"]//thead
+  Canine_WarningMsgBtn: //*[text()='Continue']
+  Canine_rows: //input[@type='hidden']//parent::div
+groups:
+  Cart:
+    checkboxes:
+      Canine_ShowHdCols_Access: //*[@aria-label='Show/Hide Table Columns']/div/ label[2]/span[2]
+      Canine_ShowHdCols_Remove: //*[@aria-label='Show/Hide Table Columns']/div/ label[12]/span[2]
+      Canine_ShowHdCols_UUID: //*[@aria-label='Show/Hide Table Columns']/div/ label[11]/span[2]
+    other:
+      Canine_Cart_NxtBtn: //button[@title='Next page']
+      Canine_Cart_Table: //*[@id='table_selected_files']
+      Canine_Cart_TableBdy: //*[@id='table_selected_files']//tbody
+      Canine_Cart_TableHdr: //*[@id='table_selected_files']//thead
+      Canine_Cart_TableNextBtn: //*[@id="table_selected_files"]//button[@title='Next page']
+      Canine_DownloadManifest: //*[contains(text(),'Download File Manifest')]
+      Canine_DownloadManifest_Confirmation: /html/body/div[3]/div[3]/div/div[2]/button
+      Canine_MyFilesCart_Btn: //a[contains(@href,'#/fileCentricCart')]
+      Canine_MyFiles_Counter: //a[contains(@href,'#/fileCentricCart')]/span/span
+      Canine_ViewColumns_Btn: //*[@data-testid='View Columns-iconButton']
+      Canine_ViewColumns_Close_Btn: //*[@aria-label='Close']

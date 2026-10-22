@@ -1,0 +1,8 @@
+# Converted from Katalon Object Repository/ICDC/Static/V_AboutPurposePage
+page: Static/V_AboutPurposePage
+elements:
+  BannerTitle: //span[text()='Purpose']
+  CloudLink: //a[@title='Cloud Resources']
+  CrdcLink: //a[@title='Cancer Research Data Commons']
+  PurposeDescription1: //span[text()='Purpose']/following::span/div[1]
+  PurposeDescription2: //span[text()='Purpose']/following::span/div[2]

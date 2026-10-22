@@ -1,0 +1,5 @@
+# Converted from Katalon Object Repository/ICDC/Static/V_AboutSupportPage
+page: Static/V_AboutSupportPage
+elements:
+  BannerTitle: //span[text()='Support']
+  SupportDescription: //span[text()='Support']/following::span/div[1]

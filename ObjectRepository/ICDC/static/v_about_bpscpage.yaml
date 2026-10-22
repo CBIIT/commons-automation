@@ -1,0 +1,7 @@
+# Converted from Katalon Object Repository/ICDC/Static/V_AboutBPSCPage
+page: Static/V_AboutBPSCPage
+elements:
+  BannerTitle: //span[text()='Best Practices Subcommittee']
+  BpscDescription1: //span[text()='Best Practices Subcommittee']/following::span/div[1]
+  BpscDescription2: //span[text()='Best Practices Subcommittee']/following::span/div[2]
+  ManuscriptLink: //a[contains(@href,'doi.org')]

@@ -11,8 +11,15 @@ def memgraph_tab_query_label(tab_key: str, display_name: Optional[str] = None) -
         name = tab_key[:-3] if tab_key.endswith("Tab") else tab_key
     return f"{name} tab query from memgraph"
 
+
+def neo4j_tab_query_label(tab_key: str, display_name: Optional[str] = None) -> str:
+    name = (display_name or "").strip()
+    if not name:
+        name = tab_key[:-3] if tab_key.endswith("Tab") else tab_key
+    return f"{name} tab query from neo4j"
+
 from Commons import action_log
-from Commons.settings import AppSettings, memgraph_password_env_keys
+from Commons.settings import AppSettings, memgraph_password_env_keys, neo4j_password_env_keys
 from Commons.query_reader import QueryFile
 
 
@@ -133,6 +140,101 @@ class MemgraphSource(ExpectedDataSource):
         self.close_connection()
 
 
+class Neo4jSource(MemgraphSource):
+    """Expected data via Neo4j Bolt (ICDC today; same driver as MemgraphSource)."""
+
+    def __init__(
+        self,
+        endpoint: str,
+        username: str,
+        password: str,
+        app: str = "",
+        env: str = "",
+        ui_env: str = "",
+    ):
+        missing = []
+        if not endpoint:
+            missing.append(
+                "Neo4j endpoint (Config/environments.yaml apps.<APP>.neo4j or NEO4J_ENDPOINT_<APP>)"
+            )
+        if not username:
+            missing.append(
+                "Neo4j username (Config/environments.yaml apps.<APP>.neo4j or NEO4J_USERNAME_<APP>)"
+            )
+        if not password:
+            per_env, per_app = neo4j_password_env_keys(app or "APP", env or "qa")
+            missing.append(f"Neo4j password ({per_env} or {per_app})")
+        if missing:
+            raise RuntimeError(
+                "Neo4j connection is not configured for this test app:\n  - "
+                + "\n  - ".join(missing)
+                + "\nPut the password in gitignored `.env` (NEO4J_PASSWORD_<APP>)."
+            )
+        self.endpoint, self.username, self.password = endpoint, username, password
+        self._app, self._env = app, env
+        self._ui_env = ui_env or env
+        self._driver = None
+        self._logged_connection = False
+
+    def run_cypher_as_table(self, cypher: str, query_label: str = "tab query from neo4j") -> Table:
+        if not self._logged_connection:
+            action_log.memgraph_connection(self.username, self.endpoint)
+            self._logged_connection = True
+        action_log.memgraph_query(query_label, cypher)
+        try:
+            with self.get_bolt_driver().session() as session:
+                records = list(session.run(cypher))
+        except Exception as exc:
+            msg = str(exc)
+            if "Unauthenticated" in msg or "Authentication failure" in msg:
+                per_env, per_app = neo4j_password_env_keys(self._app or "APP", self._env or "qa")
+                raise RuntimeError(
+                    f"Neo4j rejected login for {self._app or 'app'} ({self.username!r} @ {self.endpoint}). "
+                    f"Set {per_app} or {per_env} (or MEMGRAPH_PASSWORD_{self._app or 'APP'})."
+                ) from exc
+            if (
+                exc.__class__.__name__ in ("ServiceUnavailable", "ValueError")
+                or "ServiceUnavailable" in msg
+                or "Cannot resolve address" in msg
+                or "nodename nor servname" in msg
+            ):
+                bolt_hint = (
+                    f"bolt env={self._env}"
+                    if self._env == self._ui_env
+                    else f"UI env={self._ui_env}, bolt env={self._env} (NEO4J_ENV / NEO4J_ENV_{self._app})"
+                )
+                raise RuntimeError(
+                    f"Cannot reach Neo4j at {self.endpoint} ({bolt_hint}). "
+                    "Hosts are on the NCI network — use VPN or run from an NCI machine. "
+                    "For local runs against QA data while testing another UI env, set NEO4J_ENV=qa in `.env`. "
+                    "Or run pytest with `--env qa` so UI and Neo4j both use QA. "
+                    "Override host with NEO4J_ENDPOINT_<APP>_<ENV>. "
+                    f"Original error: {msg}"
+                ) from exc
+            raise
+        if not records:
+            return Table()
+        header = list(records[0].keys())
+        table = Table(
+            header=header,
+            rows=[[format_memgraph_cell(record[column]) for column in header] for record in records],
+        )
+        action_log.memgraph_db_table(table.header, table.rows)
+        return table
+
+    def fetch_tab_table(
+        self, query_file: QueryFile, tab_key: str, tab_display_name: Optional[str] = None
+    ) -> Table:
+        query = query_file.query_for_tab(tab_key)
+        label = neo4j_tab_query_label(tab_key, tab_display_name)
+        return self.run_cypher_as_table(query, label)
+
+    def fetch_stat_bar_table(self, query_file: QueryFile) -> Table:
+        if not query_file.stat_bar_query:
+            raise ValueError(f"{query_file.path.name} has no StatQuery")
+        return self.run_cypher_as_table(query_file.stat_bar_query, "Stat bar query from neo4j")
+
+
 def create_expected_data_source(settings: AppSettings) -> ExpectedDataSource:
     if settings.expected_source == "memgraph":
         return MemgraphSource(
@@ -142,9 +244,19 @@ def create_expected_data_source(settings: AppSettings) -> ExpectedDataSource:
             app=settings.app,
             env=settings.env,
         )
+    if settings.expected_source == "neo4j":
+        bolt_env = settings.db_env or settings.env
+        return Neo4jSource(
+            settings.memgraph_endpoint,
+            settings.memgraph_username,
+            settings.memgraph_password,
+            app=settings.app,
+            env=bolt_env,
+            ui_env=settings.env,
+        )
     raise ValueError(
         f"Unknown expected_source '{settings.expected_source}' for {settings.app}. "
-        "Only memgraph is supported."
+        "Supported: memgraph, neo4j."
     )
 
 

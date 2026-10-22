@@ -1,0 +1,8 @@
+# Converted from Katalon Object Repository/ICDC/Static/V_AboutSteeringPage
+page: Static/V_AboutSteeringPage
+elements:
+  BannerTitle: //span[text()='Steering Committee']
+  CommitteeDescription1: //span[text()='Steering Committee']/following::span/div[1]
+  CommitteeDescription2: //span[text()='Steering Committee']/following::span/div[2]
+  DgabLink: //a[@title='Data Governance Advisory Board']
+  PracticesLink: //a[@title='Best Practices Sub-Committee']

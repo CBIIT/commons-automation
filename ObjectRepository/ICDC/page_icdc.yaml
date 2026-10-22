@@ -1,0 +1,4 @@
+# Converted from Katalon Object Repository/ICDC/Page_ICDC
+page: Page_ICDC
+elements:
+  input_Neutered Status_MUIDataTableSelectCell-79: //*[@id = 'MUIDataTableSelectCell-79' and @type = 'checkbox']

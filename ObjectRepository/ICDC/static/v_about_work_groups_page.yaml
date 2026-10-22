@@ -1,0 +1,9 @@
+# Converted from Katalon Object Repository/ICDC/Static/V_AboutWorkGroupsPage
+page: Static/V_AboutWorkGroupsPage
+elements:
+  BannerTitle: //span[text()='Working Groups']
+  GenomicsDescription: //span[text()='Working Groups']/following::span/div[4]
+  GoalsTitle: //span[text()='Working Groups']/following::span/div[2]
+  ImagingDescription: //span[text()='Working Groups']/following::span/div[3]
+  LongitudinalDescription: //span[text()='Working Groups']/following::span/div[5]
+  WorkingDescription: //span[text()='Working Groups']/following::span/div[1]

@@ -134,6 +134,14 @@ def ctdc(page, env, browser_settings, _repos):
     source.close()
 
 
+@pytest.fixture
+def icdc(page, env, browser_settings, _repos):
+    """ICDC (Integrated Canine Data Commons), already opened at the environment's URL."""
+    app, source = _make_app("ICDC", page, env, browser_settings, _repos)
+    yield app
+    source.close()
+
+
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     """Fail a test whose tab/stat-bar checks failed (they are collected, not raised one by one),

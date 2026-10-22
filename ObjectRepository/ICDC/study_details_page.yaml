@@ -1,0 +1,11 @@
+# Converted from Katalon Object Repository/ICDC/StudyDetailsPage
+page: StudyDetailsPage
+elements:
+  ArmsCohortsTab: //*[@index='1' and @type='button']
+  ArmsCohortsTab_NextBtn: //*[@id="table_cohort_dosing"]/p/div/table/tfoot/tr/td/div/div[3]/button[2]
+  ArmsCohortsTab_Tbl: //*[@id="table_cohort_dosing"]/p/div/div[3]/table
+  ArmsCohortsTab_TblHdr: //*[@id="table_cohort_dosing"]/p/div/div[3]/table/thead
+  StudyFilesTab: //*[@index='2' and @type='button']
+  StudyFilesTab_NextBtn: //*[@id="table_associated_files"]/div/div[1]/div/div/table/tfoot/tr/td/div/div[3]/button[2]
+  StudyFilesTab_Tbl: //*[@id="table_associated_files"]/div/div[1]/div/div/div[3]/table
+  StudyFilesTab_TblHdr: //*[@id="table_associated_files"]/div/div[1]/div/div/div[3]/table/thead

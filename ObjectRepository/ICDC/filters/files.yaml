@@ -1,0 +1,41 @@
+# ICDC object repository (files.yaml)
+page: Filters/Files
+groups:
+  Files/FileAssociation:
+    facet: (//*[contains(normalize-space(.), 'Filter By Files')])[1]
+    dropdown: //*[@id='File Association' and @role='button']
+    checkboxes:
+      case: //*[@id='checkbox_File Association_case']
+      diagnosis: //*[@id='checkbox_File Association_diagnosis']
+      sample: //*[@id='checkbox_File Association_sample']
+      study: //*[@id='checkbox_File Association_study']
+  Files/FileType:
+    facet: (//*[contains(normalize-space(.), 'Filter By Files')])[1]
+    dropdown: //*[@id='File Type' and @role='button']
+    checkboxes:
+      AffGeneChipAnlyssFile: //*[@id='checkbox_File Type_Affymetrix GeneChip Analysis File']
+      IndexFile: //*[@id='checkbox_File Type_Index File']
+      NanoStrIOAnalysFile: //*[@id='checkbox_File Type_NanoString nCounter Canine IO Analysis File']
+      RNASeqFile: //*[@id='checkbox_File Type_RNA Sequence File']
+      SupplementalDataFile: //*[@id='checkbox_File Type_Supplemental Data File']
+      VariantCallFile: //*[@id='checkbox_File Type_Variant Call File']
+      scATACSeqFile: //*[@id='checkbox_File Type_scATAC Sequence File']
+      scH5MatrixFile: //*[@id='checkbox_File Type_scH5 Matrix File']
+      scRNASeqFile: //*[@id='checkbox_File Type_scRNA Sequence File']
+  Files/FileFormat:
+    facet: (//*[contains(normalize-space(.), 'Filter By Files')])[1]
+    dropdown: //*[@id='File Format' and @role='button']
+    checkboxes:
+      RCC: //*[@id='checkbox_File Format_RCC']
+      bai: //*[@id='checkbox_File Format_bai']
+      doc: //*[@id='checkbox_File Format_doc']
+      docx: //*[@id='checkbox_File Format_docx']
+      fastq: //*[@id='checkbox_File Format_fastq']
+      gz: //*[@id='checkbox_File Format_gz']
+      h5: //*[@id='checkbox_File Format_h5']
+      pdf: //*[@id='checkbox_File Format_pdf']
+      rtf: //*[@id='checkbox_File Format_rtf']
+      tbi: //*[@id='checkbox_File Format_tbi']
+      tif: //*[@id='checkbox_File Format_tif']
+      tsv: //*[@id='checkbox_File Format_tsv']
+      xlsx: //*[@id='checkbox_File Format_xlsx']

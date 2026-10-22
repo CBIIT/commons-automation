@@ -1,0 +1,7 @@
+# Converted from Katalon Object Repository/ICDC/Cases_page
+page: Cases_page
+elements:
+  Canine_AddAll_Yes_Btn: /html/body/div[2]/div[3]/div/div[2]/button[1]/span[1]
+  Canine_AddAssocFilesForAll_Btn: (//*[contains(text(),'Add Associated Files for All')])[1]
+  Canine_AddAssocFiles_Btn: (//*[contains(text(),'Add Associated Files')])[2]
+  Canine_SelectAll: //thead/tr/th/div/span/span/input
