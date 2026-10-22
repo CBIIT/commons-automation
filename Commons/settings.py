@@ -73,7 +73,7 @@ class AppSettings:
     env: str
     url: str
     db: DbSettings
-    tab_row_limit: int = 100  # UI rows + DB tab Cypher LIMIT (Config/tab_compare.yaml)
+    tab_row_limit: int = 100  # UI rows + DB tab Cypher LIMIT (Config/tab_setting.yaml)
     pagination_max_pages: int = 50  # UI pagination safety cap (same file)
     tab_execution: dict = field(default_factory=dict)  # tab name -> enabled (verify_tab)
 
@@ -314,7 +314,7 @@ def get_db_settings(app: str, env: str | None = None, cfg: dict | None = None) -
 
 def get_app_settings(app: str, env: str | None = None, cfg: dict | None = None) -> AppSettings:
     """UI URL + bolt DB settings for fixtures (combines get_app_url and get_db_settings)."""
-    from Commons.tab_compare import settings_for_app
+    from Commons.tab_setting import settings_for_app
 
     cfg = cfg or load_config()
     ui_env = _normalized_env(env)

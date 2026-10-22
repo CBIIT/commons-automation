@@ -305,8 +305,8 @@ def test_memgraph_endpoint_per_app(monkeypatch):
     assert get_db_settings("C3DC", "qa").endpoint == c3dc
 
 
-def test_tab_row_limit_from_tab_compare_yaml():
-    from Commons.tab_compare import apply_tab_row_limit, settings_for_app
+def test_tab_row_limit_from_tab_setting_yaml():
+    from Commons.tab_setting import apply_tab_row_limit, settings_for_app
 
     gc = settings_for_app("GC")
     assert gc.tab_row_limit == 100
@@ -324,7 +324,7 @@ def test_app_settings_includes_tab_row_limit():
 
 
 def test_tab_is_enabled_respects_yaml_and_c3dc_aliases():
-    from Commons.tab_compare import tab_is_enabled
+    from Commons.tab_setting import tab_is_enabled
 
     execution = {"Treatments": False, "Participants": True}
     aliases = {"Treatments": "Treatment", "Genetic Analysis": "GeneticAnalysis"}

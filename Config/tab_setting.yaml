@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------
-# Tab compare settings (all apps)
+# Tab settings (all apps)
 # ---------------------------------------------------------------------------
 # Controls how many table rows we compare (UI vs database) and which result
 # tabs run during a test. Stat bar counts are always checked.
@@ -56,7 +56,7 @@ apps:
       Cases: false          # Canine cases
       Samples: true        # Samples linked to cases
       "Case Files": true   # Files attached to cases
-      "Study Files": true   # Files at study level
+      "Study Files": true  # Files at study level
 
   # -------------------------------------------------------------------------
   # CTDC — Clinical Trial Data Commons

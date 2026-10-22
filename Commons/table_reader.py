@@ -506,7 +506,7 @@ def options_from_spec(
     pagination_max_pages: Optional[int] = None,
     tab_row_limit: Optional[int] = None,
 ) -> dict:
-    """Map TabSpec to read_table_data (row limit from Config/tab_compare.yaml wins over max_pages)."""
+    """Map TabSpec to read_table_data (row limit from Config/tab_setting.yaml wins over max_pages)."""
     if tab_row_limit and tab_row_limit > 0 and pagination_max_pages:
         max_pages = pagination_max_pages
     else:

@@ -313,7 +313,7 @@ class BaseApp:
         )
 
     def _tab_enabled_for_verify(self, tabs_key: str) -> bool:
-        from Commons.tab_compare import tab_is_enabled
+        from Commons.tab_setting import tab_is_enabled
 
         aliases = getattr(self, "TAB_VERIFY_ALIASES", None)
         return tab_is_enabled(self.settings.tab_execution, tabs_key, aliases)
@@ -324,12 +324,12 @@ class BaseApp:
         if self.query_file is None:
             raise RuntimeError("Call load_query_file() first")
         if not self._tab_enabled_for_verify(name):
-            action_log.ui_action(f"Skipped {spec.name} tab (disabled in Config/tab_compare.yaml).")
+            action_log.ui_action(f"Skipped {spec.name} tab (disabled in Config/tab_setting.yaml).")
             self.results.append(
                 {
                     "check": spec.name,
                     "status": "SKIPPED",
-                    "detail": "disabled in Config/tab_compare.yaml",
+                    "detail": "disabled in Config/tab_setting.yaml",
                 }
             )
             return

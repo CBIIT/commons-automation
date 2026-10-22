@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 from typing import List, Optional
 
 from Commons import action_log
-from Commons.tab_compare import apply_tab_row_limit
+from Commons.tab_setting import apply_tab_row_limit
 from Commons.query_reader import QueryFile
 from Commons.settings import AppSettings, memgraph_password_env_keys, neo4j_password_env_keys
 
