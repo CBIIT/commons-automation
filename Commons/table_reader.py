@@ -15,7 +15,7 @@ import time
 from typing import TYPE_CHECKING, List, Optional, Sequence
 
 from Commons import action_log
-from Commons.memgraph_source import Table
+from Commons.db_source import Table
 
 if TYPE_CHECKING:
     from Commons.apps.base import TabSpec

@@ -1,10 +1,8 @@
 """
-Central config for tests: environment, URLs, Memgraph, browser, and folder paths.
+Loads test config: URLs and DB hosts from Config/environments.yaml; passwords from .env only.
 
-Loads Config/environments.yaml (GC/C3DC URLs and Memgraph host per env; no secrets).
-Optional gitignored .env supplies Memgraph passwords (per-app or global) without overriding
-shell env vars. pytest --env / ENV pick qa | stage | prod; paths include InputFiles/
-OutputFiles/<app>/<ENV>/ for UI/DB Excel (gitignored; created on write). Katalon: Profiles (*.glbl).
+Tests usually call get_app_settings(app, env) (pytest --env or ENV, default qa).
+See "Public settings API" below for get_browser_settings, get_app_url, and get_db_settings.
 """
 import os
 from dataclasses import dataclass, field
@@ -43,6 +41,11 @@ def _load_local_env() -> None:
 _load_local_env()
 
 
+# ---------------------------------------------------------------------------
+# Settings dataclasses
+# ---------------------------------------------------------------------------
+
+
 @dataclass
 class BrowserSettings:
     name: str = "chromium"
@@ -52,16 +55,49 @@ class BrowserSettings:
 
 
 @dataclass
+class DbSettings:
+    """Bolt connection for expected data from input workbooks (Memgraph or Neo4j)."""
+
+    expected_source: str = "memgraph"
+    endpoint: str = ""
+    username: str = ""
+    password: str = ""  # env only; never from YAML
+    bolt_env: str = ""  # YAML/env block for bolt; may differ from UI env (ICDC NEO4J_ENV)
+
+
+@dataclass
 class AppSettings:
-    """Everything a test needs to know about one app in one environment."""
+    """UI URL + bolt DB settings for one app in one test environment."""
+
     app: str
     env: str
     url: str
-    expected_source: str = "memgraph"      # Cypher against Memgraph (C3DC and GC)
-    memgraph_endpoint: str = ""
-    memgraph_username: str = ""
-    memgraph_password: str = ""          # env only (see _memgraph_env); never from YAML
-    db_env: str = ""                     # Neo4j bolt env when it differs from UI `env` (ICDC)
+    db: DbSettings
+
+    @property
+    def expected_source(self) -> str:
+        return self.db.expected_source
+
+    @property
+    def db_env(self) -> str:
+        return self.db.bolt_env or self.env
+
+    @property
+    def memgraph_endpoint(self) -> str:
+        return self.db.endpoint
+
+    @property
+    def memgraph_username(self) -> str:
+        return self.db.username
+
+    @property
+    def memgraph_password(self) -> str:
+        return self.db.password
+
+
+# ---------------------------------------------------------------------------
+# Bolt env var names (document in .env; used in db_source error messages)
+# ---------------------------------------------------------------------------
 
 
 def memgraph_password_env_keys(app: str, env: str) -> tuple[str, str]:
@@ -79,6 +115,11 @@ def neo4j_password_env_keys(app: str, env: str) -> tuple[str, str]:
         f"NEO4J_PASSWORD_{app_u}_{env_u}",
         f"NEO4J_PASSWORD_{app_u}",
     )
+
+
+# ---------------------------------------------------------------------------
+# Bolt connection env resolution (internal; used by get_db_settings)
+# ---------------------------------------------------------------------------
 
 
 def _neo4j_env(app: str, env: str, field: str, yaml_value: str = "") -> str:
@@ -141,14 +182,11 @@ def _expected_db_password(app: str, env: str, expected_source: str) -> str:
 
 def _memgraph_env(app: str, env: str, field: str, yaml_value: str = "") -> str:
     """Resolve Memgraph endpoint / username / password for one app and environment.
-
     Password (each app has its own Memgraph cluster):
       1. MEMGRAPH_PASSWORD_{APP}_{ENV}   e.g. MEMGRAPH_PASSWORD_C3DC_QA
-      2. MEMGRAPH_PASSWORD_{APP}         e.g. MEMGRAPH_PASSWORD_C3DC
-
+      2. MEMGRAPH_PASSWORD_{APP}         e.g. MEMGRAPH_PASSWORD_C3DC_QA2
     Endpoint / username also allow a global fallback:
-      MEMGRAPH_ENDPOINT, MEMGRAPH_USERNAME (after per-app keys)
-
+    MEMGRAPH_ENDPOINT, MEMGRAPH_USERNAME (after per-app keys)
     YAML supplies endpoint/username defaults only; never passwords.
     """
     app_u, env_u = app.upper(), env.upper()
@@ -164,6 +202,11 @@ def _memgraph_env(app: str, env: str, field: str, yaml_value: str = "") -> str:
         if val:
             return val
     return yaml_value or ""
+
+
+# ---------------------------------------------------------------------------
+# Config load and test environment
+# ---------------------------------------------------------------------------
 
 
 def load_config() -> dict:
@@ -182,6 +225,27 @@ def env_flag(name: str) -> bool | None:
 def resolve_test_env(cli_env: str | None = None) -> str:
     """pytest --env, then ENV, then default qa."""
     return (cli_env or os.environ.get("ENV") or DEFAULT_ENV).lower()
+
+
+# ---------------------------------------------------------------------------
+# Internal helpers (used by public getters above)
+# ---------------------------------------------------------------------------
+
+
+def _normalized_env(env: str | None) -> str:
+    return (env or os.environ.get("ENV") or DEFAULT_ENV).lower()
+
+
+def _app_config(app: str, cfg: dict) -> dict:
+    apps = cfg.get("apps", {})
+    if app not in apps:
+        raise KeyError(f"App '{app}' is not defined in {CONFIG_FILE}")
+    return apps[app]
+
+
+# ---------------------------------------------------------------------------
+# Public settings API (what tests and fixtures should call)
+# ---------------------------------------------------------------------------
 
 
 def get_browser_settings(cfg: dict = None, name: str = None, headless: bool | None = None) -> BrowserSettings:
@@ -204,41 +268,56 @@ def get_browser_settings(cfg: dict = None, name: str = None, headless: bool | No
     )
 
 
-def get_app_settings(app: str, env: str = None, cfg: dict = None) -> AppSettings:
-    """Resolve URL / data source / DB endpoint for `app` (e.g. 'C3DC') in `env` (e.g. 'qa')."""
+def get_app_url(app: str, env: str | None = None, cfg: dict | None = None) -> str:
+    """Portal URL for `app` in `env` (environments.yaml `urls:` + URL_{APP}_{ENV} override)."""
     cfg = cfg or load_config()
-    env = (env or os.environ.get("ENV") or DEFAULT_ENV).lower()
-    apps = cfg.get("apps", {})
-    if app not in apps:
-        raise KeyError(f"App '{app}' is not defined in {CONFIG_FILE}")
-    a = apps[app]
-    urls = a.get("urls", {})
+    env = _normalized_env(env)
+    urls = _app_config(app, cfg).get("urls", {})
     url = os.environ.get(f"URL_{app.upper()}_{env.upper()}") or urls.get(env)
     if not url:
-        raise ValueError(f"No URL for app={app} env={env}. Add it to {CONFIG_FILE} "
-                         f"or set URL_{app.upper()}_{env.upper()}.")
+        raise ValueError(
+            f"No URL for app={app} env={env}. Add it to {CONFIG_FILE} "
+            f"or set URL_{app.upper()}_{env.upper()}."
+        )
+    return url
+
+
+def get_db_settings(app: str, env: str | None = None, cfg: dict | None = None) -> DbSettings:
+    """Bolt host/credentials for expected data (Memgraph or Neo4j per app `expected_source`)."""
+    cfg = cfg or load_config()
+    ui_env = _normalized_env(env)
+    a = _app_config(app, cfg)
     expected_source = a.get("expected_source", "memgraph")
-    db_env = env
+    bolt_env = ui_env
     if expected_source == "neo4j":
-        db_env = neo4j_bolt_env(app, env)
-        nj = _neo4j_yaml_for_env(a, db_env)
-        endpoint = _neo4j_env(app, db_env, "endpoint", nj.get("endpoint", ""))
-        username = _neo4j_env(app, db_env, "username", nj.get("username", ""))
-        password = _expected_db_password(app, db_env, expected_source)
+        bolt_env = neo4j_bolt_env(app, ui_env)
+        nj = _neo4j_yaml_for_env(a, bolt_env)
+        endpoint = _neo4j_env(app, bolt_env, "endpoint", nj.get("endpoint", ""))
+        username = _neo4j_env(app, bolt_env, "username", nj.get("username", ""))
+        password = _expected_db_password(app, bolt_env, expected_source)
     else:
-        mg = (a.get("memgraph") or {}).get(env, {})
-        endpoint = _memgraph_env(app, env, "endpoint", mg.get("endpoint", ""))
-        username = _memgraph_env(app, env, "username", mg.get("username", ""))
-        password = _expected_db_password(app, env, expected_source)
+        mg = (a.get("memgraph") or {}).get(ui_env, {})
+        endpoint = _memgraph_env(app, ui_env, "endpoint", mg.get("endpoint", ""))
+        username = _memgraph_env(app, ui_env, "username", mg.get("username", ""))
+        password = _expected_db_password(app, ui_env, expected_source)
+    return DbSettings(
+        expected_source=expected_source,
+        endpoint=endpoint,
+        username=username,
+        password=password,
+        bolt_env=bolt_env,
+    )
+
+
+def get_app_settings(app: str, env: str | None = None, cfg: dict | None = None) -> AppSettings:
+    """UI URL + bolt DB settings for fixtures (combines get_app_url and get_db_settings)."""
+    cfg = cfg or load_config()
+    ui_env = _normalized_env(env)
     return AppSettings(
         app=app,
-        env=env,
-        url=url,
-        expected_source=expected_source,
-        memgraph_endpoint=endpoint,
-        memgraph_username=username,
-        memgraph_password=password,
-        db_env=db_env,
+        env=ui_env,
+        url=get_app_url(app, ui_env, cfg),
+        db=get_db_settings(app, ui_env, cfg),
     )
 
 

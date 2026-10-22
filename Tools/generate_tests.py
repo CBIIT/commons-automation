@@ -268,7 +268,7 @@ class Translator:
                 value = CTDC_CHECKBOX_ALIASES.get(value, value)
             try:
                 g = self.repo.filter_group(group)
-                if not g.knows(value):
+                if not g.has_filter_value(value):
                     raise KeyError(f"'{value}' is not a checkbox in {group} in the Katalon Object Repository")
             except Exception as e:
                 self.unconverted(f"filter {group} / {value}: {e}")
@@ -280,7 +280,7 @@ class Translator:
             return              # verify_tab opens the tab; sort clicks are not needed (compare ignores order)
         else:
             key = "/".join(parts)
-            if self.repo.has(key):
+            if self.repo.has_element(key):
                 self.emit(f'{v}.click("{key}")')
             else:
                 self.unconverted(f"click {path}")

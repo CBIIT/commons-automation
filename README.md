@@ -2,7 +2,23 @@
 
 End-to-end regression framework for **Data Commons web apps**: open a browser, apply explore filters, read result tables from the UI, and compare them to expected data (usually **Memgraph Cypher** from per-test Excel workbooks). Tests are plain Python files run with **pytest**; each **application** (GC, C3DC, and others you add) gets its own app class, object repository, input data, and test tree.
 
-Today the repo includes **GC**, **C3DC**, and an **ObjectRepository/CTDC** (locators ready; app wiring/tests can follow). The same layout extends under `Testcases/<APP>/`, `Commons/apps/<app>.py`, and `Config/environments.yaml`.
+Apps in the tree today include **GC**, **C3DC**, **ICDC**, and **CTDC** (plus locators for others). Each app follows the same folders: `Commons/apps/<app>.py`, `Testcases/<APP>/`, `InputFiles/<APP>/`, `ObjectRepository/<APP>/`.
+
+## Framework map
+
+Use this when you need to change something—not to memorize every module.
+
+| If you need to… | Edit or run |
+|-----------------|-------------|
+| Run or write a test | `Testcases/<APP>/`, fixtures in `conftest.py`, app class in `Commons/apps/` |
+| Portal URL or graph DB host | `Config/environments.yaml` (committed); passwords in gitignored `.env` |
+| Fix a filter, tab, or stat-bar locator | `ObjectRepository/<app>/*.yaml` |
+| Fix expected query or stat counts | `InputFiles/<app>/TC*.xlsx` columns `TabQuery`, `StatQuery` |
+| Fix how the UI table is scraped | `Commons/table_reader.py` and tab settings in `Commons/apps/<app>.py` |
+| Bulk-convert old SQL in Excel to Cypher | `Tools/convert_*_sql_to_cypher.py` and `Tools/cypher/` (**not** imported during pytest) |
+| Regenerate tests from Katalon | `Tools/generate_tests.py`, `Tools/convert_object_repository.py` |
+
+**Commons/** is the runtime library (what tests import). **Tools/** is maintenance and migration—ignore it until you refresh inputs or locators from legacy Katalon.
 
 ## What one test does
 
@@ -57,14 +73,14 @@ pytest --junitxml=Reports/junit.xml
 
 **Output:** per-check summary in the report (`Participants PASSED UI=13 DB=13`); row counts can match while a tab still **FAILED** (cell **DATA MISMATCH** — see stderr or the Checks section). Compare mismatches on stderr (red when terminal or `FORCE_COLOR=1`). Failures: `Reports/screenshots/`, `OutputFiles/<APP>/<ENV>/` → `*_UI.xlsx` / `*_DB.xlsx` with one sheet per result tab plus **`StatOutput`** for stat-bar counts (gitignored). Console prints Katalon-style stat lines when the bar is read and when DB expected counts are fetched.
 
-### Expected data (Memgraph)
+### Expected data (graph DB)
 
-| App | Excel | Credentials |
-|-----|--------|-------------|
-| **C3DC** | Cypher in `TabQuery` / `StatQuery` columns | `MEMGRAPH_PASSWORD_C3DC` (+ optional `MEMGRAPH_ENDPOINT_C3DC`, etc.) |
-| **GC** | Same pattern | `MEMGRAPH_PASSWORD_GC` |
+| App | Engine | Excel | Credentials (examples) |
+|-----|--------|--------|-------------------------|
+| **C3DC**, **GC**, **CTDC** | Memgraph | Cypher in `TabQuery` / `StatQuery` | `MEMGRAPH_PASSWORD_<APP>` |
+| **ICDC** | Neo4j | Same column layout | `NEO4J_PASSWORD_ICDC` (or legacy `MEMGRAPH_PASSWORD_ICDC`) |
 
-Each app uses its **own** Memgraph cluster; do not reuse one password for both. Legacy `MEMGRAPH_PASSWORD` alone is not used.
+Each app has its **own** cluster; do not share passwords. Tests read Cypher from the workbook— they do not import `Tools/cypher/`.
 
 ## Example tests
 
@@ -93,26 +109,34 @@ def test_TC01_C3DC_example(c3dc):
 
 Use the **`gc`** or **`c3dc`** fixture (defined in `conftest.py`); add a new fixture when you add an app to `Commons/apps/__init__.py` → `APPS`.
 
-## Framework layout
+## Folder layout
 
 ```
-Config/environments.yaml       URLs, Memgraph endpoints per app/env
-ObjectRepository/<app>/        YAML locators (pages, filters, tabs, stat bar). CTDC: `python3 Tools/build_ctdc_object_repository.py` (Katalon + UI facet labels)
-InputFiles/<app>/              Per-test Excel query workbooks
-Commons/
-  apps/base.py                 BaseApp: filters, stat bar, verify_tab, failures
-  apps/{gc,c3dc}.py            TabSpec, stats, navigation, app-specific behavior
-  browser_actions.py           Playwright helpers (Ui)
-  table_reader.py              Paginated table read; tab (0) skip
-  compare.py                   UI vs expected row compare (Katalon-style logging)
-  memgraph_source.py           Bolt driver, Cypher from Excel
-  object_repository.py         Load YAML, resolve filter xpaths
-Testcases/<APP>/…              pytest tests (mirrors legacy Katalon folders)
-Testcases/unit/                Framework unit tests
-conftest.py                    pytest options + browser + app fixtures
-Tools/                         Katalon → YAML / test generator (optional)
-Reports/                       Screenshots, JUnit
-OutputFiles/                   Run artifacts (gitignored)
+Config/environments.yaml     URLs and DB hosts (no secrets)
+.env                         Passwords and local overrides (gitignored)
+
+InputFiles/<app>/            TC*.xlsx — TabQuery / StatQuery for each test
+ObjectRepository/<app>/      YAML — xpath keys for filters, tabs, static pages
+
+Commons/                     Runtime (imported by pytest)
+  settings.py                get_app_settings(), get_browser_settings()
+  query_reader.py            Read query workbooks
+  object_repository.py       YAML → xpath / filter groups
+  db_source.py               Run Cypher over Bolt (Memgraph or Neo4j)
+  apps/base.py               Filters, stat bar, verify_tab, assert_no_failures
+  apps/{gc,c3dc,icdc,ctdc}.py
+  table_reader.py, compare.py, browser_actions.py, static_data.py, …
+
+Testcases/<APP>/             pytest tests
+Testcases/unit/              Fast tests, no browser
+conftest.py                  Browser + app fixtures
+
+Tools/                       Scripts only (migration / generators)
+  cypher/                    SQL → Cypher helpers for Excel refresh
+  generate_tests.py, convert_object_repository.py, build_*_object_repository.py, …
+
+OutputFiles/<app>/<env>/     UI/DB Excel from runs (gitignored)
+Reports/                     Screenshots, JUnit
 ```
 
 ### Core API (per app instance)

@@ -16,9 +16,9 @@ from pathlib import Path
 import openpyxl
 
 ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "Tools" / "cypher"))
 
-from Commons import icdc_cypher as ic  # noqa: E402
+import icdc_cypher as ic  # noqa: E402
 
 INPUT = ROOT / "InputFiles" / "ICDC"
 HEADER = ["TabName", "TabQuery", "StatQuery", "TsvExcel", "WebExcel"]

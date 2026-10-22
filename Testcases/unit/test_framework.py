@@ -8,9 +8,16 @@ import pytest
 
 from Commons.compare import (cells_match, compare_counts, compare_tables, normalize_list,
                                strip_cpi_badge)
-from Commons.memgraph_source import format_memgraph_cell
+from Commons.db_source import format_db_cell
 from Commons.object_repository import LocatorNotFound, ObjectRepository
-from Commons.settings import get_app_settings, get_browser_settings, input_dir, resolve_test_env
+from Commons.settings import (
+    get_app_settings,
+    get_app_url,
+    get_browser_settings,
+    get_db_settings,
+    input_dir,
+    resolve_test_env,
+)
 from Commons.table_reader import parse_result_tab_count
 from Commons.query_reader import read_query_file
 pytestmark = pytest.mark.unit
@@ -121,7 +128,7 @@ def test_expected_stat_dict_maps_memgraph_headers():
     from types import SimpleNamespace
 
     from Commons.apps.base import BaseApp, StatSpec
-    from Commons.memgraph_source import Table
+    from Commons.db_source import Table
 
     class App(BaseApp):
         STATS = [
@@ -150,9 +157,9 @@ def test_expected_stat_dict_maps_memgraph_headers():
 
 
 def test_memgraph_cell_formatting():
-    assert format_memgraph_cell(None) == "" and format_memgraph_cell(7) == "7"
-    assert format_memgraph_cell(True) == "true"
-    assert format_memgraph_cell(["a", "b"]) == '["a","b"]'
+    assert format_db_cell(None) == "" and format_db_cell(7) == "7"
+    assert format_db_cell(True) == "true"
+    assert format_db_cell(["a", "b"]) == '["a","b"]'
 
 
 # ------------------------------------------------------------------ object repository
@@ -188,10 +195,11 @@ def test_cds_repository_has_search_box_for_long_lists():
 
 # ------------------------------------------------------------------ settings and input files
 def test_environment_urls():
-    assert get_app_settings("C3DC", "qa").url.startswith("https://clinicalcommons-qa")
-    assert get_app_settings("GC", "stage").url.startswith("https://general-stage")
+    assert get_app_url("C3DC", "qa").startswith("https://clinicalcommons-qa")
+    assert get_app_url("GC", "stage").startswith("https://general-stage")
+    assert get_app_settings("C3DC", "qa").url == get_app_url("C3DC", "qa")
     with pytest.raises(ValueError):
-        get_app_settings("GC", "nonexistent-env")
+        get_app_url("GC", "nonexistent-env")
 
 
 def test_memgraph_password_is_never_read_from_config(monkeypatch):
@@ -199,8 +207,8 @@ def test_memgraph_password_is_never_read_from_config(monkeypatch):
         if key.startswith("MEMGRAPH_PASSWORD"):
             monkeypatch.delenv(key, raising=False)
     for app in ("C3DC", "GC"):
-        assert get_app_settings(app, "qa").expected_source == "memgraph"
-        assert get_app_settings(app, "qa").memgraph_password == ""
+        assert get_db_settings(app, "qa").expected_source == "memgraph"
+        assert get_db_settings(app, "qa").password == ""
     monkeypatch.setenv("MEMGRAPH_PASSWORD", "legacy-shared")
     assert get_app_settings("GC", "qa").memgraph_password == ""
     monkeypatch.setenv("MEMGRAPH_PASSWORD_GC", "gc-only")
@@ -287,14 +295,14 @@ def test_memgraph_endpoint_per_app(monkeypatch):
     monkeypatch.delenv("MEMGRAPH_ENDPOINT", raising=False)
     monkeypatch.delenv("MEMGRAPH_ENDPOINT_C3DC", raising=False)
     monkeypatch.delenv("MEMGRAPH_ENDPOINT_GC", raising=False)
-    c3dc = get_app_settings("C3DC", "qa").memgraph_endpoint
-    gc = get_app_settings("GC", "qa").memgraph_endpoint
+    c3dc = get_db_settings("C3DC", "qa").endpoint
+    gc = get_db_settings("GC", "qa").endpoint
     assert c3dc != gc
     assert "ccdi-dcc-qa" in c3dc
     assert "gen-dev-cdk" in gc
     monkeypatch.setenv("MEMGRAPH_ENDPOINT_GC", "bolt://override.example:7687")
-    assert get_app_settings("GC", "qa").memgraph_endpoint == "bolt://override.example:7687"
-    assert get_app_settings("C3DC", "qa").memgraph_endpoint == c3dc
+    assert get_db_settings("GC", "qa").endpoint == "bolt://override.example:7687"
+    assert get_db_settings("C3DC", "qa").endpoint == c3dc
 
 
 def test_read_c3dc_query_file():

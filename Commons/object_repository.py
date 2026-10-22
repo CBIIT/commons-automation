@@ -49,8 +49,8 @@ class FilterGroup:
                 return dd
         return self.dropdown
 
-    def knows(self, value: str) -> bool:
-        """True if Katalon had a locator for this value (used by the test generator)."""
+    def has_filter_value(self, value: str) -> bool:
+        """True if this group defines a checkbox/locator for `value` (test generator)."""
         return value in (self.checkboxes or {}) or value in (self.values or [])
 
     def checkbox_xpath(self, value: str) -> str:
@@ -104,7 +104,7 @@ class ObjectRepository:
 
     def xpath(self, key: str) -> str:
         """Look up a single element, e.g. 'ResultTabs/Studies-Tab' (Katalon path minus the app)."""
-        key = self._clean(key)
+        key = self._normalize_locator_key(key)
         try:
             return self._elements[key]
         except KeyError:
@@ -112,8 +112,8 @@ class ObjectRepository:
             hint = f" Did you mean: {close}?" if close else ""
             raise LocatorNotFound(f"Locator '{key}' not found for app {self.app}.{hint}") from None
 
-    def has(self, key: str) -> bool:
-        return self._clean(key) in self._elements
+    def has_element(self, key: str) -> bool:
+        return self._normalize_locator_key(key) in self._elements
 
     def filter_group(self, key: str) -> FilterGroup:
         """Look up a filter group, e.g. 'Study/dbGaP_Accession'."""
@@ -123,10 +123,10 @@ class ObjectRepository:
             raise LocatorNotFound(
                 f"Filter group '{key}' not found for app {self.app}. Known: {sorted(self._groups)}") from None
 
-    def group_keys(self):
+    def filter_group_keys(self) -> List[str]:
         return sorted(self._groups)
 
-    def _clean(self, key: str) -> str:
+    def _normalize_locator_key(self, key: str) -> str:
         """Accept the full Katalon path too: 'Object Repository/C3DC/ResultTabs/X' or 'C3DC/ResultTabs/X'."""
         key = key.replace("Object Repository/", "")
         if key.startswith(self.app + "/"):

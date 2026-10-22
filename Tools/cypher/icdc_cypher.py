@@ -1,4 +1,4 @@
-"""Build Neo4j Cypher for ICDC explore tests from legacy Katalon SQL in input workbooks."""
+"""ICDC SQL/CasesTab → Neo4j Cypher for InputFiles workbooks (used by Tools/convert_icdc_sql_to_cypher.py)."""
 from __future__ import annotations
 
 import re

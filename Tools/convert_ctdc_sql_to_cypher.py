@@ -16,9 +16,10 @@ from pathlib import Path
 import openpyxl
 
 ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "Tools" / "cypher"))
 
-from Commons.ctdc_cypher import parse_sql_filters  # noqa: E402
+import ctdc_cypher as cc  # noqa: E402
+from ctdc_cypher import parse_sql_filters  # noqa: E402
 
 INPUT = ROOT / "InputFiles" / "CTDC"
 SKIP = {"CTDC_StaticData.xlsx"}
@@ -61,8 +62,6 @@ def convert_workbook(path: Path, dry_run: bool) -> bool:
             predicates=pf.predicates + extra,
             require_file_name=ff.require_file_name,
         )
-    from Commons import ctdc_cypher as cc
-
     cy = {
         "StatQuery": cc.stat_query(pf_stat),
         "ParticipantsTab": cc.participants_tab_query(pf),

@@ -1,7 +1,11 @@
-"""Run Cypher from the test input Excel against Memgraph and return expected tables for UI compare."""
+"""Run Cypher from input Excel against Bolt (Memgraph or Neo4j) and return expected tables for UI compare."""
 import json
 from dataclasses import dataclass, field
 from typing import List, Optional
+
+from Commons import action_log
+from Commons.query_reader import QueryFile
+from Commons.settings import AppSettings, memgraph_password_env_keys, neo4j_password_env_keys
 
 
 def memgraph_tab_query_label(tab_key: str, display_name: Optional[str] = None) -> str:
@@ -18,10 +22,6 @@ def neo4j_tab_query_label(tab_key: str, display_name: Optional[str] = None) -> s
         name = tab_key[:-3] if tab_key.endswith("Tab") else tab_key
     return f"{name} tab query from neo4j"
 
-from Commons import action_log
-from Commons.settings import AppSettings, memgraph_password_env_keys, neo4j_password_env_keys
-from Commons.query_reader import QueryFile
-
 
 @dataclass
 class Table:
@@ -30,7 +30,7 @@ class Table:
 
 
 class ExpectedDataSource:
-    """Expected UI results from Memgraph."""
+    """Expected UI results from the app's bolt DB (see get_db_settings)."""
 
     def fetch_tab_table(
         self, query_file: QueryFile, tab_key: str, tab_display_name: Optional[str] = None
@@ -41,8 +41,8 @@ class ExpectedDataSource:
         raise NotImplementedError
 
 
-def format_memgraph_cell(value) -> str:
-    """Convert one Memgraph result value to the string form used in compare (Katalon/Java export rules)."""
+def format_db_cell(value) -> str:
+    """Convert one bolt result value to the string form used in compare (Katalon/Java export rules)."""
     if value is None:
         return ""
     if isinstance(value, str):
@@ -52,6 +52,10 @@ def format_memgraph_cell(value) -> str:
     if isinstance(value, (list, tuple, dict)):
         return json.dumps(value, separators=(",", ":"), ensure_ascii=False)
     return str(value)
+
+
+# Backward-compatible alias
+format_memgraph_cell = format_db_cell
 
 
 class MemgraphSource(ExpectedDataSource):
@@ -110,7 +114,7 @@ class MemgraphSource(ExpectedDataSource):
         header = list(records[0].keys())
         table = Table(
             header=header,
-            rows=[[format_memgraph_cell(record[column]) for column in header] for record in records],
+            rows=[[format_db_cell(record[column]) for column in header] for record in records],
         )
         action_log.memgraph_db_table(table.header, table.rows)
         return table
@@ -217,7 +221,7 @@ class Neo4jSource(MemgraphSource):
         header = list(records[0].keys())
         table = Table(
             header=header,
-            rows=[[format_memgraph_cell(record[column]) for column in header] for record in records],
+            rows=[[format_db_cell(record[column]) for column in header] for record in records],
         )
         action_log.memgraph_db_table(table.header, table.rows)
         return table
@@ -236,32 +240,33 @@ class Neo4jSource(MemgraphSource):
 
 
 def create_expected_data_source(settings: AppSettings) -> ExpectedDataSource:
-    if settings.expected_source == "memgraph":
+    db = settings.db
+    if db.expected_source == "memgraph":
         return MemgraphSource(
-            settings.memgraph_endpoint,
-            settings.memgraph_username,
-            settings.memgraph_password,
+            db.endpoint,
+            db.username,
+            db.password,
             app=settings.app,
-            env=settings.env,
+            env=db.bolt_env or settings.env,
         )
-    if settings.expected_source == "neo4j":
-        bolt_env = settings.db_env or settings.env
+    if db.expected_source == "neo4j":
+        bolt_env = db.bolt_env or settings.env
         return Neo4jSource(
-            settings.memgraph_endpoint,
-            settings.memgraph_username,
-            settings.memgraph_password,
+            db.endpoint,
+            db.username,
+            db.password,
             app=settings.app,
             env=bolt_env,
             ui_env=settings.env,
         )
     raise ValueError(
-        f"Unknown expected_source '{settings.expected_source}' for {settings.app}. "
+        f"Unknown expected_source '{db.expected_source}' for {settings.app}. "
         "Supported: memgraph, neo4j."
     )
 
 
 class LazySource(ExpectedDataSource):
-    """Defer Memgraph connect until the first tab or stat-bar fetch (browser can start without a password)."""
+    """Defer bolt DB connect until the first tab or stat-bar fetch (browser can start without a password)."""
 
     def __init__(self, settings: AppSettings):
         self._settings = settings

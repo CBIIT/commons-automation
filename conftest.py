@@ -17,7 +17,7 @@ import pytest
 from playwright.sync_api import sync_playwright
 
 from Commons.apps import APPS, BaseApp
-from Commons.memgraph_source import LazySource
+from Commons.db_source import LazySource
 from Commons.object_repository import ObjectRepository
 from Commons import action_log
 from Commons.settings import (

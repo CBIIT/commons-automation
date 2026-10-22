@@ -20,7 +20,7 @@ from typing import Dict, List, Optional
 from Commons import action_log, excel_writer
 from Commons.browser_actions import Ui
 from Commons.compare import Comparison, compare_counts, compare_tables
-from Commons.memgraph_source import ExpectedDataSource, Table
+from Commons.db_source import ExpectedDataSource, Table
 from Commons.object_repository import FilterGroup, ObjectRepository
 from Commons.settings import AppSettings, OUTPUT_ROOT, input_dir
 from Commons.query_reader import QueryFile, read_query_file
@@ -344,13 +344,15 @@ class BaseApp:
         self.verify_statbar()
 
     # ------------------------------------------------------------------ static pages
-    def verify_static_data(self, page_name: str):
-        from Commons.static_data import verify_static_data
-        problems = verify_static_data(self, page_name)
+    def verify_static_data(self, sheet_name: str):
+        """Verify one sheet in <app>_StaticData.xlsx (Katalon verifyStaticData)."""
+        from Commons.static_data import verify_static_page
+
+        problems = verify_static_page(self, sheet_name)
         if problems:
-            self._fail(f"Static data '{page_name}':\n  " + "\n  ".join(problems))
+            self._fail(f"Static data '{sheet_name}':\n  " + "\n  ".join(problems))
         else:
-            self.results.append({"check": f"Static {page_name}", "status": "PASSED", "detail": ""})
+            self.results.append({"check": f"Static {sheet_name}", "status": "PASSED", "detail": ""})
 
     # ------------------------------------------------------------------ results
     def _record(self, check: str, cmp: Comparison, ui_count: int, exp_count: int):

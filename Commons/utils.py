@@ -12,6 +12,11 @@ from playwright.sync_api import TimeoutError as PlaywrightTimeout
 LoadState = Literal["load", "domcontentloaded", "networkidle"]
 
 
+# ---------------------------------------------------------------------------
+# Locators (XPath → Playwright Locator)
+# ---------------------------------------------------------------------------
+
+
 def xpath_locator(page: Page, xpath: str) -> Locator:
     """All DOM matches for this XPath (use .first / .count / .evaluate_all)."""
     return page.locator(f"xpath={xpath}")
@@ -32,6 +37,11 @@ def visible_locator(page: Page, xpath: str) -> Locator:
     return visible_xpath_locator(page, xpath).first
 
 
+# ---------------------------------------------------------------------------
+# Presence and visibility
+# ---------------------------------------------------------------------------
+
+
 def is_visible(page: Page, xpath: str) -> bool:
     try:
         return visible_xpath_locator(page, xpath).count() > 0
@@ -41,6 +51,11 @@ def is_visible(page: Page, xpath: str) -> bool:
 
 def is_present(page: Page, xpath: str) -> bool:
     return xpath_locator(page, xpath).count() > 0
+
+
+# ---------------------------------------------------------------------------
+# Clicks and pointer actions
+# ---------------------------------------------------------------------------
 
 
 def click_element(
@@ -80,6 +95,11 @@ def hover(page: Page, xpath: str) -> None:
     visible_locator(page, xpath).hover()
 
 
+# ---------------------------------------------------------------------------
+# Form input (type, check, select)
+# ---------------------------------------------------------------------------
+
+
 def fill(page: Page, xpath: str, text: str, *, timeout_ms: int = 10000) -> None:
     target = locator(page, xpath)
     target.wait_for(state="visible", timeout=timeout_ms)
@@ -111,6 +131,11 @@ def select_option(page: Page, xpath: str, value: str) -> None:
     locator(page, xpath).select_option(value)
 
 
+# ---------------------------------------------------------------------------
+# Read element state
+# ---------------------------------------------------------------------------
+
+
 def text(page: Page, xpath: str, *, timeout_ms: Optional[int] = None) -> str:
     kwargs = {} if timeout_ms is None else {"timeout": timeout_ms}
     return locator(page, xpath).inner_text(**kwargs).strip()
@@ -140,6 +165,11 @@ def is_enabled(page: Page, xpath: str) -> bool:
 
 def is_checked(page: Page, xpath: str) -> bool:
     return locator(page, xpath).is_checked()
+
+
+# ---------------------------------------------------------------------------
+# Waits and scroll
+# ---------------------------------------------------------------------------
 
 
 def wait_visible(page: Page, xpath: str, *, timeout_ms: int = 30000) -> Locator:

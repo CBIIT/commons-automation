@@ -1,12 +1,5 @@
-# Replaces the Katalon Profiles (*.glbl). Pick one with:  pytest --env qa   (or ENV=qa)
-#
 # Secrets (Memgraph passwords) are NOT stored here. Put them in a gitignored `.env` or the shell:
 #   MEMGRAPH_PASSWORD_C3DC=...     # required for C3DC tests (cluster host under apps.C3DC.memgraph)
-#   MEMGRAPH_PASSWORD_CTDC=...     # required for CTDC tests
-#   NEO4J_PASSWORD_ICDC=...        # ICDC QA (see NEO4J_PASSWORD_ICDC_PROD for prod)
-#   NEO4J_ENDPOINT_ICDC=...        # optional bolt URI override per app/env
-#   NEO4J_ENV=qa                   # ICDC: UI env can differ from Neo4j bolt env (local dev)
-#   MEMGRAPH_PASSWORD_GC_QA=... MEMGRAPH_PASSWORD_GC_QA2=...  # GC: one password per env
 # Optional overrides: MEMGRAPH_ENDPOINT_C3DC, MEMGRAPH_USERNAME_C3DC_QA, etc. (see Commons/settings.py)
 
 apps:
