@@ -1,5 +1,4 @@
-# Converted from Katalon Object Repository/C3DC/Static/V_AboutAboutPage
-page: Static/V_AboutAboutPage
+page: Static/AboutPage
 elements:
   AboutCCDILink: //a[(text() = 'NCI’s Childhood Cancer Data Initiative (CCDI)')][1]
   AboutDataDictionaryLink: //a[(text() = 'data dictionary')]

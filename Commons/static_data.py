@@ -1,6 +1,6 @@
 """
 Static marketing/info pages: compare UI text and links to InputFiles/<app>/*_StaticData.xlsx.
-Each sheet (e.g. V_HomePage) lists object names, expected copy, and optional link URLs (QA host in file;
+Each sheet (e.g. HomePage) lists object names, expected copy, and optional link URLs (QA host in file;
 stage/prod URLs are derived when the object name contains Link).
 """
 import re

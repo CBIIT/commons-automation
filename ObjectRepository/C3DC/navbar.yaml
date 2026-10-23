@@ -1,6 +1,7 @@
 # Converted from Katalon Object Repository/C3DC/Navbar (updated for Explore Participants UI)
 page: Navbar
 elements:
+  WarningBan_Continue_Btn: //*[contains(text(),"Continue")]
   About-About-Btn: //a[.='About']
   About-Tab: //a[contains(@href,'/about') or normalize-space(.)='About']
   DataModel-Tab: //a[contains(@href,'/data-model') or normalize-space(.)='Data Model']
@@ -10,3 +11,4 @@ elements:
   Studies-Listing: (//a[@href='/studies' and normalize-space(.)='Studies'])[1]
   Resources-Resources-Btn: //a[.='Resources']
   Resources-Tab: //a[contains(@href,'/resources') or normalize-space(.)='Resources']
+ 

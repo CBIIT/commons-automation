@@ -20,7 +20,7 @@ def _tab(name, label, input_tab, stat, ui, db, max_pages=2):
 
 class C3DC(BaseApp):
     NAME = "C3DC"
-    BANNER_KEYS = ["HomePage/WarningBan_Continue_Btn"]
+    BANNER_KEYS = ["Navbar/WarningBan_Continue_Btn"]
     STATIC_DATA_EXCEL = "C3DC_StaticData.xlsx"
     EXPLORE_PATH = "exploreParticipants"
 

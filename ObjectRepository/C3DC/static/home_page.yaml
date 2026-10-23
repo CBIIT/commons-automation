@@ -1,5 +1,4 @@
-# Converted from Katalon Object Repository/C3DC/Static/V_HomePage
-page: Static/V_HomePage
+page: Static/HomePage
 elements:
   BannerDescription: //h2[contains(text(),'know C3DC')]
   BannerTitle: //h1[contains(text(),'C3DC Community')]

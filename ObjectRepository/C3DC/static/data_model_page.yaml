@@ -1,5 +1,4 @@
-# Converted from Katalon Object Repository/C3DC/Static/V_DataModelPage
-page: Static/V_DataModelPage
+page: Static/DataModelPage
 elements:
   DataModelCDSLink: //a[text() = ' Cancer Data Standards Registry and Repository']
   DataModelLink: //a[text() = 'Data Model']
