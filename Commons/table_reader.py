@@ -229,8 +229,12 @@ def read_table_header_data(app_key: str, tbl_main: str, col_header: Sequence[str
     n = len(col_header)
 
     if app_key == "GC":
-        for c in range(1, n):
-            _keep_header(hdr, c, _header_at(col_header, c))
+        if tbl_main == "//*[@id='studies_table']":
+            for c in range(n):
+                _keep_header(hdr, c, _header_at(col_header, c))
+        else:
+            for c in range(1, n):
+                _keep_header(hdr, c, _header_at(col_header, c))
 
     elif app_key == "ICDC":
         for c in range(n):
@@ -322,6 +326,16 @@ def read_table_row_data(
             tblcol = tblcol - 2
             for j in range(1, tblcol + 1):
                 add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/*[{j + 1}]{child}"), j)
+        elif tbl_main == "//*[@id='studies_table']":
+            for j in range(len(col_header)):
+                value = _inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]")
+                if _header_at(col_header, j) == "Study Version":
+                    value = "; ".join(
+                        part.strip()
+                        for part in value.replace("\r", "\n").split("\n")
+                        if part.strip()
+                    )
+                add(value, j)
         else:
             raise RuntimeError(f"Invalid tab for GC: {tbl_main}")
 

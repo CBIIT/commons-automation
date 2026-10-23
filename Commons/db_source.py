@@ -34,7 +34,11 @@ class ExpectedDataSource:
     """Expected UI results from the app's bolt DB (see get_db_settings)."""
 
     def fetch_tab_table(
-        self, query_file: QueryFile, tab_key: str, tab_display_name: Optional[str] = None
+        self,
+        query_file: QueryFile,
+        tab_key: str,
+        tab_display_name: Optional[str] = None,
+        apply_row_limit: bool = True,
     ) -> Table:
         raise NotImplementedError
 
@@ -134,10 +138,18 @@ class MemgraphSource(ExpectedDataSource):
         return table
 
     def fetch_tab_table(
-        self, query_file: QueryFile, tab_key: str, tab_display_name: Optional[str] = None
+        self,
+        query_file: QueryFile,
+        tab_key: str,
+        tab_display_name: Optional[str] = None,
+        apply_row_limit: bool = True,
     ) -> Table:
         """Run the TabQuery for one result tab (e.g. ParticipantsTab) from the input Excel."""
-        cypher = self._tab_cypher(query_file, tab_key)
+        cypher = (
+            self._tab_cypher(query_file, tab_key)
+            if apply_row_limit
+            else query_file.query_for_tab(tab_key)
+        )
         label = memgraph_tab_query_label(tab_key, tab_display_name)
         return self.run_cypher_as_table(cypher, label)
 
@@ -243,9 +255,17 @@ class Neo4jSource(MemgraphSource):
         return table
 
     def fetch_tab_table(
-        self, query_file: QueryFile, tab_key: str, tab_display_name: Optional[str] = None
+        self,
+        query_file: QueryFile,
+        tab_key: str,
+        tab_display_name: Optional[str] = None,
+        apply_row_limit: bool = True,
     ) -> Table:
-        query = self._tab_cypher(query_file, tab_key)
+        query = (
+            self._tab_cypher(query_file, tab_key)
+            if apply_row_limit
+            else query_file.query_for_tab(tab_key)
+        )
         label = neo4j_tab_query_label(tab_key, tab_display_name)
         return self.run_cypher_as_table(query, label)
 
@@ -296,10 +316,17 @@ class LazySource(ExpectedDataSource):
         return self._connected
 
     def fetch_tab_table(
-        self, query_file: QueryFile, tab_key: str, tab_display_name: Optional[str] = None
+        self,
+        query_file: QueryFile,
+        tab_key: str,
+        tab_display_name: Optional[str] = None,
+        apply_row_limit: bool = True,
     ) -> Table:
         return self.get_connected_source().fetch_tab_table(
-            query_file, tab_key, tab_display_name=tab_display_name
+            query_file,
+            tab_key,
+            tab_display_name=tab_display_name,
+            apply_row_limit=apply_row_limit,
         )
 
     def fetch_stat_bar_table(self, query_file: QueryFile) -> Table:

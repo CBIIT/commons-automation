@@ -81,6 +81,16 @@ def test_read_table_header_data_c3dc_and_gc(capsys):
 
     raw_gc = ["", "Study", "Participants"]
     assert read_table_header_data("GC", '//div[@id="case_tab_table"]', raw_gc) == ["Study", "Participants"]
+    listing = [
+        "Study",
+        "Study Version",
+        "Study Name",
+        "Data Types",
+        "Study Access",
+        "Number of Participants",
+        "Number of Files",
+    ]
+    assert read_table_header_data("GC", "//*[@id='studies_table']", listing) == listing
     out = capsys.readouterr().out
     assert "Inside GC switch case for header data:" in out
     assert "Complete list of column headers in current tab:  Study||Participants||" in out
@@ -449,6 +459,29 @@ def test_read_c3dc_study_listing_query_file():
     cypher = qf.query_for_tab("StudiesListingTab")
     assert cypher.startswith("MATCH (st:study)")
     assert "`Study ID`" in cypher
+
+
+def test_gc_studies_listing_locators_do_not_replace_explore():
+    from Commons.apps.gc import GC
+
+    repo = ObjectRepository("GC")
+    assert repo.xpath("Data_page/GC_ParticipantsTable") == '//div[@id="case_tab_table"]'
+    assert repo.xpath("StudiesPage/Table") == "//*[@id='studies_table']"
+    assert repo.xpath("NavBar/Studies-Listing")
+    assert "StudiesListing" not in GC.TABS
+    assert set(GC.TABS) == {"Participants", "Samples", "Files"}
+
+
+def test_read_gc_study_listing_query_file():
+    qf = read_query_file("GC", "TC01_GC_StudyListing.xlsx")
+    assert qf.queries_by_tab.keys() == {"StudiesListingTab"}
+    assert not qf.stat_bar_query
+    cypher = qf.query_for_tab("StudiesListingTab")
+    assert cypher.startswith("MATCH (st:study)")
+    assert "`Study`" in cypher
+    assert "nodes[0].study_name" not in cypher
+    assert "The Cancer Genome Atlas Glioblastoma Multiforme Collection" in cypher
+    assert "ParticipantsTab" not in qf.queries_by_tab
 
 
 def test_read_cds_query_file_has_cypher():

@@ -16,7 +16,7 @@ def _tab(name, index_key, table, input_tab, stat, ui, db, max_pages=10):
 
 class GC(BaseApp):
     NAME = "GC"
-    BANNER_KEYS = ["Popup_Continue_Btn"]
+    BANNER_KEYS = ["NavBar/Popup_Continue_Btn"]
     STATIC_DATA_EXCEL = "GC_StaticData.xlsx"
 
     STATS = [
@@ -37,3 +37,15 @@ class GC(BaseApp):
 
     def open_data(self):
         self.click("NavBar/GC_Data-Btn", ui_message="GC Data page opened successfully.")
+
+    def open_studies_listing(self):
+        """Open the /#/studies catalog (not Data explore)."""
+        from Commons.apps.gc_studies import open_studies_listing
+
+        open_studies_listing(self)
+
+    def verify_studies_listing(self):
+        """Compare /#/studies catalog rows to StudiesListingTab Cypher. Does not call verify_tab."""
+        from Commons.apps.gc_studies import verify_studies_listing
+
+        verify_studies_listing(self)
