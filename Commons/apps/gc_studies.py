@@ -76,12 +76,14 @@ def verify_studies_listing(app):
         "UI_StudiesListing",
         page_table.header,
         page_table.rows,
+        header_color=excel_writer.LISTING_HEADER_COLOR,
     )
     excel_writer.write_sheet(
         out.with_name(out.name + "_DB.xlsx"),
         "DB_StudiesListing",
         db_table.header,
         db_table.rows,
+        header_color=excel_writer.LISTING_HEADER_COLOR,
     )
 
     # 5. Compare page rows to database rows

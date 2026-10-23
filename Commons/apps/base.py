@@ -355,6 +355,9 @@ class BaseApp:
         expected = self.source.fetch_tab_table(
             self.query_file, spec.input_tab, tab_display_name=tab_label
         )
+        # Same sort as compare_tables so UI and DB Excel files line up row-for-row
+        ui_table.rows.sort(key=lambda row: [str(c).strip() if c is not None else "" for c in row])
+        expected.rows.sort(key=lambda row: [str(c).strip() if c is not None else "" for c in row])
         base = self.output_dir / self.query_file.name
         excel_writer.write_sheet(base.with_name(base.name + "_UI.xlsx"), spec.ui_sheet, ui_table.header, ui_table.rows)
         excel_writer.write_sheet(base.with_name(base.name + "_DB.xlsx"), spec.db_sheet, expected.header, expected.rows)

@@ -1,13 +1,21 @@
 """Write UI and DB result tables to Excel under OutputFiles/<app>/<ENV>/ (gitignored)."""
 from pathlib import Path
-from typing import List, Sequence
+from typing import List, Optional, Sequence
 
 import openpyxl
+from openpyxl.styles import Font, PatternFill
 
 _ILLEGAL_SHEET_CHARS = "[]:*?/\\"
+LISTING_HEADER_COLOR = "9BC2E6"  # light blue; dark text stays easy to read
 
 
-def write_sheet(path: Path, sheet: str, header: Sequence[str], rows: List[Sequence[str]]):
+def write_sheet(
+    path: Path,
+    sheet: str,
+    header: Sequence[str],
+    rows: List[Sequence[str]],
+    header_color: Optional[str] = None,
+):
     """Create or update one worksheet (header + rows) in an .xlsx file."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -23,6 +31,12 @@ def write_sheet(path: Path, sheet: str, header: Sequence[str], rows: List[Sequen
     ws.append(list(header))
     for r in rows:
         ws.append([_safe(c) for c in r])
+    if header_color:
+        fill = PatternFill(start_color=header_color, end_color=header_color, fill_type="solid")
+        font = Font(bold=True, color="1F4E79")
+        for cell in ws[1]:
+            cell.fill = fill
+            cell.font = font
     wb.save(path)
 
 
