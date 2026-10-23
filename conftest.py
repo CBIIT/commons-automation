@@ -166,3 +166,6 @@ def pytest_runtest_makereport(item, call):
                 pg.screenshot(path=str(SCREENSHOT_DIR / f"{name}.png"), full_page=False)
             except Exception:
                 pass
+
+
+pytest_plugins = ["Commons.html_report"]

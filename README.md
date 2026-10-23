@@ -71,6 +71,7 @@ pytest --headed --browser firefox <path-or-k>
 pytest --trace-actions <test>                     # verbose steps (or COMMONS_VERBOSE=1 in .env)
 pytest -n 4 -m "gc and regression"              # parallel (pytest-xdist)
 pytest --junitxml=Reports/junit.xml
+# HTML suite report: set HTML_REPORT=true in .env → Reports/GC_quickrun_YYYYMMDD_HHMMSS.html + Reports/latest.html
 ```
 
 **Output:** per-check summary in the report (`Participants PASSED UI=13 DB=13`); row counts can match while a tab still **FAILED** (cell **DATA MISMATCH** — see stderr or the Checks section). Compare mismatches on stderr (red when terminal or `FORCE_COLOR=1`). Failures: `Reports/screenshots/`, `OutputFiles/<APP>/<ENV>/` → `*_UI.xlsx` / `*_DB.xlsx` with one sheet per result tab plus **`StatOutput`** for stat-bar counts (gitignored). Console prints Katalon-style stat lines when the bar is read and when DB expected counts are fetched.

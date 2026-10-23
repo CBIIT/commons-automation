@@ -333,6 +333,57 @@ def test_tab_is_enabled_respects_yaml_and_c3dc_aliases():
     assert tab_is_enabled(execution, "Studies", aliases) is True
 
 
+def test_html_report_suite_slug_and_duration():
+    from Commons.html_report import format_duration_hms, suite_slug_from_markexpr
+
+    assert suite_slug_from_markexpr("gc and quickrun") == "GC_quickrun"
+    assert suite_slug_from_markexpr("c3dc and smoke") == "C3DC_smoke"
+    assert format_duration_hms(101.8) == "0h 1m 41.8s"
+
+
+def test_html_report_enabled_reads_html_report_env(monkeypatch):
+    from Commons import html_report
+
+    monkeypatch.delenv("HTML_REPORT", raising=False)
+    monkeypatch.delenv("HTML_Report", raising=False)
+    monkeypatch.delenv("html_report", raising=False)
+    assert html_report.html_report_enabled() is False
+    monkeypatch.setenv("HTML_Report", "true")
+    assert html_report.html_report_enabled() is True
+
+
+def test_html_report_render_expandable_steps():
+    from Commons.html_report import HtmlReportSession, ReportStep, TestRecord, render_html
+
+    session = HtmlReportSession(
+        enabled=True,
+        started_at=0.0,
+        env="qa",
+        browser="chromium",
+        markexpr="gc and quickrun",
+        records=[
+            TestRecord(
+                nodeid="t.py::test_one",
+                name="test_one",
+                outcome="failed",
+                duration=101.8,
+                execution_steps=[
+                    ReportStep("[UI] GC Data page opened successfully."),
+                    ReportStep("[UI] Male checkbox clicked successfully (Demographics)."),
+                ],
+                check_steps=[ReportStep("StatBar          PASSED UI=1 DB=1", status="PASSED")],
+                failure_message="assert 0",
+            )
+        ],
+    )
+    page = render_html(session, generated=__import__("datetime").datetime(2026, 10, 23, 16, 48, 0))
+    assert "GC_quickrun" in page
+    assert "0h 1m 41.8s" in page
+    assert "Execution steps" in page
+    assert "toggleStep" in page
+    assert "Male checkbox clicked" in page
+
+
 def test_read_c3dc_query_file():
     qf = read_query_file("C3DC", "TC01_C3DC_phs000463_SexAtBirth-Female.xlsx")
     assert {"StudiesTab", "ParticipantsTab", "SurvivalTab"} <= set(qf.queries_by_tab)
