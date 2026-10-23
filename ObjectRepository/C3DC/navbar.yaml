@@ -7,5 +7,6 @@ elements:
   Explore-Tab: //a[contains(@href,'exploreParticipants') and contains(normalize-space(.), 'Explore Participants')]
   Explore-Participants-Link: //a[contains(@href,'exploreParticipants') and contains(normalize-space(.), 'Explore Participants')]
   Home-Tab: //a[contains(@href,'/home') or normalize-space(.)='Home']
+  Studies-Listing: (//a[@href='/studies' and normalize-space(.)='Studies'])[1]
   Resources-Resources-Btn: //a[.='Resources']
   Resources-Tab: //a[contains(@href,'/resources') or normalize-space(.)='Resources']

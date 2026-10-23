@@ -40,6 +40,10 @@ C3DC_TABLE_BODY_XPATH: dict = {
     "//*[@id='study_tab_table']": "//*[@id='study_tab_table']//table/tbody",
     "//*[@id='treatment_tab_table']": "//*[@id='treatment_tab_table']//table/tbody",
     "//*[@id='survival_tab_table']": "//*[@id='survival_tab_table']//table/tbody",
+    # /studies catalog (not Explore Studies tab)
+    "//div[contains(@class,'studiesTableWrapper')]": (
+        "//div[contains(@class,'studiesTableWrapper')]//table/tbody"
+    ),
 }
 
 
@@ -240,6 +244,12 @@ def read_table_header_data(app_key: str, tbl_main: str, col_header: Sequence[str
                 text = _header_at(col_header, c).strip()
                 if text != "Available CPI Mapping":
                     _keep_header(hdr, c, text)
+        elif tbl_main == "//div[contains(@class,'studiesTableWrapper')]":
+            for c in range(n):
+                text = _header_at(col_header, c)
+                if text in ("Data Availability", "Manifest"):
+                    continue
+                _keep_header(hdr, c, text)
         else:
             for c in range(n):
                 text = _header_at(col_header, c)
@@ -380,6 +390,12 @@ def read_table_row_data(
         elif tbl_main == "//*[@id='file_tab_table']":
             tblcol = tblcol + 2
             for j in range(1, tblcol):
+                add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
+        elif tbl_main == "//div[contains(@class,'studiesTableWrapper')]":
+            for j in range(len(col_header)):
+                text = _header_at(col_header, j)
+                if text in ("Data Availability", "Manifest"):
+                    continue
                 add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
         else:
             print("Check C3DC table data collection for tbl_main", tbl_main, file=sys.stderr)

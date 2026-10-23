@@ -112,6 +112,11 @@ def test_c3dc_resolve_table_body_xpath_nested_tables():
     assert resolve_table_body_xpath("GC", "//*[@id='case_tab_table']") == (
         "//*[@id='case_tab_table']//tbody"
     )
+    listing = "//div[contains(@class,'studiesTableWrapper')]"
+    assert resolve_table_body_xpath("C3DC", listing) == f"{listing}//table/tbody"
+    assert resolve_table_body_xpath("C3DC", "//*[@id='study_tab_table']") == (
+        "//*[@id='study_tab_table']//table/tbody"
+    )
 
 
 def test_compare_tables_column_count_mismatch():
@@ -391,6 +396,61 @@ def test_read_c3dc_query_file():
     assert "phs000463" in qf.query_for_tab("StudiesTab")  # filter token appears in tab query text
 
 
+def test_c3dc_studies_listing_header_skips_icons_only():
+    from Commons.table_reader import read_table_header_data
+
+    listing = "//div[contains(@class,'studiesTableWrapper')]"
+    raw = [
+        "Study ID",
+        "Study Name",
+        "Data Availability",
+        "Participants Count",
+        "Diagnosis Count",
+        "Samples Count",
+        "Files Count",
+    ]
+    assert read_table_header_data("C3DC", listing, raw) == [
+        "Study ID",
+        "Study Name",
+        "Participants Count",
+        "Diagnosis Count",
+        "Samples Count",
+        "Files Count",
+    ]
+    explore = ["Study ID", "Study Name", "Study Description", "Manifest"]
+    assert read_table_header_data("C3DC", "//*[@id='study_tab_table']", explore) == [
+        "Study ID",
+        "Study Name",
+        "Study Description",
+    ]
+
+
+def test_c3dc_studies_listing_locators_do_not_replace_explore_studies():
+    from Commons.apps.c3dc import C3DC
+
+    repo = ObjectRepository("C3DC")
+    assert repo.xpath("ResultTabs/Studies-Tbl") == "//*[@id='study_tab_table']"
+    assert repo.xpath("ResultTabs/Studies-Tab") == (
+        "//button[@role='tab' and contains(., 'Studies')]"
+    )
+    assert repo.xpath("StudiesPage/Table") == "//div[contains(@class,'studiesTableWrapper')]"
+    assert repo.xpath("Navbar/Studies-Listing")
+    assert C3DC.TABS["Studies"].table == "ResultTabs/Studies-Tbl"
+    assert C3DC.TABS["Studies"].input_tab == "StudiesTab"
+    assert "StudiesListing" not in C3DC.TABS
+
+
+def test_read_c3dc_study_listing_query_file():
+    qf = read_query_file("C3DC", "TC01_C3DC_StudyListing.xlsx")
+    assert qf.queries_by_tab.keys() == {"StudiesListingTab"}
+    assert "StudiesTab" not in qf.queries_by_tab
+    assert "phs000463" not in qf.query_for_tab("StudiesListingTab")
+    assert not qf.stat_bar_query
+    cypher = qf.query_for_tab("StudiesListingTab")
+    assert cypher.startswith("MATCH (st:study)")
+    assert "`Study ID`" in cypher
+
+
 def test_read_cds_query_file_has_cypher():
     qf = read_query_file("GC", "TC01_GC_phs001437_Sex-Unknown_ExperimentalStrategy-RNASeq.xlsx")
     assert set(qf.queries_by_tab) == {"ParticipantsTab", "SamplesTab", "FilesTab"}
@@ -398,14 +458,21 @@ def test_read_cds_query_file_has_cypher():
 
 
 def test_every_input_excel_is_readable():
-    """All 200+ input files parse and have a stat query and at least one tab query."""
+    """All 200+ input files parse and have at least one tab query.
+
+    Explore workbooks also need StatQuery. Catalog listing files (StudiesListingTab only)
+    have no stat bar, so StatQuery is optional.
+    """
     bad = []
     for app in ("C3DC", "GC"):
         for f in sorted(input_dir(app).glob("TC*.xlsx")):
             try:
                 c = read_query_file(app, f.name)
-                if not c.queries_by_tab or not c.stat_bar_query:
-                    bad.append(f"{f.name}: missing queries")
+                if not c.queries_by_tab:
+                    bad.append(f"{f.name}: missing tab queries")
+                listing_only = set(c.queries_by_tab) == {"StudiesListingTab"}
+                if not listing_only and not c.stat_bar_query:
+                    bad.append(f"{f.name}: missing StatQuery")
             except Exception as e:                                   # noqa: BLE001
                 bad.append(f"{f.name}: {e}")
     assert not bad, "\n".join(bad[:20])

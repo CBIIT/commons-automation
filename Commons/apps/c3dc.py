@@ -297,3 +297,15 @@ class C3DC(BaseApp):
     def _open_from_more_menu(self, spec: TabSpec):
         """Fallback if BaseApp.open_tab is used — same as Katalon selectTab + More menu."""
         self.open_tab(spec.name)
+
+    def open_studies_listing(self):
+        """Open the /studies catalog (not Explore Participants → Studies)."""
+        from Commons.apps.c3dc_studies import open_studies_listing
+
+        open_studies_listing(self)
+
+    def verify_studies_listing(self):
+        """Compare /studies catalog rows to StudiesListingTab Cypher. Does not call verify_tab."""
+        from Commons.apps.c3dc_studies import verify_studies_listing
+
+        verify_studies_listing(self)
