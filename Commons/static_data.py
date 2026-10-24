@@ -23,8 +23,39 @@ if TYPE_CHECKING:
 
 
 def _normalize_text(text: str) -> str:
-    """Collapse newlines and trim (UI inner_text vs Excel cell)."""
-    return re.sub(r"\r?\n", " ", text or "").strip()
+    """Collapse newlines, non-breaking spaces, and curly quotes (UI inner_text vs Excel)."""
+    text = text or ""
+    text = text.replace("\u00a0", " ").replace("\u202f", " ").replace("\u200b", "")
+    text = text.replace("\u2019", "'").replace("\u2018", "'")
+    text = text.replace("\u201c", '"').replace("\u201d", '"')
+    text = re.sub(r"\r?\n", " ", text)
+    text = re.sub(r" +", " ", text)
+    return text.strip()
+
+
+def _normalize_href(href: str) -> str:
+    return (href or "").replace("%20", " ").strip()
+
+
+def _hash_route(href: str) -> str:
+    """'#/support' from either '#/support' or 'https://host/#/support'."""
+    if "#/" in href:
+        return "#/" + href.split("#/", 1)[1]
+    return ""
+
+
+def _hrefs_match(got: str, want: str) -> bool:
+    """True if hrefs are the same after trim, trailing slash, or relative vs absolute hash routes."""
+    got = _normalize_href(got)
+    want = _normalize_href(want)
+    if got == want:
+        return True
+    if got.rstrip("/") == want.rstrip("/"):
+        return True
+    got_hash, want_hash = _hash_route(got), _hash_route(want)
+    if got_hash and want_hash and got_hash == want_hash:
+        return True
+    return False
 
 
 def _link_href_for_env(qa_href: str, env: str) -> str:
@@ -69,9 +100,9 @@ def verify_static_page(app: "BaseApp", sheet_name: str) -> List[str]:
                 problems.append(f"{obj}: text is '{actual}', expected '{expected_text}'")
             url_ok = True
             if "Link" in obj:
-                want = _link_href_for_env(expected_url, app.settings.env).replace("%20", " ")
-                got = (el.get_attribute("href") or "").replace("%20", " ")
-                url_ok = got == want
+                want = _link_href_for_env(expected_url, app.settings.env)
+                got = el.get_attribute("href") or ""
+                url_ok = _hrefs_match(got, want)
                 if not url_ok:
                     problems.append(f"{obj}: link is '{got}', expected '{want}'")
             ok = text_ok and url_ok

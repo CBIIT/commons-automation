@@ -1,7 +1,7 @@
-# Converted from Katalon Object Repository/CTDC/Static/V_DataSubmissionPage
-page: Static/V_DataSubmissionPage
+# Converted from Katalon Object Repository/CTDC/Static/DataSubmissionPage
+page: Static/DataSubmissionPage
 elements:
   BannerTitle: //span[contains(text(),'Data Submission')]
   CRDCHubLink: //a[@title='the CRDC Submission Portal']
-  CRDCHubSubmitLink: //a[@title='CRDC’s Submit Data page']
+  CRDCHubSubmitLink: //a[contains(@href,'datacommons.cancer.gov/submit')]
   DataSubmissionDescription: //span[contains(text(),'Data Submission')]/following::div[1]

@@ -46,6 +46,18 @@ def test_cells_match_rules():
     assert not cells_match("a", "b")
 
 
+def test_static_text_and_href_normalize():
+    from Commons.static_data import _hrefs_match, _normalize_text
+
+    assert _normalize_text("ABOUT\u00a0\u00a0(CTDC)") == "ABOUT (CTDC)"
+    assert _normalize_text("CRDC\u2019s Submit") == "CRDC's Submit"
+    assert _hrefs_match("#/support", "https://clinical-qa.datacommons.cancer.gov/#/support")
+    assert _hrefs_match("/#/graphql", "https://clinical-qa.datacommons.cancer.gov/#/graphql")
+    assert _hrefs_match("https://datacommons.cancer.gov", "https://datacommons.cancer.gov/")
+    assert _hrefs_match(" https://example.com ", "https://example.com")
+    assert not _hrefs_match("#/support", "#/purpose")
+
+
 def test_compare_tables_is_order_independent():
     ui = [["1", "a"], ["2", "b"], ["3", "c"]]
     exp = [["3", "c"], ["1", "a"], ["2", "b"]]

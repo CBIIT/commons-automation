@@ -1,5 +1,5 @@
-# Converted from Katalon Object Repository/CTDC/Static/V_DataCloudPage
-page: Static/V_DataCloudPage
+# Converted from Katalon Object Repository/CTDC/Static/DataCloudPage
+page: Static/DataCloudPage
 elements:
   BannerTitle: //span[contains(text(),'Cloud computing')]
   CGCLink: //a[@title='Seven Bridges Cancer Genomics Cloud']

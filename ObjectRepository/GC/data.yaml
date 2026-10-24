@@ -1,4 +1,4 @@
-# Converted from Katalon Object Repository/CDS/Data_page (locator keys renamed GC for General Commons).
+# Converted from Katalon Object Repository/CDS/Data_page (locator keys still Data_page/...).
 page: Data_page
 elements:
   GCResults_Files_Tab: //*[@index='2']

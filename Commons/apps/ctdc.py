@@ -21,7 +21,7 @@ def _tab(name, input_tab, stat, ui, db, max_pages=10):
 class CTDC(BaseApp):
     NAME = "CTDC"
     BANNER_KEYS = ["Home/WarningBan_Continue_Btn"]
-    STATIC_DATA_EXCEL = "CTDC_StaticData.xlsx"
+    STATIC_DATA_EXCEL = "TC01_CTDC_StaticData.xlsx"
 
     STATS = [
         StatSpec("Studies", "Statbar/Studies-Count"),

@@ -1,5 +1,5 @@
-# Converted from Katalon Object Repository/CTDC/Static/V_HomePage
-page: Static/V_HomePage
+# Converted from Katalon Object Repository/CTDC/Static/HomePage
+page: Static/HomePage
 elements:
   BannerTitle: '//*[text()=''FUELING DISCOVERY: HARNESSING THE POWER OF DATA FROM CANCER STUDIES'']'
   FooterAboutCTDCLink: //a[(text() = 'About CTDC')]
@@ -8,11 +8,11 @@ elements:
   FooterCTDCHelpLink: //a[(text() = 'CTDC Help Desk')]
   FooterDisclaimersLink: //a[(text() = 'Disclaimers')]
   FooterFOIALink: //a[(text() = 'FOIA')]
-  FooterMoreInfoLabel: //div[(text() = 'More Information')]
-  FooterPoliciesLabel: //div[(text() = 'Policies')]
+  FooterMoreInfoLabel: //footer//h2[normalize-space()='More Information']
+  FooterPoliciesLabel: //footer//h2[normalize-space()='Policies']
   FooterPrivacyLink: //a[(text() = 'Privacy & Security')]
   FooterReleaseNotesLink: //a[(text() = 'Release Notes')]
-  FooterSystemInfoLabel: //div[(text() = 'System Info')]
+  FooterSystemInfoLabel: //footer//h2[normalize-space()='System Info']
   FooterVulnerabilityLink: //a[(text() = 'Vulnerability Disclosure')]
   SpotlightDescription1: //h2[1]/following-sibling::div
   SpotlightDescription2: (//h2)[2]/following-sibling::p

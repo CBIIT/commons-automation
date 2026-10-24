@@ -1,5 +1,5 @@
-# Converted from Katalon Object Repository/CTDC/Static/V_RequestAccessPage
-page: Static/V_RequestAccessPage
+# Converted from Katalon Object Repository/CTDC/Static/RequestAccessPage
+page: Static/RequestAccessPage
 elements:
   AccessingControlledSection: //div[contains(text(),'Accessing controlled')]/..
   BannerTitle: //span[contains(text(),'Request Access')]
@@ -9,7 +9,6 @@ elements:
   DbgapHelpdeskLink: //a[@title=' dbGaP Helpdesk ']
   DbgapVideoLink: '//a[@title='' VIDEO - dbGaP: Apply for Controlled Access Data'']'
   PublicAccessSection: //div[contains(text(),'Public access')]/..
-  RegisteredAccessSection: //div[contains(text(),'Registered access')]/..
   RequestDescription: //div[contains(text(),'Data within')]
   eRAFaqLink: //a[@title='eRA Commons Frequently Asked Questions (FAQs)']
   eRAHelpdeskLink: //a[@title='Helpdesk']

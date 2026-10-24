@@ -1,5 +1,5 @@
-# Converted from Katalon Object Repository/CTDC/Static/V_AboutPurposePage
-page: Static/V_AboutPurposePage
+# Converted from Katalon Object Repository/CTDC/Static/AboutPurposePage
+page: Static/AboutPurposePage
 elements:
   BannerTitle: //span[text()='Purpose']
   CGCLink: //a[contains(@href,'seven-bridges')]

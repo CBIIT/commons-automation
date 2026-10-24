@@ -1,5 +1,5 @@
-# Converted from Katalon Object Repository/CTDC/Static/V_DataHarmonizationPage
-page: Static/V_DataHarmonizationPage
+# Converted from Katalon Object Repository/CTDC/Static/DataHarmonizationPage
+page: Static/DataHarmonizationPage
 elements:
   BannerTitle: //span[contains(text(),'Data Harmonization')]
   DataElementsLink: //a[@title='here']

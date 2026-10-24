@@ -1,5 +1,5 @@
-# Converted from Katalon Object Repository/CTDC/Static/V_ResourcesGraphQLPage
-page: Static/V_ResourcesGraphQLPage
+# Converted from Katalon Object Repository/CTDC/Static/ResourcesGraphQLPage
+page: Static/ResourcesGraphQLPage
 elements:
   ApiLink: //a[contains(@href,'v1/graphql')]
   BannerTitle: //span[text()='GraphQL']
