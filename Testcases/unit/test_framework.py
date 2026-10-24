@@ -808,6 +808,21 @@ def test_read_cds_query_file_has_cypher():
     assert qf.queries_by_tab["ParticipantsTab"].startswith("MATCH")
 
 
+def test_gc_sample_filter_stat_counts_files_from_sample():
+    """Sample filters must count Files via from_sample, not every file on the participant."""
+    bad = []
+    for f in sorted(input_dir("GC").glob("TC*.xlsx")):
+        c = read_query_file("GC", f.name)
+        stat = c.stat_bar_query or ""
+        files = c.queries_by_tab.get("FilesTab", "")
+        sample_filter = any(
+            token in stat for token in ("sample_tumor_status", "sample_type")
+        )
+        if sample_filter and "from_sample" in files and "from_sample" not in stat:
+            bad.append(f.name)
+    assert not bad, "StatQuery must join (f)-[:from_sample]->(samp):\n" + "\n".join(bad[:12])
+
+
 def test_every_input_excel_is_readable():
     """All 200+ input files parse and have at least one tab query.
 

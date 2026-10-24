@@ -135,8 +135,7 @@ class BaseApp:
         action_log.say(f"select_filter group={group!r} value={value!r}")
 
         if g.search:
-            if not ui.is_visible(g.search):
-                self._expand_group(g, checkbox=chk)
+            self._expand_group(g, until_visible=g.search, checkbox=chk)
             ui.fill(g.search, self._search_text(chk, value), repo_key=f"{group}/search")
             ui.wait_idle(3000)
         else:
@@ -159,6 +158,35 @@ class BaseApp:
         facet = action_log.filter_facet_display(group)
         return f"{value} checkbox clicked successfully ({facet})."
 
+    def _accordion_expanded(self, xpath: str) -> bool:
+        loc = self.ui.loc(xpath).first
+        try:
+            return bool(
+                loc.evaluate(
+                    """(el) => {
+                        const node = el.matches('[aria-expanded]')
+                            ? el
+                            : el.querySelector('[aria-expanded]') || el.closest('[aria-expanded]');
+                        return node && node.getAttribute('aria-expanded') === 'true';
+                    }"""
+                )
+            )
+        except Exception:
+            return False
+
+    def _open_accordion(self, xpath: str, *, repo_key: Optional[str] = None) -> bool:
+        """Click an accordion header only when collapsed (do not toggle an open facet closed)."""
+        ui = self.ui
+        if not ui.is_present(xpath):
+            return False
+        ui.scroll_into_view(xpath)
+        if self._accordion_expanded(xpath):
+            return False
+        ui.js_click(xpath, repo_key=repo_key)
+        ui.wait_idle(500)
+        self.page.wait_for_timeout(400)
+        return True
+
     def _expand_group(self, g: FilterGroup, until_visible: Optional[str] = None, checkbox: Optional[str] = None):
         """Open left-panel facet, then sub-filter dropdown (Katalon clickTab *Facet / *-Ddn)."""
         ui = self.ui
@@ -167,12 +195,9 @@ class BaseApp:
         facet_repo = f"{g.key}/facet" if g.facet else None
 
         if g.facet and ui.is_present(g.facet):
-            ui.scroll_into_view(g.facet)
-            ui.js_click(g.facet, repo_key=facet_repo or f"{facet_label}_Facet")
-            ui.wait_idle(500)
-            self.page.wait_for_timeout(400)
-            facet_name = action_log.filter_facet_display(g.key, g.facet_key)
-            action_log.ui_action(f"{facet_name} facet opened successfully.")
+            if self._open_accordion(g.facet, repo_key=facet_repo or f"{facet_label}_Facet"):
+                facet_name = action_log.filter_facet_display(g.key, g.facet_key)
+                action_log.ui_action(f"{facet_name} facet opened successfully.")
 
         if not dropdown:
             return
@@ -186,10 +211,9 @@ class BaseApp:
         if until_visible and ui.is_visible(until_visible):
             return
         if ui.is_present(dropdown):
-            ui.js_click(dropdown, repo_key=f"{g.key}/dropdown")
-            self.page.wait_for_timeout(400)
-            sub = action_log.filter_subfilter_display(g.key)
-            action_log.ui_action(f"{sub} filter dropdown opened successfully.")
+            if self._open_accordion(dropdown, repo_key=f"{g.key}/dropdown"):
+                sub = action_log.filter_subfilter_display(g.key)
+                action_log.ui_action(f"{sub} filter dropdown opened successfully.")
             if until_visible:
                 try:
                     ui.wait_visible(until_visible, timeout_ms=15000)

@@ -46,7 +46,7 @@ apps:
   # Portal: general-*.datacommons.cancer.gov / datacommons.cancer.gov
   # -------------------------------------------------------------------------
   GC:
-    tab_row_limit: 100
+    tab_row_limit: 13
     pagination_max_pages: 25
     tabs:
       Participants: true   # People / subjects
