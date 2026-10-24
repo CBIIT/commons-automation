@@ -1,0 +1,7 @@
+# Converted from Katalon Object Repository/CCDI/Statbar
+page: Statbar
+elements:
+  Files_Cnt: //*[@id='statsbar_count_4']
+  Participants_Cnt: //*[@id='statsbar_count_2']
+  Samples_Cnt: //*[@id='statsbar_count_3']
+  Studies_Cnt: //*[@id='statsbar_count_1']

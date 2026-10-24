@@ -55,6 +55,9 @@ def test_static_text_and_href_normalize():
     assert _hrefs_match("/#/graphql", "https://clinical-qa.datacommons.cancer.gov/#/graphql")
     assert _hrefs_match("https://datacommons.cancer.gov", "https://datacommons.cancer.gov/")
     assert _hrefs_match(" https://example.com ", "https://example.com")
+    assert _hrefs_match("/about", "https://ccdi-qa.cancer.gov/about")
+    assert _hrefs_match("/data-federation-resource", "https://ccdi-qa.cancer.gov/data-federation-resource")
+    assert not _hrefs_match("/", "https://clinicalcommons.ccdi.cancer.gov/")
     assert not _hrefs_match("#/support", "#/purpose")
 
 
@@ -365,6 +368,7 @@ def test_html_report_suite_slug_and_duration():
 
     assert suite_slug_from_markexpr("gc and quickrun") == "GC_quickrun"
     assert suite_slug_from_markexpr("c3dc and smoke") == "C3DC_smoke"
+    assert suite_slug_from_markexpr("ccdi and static") == "CCDI_static"
     assert format_duration_hms(101.8) == "0h 1m 41.8s"
 
 
@@ -494,6 +498,24 @@ def test_read_gc_study_listing_query_file():
     assert "nodes[0].study_name" not in cypher
     assert "The Cancer Genome Atlas Glioblastoma Multiforme Collection" in cypher
     assert "ParticipantsTab" not in qf.queries_by_tab
+
+
+def test_ccdi_has_hub_locators_and_no_explore():
+    from Commons.apps.ccdi import CCDI
+
+    repo = ObjectRepository("CCDI")
+    assert repo.xpath("Navbar/Explore_Menu") == '(//a[@href="/explore"])[1]'
+    assert repo.xpath("Navbar/About-AboutCCDI-Btn")
+    assert repo.xpath("Static/HomePage/BannerTitle")
+    assert repo.xpath("Statbar/Studies_Cnt")
+    assert CCDI.TABS == {}
+    assert CCDI.STATIC_DATA_EXCEL == "TC01_CCDI_StaticData.xlsx"
+    try:
+        repo.xpath("ExplorePage/Participants_ResultsTab")
+        raise AssertionError("CCDI should not import ExplorePage locators")
+    except LocatorNotFound:
+        pass
+    assert repo.filter_group_keys() == []
 
 
 def test_read_cds_query_file_has_cypher():

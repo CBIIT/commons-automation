@@ -6,6 +6,7 @@ stage/prod URLs are derived when the object name contains Link).
 import re
 from pathlib import Path
 from typing import List, TYPE_CHECKING
+from urllib.parse import urlparse
 
 import openpyxl
 
@@ -44,8 +45,31 @@ def _hash_route(href: str) -> str:
     return ""
 
 
+def _is_site_path(href: str) -> bool:
+    """True for same-site paths like /about (not //cdn or a full URL)."""
+    return href.startswith("/") and not href.startswith("//")
+
+
+def _url_path(href: str) -> str:
+    parsed = urlparse(href)
+    path = parsed.path or "/"
+    if parsed.query:
+        path = f"{path}?{parsed.query}"
+    return path.rstrip("/") or "/"
+
+
+def _path_matches_absolute(maybe_path: str, maybe_abs: str) -> bool:
+    """'/about' matches 'https://host/about'. Do not treat '/' as every homepage."""
+    if not _is_site_path(maybe_path) or not maybe_abs.startswith("http"):
+        return False
+    path = _url_path(maybe_path)
+    if path == "/":
+        return False
+    return path == _url_path(maybe_abs)
+
+
 def _hrefs_match(got: str, want: str) -> bool:
-    """True if hrefs are the same after trim, trailing slash, or relative vs absolute hash routes."""
+    """True if hrefs are the same after trim, trailing slash, hash routes, or path vs full URL."""
     got = _normalize_href(got)
     want = _normalize_href(want)
     if got == want:
@@ -54,6 +78,8 @@ def _hrefs_match(got: str, want: str) -> bool:
         return True
     got_hash, want_hash = _hash_route(got), _hash_route(want)
     if got_hash and want_hash and got_hash == want_hash:
+        return True
+    if _path_matches_absolute(got, want) or _path_matches_absolute(want, got):
         return True
     return False
 

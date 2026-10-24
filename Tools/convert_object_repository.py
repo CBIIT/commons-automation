@@ -50,6 +50,9 @@ CHKBX_SUFFIX = re.compile(r"[-_]Chkbx$")
 DDN_SUFFIX = re.compile(r"[-_]Ddn$")
 SEARCH_SUFFIX = re.compile(r"_Search$")
 SKIP_DIRS = {"Z-ObsoleteObjects"}
+# CCDI Hub has no explore UI here — /explore opens C3DC. Do not import ExplorePage or Filters.
+SKIP_REL_PREFIXES = {"CCDI": ("ExplorePage",)}
+SKIP_ROOT_ELEMENTS = {"CCDI": {"Participants_ResultsTab"}}
 TEMPLATE_MIN_COUNT = 3
 
 
@@ -121,9 +124,15 @@ def convert_app(katalon_root: Path, app: str, out_root: Path) -> dict:
         rel_dir = "" if rel_dir == "." else rel_dir
         if any(p in SKIP_DIRS for p in rel_dir.split("/")):
             continue
+        if any(rel_dir == p or rel_dir.startswith(p + "/") for p in SKIP_REL_PREFIXES.get(app, ())):
+            continue
+        if "Filters" in rel_dir.split("/"):
+            continue
         name, xp = read_locator(rs)
         if not xp:
             skipped.append(str(rs.relative_to(src)))
+            continue
+        if not rel_dir and name in SKIP_ROOT_ELEMENTS.get(app, ()):
             continue
         folders[rel_dir][framework_element_name(app, name)] = xp
 

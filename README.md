@@ -48,8 +48,8 @@ cp .env.example .env           # gitignored; Memgraph passwords + optional run d
 |--------|---------|
 | **`Config/environments.yaml`** | Per-app URLs and Memgraph host/username per `qa` / `stage` / `prod` (no secrets) |
 | **`.env`** | `MEMGRAPH_PASSWORD_<APP>`, optional `ENV`, `BROWSER`, `HEADLESS` / `HEADED`, `SLOWMO`, `COMMONS_VERBOSE`, `FORCE_COLOR` |
-| **`conftest.py`** | Session browser, `page` fixture, **`gc`** / **`c3dc`** fixtures (app opened at env URL) |
-| **`pytest.ini`** | Markers: `gc`, `c3dc`, `smoke`, `regression`, `quickrun`, `static`, `unit` |
+| **`conftest.py`** | Session browser, `page` fixture, **`gc`** / **`c3dc`** / **`ccdi`** fixtures (app opened at env URL) |
+| **`pytest.ini`** | Markers: `gc`, `c3dc`, `ccdi`, `ctdc`, `icdc`, `smoke`, `regression`, `quickrun`, `static`, `unit` |
 
 CLI flags override `.env` when both are set: `--env`, `--headed`, `--browser`, `--slowmo`, `--trace-actions`.
 
@@ -128,7 +128,7 @@ Commons/                     Runtime (imported by pytest)
   object_repository.py       YAML → xpath / filter groups
   db_source.py               Run Cypher over Bolt (Memgraph or Neo4j)
   apps/base.py               Filters, stat bar, verify_tab, assert_no_failures
-  apps/{gc,c3dc,icdc,ctdc}.py
+  apps/{gc,c3dc,ccdi,icdc,ctdc}.py
   table_reader.py, compare.py, browser_actions.py, static_data.py, …
 
 Testcases/<APP>/             pytest tests

@@ -119,6 +119,14 @@ def c3dc(page, env, browser_settings, _repos):
 
 
 @pytest.fixture
+def ccdi(page, env, browser_settings, _repos):
+    """CCDI Hub, already opened at the environment's URL. Explore opens C3DC."""
+    app, source = _make_app("CCDI", page, env, browser_settings, _repos)
+    yield app
+    source.close()
+
+
+@pytest.fixture
 def gc(page, env, browser_settings, _repos):
     """GC (General Commons), already opened at the environment's URL."""
     app, source = _make_app("GC", page, env, browser_settings, _repos)

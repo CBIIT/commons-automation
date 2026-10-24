@@ -19,6 +19,21 @@ apps:
         endpoint: bolt://ccdi-dcc-qa-99d933a8c11c2ea3.elb.us-east-1.amazonaws.com:7687
         username: memgraph
 
+  CCDI:
+    # Hub pages only. Explore (/explore) opens C3DC Explore Participants.
+    expected_source: neo4j
+    urls:
+      qa:    https://ccdi-qa.cancer.gov/
+      dev:   https://ccdi-dev.cancer.gov/
+      prod:  https://ccdi.cancer.gov/
+    neo4j:
+      qa:
+        endpoint: bolt://neo4j.ccdi-qa.cancer.gov:7687
+        username: neo4j
+      dev:
+        endpoint: bolt://neo4j.ccdi-qa.cancer.gov:7687
+        username: neo4j
+
   CTDC:
     expected_source: memgraph
     urls:
