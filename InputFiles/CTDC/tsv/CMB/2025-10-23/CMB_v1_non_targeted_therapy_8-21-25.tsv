@@ -1,0 +1,721 @@
+type	non_targeted_therapy_record_id	participant.participant_id	non_targeted_therapy	non_targeted_therapy_dose	non_targeted_therapy_frequency	best_response_to_non_targeted_therapy	
+non_targeted_therapy	N781426	MSB-01068	Not reported				
+non_targeted_therapy	N709174	MSB-02291	Not reported				
+non_targeted_therapy	N702651	MSB-06720	Not reported				
+non_targeted_therapy	N244689	MSB-04863	Trametinib + dabrafenib	150	Twice a day	Progressive Disease	
+non_targeted_therapy	N660346	MSB-04847	Pembrolizumab	200	Every three weeks	Partial Response	
+non_targeted_therapy	N75918	MSB-09794	Carboplatin	5	Every three weeks	Partial Response	
+non_targeted_therapy	N199993	MSB-09794	Durvalumab	10	Every two weeks	Stable Disease	
+non_targeted_therapy	N250281	MSB-09794	Pemetrexed	500	Every three weeks	Partial Response	
+non_targeted_therapy	N717064	MSB-09018	Not reported				
+non_targeted_therapy	N74690	MSB-06305	Dexamethasone	20	Twice a week	Not Assessed	
+non_targeted_therapy	N994014	MSB-06305	Dexamethasone	40	Weekly	Not Assessed	
+non_targeted_therapy	N315576	MSB-06305	Melphalan flufenamide	20	Every Month	Not Assessed	
+non_targeted_therapy	N953851	MSB-06305	Melphalan flufenamide	30	Every Month	Not Assessed	
+non_targeted_therapy	N31426	MSB-06305	Melphalan flufenamide	40	Every Month	Not Assessed	
+non_targeted_therapy	N906396	MSB-06305	Dexamethasone	20	Twice a week	Progressive Disease	
+non_targeted_therapy	N30204	MSB-06305	Dexamethasone	20	Weekly	Progressive Disease	
+non_targeted_therapy	N941290	MSB-06305	Zoledronic acid	4	Every Month	Not Assessed	
+non_targeted_therapy	N78585	MSB-06305	Dexamethasone	20	Weekly	Not Assessed	
+non_targeted_therapy	N106419	MSB-06305	Cyclophosphamide	300	Weekly	Not Assessed	
+non_targeted_therapy	N322485	MSB-01652	Not reported				
+non_targeted_therapy	N581307	MSB-01499	Paclitaxel	45	Weekly	Partial Response	
+non_targeted_therapy	N288154	MSB-01499	Durvalumab	10	Every two weeks	Partial Response	
+non_targeted_therapy	N292543	MSB-01499	Carboplatin	2	Weekly	Partial Response	
+non_targeted_therapy	N241217	MSB-09019	Irinotecan	135	Every two weeks	Unknown	
+non_targeted_therapy	N905931	MSB-09019	Irinotecan	127.8	Every two weeks	Unknown	
+non_targeted_therapy	N42181	MSB-09019	Fluorouracil	300	Every two weeks	Unknown	
+non_targeted_therapy	N902180	MSB-09019	Fluorouracil	400	Every two weeks	Unknown	
+non_targeted_therapy	N892233	MSB-09019	Irinotecan	115.2	Every two weeks	Unknown	
+non_targeted_therapy	N415283	MSB-09019	Irinotecan	108	Every two weeks	Unknown	
+non_targeted_therapy	N697335	MSB-09019	Leucovorin	340	Every two weeks	Not Assessed	
+non_targeted_therapy	N5083	MSB-09019	Oxaliplatin	85	Every three weeks	Not Assessed	
+non_targeted_therapy	N360812	MSB-09019	Fluorouracil	1200	Every two weeks	Not Assessed	
+non_targeted_therapy	N364932	MSB-09019	Fluorouracil	1200	Continuous	Unknown	
+non_targeted_therapy	N381245	MSB-09019	Leucovorin	400	Every two weeks	Unknown	
+non_targeted_therapy	N523779	MSB-09019	Oxaliplatin	85	Every two weeks	Unknown	
+non_targeted_therapy	N846737	MSB-09019	Leucovorin	400	Every two weeks	Not Assessed	
+non_targeted_therapy	N760713	MSB-09019	Xeloda	1500	Every two weeks	Unknown	
+non_targeted_therapy	N548882	MSB-09019	Fluorouracil	960	Continuous	Unknown	
+non_targeted_therapy	N616331	MSB-09019	Fluorouracil	984	Continuous	Unknown	
+non_targeted_therapy	N794391	MSB-09019	Fluorouracil	1140	Continuous	Unknown	
+non_targeted_therapy	N66575	MSB-09019	Fluorouracil	256	Every two weeks	Unknown	
+non_targeted_therapy	N827880	MSB-01206	Not reported				
+non_targeted_therapy	N743438	MSB-02381	Xeloda	2500	Daily	Stable Disease	
+non_targeted_therapy	N639087	MSB-02381	Fluorouracil	1250	Continuous	Unknown	
+non_targeted_therapy	N686460	MSB-02381	Fluorouracil	900	Continuous	Unknown	
+non_targeted_therapy	N981059	MSB-02381	Fluorouracil	300	Every two weeks	Unknown	
+non_targeted_therapy	N894969	MSB-02381	Leucovorin	400	Every two weeks	Unknown	
+non_targeted_therapy	N821135	MSB-02381	Leucovorin	300	Every two weeks	Unknown	
+non_targeted_therapy	N475375	MSB-02381	Leucovorin	296	Every two weeks	Unknown	
+non_targeted_therapy	N969450	MSB-03725	Leucovorin	800	Once	Too Early	
+non_targeted_therapy	N442870	MSB-03725	Oxaliplatin	180	Once	Too Early	
+non_targeted_therapy	N644074	MSB-03725	Fluorouracil	1295	Once	Too Early	
+non_targeted_therapy	N748133	MSB-03725	Fluorouracil	4670	Once	Too Early	
+non_targeted_therapy	N916532	MSB-03725	Leucovorin	670	Once	Too Early	
+non_targeted_therapy	N563552	MSB-03725	Oxaliplatin	145	Once	Too Early	
+non_targeted_therapy	N805560	MSB-03725	Tipiracil	75	Daily	Progressive Disease	
+non_targeted_therapy	N829189	MSB-03725	Leucovorin	900	Once	Stable Disease	
+non_targeted_therapy	N642723	MSB-03725	Irinotecan	250	Once	Stable Disease	
+non_targeted_therapy	N977054	MSB-03725	Fluorouracil	6200	Once	Stable Disease	
+non_targeted_therapy	N383220	MSB-03725	Leucovorin	850	Once	Stable Disease	
+non_targeted_therapy	N385408	MSB-03725	Fluorouracil	6150	Once	Stable Disease	
+non_targeted_therapy	N381826	MSB-03725	Oxaliplatin	145	Once	Progressive Disease	
+non_targeted_therapy	N365187	MSB-03725	Leucovorin	260	Once	Progressive Disease	
+non_targeted_therapy	N399084	MSB-03725	Fluorouracil	4800	Once	Progressive Disease	
+non_targeted_therapy	N633459	MSB-03725	Leucovorin	700	Once	Too Early	
+non_targeted_therapy	N976036	MSB-03725	Fluorouracil	4800	Once	Too Early	
+non_targeted_therapy	N709538	MSB-03725	Leucovorin	650	Once	Too Early	
+non_targeted_therapy	N252192	MSB-03725	Fluorouracil	4600	Once	Too Early	
+non_targeted_therapy	N626260	MSB-03725	Fluorouracil	1290	Once	Too Early	
+non_targeted_therapy	N94115	MSB-03032	Leucovorin	850	Every two weeks	Progressive Disease	
+non_targeted_therapy	N883621	MSB-03032	Irinotecan	400	Every two weeks	Progressive Disease	
+non_targeted_therapy	N417173	MSB-03032	Fluorouracil	2400	Every two weeks	Progressive Disease	
+non_targeted_therapy	N336164	MSB-03032	Fluorouracil	850	Every two weeks	Progressive Disease	
+non_targeted_therapy	N28201	MSB-03032	Leucovorin	800	Every two weeks	Not Assessed	
+non_targeted_therapy	N892251	MSB-03032	Oxaliplatin	180	Every two weeks	Not Assessed	
+non_targeted_therapy	N995727	MSB-03032	Fluorouracil	800	Every two weeks	Not Assessed	
+non_targeted_therapy	N602484	MSB-03032	Fluorouracil	5100	Every two weeks	Not Assessed	
+non_targeted_therapy	N67862	MSB-01459	Carboplatin	5	Every three weeks	Unknown	
+non_targeted_therapy	N170245	MSB-01459	Paclitaxel	100	Every three weeks	Progressive Disease	
+non_targeted_therapy	N252692	MSB-03808	Leucovorin	400	Every two weeks	Stable Disease	
+non_targeted_therapy	N420573	MSB-03808	Oxaliplatin	85	Every two weeks	Progressive Disease	
+non_targeted_therapy	N293196	MSB-03808	Fluorouracil	2500	Continuous	Progressive Disease	
+non_targeted_therapy	N74486	MSB-03808	Fluorouracil	400	Every two weeks	Progressive Disease	
+non_targeted_therapy	N621511	MSB-03808	Leucovorin	408	Every two weeks	Progressive Disease	
+non_targeted_therapy	N221274	MSB-03808	Leucovorin	412	Every two weeks	Too Early	
+non_targeted_therapy	N278949	MSB-03808	Leucovorin	400	Every two weeks	Too Early	
+non_targeted_therapy	N278482	MSB-03808	Fluorouracil	1200	Continuous	Unknown	
+non_targeted_therapy	N991446	MSB-03808	Leucovorin	400	Every two weeks	Unknown	
+non_targeted_therapy	N373631	MSB-03808	Fluorouracil	1200	Continuous	Stable Disease	
+non_targeted_therapy	N533505	MSB-03808	Fluorouracil	400	Every two weeks	Stable Disease	
+non_targeted_therapy	N546829	MSB-03808	Oxaliplatin	85	Every two weeks	Stable Disease	
+non_targeted_therapy	N106124	MSB-09027	Carboplatin	2	Weekly	Too Early	
+non_targeted_therapy	N211158	MSB-09027	Durvalumab	10	Every two weeks	Stable Disease	
+non_targeted_therapy	N385783	MSB-09027	Paclitaxel	45	Weekly	Too Early	
+non_targeted_therapy	N333048	MSB-08588	Xeloda	1800	Twice a day	Stable Disease	
+non_targeted_therapy	N917737	MSB-08588	Oxaliplatin	250	Every three weeks	Unknown	
+non_targeted_therapy	N241315	MSB-08588	Xeloda	1800	Twice a day	Complete Response	
+non_targeted_therapy	N816855	MSB-08588	Xeloda	1800	Twice a day	Too Early	
+non_targeted_therapy	N171882	MSB-08588	Fluorouracil	424	Every two weeks	Unknown	
+non_targeted_therapy	N280429	MSB-08588	Irinotecan	400	Every two weeks	Unknown	
+non_targeted_therapy	N989945	MSB-08588	Leucovorin	900	Every two weeks	Unknown	
+non_targeted_therapy	N574143	MSB-08588	Leucovorin	1000	Every two weeks	Unknown	
+non_targeted_therapy	N249043	MSB-08588	Fluorouracil	2750	Continuous	Unknown	
+non_targeted_therapy	N931821	MSB-08588	Fluorouracil	2500	Continuous	Unknown	
+non_targeted_therapy	N147685	MSB-08588	Fluorouracil	1200	Continuous	Unknown	
+non_targeted_therapy	N619438	MSB-08588	Fluorouracil	1188	Continuous	Unknown	
+non_targeted_therapy	N995060	MSB-08588	Fluorouracil	400	Every two weeks	Unknown	
+non_targeted_therapy	N428500	MSB-08588	Leucovorin	400	Every two weeks	Unknown	
+non_targeted_therapy	N129829	MSB-08588	Irinotecan	380	Every two weeks	Unknown	
+non_targeted_therapy	N248069	MSB-08588	Oxaliplatin	200	Every three weeks	Unknown	
+non_targeted_therapy	N314741	MSB-07473	Dexamethasone	20	Twice a week	Not Assessed	
+non_targeted_therapy	N394857	MSB-07473	Cyclophosphamide	300	Weekly	Not Assessed	
+non_targeted_therapy	N83699	MSB-01849	Not reported				
+non_targeted_therapy	N236755	MSB-05283	Cytarabine	50	Every four weeks	Progressive Disease	
+non_targeted_therapy	N655746	MSB-09151	Xeloda	2500	Daily		
+non_targeted_therapy	N127951	MSB-09151	Oxaliplatin	85	Every two weeks	Partial Response	
+non_targeted_therapy	N340485	MSB-09151	Fluorouracil	1200	Every two weeks	Partial Response	
+non_targeted_therapy	N285193	MSB-09151	Fluorouracil	400	Every two weeks	Partial Response	
+non_targeted_therapy	N339765	MSB-09151	Leucovorin	400	Every two weeks	Partial Response	
+non_targeted_therapy	N130115	MSB-05412	Not reported				
+non_targeted_therapy	N12763	MSB-02286	Not reported				
+non_targeted_therapy	N706712	MSB-05508	Not reported				
+non_targeted_therapy	N767616	MSB-08170	Irinotecan	180	Every two weeks	Stable Disease	
+non_targeted_therapy	N852870	MSB-08170	Leucovorin	700	Every two weeks	Progressive Disease	
+non_targeted_therapy	N236689	MSB-08170	Fluorouracil	4000	Every two weeks	Stable Disease	
+non_targeted_therapy	N808343	MSB-08170	Fluorouracil	700	Every two weeks	Stable Disease	
+non_targeted_therapy	N500001	MSB-08170	Camptosar	300	Every two weeks	Stable Disease	
+non_targeted_therapy	N294232	MSB-08170	Fluorouracil	4440	Every two weeks	Stable Disease	
+non_targeted_therapy	N982308	MSB-08170	Fluorouracil	740	Every two weeks	Stable Disease	
+non_targeted_therapy	N647926	MSB-08170	Leucovorin	740	Every two weeks	Stable Disease	
+non_targeted_therapy	N115234	MSB-08170	Fluorouracil	3000	Every two weeks	Progressive Disease	
+non_targeted_therapy	N260424	MSB-08170	Camptosar	230	Every two weeks	Progressive Disease	
+non_targeted_therapy	N99402	MSB-08170	Leucovorin	700	Every two weeks	Stable Disease	
+non_targeted_therapy	N878906	MSB-08170	Eloxatin	160	Every two weeks	Stable Disease	
+non_targeted_therapy	N936064	MSB-04030	Lenalidomide	15	Daily	Stable Disease	
+non_targeted_therapy	N841166	MSB-04030	Lenalidomide	15	Daily	Complete Response	
+non_targeted_therapy	N45956	MSB-04030	Autologous stem cell transplant	4.6	Once	Complete Response	
+non_targeted_therapy	N465097	MSB-04030	Zoledronic acid	120	Every four weeks	Not Assessed	
+non_targeted_therapy	N47830	MSB-04030	Zoledronic acid	120	Every Month	Not Assessed	
+non_targeted_therapy	N475583	MSB-04030	Lenalidomide + bortezomib + dexamethasone	1.3	Weekly	Complete Response	
+non_targeted_therapy	N247661	MSB-04030	Melphalan	200	Once	Not Evaluable	
+non_targeted_therapy	N229000	MSB-07612	Pembrolizumab	200	Every three weeks	Stable Disease	
+non_targeted_therapy	N971726	MSB-07994	Not reported				
+non_targeted_therapy	N269317	MSB-01262	Avastin + fluorouracil + irinotecan + leucovorin	1800	Every three weeks	Progressive Disease	
+non_targeted_therapy	N69684	MSB-01262	Fluorouracil + leucovorin + oxaliplatin	2388	Every three weeks	Stable Disease	
+non_targeted_therapy	N366954	MSB-07483	Enzalutamide	40	Daily	Stable Disease	
+non_targeted_therapy	N332290	MSB-07483	Leuprolide				
+non_targeted_therapy	N314670	MSB-07483	Degarelix				
+non_targeted_therapy	N619260	MSB-05837	Carboplatin + etoposide				
+non_targeted_therapy	N643446	MSB-05837	Cisplatin + etoposide				
+non_targeted_therapy	N952815	MSB-07865	Not reported				
+non_targeted_therapy	N315759	MSB-03053	Not reported				
+non_targeted_therapy	N530600	MSB-08267	Paclitaxel	160	Every three weeks	Progressive Disease	
+non_targeted_therapy	N686336	MSB-08267	Docetaxel	75	Every three weeks	Progressive Disease	
+non_targeted_therapy	N626919	MSB-08267	Carboplatin	870	Every three weeks	Progressive Disease	
+non_targeted_therapy	N677737	MSB-09117	Afatinib	40	Daily	Unknown	
+non_targeted_therapy	N671379	MSB-09117	Osimertinib	80	Daily	Unknown	
+non_targeted_therapy	N467071	MSB-03258	Oxaliplatin	120	Every two weeks	Progressive Disease	
+non_targeted_therapy	N128718	MSB-03258	Leucovorin	550	Every two weeks	Progressive Disease	
+non_targeted_therapy	N431792	MSB-03258	Fluorouracil	600	Every two weeks	Progressive Disease	
+non_targeted_therapy	N947204	MSB-03258	Fluorouracil	3500	Every two weeks	Progressive Disease	
+non_targeted_therapy	N502261	MSB-03258	Leucovorin	600	Every two weeks	Progressive Disease	
+non_targeted_therapy	N533055	MSB-03258	Neratinib	240	Daily	Progressive Disease	
+non_targeted_therapy	N262785	MSB-03258	Fluorouracil	3200	Every two weeks	Progressive Disease	
+non_targeted_therapy	N865270	MSB-03258	Irinotecan	185	Every two weeks	Progressive Disease	
+non_targeted_therapy	N345237	MSB-06857	Not reported				
+non_targeted_therapy	N532533	MSB-05040	Not reported				
+non_targeted_therapy	N856317	MSB-03973	Zoledronic acid	4	Every four weeks	Progressive Disease	
+non_targeted_therapy	N767509	MSB-03973	Bicalutamide & leuprolide	50	Daily	Partial Response	
+non_targeted_therapy	N865243	MSB-02917	Zoledronic acid	120	Every four weeks	Unknown	
+non_targeted_therapy	N180212	MSB-00952	Bevacizumab	7.5	Every three weeks	Too Early	
+non_targeted_therapy	N12180	MSB-00952	Xeloda	1500	Twice a day	Too Early	
+non_targeted_therapy	N396030	MSB-02118	Cisplatin + taxotere		Every three weeks	Unknown	
+non_targeted_therapy	N418478	MSB-07436	Docetaxel + prednisone	75	Every three weeks	Progressive Disease	
+non_targeted_therapy	N27728	MSB-07436	Enzalutamide	160	Daily	Progressive Disease	
+non_targeted_therapy	N191510	MSB-02249	Bortezomib	3	Daily	Unknown	
+non_targeted_therapy	N690261	MSB-03244	Not reported				
+non_targeted_therapy	N666975	MSB-01103	Zoledronic acid	120	Every Month	Not Assessed	
+non_targeted_therapy	N478447	MSB-01103	Carfilzomib + lenalidomide + dexamethasone	44	Weekly	Progressive Disease	
+non_targeted_therapy	N143145	MSB-01103	Autologous stem cell transplant	4.2	Once	Complete Response	
+non_targeted_therapy	N934937	MSB-01103	Autologous stem cell transplant		Once	Complete Response	
+non_targeted_therapy	N851960	MSB-01103	Melphalan	140	Once	Not Evaluable	
+non_targeted_therapy	N275079	MSB-01103	Velcade + lenalidomide + dexamethasone	1.3	Weekly	Complete Response	
+non_targeted_therapy	N840416	MSB-01103	Lenalidomide	10	Weekly	Progressive Disease	
+non_targeted_therapy	N529460	MSB-01103	Zoledronic acid	120	Every three months	Not Assessed	
+non_targeted_therapy	N604711	MSB-01103	Melphalan	200	Once	Not Evaluable	
+non_targeted_therapy	N389496	MSB-08178	Enzalutamide	160	Daily	Too Early	
+non_targeted_therapy	N928417	MSB-08178	Bicalutamide	50	Daily	Complete Response	
+non_targeted_therapy	N670945	MSB-08922	Dabrafenib	150	Every twelve hours	Less than partial response	
+non_targeted_therapy	N551782	MSB-08922	Pembrolizumab	200	Every three weeks	Stable Disease	
+non_targeted_therapy	N131439	MSB-06489	Fluorouracil	300	Every two weeks	Complete Response	
+non_targeted_therapy	N64751	MSB-06489	Fluorouracil	2500	Continuous	Complete Response	
+non_targeted_therapy	N786340	MSB-04332	Carboplatin	750	Every three weeks	Stable Disease	
+non_targeted_therapy	N404449	MSB-04332	Etoposide	220	Every three weeks	Stable Disease	
+non_targeted_therapy	N160988	MSB-07225	Not reported				
+non_targeted_therapy	N218168	MSB-05563	Docetaxel	75	Every three weeks	Complete Response	
+non_targeted_therapy	N538665	MSB-07059	Fluorouracil	3960	Continuous	Partial Response	
+non_targeted_therapy	N886786	MSB-07059	Fluorouracil +  irinotecan + oxaliplatin + leucovorin	3960	Every two weeks	Progressive Disease	
+non_targeted_therapy	N615056	MSB-07059	Cetuximab	1100	Every two weeks	Progressive Disease	
+non_targeted_therapy	N439949	MSB-07059	Bevacizumab	400	Every two weeks	Progressive Disease	
+non_targeted_therapy	N659254	MSB-06184	Enzalutamide	40	Daily	Not Evaluable	
+non_targeted_therapy	N371286	MSB-08536	Not reported				
+non_targeted_therapy	N868273	MSB-04950	Lenalidomide	10	Daily	Progressive Disease	
+non_targeted_therapy	N652718	MSB-04950	Melphalan	200	Once	Not Evaluable	
+non_targeted_therapy	N827754	MSB-04950	Autologous stem cell transplant	4.5	Once	Complete Response	
+non_targeted_therapy	N383568	MSB-04950	Lenalidomide velcade dexamethasone	1.3	Weekly	Partial Response	
+non_targeted_therapy	N353660	MSB-04950	Doxorubicin	22	Daily	Too Early	
+non_targeted_therapy	N894291	MSB-04950	Etoposide	90	Daily	Too Early	
+non_targeted_therapy	N480191	MSB-04950	Cyclophosphamide	892	Daily	Too Early	
+non_targeted_therapy	N157621	MSB-04950	Cisplatin	22.3	Daily	Too Early	
+non_targeted_therapy	N602427	MSB-04950	Zoledronic acid	120	Every four weeks	Not Assessed	
+non_targeted_therapy	N497619	MSB-09601	Capecitabine	2000	Daily	Progressive Disease	
+non_targeted_therapy	N338520	MSB-09601	Fluorouracil	650	Every two weeks	Not Assessed	
+non_targeted_therapy	N198763	MSB-09601	Leucovorin	650	Every two weeks	Not Assessed	
+non_targeted_therapy	N204863	MSB-09601	Fluorouracil	3875	Every two weeks	Not Assessed	
+non_targeted_therapy	N620872	MSB-09601	Capecitabine	2000	Daily	Not Assessed	
+non_targeted_therapy	N203894	MSB-09601	Capecitabine	4000	Daily	Not Assessed	
+non_targeted_therapy	N360757	MSB-05789	Melphalan		Once	Not Assessed	
+non_targeted_therapy	N944707	MSB-05789	Lenalidomide	10	Daily	Complete Response	
+non_targeted_therapy	N904621	MSB-05789	Autologous stem cell transplant		Once	Complete Response	
+non_targeted_therapy	N823718	MSB-05789	Lenalidomide	25	Daily	Complete Response	
+non_targeted_therapy	N152195	MSB-05789	Carfilzomib	30	Twice a week	Unknown	
+non_targeted_therapy	N418610	MSB-07099	Leucovorin calcium + fluorouracil + oxaliplatin		Every four weeks	Progressive Disease	
+non_targeted_therapy	N424831	MSB-09886	Leucovorin	800	Every two weeks	Stable Disease	
+non_targeted_therapy	N443275	MSB-09886	Leucovorin	850	Every two weeks	Stable Disease	
+non_targeted_therapy	N529715	MSB-09886	Fluorouracil	805	Every two weeks	Stable Disease	
+non_targeted_therapy	N485643	MSB-09886	Fluorouracil	845	Every two weeks	Stable Disease	
+non_targeted_therapy	N712982	MSB-09886	Oxaliplatin	135	Every two weeks	Stable Disease	
+non_targeted_therapy	N920201	MSB-09886	Oxaliplatin	145	Every two weeks	Stable Disease	
+non_targeted_therapy	N829850	MSB-09886	Oxaliplatin	180	Every two weeks	Stable Disease	
+non_targeted_therapy	N851277	MSB-09886	Leucovorin	650	Every two weeks	Stable Disease	
+non_targeted_therapy	N806759	MSB-09886	Leucovorin	650	Every three weeks	Stable Disease	
+non_targeted_therapy	N336423	MSB-09886	Fluorouracil	645	Every two weeks	Stable Disease	
+non_targeted_therapy	N928701	MSB-01031	Leucovorin calcium + fluorouracil + oxaliplatin		Every two hours	Progressive Disease	
+non_targeted_therapy	N900902	MSB-04315	Carboplatin	280	Weekly	Not Assessed	
+non_targeted_therapy	N27720	MSB-04315	Paclitaxel	114	Weekly	Not Assessed	
+non_targeted_therapy	N368264	MSB-03796	Temozolomide	150	Every Month	Stable Disease	
+non_targeted_therapy	N28315	MSB-09774	Ipilimumab	300	Every three weeks	Progressive Disease	
+non_targeted_therapy	N25710	MSB-09774	Nivolumab	100	Every four weeks	Progressive Disease	
+non_targeted_therapy	N784695	MSB-09774	Nivolumab	480	Every four weeks	Stable Disease	
+non_targeted_therapy	N208451	MSB-03400	Not reported				
+non_targeted_therapy	N550216	MSB-06735	Nivolumab	480	Once	Progressive Disease	
+non_targeted_therapy	N589556	MSB-06236	Leucovorin calcium + fluorouracil + oxaliplatin	160	Once	Not Assessed	
+non_targeted_therapy	N398518	MSB-06236	Leucovorin calcium + irinotecan hydrochloride	5692	Every two weeks	Not Assessed	
+non_targeted_therapy	N102796	MSB-05562	Daratumumab	1800	Twice a week	Unknown	
+non_targeted_therapy	N728916	MSB-05562	Bortezomib	2.5	Twice a week	Unknown	
+non_targeted_therapy	N469038	MSB-05562	Cyclophosphamide + bortezomib,dexamethasone	610	Weekly	Unknown	
+non_targeted_therapy	N340459	MSB-05562	Carfilzomib	110	Twice a week	Unknown	
+non_targeted_therapy	N953297	MSB-05562	Lenalidomide	15	Daily	Unknown	
+non_targeted_therapy	N408435	MSB-05562	Ixazomib	4	Weekly	Unknown	
+non_targeted_therapy	N239490	MSB-01649	Not reported				
+non_targeted_therapy	N124308	MSB-04153	Fluorouracil	2250	Every two weeks	Progressive Disease	
+non_targeted_therapy	N938160	MSB-04153	Fluorouracil	400	Every two weeks	Progressive Disease	
+non_targeted_therapy	N322264	MSB-04153	Leucovorin	700	Every two weeks	Progressive Disease	
+non_targeted_therapy	N73243	MSB-04153	Oxaliplatin	150	Every two weeks	Progressive Disease	
+non_targeted_therapy	N34478	MSB-04153	Irinotecan	340	Every two weeks	Unknown	
+non_targeted_therapy	N137898	MSB-04153	Leucovorin	700	Every two weeks	Unknown	
+non_targeted_therapy	N19255	MSB-04153	Fluorouracil	700	Every two weeks	Unknown	
+non_targeted_therapy	N870944	MSB-04153	Fluorouracil	690	Every two weeks	Unknown	
+non_targeted_therapy	N959413	MSB-04153	Cetuximab	900	Every two weeks	Unknown	
+non_targeted_therapy	N714811	MSB-04153	Fluorouracil	2250	Continuous	Unknown	
+non_targeted_therapy	N516886	MSB-04153	Fluorouracil	400	Every two weeks	Unknown	
+non_targeted_therapy	N88954	MSB-01413	Carboplatin	210	Weekly	Partial Response	
+non_targeted_therapy	N256386	MSB-01413	Paclitaxel	78	Weekly	Partial Response	
+non_targeted_therapy	N382390	MSB-00939	Durvalumab	740	Every two weeks		
+non_targeted_therapy	N572121	MSB-00939	Carboplatin + pacilitaxel	282	Every two weeks		
+non_targeted_therapy	N158776	MSB-04432	Not reported				
+non_targeted_therapy	N387741	MSB-01627	Fluorouracil	3600	Every two weeks	Partial Response	
+non_targeted_therapy	N410662	MSB-01627	Fluorouracil	4000	Every two weeks	Partial Response	
+non_targeted_therapy	N293674	MSB-01627	Oxaliplatin	115	Every two weeks	Partial Response	
+non_targeted_therapy	N263779	MSB-01627	Irinotecan	225	Every two weeks	Partial Response	
+non_targeted_therapy	N31768	MSB-01627	Irinotecan	275	Every two weeks	Partial Response	
+non_targeted_therapy	N47077	MSB-01627	Leucovorin	650	Every two weeks	Partial Response	
+non_targeted_therapy	N746059	MSB-01627	Fluorouracil	700	Every two weeks	Progressive Disease	
+non_targeted_therapy	N490062	MSB-01627	Leucovorin	33	Every two weeks	Progressive Disease	
+non_targeted_therapy	N755998	MSB-01627	Oxaliplatin	140	Every two weeks	Partial Response	
+non_targeted_therapy	N873838	MSB-03226	Zoledronic acid	4	Every Month	Not Assessed	
+non_targeted_therapy	N452625	MSB-03226	Melphalan	372	Once	Not Evaluable	
+non_targeted_therapy	N974971	MSB-03226	Bortezomib + cyclophosphamide + dexamethasone	3	Weekly	Complete Response	
+non_targeted_therapy	N136987	MSB-03226	Lenalidomide	5	Daily	Progressive Disease	
+non_targeted_therapy	N556949	MSB-03226	Autologous stem cell transplant	0	Once	Complete Response	
+non_targeted_therapy	N492838	MSB-06029	Oxaliplatin	175	Every two weeks	Not Evaluable	
+non_targeted_therapy	N5064	MSB-06029	Fluorouracil	5000	Every two weeks	Not Evaluable	
+non_targeted_therapy	N999566	MSB-06029	Leucovorin	40	Every two weeks	Not Evaluable	
+non_targeted_therapy	N956157	MSB-06029	Oxaliplatin	165	Every two weeks	Progressive Disease	
+non_targeted_therapy	N583868	MSB-05206	Not reported				
+non_targeted_therapy	N985728	MSB-00352	Oxaliplatin	165	Every two weeks	Not Evaluable	
+non_targeted_therapy	N533144	MSB-00352	Fluorouracil	800	Every two weeks	Not Evaluable	
+non_targeted_therapy	N397463	MSB-00352	Xeloda	1250	Daily	Stable Disease	
+non_targeted_therapy	N269529	MSB-00352	Fluorouracil	4700	Every two weeks	Not Evaluable	
+non_targeted_therapy	N449434	MSB-00352	Leucovorin	100	Every two weeks	Not Evaluable	
+non_targeted_therapy	N316021	MSB-00352	Irinotecan	350	Every two weeks	Not Evaluable	
+non_targeted_therapy	N8953	MSB-00352	Fluorouracil	4000	Every two weeks	Not Evaluable	
+non_targeted_therapy	N209523	MSB-00352	Fluorouracil	700	Every two weeks	Not Evaluable	
+non_targeted_therapy	N815160	MSB-00352	Irinotecan	280	Every two weeks	Not Evaluable	
+non_targeted_therapy	N704468	MSB-00352	Irinotecan	250	Every two weeks	Not Evaluable	
+non_targeted_therapy	N821877	MSB-00352	Fluorouracil	650	Every two weeks	Not Evaluable	
+non_targeted_therapy	N202551	MSB-00352	Fluorouracil	3800	Every two weeks	Not Evaluable	
+non_targeted_therapy	N552022	MSB-05281	Etoposide	130	Three times a week	Progressive Disease	
+non_targeted_therapy	N526035	MSB-05281	Carboplatin	280	Once	Progressive Disease	
+non_targeted_therapy	N8795	MSB-05281	Lurbinectedin	6.72	Once	Progressive Disease	
+non_targeted_therapy	N696442	MSB-01617	Paclitaxel	90	Weekly	Too Early	
+non_targeted_therapy	N198329	MSB-01617	Carboplatin	180	Weekly	Too Early	
+non_targeted_therapy	N287614	MSB-01617	Paclitaxel	145	Weekly	Too Early	
+non_targeted_therapy	N390456	MSB-09991	Irinotecan	450	Every two weeks	Not Assessed	
+non_targeted_therapy	N135634	MSB-09991	Leucovorin	1000	Every two weeks	Not Assessed	
+non_targeted_therapy	N853019	MSB-09991	Fluorouracil	500	Every two weeks	Not Assessed	
+non_targeted_therapy	N165892	MSB-09991	Fluorouracil	6000	Every two weeks	Not Assessed	
+non_targeted_therapy	N934517	MSB-09991	Leucovorin	950	Every two weeks	Progressive Disease	
+non_targeted_therapy	N384021	MSB-09991	Irinotecan	350	Every two weeks	Progressive Disease	
+non_targeted_therapy	N339113	MSB-09991	Fluorouracil	950	Every two weeks	Progressive Disease	
+non_targeted_therapy	N721421	MSB-09991	Fluorouracil	5000	Every two weeks	Progressive Disease	
+non_targeted_therapy	N445348	MSB-09991	Ecorafenib	300	Daily	Not Assessed	
+non_targeted_therapy	N470847	MSB-04031	Daratumumab	10	Weekly	Progressive Disease	
+non_targeted_therapy	N313497	MSB-04031	Bortezomib + cyclophosphamide + dexamethasone	1.3	Weekly	Complete Response	
+non_targeted_therapy	N783780	MSB-04031	Melphalan	140	Once	Not Evaluable	
+non_targeted_therapy	N594238	MSB-04031	Autologous stem cell transplant	6.5	Once	Complete Response	
+non_targeted_therapy	N180982	MSB-04031	Lenalidomide	10	Daily	Unknown	
+non_targeted_therapy	N300450	MSB-04031	Zoledronic acid	120	Every four weeks	Progressive Disease	
+non_targeted_therapy	N249124	MSB-03932	Not reported				
+non_targeted_therapy	N586968	MSB-03406	Not reported				
+non_targeted_therapy	N179696	MSB-08045	Fluorouracil	6200	Every two weeks	Progressive Disease	
+non_targeted_therapy	N856712	MSB-08045	Oxaliplatin	210	Every three weeks	Progressive Disease	
+non_targeted_therapy	N639931	MSB-08045	Capecitabine	500	Twice a day	Progressive Disease	
+non_targeted_therapy	N138488	MSB-08045	Tipiracil	75	Daily	Progressive Disease	
+non_targeted_therapy	N235449	MSB-08045	Fluorouracil	5950	Every two weeks	Progressive Disease	
+non_targeted_therapy	N60557	MSB-08045	Leucovorin	900	Every two weeks	Progressive Disease	
+non_targeted_therapy	N819223	MSB-08045	Leucovorin	850	Every two weeks	Progressive Disease	
+non_targeted_therapy	N159433	MSB-08045	Oxaliplatin	190	Every two weeks	Progressive Disease	
+non_targeted_therapy	N551730	MSB-08045	Oxaliplatin	185	Once	Progressive Disease	
+non_targeted_therapy	N747617	MSB-08045	Oxaliplatin	160	Once	Progressive Disease	
+non_targeted_therapy	N520985	MSB-08045	Oxaliplatin	150	Every two weeks	Progressive Disease	
+non_targeted_therapy	N717745	MSB-08045	Fluorouracil	6200	Once	Progressive Disease	
+non_targeted_therapy	N789420	MSB-08045	Fluorouracil	6100	Once	Progressive Disease	
+non_targeted_therapy	N143936	MSB-01723	Daunorubicin	180	Daily	Too Early	
+non_targeted_therapy	N346710	MSB-01723	Hydroxyurea	2000	Twice a day	Too Early	
+non_targeted_therapy	N780235	MSB-01723	Hydroxyurea	2000	Once	Too Early	
+non_targeted_therapy	N625736	MSB-01723	Cytarabine	200	Daily	Too Early	
+non_targeted_therapy	N852421	MSB-02271	Not reported				
+non_targeted_therapy	N837903	MSB-08093	Dexamethasone	40	Daily	Complete Response	
+non_targeted_therapy	N764597	MSB-08093	Cyclophosphamide	500	Weekly	Too Early	
+non_targeted_therapy	N103692	MSB-08093	Cyclophosphamide	330	Weekly	Progressive Disease	
+non_targeted_therapy	N853615	MSB-03315	Zoledronic acid	4	Every Month	Not Evaluable	
+non_targeted_therapy	N302708	MSB-03315	Cyclophosphamide	522	Weekly	Partial Response	
+non_targeted_therapy	N444132	MSB-03315	Cyclophosphamide	256	Weekly	Partial Response	
+non_targeted_therapy	N593802	MSB-03315	Cyclophosphamide	258	Weekly	Partial Response	
+non_targeted_therapy	N464951	MSB-03315	Cyclophosphamide	260	Weekly	Partial Response	
+non_targeted_therapy	N375233	MSB-03315	Cyclophosphamide	262	Weekly	Partial Response	
+non_targeted_therapy	N30501	MSB-03315	Cisplatin	17.7	Daily	Too Early	
+non_targeted_therapy	N298677	MSB-03315	Cyclophosphamide	708	Daily	Too Early	
+non_targeted_therapy	N61121	MSB-03315	Etoposide	70	Daily	Too Early	
+non_targeted_therapy	N343990	MSB-03315	Doxorubicin	18	Daily	Too Early	
+non_targeted_therapy	N931010	MSB-01224	Zoledronic acid	120	Every Month	Not Assessed	
+non_targeted_therapy	N883734	MSB-01224	Melphalan	200	Once	Not Evaluable	
+non_targeted_therapy	N472306	MSB-01224	Autologous stem cell transplant	3.1	Once	Complete Response	
+non_targeted_therapy	N211729	MSB-01224	Zoledronic acid	120	Once	Not Assessed	
+non_targeted_therapy	N210161	MSB-05742	Not reported				
+non_targeted_therapy	N172763	MSB-08631	Capecitabine	2000	Twice a day	Partial Response	
+non_targeted_therapy	N375684	MSB-08631	Oxaliplatin	267	Every three weeks	Progressive Disease	
+non_targeted_therapy	N409603	MSB-08631	Capecitabine	1500	Twice a day	Progressive Disease	
+non_targeted_therapy	N362108	MSB-08631	Fluorouracil	1200	Every two weeks	Progressive Disease	
+non_targeted_therapy	N95679	MSB-08631	Irinotecan	385	Every two weeks	Progressive Disease	
+non_targeted_therapy	N571628	MSB-08631	Leucovorin	850	Every two weeks	Progressive Disease	
+non_targeted_therapy	N307688	MSB-03885	Not reported				
+non_targeted_therapy	N258558	MSB-00556	Cisplatin	94	Twice a week	Unknown	
+non_targeted_therapy	N956699	MSB-05975	Not reported				
+non_targeted_therapy	N40574	MSB-03453	Zoledronic acid	120	Every Month	Not Assessed	
+non_targeted_therapy	N187052	MSB-03453	Melphalan	200	Once	Not Evaluable	
+non_targeted_therapy	N312369	MSB-03453	Autologous stem cell transplant	3.44	Once	Partial Response	
+non_targeted_therapy	N726179	MSB-03453	Fludarabine	58.2	Once	Progressive Disease	
+non_targeted_therapy	N533726	MSB-03453	Etoposide	80	Daily	Progressive Disease	
+non_targeted_therapy	N34061	MSB-03453	Cisplatin	19.8	Daily	Progressive Disease	
+non_targeted_therapy	N294511	MSB-03453	Cyclophosphamide	792	Daily	Progressive Disease	
+non_targeted_therapy	N966151	MSB-03453	Doxorubicin	20	Daily	Progressive Disease	
+non_targeted_therapy	N502525	MSB-03453	Cyclophosphamide	580	Once	Progressive Disease	
+non_targeted_therapy	N559600	MSB-03453	Teclistamab	117	Once	Progressive Disease	
+non_targeted_therapy	N339367	MSB-03453	Teclistamab	115.95	Once	Progressive Disease	
+non_targeted_therapy	N320990	MSB-03453	Tocilizumab	600	Once	Unknown	
+non_targeted_therapy	N706423	MSB-03453	Teclistamab	4.66	Once	Progressive Disease	
+non_targeted_therapy	N273596	MSB-03453	Teclistamab	22.86	Once	Progressive Disease	
+non_targeted_therapy	N966251	MSB-02472	Bicalutamide	50	Daily	Unknown	
+non_targeted_therapy	N940776	MSB-02472	Leuprolide	22.5	Every three months	Unknown	
+non_targeted_therapy	N499753	MSB-02472	Zoledronic acid	3	Every three months	Unknown	
+non_targeted_therapy	N787144	MSB-05737	Cyclophosphamide	375	Every three weeks	Not Assessed	
+non_targeted_therapy	N452521	MSB-01771	Fluorouracil	685	Every two weeks	Stable Disease	
+non_targeted_therapy	N69628	MSB-01771	Oxaliplatin	145	Every two weeks	Stable Disease	
+non_targeted_therapy	N644631	MSB-01771	Fluorouracil	4100	Every two weeks	Stable Disease	
+non_targeted_therapy	N596504	MSB-01771	Fluorouracil	4300	Every three weeks	Stable Disease	
+non_targeted_therapy	N382305	MSB-01771	Irinotecan	324	Every three weeks	Stable Disease	
+non_targeted_therapy	N211569	MSB-01771	Leucovorin	720	Every three weeks	Stable Disease	
+non_targeted_therapy	N119822	MSB-01771	Irinotecan	324	Every two weeks	Stable Disease	
+non_targeted_therapy	N129256	MSB-01771	Leucovorin	350	Every two weeks	Stable Disease	
+non_targeted_therapy	N465644	MSB-01771	Fluorouracil	700	Every two weeks	Progressive Disease	
+non_targeted_therapy	N873781	MSB-01771	Fluorouracil	4250	Every two weeks	Progressive Disease	
+non_targeted_therapy	N130232	MSB-01771	Leucovorin	700	Every two weeks	Progressive Disease	
+non_targeted_therapy	N918880	MSB-01771	Fluorouracil	720	Every three weeks	Too Early	
+non_targeted_therapy	N712103	MSB-01771	Leucovorin	700	Every two weeks	Stable Disease	
+non_targeted_therapy	N270346	MSB-01771	Fluorouracil	4300	Every two weeks	Stable Disease	
+non_targeted_therapy	N510105	MSB-01771	Leucovorin	720	Every two weeks	Stable Disease	
+non_targeted_therapy	N803177	MSB-01771	Leucovorin	700	Every three weeks	Stable Disease	
+non_targeted_therapy	N649896	MSB-06699	Dexamethasone	20	Twice a week	Unknown	
+non_targeted_therapy	N369281	MSB-06699	Zoledronic acid	4	Every Month	Unknown	
+non_targeted_therapy	N84514	MSB-05746	Carboplatin	410	Every three weeks	Too Early	
+non_targeted_therapy	N148627	MSB-05746	Pemetrexed	975	Every three weeks	Too Early	
+non_targeted_therapy	N993034	MSB-07917	Zoledronic acid	3.3	Every Month	Not Assessed	
+non_targeted_therapy	N532137	MSB-07917	Zoledronic acid	3.3	Once	Not Assessed	
+non_targeted_therapy	N731013	MSB-07917	Zoledronic acid	60	Every six months	Not Assessed	
+non_targeted_therapy	N243877	MSB-07917	Zoledronic acid	120	Every Month	Not Assessed	
+non_targeted_therapy	N513101	MSB-05388	Carboplatin	539	Every four weeks	Stable Disease	
+non_targeted_therapy	N550538	MSB-05388	Etoposide	100	Every four weeks	Stable Disease	
+non_targeted_therapy	N418406	MSB-05388	Zoledronic acid	120	Every six weeks	Stable Disease	
+non_targeted_therapy	N97909	MSB-09348	Not reported				
+non_targeted_therapy	N522021	MSB-03069	Zoledronic acid	120	Every Month	Stable Disease	
+non_targeted_therapy	N936343	MSB-03069	Dexamethasone	40	Every seven days	Stable Disease	
+non_targeted_therapy	N941896	MSB-03069	Dexamethasone	20	Every seven days	Stable Disease	
+non_targeted_therapy	N622230	MSB-03069	Dexamethasone	8	Every seven days	Stable Disease	
+non_targeted_therapy	N741514	MSB-07715	Not reported				
+non_targeted_therapy	N552182	MSB-02429	Zoledronic acid	120	Every four weeks	Not Assessed	
+non_targeted_therapy	N299879	MSB-04141	Fluorouracil	5208	Every two weeks	Partial Response	
+non_targeted_therapy	N665776	MSB-04141	Irinotecan	340	Every two weeks	Partial Response	
+non_targeted_therapy	N150029	MSB-04141	Leucovorin	868	Every two weeks	Partial Response	
+non_targeted_therapy	N904395	MSB-04141	Oxaliplatin	184	Every two weeks	Partial Response	
+non_targeted_therapy	N981679	MSB-08799	Zoledronic acid	120	Every four weeks	Not Assessed	
+non_targeted_therapy	N29175	MSB-05126	Zoledronic acid	120	Every four weeks	Not Assessed	
+non_targeted_therapy	N998280	MSB-05126	Melphalan	200	Once	Too Early	
+non_targeted_therapy	N388440	MSB-05126	Autologous stem cell transplant	5.5	Once	Too Early	
+non_targeted_therapy	N427801	MSB-00140	Zoledronic acid	120	Every four weeks	Not Assessed	
+non_targeted_therapy	N423834	MSB-07278	Pemetrexed	875	Every three weeks	Too Early	
+non_targeted_therapy	N998108	MSB-07278	Carboplatin	540	Every three weeks	Too Early	
+non_targeted_therapy	N594388	MSB-00520	Not reported				
+non_targeted_therapy	N508825	MSB-01049	Melphalan & autologous stem cell transplant	380	Once	Complete Response	
+non_targeted_therapy	N423894	MSB-01049	Zoledronic acid	120	Every Month	Not Assessed	
+non_targeted_therapy	N32253	MSB-07270	Not reported				
+non_targeted_therapy	N824490	MSB-04437	Trastuzumab	450	Every two weeks	Too Early	
+non_targeted_therapy	N545450	MSB-04437	Carboplatin	660	Every three weeks	Progressive Disease	
+non_targeted_therapy	N658611	MSB-04437	Etoposide	184	Every three weeks	Progressive Disease	
+non_targeted_therapy	N82704	MSB-02302	Not reported				
+non_targeted_therapy	N530226	MSB-07839	High-dose cytarabine	6990	Every twelve hours	Complete Response	
+non_targeted_therapy	N107348	MSB-07839	High-dose cytarabine	7020	Every twelve hours	Complete Response	
+non_targeted_therapy	N30052	MSB-07839	High-dose cytarabine	7050	Every twelve hours	Complete Response	
+non_targeted_therapy	N395498	MSB-07839	High-dose cytarabine	7140	Every twelve hours	Complete Response	
+non_targeted_therapy	N798430	MSB-07839	High-dose cytarabine	6840	Every twelve hours	Complete Response	
+non_targeted_therapy	N999113	MSB-07839	High-dose cytarabine	6780	Every twelve hours	Complete Response	
+non_targeted_therapy	N545885	MSB-07839	High-dose cytarabine	6720	Daily	Too Early	
+non_targeted_therapy	N222048	MSB-07839	High-dose cytarabine	6780	Daily	Too Early	
+non_targeted_therapy	N946035	MSB-07839	Cytarabine	221	Daily	Complete Response	
+non_targeted_therapy	N254718	MSB-07839	Cytarabine	222	Once	Too Early	
+non_targeted_therapy	N164487	MSB-07839	Cytarabine	220	Daily	Too Early	
+non_targeted_therapy	N547825	MSB-07839	Daunorubicin	200	Daily	Too Early	
+non_targeted_therapy	N415957	MSB-07839	Cytarabine	219	Once	Too Early	
+non_targeted_therapy	N966700	MSB-03330	Carboplatin	609	Every three weeks	Unknown	
+non_targeted_therapy	N296401	MSB-03330	Pemetrexed	900	Every three weeks	Unknown	
+non_targeted_therapy	N311065	MSB-07709	Melphalan	200	Once	Too Early	
+non_targeted_therapy	N178005	MSB-07709	Autologous stem cell transplant	7.83	Once	Too Early	
+non_targeted_therapy	N804340	MSB-09491	Not reported				
+non_targeted_therapy	N432106	MSB-05435	Autologous stem cell transplant		Once	Partial Response	
+non_targeted_therapy	N411343	MSB-05435	Melphalan	200	Once	Not Evaluable	
+non_targeted_therapy	N563590	MSB-05435	Zoledronic acid	4	Every four weeks	Not Assessed	
+non_targeted_therapy	N359292	MSB-06894	Pembrolizumab	200	Every three weeks	Unknown	
+non_targeted_therapy	N669975	MSB-06894	Eligard	7.5	Every Month	Unknown	
+non_targeted_therapy	N620405	MSB-06894	Docetaxel	124	Every three weeks	Unknown	
+non_targeted_therapy	N6357	MSB-07945	Not reported				
+non_targeted_therapy	N376772	MSB-07656	Cytarabine	364	Daily	Too Early	
+non_targeted_therapy	N468661	MSB-07656	Cytarabine	370	Once	Too Early	
+non_targeted_therapy	N634136	MSB-07656	Cytarabine	362	Daily	Too Early	
+non_targeted_therapy	N914931	MSB-07656	Daunorubicin	109	Daily	Too Early	
+non_targeted_therapy	N545136	MSB-07435	Not reported				
+non_targeted_therapy	N927912	MSB-02661	Carboplatin	194	Every three weeks	Unknown	
+non_targeted_therapy	N339488	MSB-02661	Pemetrexed	800	Every three weeks	Unknown	
+non_targeted_therapy	N927233	MSB-04286	Carboplatin	654.5	Every three weeks	Stable Disease	
+non_targeted_therapy	N692997	MSB-04286	Etoposide	228	Every three weeks	Stable Disease	
+non_targeted_therapy	N165008	MSB-02169	Fluorouracil	5900	Every two weeks	Stable Disease	
+non_targeted_therapy	N979401	MSB-02169	Leucovorin	950	Every two weeks	Stable Disease	
+non_targeted_therapy	N21878	MSB-02169	Oxaliplatin	185	Every two weeks	Stable Disease	
+non_targeted_therapy	N252918	MSB-02169	Fluorouracil	1000	Every two weeks	Stable Disease	
+non_targeted_therapy	N458489	MSB-08354	Paclitaxel	113	Every four weeks	Unknown	
+non_targeted_therapy	N879064	MSB-08354	Carboplatin	230	Every four weeks	Unknown	
+non_targeted_therapy	N505882	MSB-08354	Paclitaxel	64	Every four weeks	Unknown	
+non_targeted_therapy	N622013	MSB-08354	Carboplatin	155	Every four weeks	Unknown	
+non_targeted_therapy	N860022	MSB-04433	Trametinib	2	Daily	Too Early	
+non_targeted_therapy	N762818	MSB-01597	Carboplatin	677	Once	Too Early	
+non_targeted_therapy	N651992	MSB-01597	Pemetrexed	1000	Once	Too Early	
+non_targeted_therapy	N502774	MSB-01597	Docetaxel	115	Once	Too Early	
+non_targeted_therapy	N438060	MSB-01597	Pemetrexed	1000	Once	Progressive Disease	
+non_targeted_therapy	N406345	MSB-01597	Carboplatin	694.5	Once	Too Early	
+non_targeted_therapy	N887247	MSB-01597	Carboplatin	681.5	Once	Too Early	
+non_targeted_therapy	N797468	MSB-01597	Carboplatin	634	Once	Too Early	
+non_targeted_therapy	N481968	MSB-08544	Not reported				
+non_targeted_therapy	N185608	MSB-07272	Not reported				
+non_targeted_therapy	N203688	MSB-06403	Not reported				
+non_targeted_therapy	N408219	MSB-06682	Oxaliplatin	155	Every two weeks	Too Early	
+non_targeted_therapy	N70173	MSB-06682	Fluorouracil	750	Every two weeks	Too Early	
+non_targeted_therapy	N938360	MSB-05756	Not reported				
+non_targeted_therapy	N797939	MSB-07221	Leucovorin	295	Every two weeks	Progressive Disease	
+non_targeted_therapy	N707384	MSB-07221	Irinotecan	410	Every two weeks	Progressive Disease	
+non_targeted_therapy	N856276	MSB-07221	Fluorouracil	900	Every two weeks	Progressive Disease	
+non_targeted_therapy	N255098	MSB-07221	Fluorouracil	900	Every two weeks	Stable Disease	
+non_targeted_therapy	N51646	MSB-07221	Leucovorin	900	Every two weeks	Stable Disease	
+non_targeted_therapy	N862936	MSB-07221	Oxaliplatin	150	Every two weeks	Stable Disease	
+non_targeted_therapy	N519892	MSB-07221	Irinotecan	290	Every two weeks	Stable Disease	
+non_targeted_therapy	N124833	MSB-07479	Not reported				
+non_targeted_therapy	N416577	MSB-04415	Leuprolide	7.5	Every Month	Stable Disease	
+non_targeted_therapy	N281279	MSB-04415	Zoledronic acid	120	Every Month	Stable Disease	
+non_targeted_therapy	N254620	MSB-04415	Bicalutamide	50	Daily	Stable Disease	
+non_targeted_therapy	N906835	MSB-09897	Irinotecan	310	Weekly	Too Early	
+non_targeted_therapy	N296045	MSB-09897	Fluorouracil	850	Weekly	Too Early	
+non_targeted_therapy	N642997	MSB-05676	Zoledronic acid	120	Every four weeks	Not Assessed	
+non_targeted_therapy	N751206	MSB-07784	Fluorouracil	700	Every two weeks	Not Assessed	
+non_targeted_therapy	N938240	MSB-07784	Irinotecan	320	Every two weeks	Not Assessed	
+non_targeted_therapy	N433797	MSB-05354	Not reported				
+non_targeted_therapy	N404671	MSB-07662	Etoposide + carboplatin	100	Every two weeks	Partial Response	
+non_targeted_therapy	N414993	MSB-07662	Lurbinectedin	5.4	Every three weeks	Too Early	
+non_targeted_therapy	N371396	MSB-06864	Trilaciclib	484.8	Daily	Too Early	
+non_targeted_therapy	N231299	MSB-06864	Carboplatin	444	Once	Progressive Disease	
+non_targeted_therapy	N368023	MSB-06864	Etoposide	124	Daily	Progressive Disease	
+non_targeted_therapy	N21103	MSB-06864	Carboplatin	415.6	Once	Progressive Disease	
+non_targeted_therapy	N828370	MSB-06864	Carboplatin	431.2	Once	Progressive Disease	
+non_targeted_therapy	N238625	MSB-06864	Zoledronic acid	120	Every four weeks	Not Assessed	
+non_targeted_therapy	N840813	MSB-06864	Carboplatin	404	Once	Progressive Disease	
+non_targeted_therapy	N290504	MSB-06864	Etoposide	122	Daily	Too Early	
+non_targeted_therapy	N159196	MSB-06864	Carboplatin	419.2	Once	Too Early	
+non_targeted_therapy	N533126	MSB-06864	Etoposide	136	Daily	Too Early	
+non_targeted_therapy	N291633	MSB-06864	Trilaciclib	489.6	Daily	Too Early	
+non_targeted_therapy	N617371	MSB-06864	Carboplatin	556.5	Once	Too Early	
+non_targeted_therapy	N75527	MSB-06864	Etoposide	162	Daily	Too Early	
+non_targeted_therapy	N314554	MSB-07146	Zoledronic acid	4	Every four weeks	Too Early	
+non_targeted_therapy	N596399	MSB-01493	Not reported				
+non_targeted_therapy	N382869	MSB-05602	Eligard	45	Every six months	Partial Response	
+non_targeted_therapy	N168756	MSB-07370	Not reported				
+non_targeted_therapy	N993213	MSB-01437	Pemetrexed	900	Every three weeks	Stable Disease	
+non_targeted_therapy	N481109	MSB-01437	Carboplatin	580	Every three weeks	Partial Response	
+non_targeted_therapy	N348955	MSB-07085	Not reported				
+non_targeted_therapy	N986797	MSB-07186	Autologous stem cell transplant	100	Once	Unknown	
+non_targeted_therapy	N39690	MSB-02901	Melphalan & autologous peripheral blood hematopoietic cell transplant	200	Once	Complete Response	
+non_targeted_therapy	N227744	MSB-02901	Zoledronic acid	120	Every Month	Not Assessed	
+non_targeted_therapy	N750044	MSB-01594	Not reported				
+non_targeted_therapy	N26743	MSB-02988	Autologous peripheral blood hematopoietic cell transplant	0	Once	Partial Response	
+non_targeted_therapy	N255549	MSB-02988	Melphalan	350	Once	Not Assessed	
+non_targeted_therapy	N911994	MSB-02988	Stem cell infusion	5.88	Once	Unknown	
+non_targeted_therapy	N237447	MSB-02988	Plerixafor	30.6	Once	Not Assessed	
+non_targeted_therapy	N363746	MSB-02988	Zoledronic acid	4	Once	Not Assessed	
+non_targeted_therapy	N861562	MSB-05702	Hydroxyurea	2000	Daily	Too Early	
+non_targeted_therapy	N208151	MSB-05702	High-dose cytarabine	2790	Daily	Progressive Disease	
+non_targeted_therapy	N310584	MSB-05702	High-dose cytarabine	2820	Daily	Progressive Disease	
+non_targeted_therapy	N699080	MSB-05702	High-dose cytarabine	2775	Daily	Progressive Disease	
+non_targeted_therapy	N932135	MSB-05702	Cytarabine	200	Daily	Too Early	
+non_targeted_therapy	N869580	MSB-05702	Daunorubicin	114	Daily	Too Early	
+non_targeted_therapy	N801641	MSB-05702	Cytarabine	190	Daily	Too Early	
+non_targeted_therapy	N238780	MSB-05702	Venetoclax	600	Daily	Progressive Disease	
+non_targeted_therapy	N821153	MSB-05702	Venetoclax	600	Daily	Too Early	
+non_targeted_therapy	N637310	MSB-05702	Venetoclax	400	Daily	Too Early	
+non_targeted_therapy	N966802	MSB-05702	Venetoclax	200	Once	Too Early	
+non_targeted_therapy	N303670	MSB-05702	Venetoclax	100	Once	Too Early	
+non_targeted_therapy	N215890	MSB-05702	Venetoclax	400	Once	Too Early	
+non_targeted_therapy	N424336	MSB-05702	Cytarabine	40	Daily	Too Early	
+non_targeted_therapy	N584454	MSB-05702	Cytarabine	38	Daily	Too Early	
+non_targeted_therapy	N416876	MSB-02370	Pemetrexed	800	Every three weeks	Unknown	
+non_targeted_therapy	N921218	MSB-02370	Pemetrexed	825	Every three weeks	Unknown	
+non_targeted_therapy	N150259	MSB-02370	Carboplatin	377	Every three weeks	Unknown	
+non_targeted_therapy	N977328	MSB-04176	Not reported				
+non_targeted_therapy	N425729	MSB-09124	Cyclophosphamide	1150	Once	Too Early	
+non_targeted_therapy	N504208	MSB-09124	Cyclophosphamide	688	Once	Too Early	
+non_targeted_therapy	N821948	MSB-09124	Cyclophosphamide	690	Once	Too Early	
+non_targeted_therapy	N334341	MSB-08058	Not reported				
+non_targeted_therapy	N242205	MSB-07578	Carboplatin	818.4	Once	Too Early	
+non_targeted_therapy	N647993	MSB-07578	Pemetrexed	900	Once	Too Early	
+non_targeted_therapy	N687514	MSB-07578	Carboplatin	803.4	Once	Too Early	
+non_targeted_therapy	N724290	MSB-07578	Pemetrexed	855	Once	Too Early	
+non_targeted_therapy	N571613	MSB-06606	Zoledronic acid	4	Every four weeks	Not Assessed	
+non_targeted_therapy	N874076	MSB-06606	Zoledronic acid	4	Every four months	Not Assessed	
+non_targeted_therapy	N969602	MSB-06606	Autologous peripheral blood hematopoietic cell transplant	0.37	Once	Complete Response	
+non_targeted_therapy	N96365	MSB-06606	Melphalan	360	Once	Complete Response	
+non_targeted_therapy	N830874	MSB-06606	Zoledronic acid	4	Every three months	Not Assessed	
+non_targeted_therapy	N824724	MSB-01208	Not reported				
+non_targeted_therapy	N596416	MSB-04500	Pemetrexed	780	Every four weeks	Stable Disease	
+non_targeted_therapy	N550879	MSB-04500	Carboplatin	570	Every four weeks	Stable Disease	
+non_targeted_therapy	N188964	MSB-09666	Not reported				
+non_targeted_therapy	N547710	MSB-07414	Fluorouracil	800	Every two weeks	Not Assessed	
+non_targeted_therapy	N4652	MSB-07414	Oxaliplatin	165	Every two weeks	Not Assessed	
+non_targeted_therapy	N708221	MSB-05856	Not reported				
+non_targeted_therapy	N700308	MSB-00089	Not reported				
+non_targeted_therapy	N814160	MSB-08228	Cyclophosphamide	1126	Once	Partial Response	
+non_targeted_therapy	N20500	MSB-08228	Cyclophosphamide	640	Once	Partial Response	
+non_targeted_therapy	N825951	MSB-08228	Cyclophosphamide	646	Weekly	Partial Response	
+non_targeted_therapy	N763526	MSB-01463	Not reported				
+non_targeted_therapy	N829061	MSB-01433	Not reported				
+non_targeted_therapy	N846971	MSB-05151	Not reported				
+non_targeted_therapy	N255163	MSB-09202	Irinotecan + oxaliplatin	150	Every two weeks	Progressive Disease	
+non_targeted_therapy	N665021	MSB-09202	Leucovorin calcium + fluorouracil + oxaliplatin	3700	Every two weeks	Not Assessed	
+non_targeted_therapy	N146493	MSB-09202	Oxaliplatin	80	Every two weeks	Stable Disease	
+non_targeted_therapy	N455102	MSB-09202	Oxaliplatin + fluorouracil + leucovorin	140	Every two weeks	Progressive Disease	
+non_targeted_therapy	N683756	MSB-08965	Bicalutamide	50	Daily	Not Assessed	
+non_targeted_therapy	N814175	MSB-01960	Capecitabine	1500	Twice a day	Not Evaluable	
+non_targeted_therapy	N648455	MSB-04319	Paclitaxel	87	Weekly	Partial Response	
+non_targeted_therapy	N586611	MSB-04319	Carboplatin	300	Weekly	Partial Response	
+non_targeted_therapy	N224106	MSB-04591	Daunorubicin	86	Once	Too Early	
+non_targeted_therapy	N656510	MSB-04591	Daunorubicin	114	Once	Too Early	
+non_targeted_therapy	N332352	MSB-04591	Daunorubicin	120	Once	Too Early	
+non_targeted_therapy	N833337	MSB-04591	Cytarabine	380	Daily	Too Early	
+non_targeted_therapy	N833777	MSB-04591	Cytarabine	400	Daily	Too Early	
+non_targeted_therapy	N8195	MSB-00902	Melphalan	200	Once	Complete Response	
+non_targeted_therapy	N366759	MSB-00902	Autologous stem cell transplant	4.98	Once	Complete Response	
+non_targeted_therapy	N506950	MSB-00956	Not reported				
+non_targeted_therapy	N575075	MSB-00437	Not reported				
+non_targeted_therapy	N929367	MSB-04006	Not reported				
+non_targeted_therapy	N410219	MSB-00316	Not reported				
+non_targeted_therapy	N466027	MSB-08777	Paclitaxel	175	Every three weeks	Too Early	
+non_targeted_therapy	N215610	MSB-08777	Carboplatin	5	Every three weeks	Too Early	
+non_targeted_therapy	N321959	MSB-08777	Cisplatin	75	Once	Partial Response	
+non_targeted_therapy	N18162	MSB-08777	Paclitaxel	30	Weekly	Partial Response	
+non_targeted_therapy	N500351	MSB-08777	Cisplatin	20	Weekly	Partial Response	
+non_targeted_therapy	N431505	MSB-08777	Paclitaxel	175	Once	Partial Response	
+non_targeted_therapy	N365733	MSB-05460	Carboplatin	2	Weekly	Partial Response	
+non_targeted_therapy	N137879	MSB-05460	Paclitaxel	50	Weekly	Partial Response	
+non_targeted_therapy	N912901	MSB-05460	Pemetrexed	500	Every four weeks	Too Early	
+non_targeted_therapy	N409288	MSB-05460	Carboplatin	5	Every three weeks	Too Early	
+non_targeted_therapy	N482775	MSB-05460	Paclitaxel	80	Every four weeks	Partial Response	
+non_targeted_therapy	N636713	MSB-05460	Carboplatin	3	Every four weeks	Partial Response	
+non_targeted_therapy	N931013	MSB-07840	Melphalan	338	Once	Complete Response	
+non_targeted_therapy	N12017	MSB-07840	Zoledronic acid	120	Every Month	Not Assessed	
+non_targeted_therapy	N624690	MSB-07840	Autologous stem cell transplant	2.51	Once	Complete Response	
+non_targeted_therapy	N652338	MSB-06833	Not reported				
+non_targeted_therapy	N198958	MSB-08700	Not reported				
+non_targeted_therapy	N665639	MSB-04388	Carboplatin	570	Every three weeks	Partial Response	
+non_targeted_therapy	N215630	MSB-04388	Pemetrexed	500	Every three weeks	Partial Response	
+non_targeted_therapy	N234469	MSB-01307	Cisplatin	60	Every three weeks	Partial Response	
+non_targeted_therapy	N827931	MSB-01307	Etoposide	120	Every three weeks	Partial Response	
+non_targeted_therapy	N816457	MSB-06711	Daunorubicin	120	Daily	Too Early	
+non_targeted_therapy	N788553	MSB-06711	Cytarabine	400	Daily	Too Early	
+non_targeted_therapy	N795347	MSB-05167	Cytosar	215	Every twenty four hours	Unknown	
+non_targeted_therapy	N159015	MSB-05167	Busulfan	66	Every 6 hours	Progressive Disease	
+non_targeted_therapy	N187582	MSB-05167	Busulfan	84	Every 6 hours	Progressive Disease	
+non_targeted_therapy	N32997	MSB-05167	Cytoxan	4200	Every twenty four hours	Progressive Disease	
+non_targeted_therapy	N669870	MSB-05167	Cytoxan	2400	Every twenty four hours	Progressive Disease	
+non_targeted_therapy	N317528	MSB-05167	Cytosar	6400	Every twelve hours	Not Assessed	
+non_targeted_therapy	N646164	MSB-05167	Hydroxyurea	1000	Every other day	Not Assessed	
+non_targeted_therapy	N386451	MSB-05167	Cerubidine	130	Every twenty four hours	Unknown	
+non_targeted_therapy	N698376	MSB-04143	Fluorouracil	5400	Every two weeks	Stable Disease	
+non_targeted_therapy	N210311	MSB-04143	Oxaliplatin	190	Every two weeks	Not Evaluable	
+non_targeted_therapy	N970667	MSB-04143	Irinotecan	410	Every two weeks	Complete Response	
+non_targeted_therapy	N882165	MSB-04143	Fluorouracil	900	Every two weeks	Complete Response	
+non_targeted_therapy	N258977	MSB-06059	Carboplatin	4	Every three weeks	Too Early	
+non_targeted_therapy	N89917	MSB-06059	Paclitaxel	175	Every three weeks	Too Early	
+non_targeted_therapy	N655288	MSB-04968	Carboplatin	570	Every three weeks	Unknown	
+non_targeted_therapy	N807293	MSB-05098	Not reported				
+non_targeted_therapy	N539676	MSB-08454	Carboplatin	3	Every four weeks	Too Early	
+non_targeted_therapy	N452262	MSB-08454	Paclitaxel	90	Every four weeks	Too Early	
+non_targeted_therapy	N628998	MSB-06256	Not reported				
+non_targeted_therapy	N251353	MSB-02960	Hydroxyurea	1000	Twice a day	Too Early	
+non_targeted_therapy	N735073	MSB-04064	Fluorouracil	5	Every two weeks	Stable Disease	
+non_targeted_therapy	N106889	MSB-04064	Leucovorin	400	Every two weeks	Stable Disease	
+non_targeted_therapy	N468148	MSB-04064	Irinotecan	320	Every two weeks	Stable Disease	
+non_targeted_therapy	N847493	MSB-06817	Not reported				
+non_targeted_therapy	N603115	MSB-03312	Cyclophosphamide	636	Weekly	Partial Response	
+non_targeted_therapy	N386798	MSB-03312	Cyclophosphamide	630	Weekly	Partial Response	
+non_targeted_therapy	N302595	MSB-03312	Melphalan	232	Once	Partial Response	
+non_targeted_therapy	N401984	MSB-03312	Autologous peripheral blood hematopoietic cell transplant	0	Once	Partial Response	
+non_targeted_therapy	N635485	MSB-04450	Zoledronic acid	120	Every four weeks	Not Assessed	
+non_targeted_therapy	N797878	MSB-04450	Autologous stem cell transplant	7.55	Once	Complete Response	
+non_targeted_therapy	N359550	MSB-04450	Melphalan	315	Once	Complete Response	
+non_targeted_therapy	N866061	MSB-04450	Zoledronic acid	120	Every three months	Not Assessed	
+non_targeted_therapy	N683444	MSB-02829	Not reported				
+non_targeted_therapy	N577584	MSB-03513	Oxaliplatin	260	Every three weeks	Progressive Disease	
+non_targeted_therapy	N477482	MSB-03513	Capecitabine	1000	Every three weeks	Progressive Disease	
+non_targeted_therapy	N548201	MSB-02139	Not reported				
+non_targeted_therapy	N536651	MSB-03483	Pemetrexed	975	Every three weeks	Too Early	
+non_targeted_therapy	N777958	MSB-03483	Carboplatin	455	Every three weeks	Too Early	
+non_targeted_therapy	N997002	MSB-05620	Not reported				
+non_targeted_therapy	N756888	MSB-03738	Leucovorin	400	Every two weeks	Partial Response	
+non_targeted_therapy	N338444	MSB-03738	Fluorouracil	1200	Every two weeks	Partial Response	
+non_targeted_therapy	N739109	MSB-03738	Fluorouracil	400	Every two weeks	Partial Response	
+non_targeted_therapy	N946669	MSB-03738	Oxaliplatin	85	Every two weeks	Partial Response	
+non_targeted_therapy	N571484	MSB-09350	Not reported				
+non_targeted_therapy	N697484	MSB-01757	Not reported				
+non_targeted_therapy	N976673	MSB-09880	Carboplatin	480	Every three weeks	Not Evaluable	
+non_targeted_therapy	N654886	MSB-09880	Pemetrexed	810	Every three weeks	Not Evaluable	
+non_targeted_therapy	N999485	MSB-07991	Fluorouracil	5250	Every two weeks	Progressive Disease	
+non_targeted_therapy	N425466	MSB-07991	Irinotecan	400	Every two weeks	Too Early	
+non_targeted_therapy	N412971	MSB-07991	Leucovorin	350	Every two weeks	Progressive Disease	
+non_targeted_therapy	N121353	MSB-09994	Not reported				
+non_targeted_therapy	N461191	MSB-00498	Not reported				
+non_targeted_therapy	N368375	MSB-09737	Not reported				
+non_targeted_therapy	N775918	MSB-04831	Not reported				
+non_targeted_therapy	N610217	MSB-00263	Not reported				
+non_targeted_therapy	N708373	MSB-09286	Not reported				
+non_targeted_therapy	N522367	MSB-09495	Not reported				
+non_targeted_therapy	N511428	MSB-09977	Carboplatin + etoposide	5	Every three weeks	Complete Response	
+non_targeted_therapy	N567578	MSB-00205	Not reported				
+non_targeted_therapy	N117170	MSB-02746	Not reported				
+non_targeted_therapy	N95459	MSB-03272	Pembrolizumab	400	Every Month	Stable Disease	
+non_targeted_therapy	N208462	MSB-08142	Temozolomide	300	Every four weeks	Stable Disease	
+non_targeted_therapy	N751543	MSB-01363	Not reported				
+non_targeted_therapy	N648179	MSB-06226	Nivolumab	480	Every Month	Unknown	
+non_targeted_therapy	N934710	MSB-03548	Etoposide	90	Every three weeks	Stable Disease	
+non_targeted_therapy	N891224	MSB-03548	Ifosfamide	1.8	Every Month	Stable Disease	
+non_targeted_therapy	N974532	MSB-03548	Etoposide	190	Every Month	Stable Disease	
+non_targeted_therapy	N908448	MSB-03548	Carboplatin	595	Every three weeks	Stable Disease	
+non_targeted_therapy	N855741	MSB-06426	Capecitabine	2000	Twice a day	Not Assessed	
+non_targeted_therapy	N886191	MSB-06426	Oxaliplatin	270	Every three weeks	Not Assessed	
+non_targeted_therapy	N137020	MSB-06426	Cetuximab	1060	Every two weeks	Not Assessed	
+non_targeted_therapy	N299716	MSB-05387	Not reported				
+non_targeted_therapy	N693364	MSB-09619	Fluorouracil	1575	Continuous	Partial Response	
+non_targeted_therapy	N849601	MSB-09619	Oxaliplatin + fluorouracil + leucovorin	85	Every two weeks	Stable Disease	
+non_targeted_therapy	N18503	MSB-00643	Leucovorin calcium + fluorouracil + oxaliplatin	3850	Every two weeks	Progressive Disease	
+non_targeted_therapy	N624868	MSB-00241	Fluorouracil + leucovorin + oxaliplatin	4400	Every two weeks	Stable Disease	
+non_targeted_therapy	N463177	MSB-00268	Not reported				
+non_targeted_therapy	N613105	MSB-07075	Not reported				
+non_targeted_therapy	N184798	MSB-00755	Nivolumab	480	Every four weeks	Partial Response	
+non_targeted_therapy	N879688	MSB-00755	Carboplatin	3	Every four weeks	Partial Response	
+non_targeted_therapy	N73054	MSB-00755	Paclitaxel	90	Every four weeks	Partial Response	
+non_targeted_therapy	N201009	MSB-08104	Not reported				
+non_targeted_therapy	N367891	MSB-05876	Not reported				
+non_targeted_therapy	N251367	MSB-04939	Not reported				
+non_targeted_therapy	N163971	MSB-05447	Not reported				
+non_targeted_therapy	N358485	MSB-03321	Not reported				
+non_targeted_therapy	N508205	MSB-07848	Not reported				
+non_targeted_therapy	N101580	MSB-02151	Not reported				
+non_targeted_therapy	N369319	MSB-00602	Not reported				
+non_targeted_therapy	N940594	MSB-08063	Not reported				
+non_targeted_therapy	N341178	MSB-01825	Not reported				

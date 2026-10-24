@@ -1,0 +1,2 @@
+type	image_collection_record_id	collection_access	collection_access_concept_code	image_collection_name	image_collection_url	image_type_included	image_type_included_concept_code	repository_name	study.study_short_name
+image_collection	AHEP0731	Cloud|Download	C183343|C183344	AHEP0731	https://doi.org/10.7937/F2DB-8826	CT|US|MR|PT|XA	C17204|C17230|C16809|C17007|C20080	The Cancer Imaging Archive	AHEP0731

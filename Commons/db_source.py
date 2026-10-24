@@ -297,9 +297,17 @@ def create_expected_data_source(settings: AppSettings) -> ExpectedDataSource:
             ui_env=settings.env,
             tab_row_limit=settings.tab_row_limit,
         )
+    if db.expected_source == "tsv":
+        from Commons.tsv_source import TsvSource
+
+        return TsvSource(
+            tsv_root=db.tsv_root,
+            app=settings.app,
+            tab_row_limit=settings.tab_row_limit,
+        )
     raise ValueError(
         f"Unknown expected_source '{db.expected_source}' for {settings.app}. "
-        "Supported: memgraph, neo4j."
+        "Supported: memgraph, neo4j, tsv."
     )
 
 

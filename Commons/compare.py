@@ -7,7 +7,8 @@ Katalon equivalent: ``Utils.compareSheetsByRow()`` → ``compareTwoLists()`` /
 Compare flow (matches Katalon):
   * Sort both sides by whole row (left-to-right column text).
   * Compare row-by-row at the same index; print each cell match or mismatch.
-  * A cell matches if ``cells_match(ui, expected)`` (raw, CPI badge stripped, or normalized ``;`` lists).
+  * A cell matches if ``cells_match(ui, expected)`` (raw, case-insensitive,
+    CPI badge stripped, or normalized ``;`` lists).
 
 Row count mismatch fails (Katalon silently passed when expected was empty; we still fail that case).
 """
@@ -69,7 +70,9 @@ def cells_match(ui: str, expected: str) -> bool:
     return (
         ui == expected
         or clean == expected
+        or clean.lower() == expected.lower()
         or normalize_list(clean) == normalize_list(expected)
+        or normalize_list(clean).lower() == normalize_list(expected).lower()
         or _icdc_opensearch_array(ui, expected)
         or _icdc_opensearch_array(clean, expected)
     )

@@ -467,8 +467,9 @@ def read_table_row_data(
                 if _header_at(col_header, j) != "Access":
                     add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
         elif tbl_main == '//*[@id="study_file_tab_table"]':
-            tblcol = tblcol + 3
-            for j in range(1, tblcol):
+            # Use the real header count. The old g_rowcount_files+3 loop asked for
+            # cells past the last column; each miss waits the full Playwright timeout.
+            for j in range(1, len(col_header)):
                 if _header_at(col_header, j) != "Access":
                     add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
         else:

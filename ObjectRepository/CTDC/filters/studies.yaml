@@ -1,0 +1,9 @@
+# CTDC study facet — one checkbox per TSV study folder (InputFiles/CTDC/tsv/<STUDY>/)
+page: Filters/Studies
+groups:
+  Studies/Study:
+    facet: (//*[contains(normalize-space(.), "Filter by Studies")])[1]
+    dropdown: //*[@id='Study' and @role='button']
+    checkboxes:
+      AHEP0731: //*[@id='checkbox_Study_AHEP0731']
+      CMB: //*[@id='checkbox_Study_CMB']

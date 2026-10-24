@@ -1,0 +1,283 @@
+type	radiological_procedure_record_id	participant.participant_id	radiological_procedure	radiological_procedure_anatomical_location	radiation_dose	radiation_frequency	radiation_extent			
+radiotherapy	N470639	MSB-01068	NA				NA			
+radiotherapy	N65222	MSB-02291	NA				NA			
+radiotherapy	N636261	MSB-06720	NA				NA			
+radiotherapy	N212976	MSB-04863	NA				NA			
+radiotherapy	N724188	MSB-04847	NA				NA			
+radiotherapy	N179874	MSB-09018	NA				NA			
+radiotherapy	N714546	MSB-06305	NA				NA			
+radiotherapy	N79624	MSB-01652	NA				NA			
+radiotherapy	N290085	MSB-01206	NA				NA			
+radiotherapy	N125992	MSB-03725	NA				NA			
+radiotherapy	N163556	MSB-03032	NA				NA			
+radiotherapy	N576123	MSB-01459	NA				NA			
+radiotherapy	N547388	MSB-03808	NA				NA			
+radiotherapy	N864985	MSB-08588	NA				NA			
+radiotherapy	N703969	MSB-07473	NA				NA			
+radiotherapy	N409516	MSB-01849	NA				NA			
+radiotherapy	N821309	MSB-05283	NA				NA			
+radiotherapy	N959314	MSB-05412	NA				NA			
+radiotherapy	N829530	MSB-02286	NA				NA			
+radiotherapy	N167921	MSB-05508	NA				NA			
+radiotherapy	N37415	MSB-07612	NA				NA			
+radiotherapy	N791029	MSB-07994	NA				NA			
+radiotherapy	N257443	MSB-07865	NA				NA			
+radiotherapy	N340006	MSB-03053	NA				NA			
+radiotherapy	N903321	MSB-03258	NA				NA			
+radiotherapy	N334034	MSB-06857	NA				NA			
+radiotherapy	N107380	MSB-05040	NA				NA			
+radiotherapy	N378991	MSB-03973	NA				NA			
+radiotherapy	N997860	MSB-02917	NA				NA			
+radiotherapy	N417726	MSB-00952	NA				NA			
+radiotherapy	N622666	MSB-07436	NA				NA			
+radiotherapy	N318835	MSB-02249	NA				NA			
+radiotherapy	N320209	MSB-03244	NA				NA			
+radiotherapy	N34752	MSB-06489	NA				NA			
+radiotherapy	N362803	MSB-07225	NA				NA			
+radiotherapy	N836919	MSB-05563	NA				NA			
+radiotherapy	N335203	MSB-06184	NA				NA			
+radiotherapy	N359633	MSB-08536	NA				NA			
+radiotherapy	N160508	MSB-09601	NA				NA			
+radiotherapy	N355278	MSB-05789	NA				NA			
+radiotherapy	N128241	MSB-07099	NA				NA			
+radiotherapy	N903529	MSB-09886	NA				NA			
+radiotherapy	N733403	MSB-01031	NA				NA			
+radiotherapy	N413575	MSB-04315	NA				NA			
+radiotherapy	N889578	MSB-09774	NA				NA			
+radiotherapy	N107198	MSB-06236	NA				NA			
+radiotherapy	N145415	MSB-05562	NA				NA			
+radiotherapy	N285080	MSB-01649	NA				NA			
+radiotherapy	N365851	MSB-04153	NA				NA			
+radiotherapy	N765483	MSB-04432	NA				NA			
+radiotherapy	N647554	MSB-01627	NA				NA			
+radiotherapy	N743395	MSB-03226	NA				NA			
+radiotherapy	N562662	MSB-05206	NA				NA			
+radiotherapy	N511764	MSB-01617	NA				NA			
+radiotherapy	N903826	MSB-09991	NA				NA			
+radiotherapy	N979960	MSB-03406	NA				NA			
+radiotherapy	N739807	MSB-08045	NA				NA			
+radiotherapy	N795736	MSB-01723	NA				NA			
+radiotherapy	N845553	MSB-02271	NA				NA			
+radiotherapy	N63181	MSB-08093	NA				NA			
+radiotherapy	N417131	MSB-03315	NA				NA			
+radiotherapy	N977314	MSB-05742	NA				NA			
+radiotherapy	N751381	MSB-08631	NA				NA			
+radiotherapy	N628802	MSB-03885	NA				NA			
+radiotherapy	N184758	MSB-05975	NA				NA			
+radiotherapy	N389032	MSB-05737	NA				NA			
+radiotherapy	N813279	MSB-01771	NA				NA			
+radiotherapy	N605831	MSB-06699	NA				NA			
+radiotherapy	N854088	MSB-05746	NA				NA			
+radiotherapy	N534914	MSB-07917	NA				NA			
+radiotherapy	N568871	MSB-09348	NA				NA			
+radiotherapy	N605804	MSB-03069	NA				NA			
+radiotherapy	N384011	MSB-07715	NA				NA			
+radiotherapy	N242546	MSB-02429	NA				NA			
+radiotherapy	N685701	MSB-04141	NA				NA			
+radiotherapy	N255569	MSB-05126	NA				NA			
+radiotherapy	N842952	MSB-00140	NA				NA			
+radiotherapy	N617499	MSB-00520	NA				NA			
+radiotherapy	N704417	MSB-01049	NA				NA			
+radiotherapy	N672584	MSB-07270	NA				NA			
+radiotherapy	N35172	MSB-04437	NA				NA			
+radiotherapy	N531818	MSB-02302	NA				NA			
+radiotherapy	N820104	MSB-07839	NA				NA			
+radiotherapy	N342714	MSB-03330	NA				NA			
+radiotherapy	N561449	MSB-07709	NA				NA			
+radiotherapy	N148224	MSB-09491	NA				NA			
+radiotherapy	N377685	MSB-07945	NA				NA			
+radiotherapy	N617317	MSB-07656	NA				NA			
+radiotherapy	N194182	MSB-07435	NA				NA			
+radiotherapy	N207298	MSB-04286	NA				NA			
+radiotherapy	N657528	MSB-02169	NA				NA			
+radiotherapy	N491412	MSB-04433	NA				NA			
+radiotherapy	N407237	MSB-08544	NA				NA			
+radiotherapy	N272977	MSB-07272	NA				NA			
+radiotherapy	N291430	MSB-06403	NA				NA			
+radiotherapy	N585710	MSB-07479	NA				NA			
+radiotherapy	N487260	MSB-09897	NA				NA			
+radiotherapy	N725100	MSB-07784	NA				NA			
+radiotherapy	N808841	MSB-05354	NA				NA			
+radiotherapy	N748329	MSB-01493	NA				NA			
+radiotherapy	N709538	MSB-05602	NA				NA			
+radiotherapy	N466452	MSB-07370	NA				NA			
+radiotherapy	N819691	MSB-07085	NA				NA			
+radiotherapy	N685557	MSB-07186	NA				NA			
+radiotherapy	N150062	MSB-01594	NA				NA			
+radiotherapy	N814851	MSB-05702	NA				NA			
+radiotherapy	N321727	MSB-02370	NA				NA			
+radiotherapy	N116889	MSB-04176	NA				NA			
+radiotherapy	N791253	MSB-09124	NA				NA			
+radiotherapy	N840274	MSB-08058	NA				NA			
+radiotherapy	N614696	MSB-07578	NA				NA			
+radiotherapy	N220087	MSB-01208	NA				NA			
+radiotherapy	N534612	MSB-04500	NA				NA			
+radiotherapy	N92190	MSB-09666	NA				NA			
+radiotherapy	N973003	MSB-07414	NA				NA			
+radiotherapy	N941863	MSB-05856	NA				NA			
+radiotherapy	N735628	MSB-00089	NA				NA			
+radiotherapy	N962171	MSB-08228	NA				NA			
+radiotherapy	N512207	MSB-01463	NA				NA			
+radiotherapy	N152367	MSB-01433	NA				NA			
+radiotherapy	N998118	MSB-05151	NA				NA			
+radiotherapy	N824501	MSB-08965	NA				NA			
+radiotherapy	N484283	MSB-01960	NA				NA			
+radiotherapy	N725970	MSB-04591	NA				NA			
+radiotherapy	N171866	MSB-00902	NA				NA			
+radiotherapy	N58210	MSB-00956	NA				NA			
+radiotherapy	N199924	MSB-00437	NA				NA			
+radiotherapy	N791503	MSB-04006	NA				NA			
+radiotherapy	N528200	MSB-00316	NA				NA			
+radiotherapy	N15586	MSB-06833	NA				NA			
+radiotherapy	N299531	MSB-08700	NA				NA			
+radiotherapy	N828859	MSB-04388	NA				NA			
+radiotherapy	N822337	MSB-06711	NA				NA			
+radiotherapy	N644605	MSB-05167	NA				NA			
+radiotherapy	N408236	MSB-04143	NA				NA			
+radiotherapy	N121917	MSB-06059	NA				NA			
+radiotherapy	N724918	MSB-04968	NA				NA			
+radiotherapy	N233248	MSB-05098	NA				NA			
+radiotherapy	N971476	MSB-08454	NA				NA			
+radiotherapy	N200191	MSB-06256	NA				NA			
+radiotherapy	N61358	MSB-02960	NA				NA			
+radiotherapy	N115708	MSB-04064	NA				NA			
+radiotherapy	N950587	MSB-06817	NA				NA			
+radiotherapy	N855290	MSB-03312	NA				NA			
+radiotherapy	N778684	MSB-04450	NA				NA			
+radiotherapy	N413436	MSB-02829	NA				NA			
+radiotherapy	N722204	MSB-03513	NA				NA			
+radiotherapy	N99409	MSB-03483	NA				NA			
+radiotherapy	N174424	MSB-05620	NA				NA			
+radiotherapy	N836982	MSB-03738	NA				NA			
+radiotherapy	N388411	MSB-09350	NA				NA			
+radiotherapy	N799805	MSB-01757	NA				NA			
+radiotherapy	N837170	MSB-09880	NA				NA			
+radiotherapy	N561460	MSB-09994	NA				NA			
+radiotherapy	N299833	MSB-09737	NA				NA			
+radiotherapy	N581160	MSB-04831	NA				NA			
+radiotherapy	N316915	MSB-00263	NA				NA			
+radiotherapy	N616611	MSB-09286	NA				NA			
+radiotherapy	N42031	MSB-09495	NA				NA			
+radiotherapy	N466180	MSB-00205	NA				NA			
+radiotherapy	N205215	MSB-02746	NA				NA			
+radiotherapy	N467265	MSB-03272	NA				NA			
+radiotherapy	N589017	MSB-01363	NA				NA			
+radiotherapy	N158260	MSB-06226	NA				NA			
+radiotherapy	N152928	MSB-06426	NA				NA			
+radiotherapy	N627730	MSB-05387	NA				NA			
+radiotherapy	N223835	MSB-00643	NA				NA			
+radiotherapy	N617094	MSB-00241	NA				NA			
+radiotherapy	N593209	MSB-00268	NA				NA			
+radiotherapy	N774230	MSB-07075	NA				NA			
+radiotherapy	N542674	MSB-00755	NA				NA			
+radiotherapy	N358498	MSB-08104	NA				NA			
+radiotherapy	N704794	MSB-04939	NA				NA			
+radiotherapy	N769235	MSB-05447	NA				NA			
+radiotherapy	N499792	MSB-03321	NA				NA			
+radiotherapy	N608087	MSB-07848	NA				NA			
+radiotherapy	N365595	MSB-02151	NA				NA			
+radiotherapy	N120451	MSB-00602	NA				NA			
+radiotherapy	N376139	MSB-08063	NA				NA			
+radiotherapy	N350269	MSB-01825	NA				NA			
+radiotherapy	N545906	MSB-07483	NA	Prostate Gland			Radiation (NOS)			
+radiotherapy	N972231	MSB-02118	stereotactic ablative radiotherapy				Radiation (NOS)			
+radiotherapy	N119355	MSB-03400	rectum/nodes				Radiation (NOS)			
+radiotherapy	N3479	MSB-04332	radiation to the Brain	Brain	24.5	Every twenty four hours	Limited Radiation			
+radiotherapy	N653134	MSB-09619	radiation	Anal Canal		Every twenty hours	NA			
+radiotherapy	N178103	MSB-00939	radiation				Radiation (NOS)			
+radiotherapy	N289177	MSB-06894	lutetium Lu 177 vipivotide tetraxetan				NA			
+radiotherapy	N881141	MSB-07059	external beam radiation therapy	Pelvis	5400	Daily	Limited Radiation			
+radiotherapy	N38058	MSB-09151	Yttrium 90 radio embolization Y90 Microspheres injection	Hepatic Artery	26.6 mCi	Once	Radiation (NOS)			
+radiotherapy	N621533	MSB-00352	Y90 radioembolization	Liver	165		Radiation (NOS)			
+radiotherapy	N13060	MSB-03796	XRT Brain Boost	Brain	1260	Weekly	Radiation (NOS)			
+radiotherapy	N965815	MSB-03796	XRT	Parietal Lobe	4680	Weekly	Radiation (NOS)			
+radiotherapy	N475656	MSB-05876	Whole Brain Radiation; received 4 out of 10 fractions (1200 cGy of 3000 cGy)	Brain	300	Daily	Radiation (NOS)			
+radiotherapy	N922799	MSB-05281	Whole Brain Radiation	Brain	900	Daily	Limited Radiation			
+radiotherapy	N908302	MSB-01307	WBRT	Brain	30	Daily	Limited Radiation			
+radiotherapy	N902155	MSB-02988	Single fraction palliative radiation treatment (external beam radiotherapy) - to the T4-T8 site	Thoracic Vertebra	800	Once	Radiation (NOS)			
+radiotherapy	N933390	MSB-07146	Single Palliative Radiation Treatment to T10-L1	Thoracic Vertebra	800	Once	Limited Radiation			
+radiotherapy	N695487	MSB-07146	Single Palliative Radiation Treatment	Sacrum	800	Once	Limited Radiation			
+radiotherapy	N977208	MSB-08178	Salvage radiotherapy	Pelvis	4500		Extensive Radiation			
+radiotherapy	N162082	MSB-08178	Salvage Radiotherapy	Prostate Gland	7020		Extensive Radiation			
+radiotherapy	N769464	MSB-07278	SRS Cyberknife	Brain	2200	Once	Limited Radiation			
+radiotherapy	N595340	MSB-09019	SBRT	Liver	35		Radiation (NOS)			
+radiotherapy	N591247	MSB-08922	SBRT	Adrenal Gland	2400	Every other day	Limited Radiation			
+radiotherapy	N545711	MSB-07221	Rectum and lymphd node radiation	Rectum	200		NA			
+radiotherapy	N222468	MSB-08267	Radiotherapy	Brain	2000	Once	Radiation (NOS)			
+radiotherapy	N478060	MSB-03932	Radiation Treatment	Temporal Lobe	500	Continuous	Limited Radiation			
+radiotherapy	N120807	MSB-07840	Radiation Therapy to Cervical Spine	Cervical Spine	350	Daily	Radiation (NOS)			
+radiotherapy	N223834	MSB-02661	Radiation	Lung			NA			
+radiotherapy	N833472	MSB-08354	Radiation	Lung			NA			
+radiotherapy	N64455	MSB-05756	Radiation	Axilla	300	Daily	NA			
+radiotherapy	N299641	MSB-05756	Radiation	Sacrum	20		NA			
+radiotherapy	N289755	MSB-04415	Radiation	Prostate Gland			NA			
+radiotherapy	N143949	MSB-07662	Radiation				NA			
+radiotherapy	N414782	MSB-01437	Radiation	Right Lung	200		NA			
+radiotherapy	N822407	MSB-09202	Radiation	Pelvis	220		NA			
+radiotherapy	N165049	MSB-07991	Radiation	Pelvis	45		NA			
+radiotherapy	N88961	MSB-08777	Radiation	Thorax	60	Daily	Radiation (NOS)			
+radiotherapy	N977780	MSB-04319	Radiation	Left Lung	6000		Extensive Radiation			
+radiotherapy	N593561	MSB-08142	RT + Chemo	Parietal Lobe	59.4	Every five days	Radiation (NOS)			
+radiotherapy	N942058	MSB-05388	Prophylactic Cranial Radiation	Cranial Cavity			NA			
+radiotherapy	N367109	MSB-06606	Postoperative radiotherapy to the thoracic spine - 2500 in 10 fractions (T6-T10)	Thoracic Spine	250	Daily	Radiation (NOS)			
+radiotherapy	N107497	MSB-06606	Palliative radiotherapy to L3 lumbar lesion region - L2-L4; 2500 in 10 fractions	Lumbar Spine	250	Daily	Radiation (NOS)			
+radiotherapy	N620956	MSB-05435	Palliative radiotherapy - 3D conformal radiotherapy 18 MV beam energy - 3000 cGy in 10 fractions to rt. lateral rib	Rib 6	300	Daily	Extensive Radiation			
+radiotherapy	N629380	MSB-06029	Palliative radiation to the pelvic mass	Pelvis	30	Daily	Limited Radiation			
+radiotherapy	N657693	MSB-01103	Palliative external beam radiation to right 6th rib	Rib 6	800	Once	Radiation (NOS)			
+radiotherapy	N161325	MSB-05876	Palliative Radiotherapy to the Thoracic Spine	Thoracic Spine	300	Daily	Radiation (NOS)			
+radiotherapy	N476927	MSB-02901	Palliative Radiotherapy - 2000 cGy in 5 fractions	Femur	400	Daily	Radiation (NOS)			
+radiotherapy	N91510	MSB-02901	Palliative Radiotherapy - 2000 cGy in 5 fractions	Thoracic Spine	400	Daily	Radiation (NOS)			
+radiotherapy	N317812	MSB-02901	Palliative Radiotherapy - 2000 cGy in 5 fractions	L1 Vertebra	400	Daily	Radiation (NOS)			
+radiotherapy	N856495	MSB-08799	Palliative Radiotherapy	Shoulder	800	Once	NA			
+radiotherapy	N649753	MSB-03548	Palliative Radiotherapy	Femur	5	Once	NA			
+radiotherapy	N479072	MSB-03548	Palliative Radiotherapy	Hilar Area of the Lung	5	Continuous	Limited Radiation			
+radiotherapy	N187102	MSB-03453	Palliative Radiation to the Right Sternum	Sternum	800	Once	Radiation (NOS)			
+radiotherapy	N875729	MSB-01597	Palliative Radiation to the Right Lung	Right Lung	300	Daily	Radiation (NOS)			
+radiotherapy	N740316	MSB-03453	Palliative Radiation to the Left Ribs	Rib	800	Once	Radiation (NOS)			
+radiotherapy	N367934	MSB-03453	Palliative Radiation to the Left Posterior Scalp	Scalp	800	Once	Radiation (NOS)			
+radiotherapy	N824094	MSB-03453	Palliative Radiation to the C5 Clivus & Lt Humerus	Base of the Skull	300	Daily	Radiation (NOS)			
+radiotherapy	N130083	MSB-03453	Palliative Radiation Therapy to the T5 and T8 region (2000 cGy in 5 fractions)	Thoracic Vertebra	400	Daily	Radiation (NOS)			
+radiotherapy	N539527	MSB-03453	Palliative Radiation Therapy to the Right Humerus	Humerus	400	Daily	Radiation (NOS)			
+radiotherapy	N741901	MSB-03453	Palliative Radiation Therapy to the C Spine	Cervical Spine	400	Daily	Radiation (NOS)			
+radiotherapy	N207709	MSB-00498	Palliative Radiation Therapy to T6-T10, 2000 cGy in 10 fractions	Thoracic Vertebra	200	Daily	Radiation (NOS)			
+radiotherapy	N199876	MSB-00498	Palliative Radiation Therapy to L2-L4, 2000 cGy in 10 fractions	Lumbar Vertebra	200	Daily	Radiation (NOS)			
+radiotherapy	N364051	MSB-09794	LOW DOSE RADIATION	Lung			Radiation (NOS)			
+radiotherapy	N902514	MSB-02381	LOW DOSE RADIATION	Pelvis			Radiation (NOS)			
+radiotherapy	N673740	MSB-04030	LOW DOSE RADIATION	Rib	800	Once	Limited Radiation			
+radiotherapy	N956571	MSB-04030	LOW DOSE RADIATION	Mandible	300	Daily	Limited Radiation			
+radiotherapy	N488732	MSB-01262	LOW DOSE RADIATION	Abdominal Cavity	5400	Daily	Limited Radiation			
+radiotherapy	N867021	MSB-09027	LOW DOSE RADIATION	Left Lung	60		Extensive Radiation			
+radiotherapy	N521343	MSB-06682	IMRT	Thoracic Spine	250	Daily	NA			
+radiotherapy	N816096	MSB-05388	IMRT	Thorax	3000		Radiation (NOS)			
+radiotherapy	N414909	MSB-05388	IMRT	Brain	2500		Radiation (NOS)			
+radiotherapy	N632168	MSB-05388	IMRT	Sacrum	3000		Radiation (NOS)			
+radiotherapy	N3236	MSB-05460	IMRT	Right Lung	60	Daily	Radiation (NOS)			
+radiotherapy	N934346	MSB-00556	IGRT				Radiation (NOS)			
+radiotherapy	N264114	MSB-05837	HIGH DOSE RADIATION				NA			
+radiotherapy	N60907	MSB-05837	HIGH DOSE RADIATION				Radiation (NOS)			
+radiotherapy	N260038	MSB-09117	HIGH DOSE RADIATION				Radiation (NOS)			
+radiotherapy	N245699	MSB-09977	HIGH DOSE RADIATION				Radiation (NOS)			
+radiotherapy	N882760	MSB-01499	HIGH DOSE RADIATION	Left Lung	66	Daily	Limited Radiation			
+radiotherapy	N425381	MSB-08170	HIGH DOSE RADIATION	Thoracic Spine	2000	Every twenty four hours	Limited Radiation			
+radiotherapy	N414335	MSB-09977	HIGH DOSE RADIATION				Limited Radiation			
+radiotherapy	N292719	MSB-04031	External beam radiation delivering 2000 cGy to L5-S1, T5, and T11 in 5 fractions of 400 cGy.	Vertebral Column	400	Daily	NA			
+radiotherapy	N918810	MSB-04950	External beam radiation delivered in 5 fractions to C7-T1.	Cervical Spine	2000		NA			
+radiotherapy	N533027	MSB-04950	External beam radiation delivered in 2 fractions to T5-T8.	Thoracic Spine	800		NA			
+radiotherapy	N173038	MSB-04031	External beam radiation - to the T6-T9 vertebral bodies and rt. paraspinous mass	Thoracic Vertebra	800	Once	NA			
+radiotherapy	N146268	MSB-04031	External beam radiation - delivering 2000 cGy in 5 fractions of 400 cGy to right temple	Temple	400	Daily	NA			
+radiotherapy	N539838	MSB-03453	External Beam Radiation to the right sacrum (3000 cGy in 10 fractions)	Sacrum	300	Daily	Radiation (NOS)			
+radiotherapy	N829223	MSB-01224	External Beam Radiation Therapy	Sacrum	200	Daily	NA			
+radiotherapy	N881613	MSB-04031	External Beam Radiation - to the right lateral ribs	Rib	800	Once	NA			
+radiotherapy	N506723	MSB-05676	External Beam Radiation - 30 Gy in 10 fractions	T10 Vertebra	3	Daily	Radiation (NOS)			
+radiotherapy	N476772	MSB-05676	External Beam Radiation (30 Gy in 10 fractions)	Ilium	3	Daily	Radiation (NOS)			
+radiotherapy	N48928	MSB-06682	Electrong beam therapy	T8 Vertebra	400	Daily	NA			
+radiotherapy	N936719	MSB-01413	Daily Radiation Treatment to R Lung/Nodes	Right Lung			Radiation (NOS)			
+radiotherapy	N60728	MSB-06864	CyberKnife Stereotactic Radiosurgery (SRS)	Brain	2200	Once	NA			
+radiotherapy	N910585	MSB-05388	CyberKnife SBRT	Lower Lobe of the Left Lung	5000		NA			
+radiotherapy	N489313	MSB-06735	CyberKnife	Forebrain	30	Daily	Limited Radiation			
+radiotherapy	N625058	MSB-01307	Consolidative radiation to the chest	Chest	36	Daily	Limited Radiation			
+radiotherapy	N748530	MSB-01597	CK Brain1 Ln	Brain	600	Daily	Radiation (NOS)			
+radiotherapy	N678297	MSB-02139	24 Gray/8 fractions, 3D conformal radiotherapy, helical Tomo therapy 6 MV	Lumbar Spine	300	Daily	Radiation (NOS)			
+radiotherapy	N43336	MSB-04950	5/5 fractions to L1-L3 palliative response with resolved back pain	Lumbar Spine	2000		Limited Radiation			
+radiotherapy	N431018	MSB-02472	3D Conformal Radiation Therapy	Thoracic Spine	2000		NA			
+radiotherapy	N663717	MSB-02472	3D CRT of lumbar spine	Lumbar Spine	2000		NA			

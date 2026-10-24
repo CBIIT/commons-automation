@@ -77,4 +77,4 @@ apps:
       Participants: true   # Trial participants
       Biospecimens: true   # Biospecimens
       Files: true          # Participant / biospecimen files
-      "Study Files": true  # Study-level files
+      "Study Files": true  # Study-level files (no participant / specimen on the TSV row)

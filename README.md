@@ -1,6 +1,6 @@
 # Playwright + pytest UI automation
 
-End-to-end regression framework for **Data Commons web apps**: open a browser, apply explore filters, read result tables from the UI, and compare them to expected data (usually **Memgraph Cypher** from per-test Excel workbooks). Tests are plain Python files run with **pytest**; each **application** (GC, C3DC, and others you add) gets its own app class, object repository, input data, and test tree.
+End-to-end regression framework for **Data Commons web apps**: open a browser, apply explore filters, read result tables from the UI, and compare them to expected data (**Memgraph/Neo4j Cypher**, or **CTDC TSV + SQL**). Tests are plain Python files run with **pytest**; each **application** (GC, C3DC, and others you add) gets its own app class, object repository, input data, and test tree.
 
 Apps in the tree today include **GC**, **C3DC**, **ICDC**, and **CTDC** (plus locators for others). Each app follows the same folders: `Commons/apps/<app>.py`, `Testcases/<APP>/`, `InputFiles/<APP>/`, `ObjectRepository/<APP>/`.
 
@@ -80,10 +80,11 @@ pytest --junitxml=Reports/junit.xml
 
 | App | Engine | Excel | Credentials (examples) |
 |-----|--------|--------|-------------------------|
-| **C3DC**, **GC**, **CTDC** | Memgraph | Cypher in `TabQuery` / `StatQuery` | `MEMGRAPH_PASSWORD_<APP>` |
+| **C3DC**, **GC** | Memgraph | Cypher in `TabQuery` / `StatQuery` | `MEMGRAPH_PASSWORD_<APP>` |
 | **ICDC** | Neo4j | Same column layout | `NEO4J_PASSWORD_ICDC` (or legacy `MEMGRAPH_PASSWORD_ICDC`) |
+| **CTDC** | TSV/TXT snapshot (`InputFiles/CTDC/tsv/<STUDY>/YYYY-MM-DD/`) | SQL in `TabQuery` / `StatQuery` | none (`CTDC_TSV_ROOT` optional) |
 
-Each app has its **own** cluster; do not share passwords. Tests read Cypher from the workbook— they do not import `Tools/cypher/`.
+C3DC/GC/ICDC each have their **own** cluster; do not share passwords. CTDC loads node files into an in-memory SQLite database at runtime (Katalon pandasql). When CTDC has Memgraph, set `expected_source: memgraph` and run `Tools/convert_ctdc_sql_to_cypher.py`. Tests read queries from the workbook— they do not import `Tools/cypher/`.
 
 ## Example tests
 
@@ -120,6 +121,7 @@ Config/tab_setting.yaml      Tab row cap + which tabs verify_tab runs, per app
 .env                         Passwords and local overrides (gitignored)
 
 InputFiles/<app>/            TC*.xlsx — TabQuery / StatQuery for each test
+InputFiles/CTDC/tsv/<STUDY>/ Dated TSV/TXT node files per study (CMB, AHEP0731, …)
 ObjectRepository/<app>/      YAML — xpath keys for filters, tabs, static pages
 
 Commons/                     Runtime (imported by pytest)
@@ -127,6 +129,7 @@ Commons/                     Runtime (imported by pytest)
   query_reader.py            Read query workbooks
   object_repository.py       YAML → xpath / filter groups
   db_source.py               Run Cypher over Bolt (Memgraph or Neo4j)
+  tsv_source.py              CTDC only: load TSV node files and run SQL
   apps/base.py               Filters, stat bar, verify_tab, assert_no_failures
   apps/{gc,c3dc,ccdi,icdc,ctdc}.py
   table_reader.py, compare.py, browser_actions.py, static_data.py, …
@@ -152,7 +155,7 @@ Reports/                     Screenshots, JUnit
 | Enter explore | `open_data()` (GC) / `open_explore()` (C3DC) |
 | Filter | `select_filter("Group/Name", "value")` — facet expand, dropdown, **checkbox click** (C3DC & GC) |
 | Stat bar | `read_statbar()` |
-| Result tab | `verify_tab("Participants")` — opens tab, reads UI, Memgraph, compare, stat bar once |
+| Result tab | `verify_tab("Participants")` — opens tab, reads UI, expected data, compare, stat bar once |
 | End | `assert_no_failures()` |
 
 Table pagination limits: **C3DC** `max_pages=2` per tab; **GC** `max_pages=10` (see `Commons/apps/*.py`). Table scraping rules live in `Commons/table_reader.py` (GC, ICDC, C3DC, INS, Bento, CTDC).

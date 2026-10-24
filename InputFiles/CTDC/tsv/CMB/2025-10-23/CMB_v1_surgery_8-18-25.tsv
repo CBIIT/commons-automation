@@ -1,0 +1,110 @@
+type	participant.participant_id	surgical_procedure_record_id	surgical_procedure	surgical_procedure_date	surgical_procedure_anatomical_location	surgical_procedure_therapeutic	surgical_procedure_findings	extent_of_residual_disease			
+surgery	MSB-04863	N160036	left neck dissection	-29	Neck	Yes	One out of ten lymph nodes with metastatic melanoma with extensive extracapsular extension				
+surgery	MSB-04847	N750742	resection	-536	Colon	Yes					
+surgery	MSB-04847	N581668	left parotid LN biopsy	-197	Parotid Gland	No					
+surgery	MSB-09794	N788216	needle/ core biopsy	-563	Lung	No					
+surgery	MSB-01499	N585404	CT guided lung biopsy	-175	Lung	No					
+surgery	MSB-09019	N24738	biopsy	-552	Duodenum	No					
+surgery	MSB-01206	N782646	Portion of mass from right foot, biopsy	-53	Foot	No					
+surgery	MSB-02381	N819517	biopsy	-370	Left Lung	No					
+surgery	MSB-02381	N462117	robotic lower anterior resection	-487	Rectum	Yes					
+surgery	MSB-02381	N279258	biopsy	-552	Small Intestine	No					
+surgery	MSB-03725	N838599	Laparoscopic mobilization o fleft colon and splenic flexure, open rectosigmoid resection with anastamosis	-442	Rectosigmoid Colon	Yes					
+surgery	MSB-01459	N49067	endobronchial biopsy	-119	Lung	No					
+surgery	MSB-01459	N591104	needle core biopsy	9	Lung	No					
+surgery	MSB-03808	N311742	biopsy	-511	Duodenum	No					
+surgery	MSB-03808	N357912	biopsy	-453	Peritoneal Cavity	No					
+surgery	MSB-09027	N455442	fine needle aspiration	-863	Lung	No					
+surgery	MSB-09027	N181860	CT guided right adrenal mass biopsy	-334	Adrenal Gland	No					
+surgery	MSB-08588	N802718	sigmoid resection	-1314	Colon	Yes					
+surgery	MSB-08588	N826952	right lung mass CT guided FNA (cytology)	313	Lung	No					
+surgery	MSB-08588	N279342	robotic assisted left lung upper lobe wedge	-12	Lung	Yes					
+surgery	MSB-08588	N491692	fine needle aspiration	-92	Lung	No					
+surgery	MSB-01849	N867259	Lymph node dissection	208	Popliteal Fossa	Yes	1 LN Neg FOR METASTATIC MELANOMA.  1 LN WITH NECROSIS & MELANIN DEPOSITION, NO VIABLE TUMOR IDENTIFIED. This could represent a site of prior metastatic melanoma				
+surgery	MSB-09151	N365972	liver resection	0	Liver	Yes	wedged the liver tumor out with grossly negative margins				
+surgery	MSB-05508	N635289	needle core biopsy	-69	Lung	No					
+surgery	MSB-08170	N255542	left lung wedge resection	-1905	Lung	Yes	Metastatic adenocarcinoma,colorectal primary				
+surgery	MSB-08170	N486827	Colon resection and ovary removal	-2382	Colon	Yes	Moderately differentiated adenocarcinoma				
+surgery	MSB-04030	N259847	Degenerative lumbar spinal stenosis (Anterior Lumbar Interbody Fusion L4-5, L5-S1)	497	Lumbar Spine	Yes	Good reduction and realignment. Good fixation.				
+surgery	MSB-07612	N360336	wide local excision of right thigh melanoma with primary closure sentinel lymph node biopsy of right inguinal lymph node	-1714	Skin of the Thigh	Yes	skin, right thigh, melanoma, negative margins clear; right upper leg sentinel lymphadenectomy, melanoma not identified (0/1)	none, pT1b, pN0			
+surgery	MSB-01262	N873590	abdominoperineal resection	-2740	Abdominal Cavity	Yes	moderately differentiated rectal adenocarcinoma with    invasion into the perirectal adipose tissue with negative    margins.	All margins uninvolved by invasive carcinoma			
+surgery	MSB-07483	N27692	Lymph node, retroperitoneal lymph node-biopsy	-20	Lymph Node	No	Metastatic poorly differentiated carcinoma				
+surgery	MSB-05837	N714923	Liver, mass, needle core biopsy	0	Liver	No	Metastatic small cell carcinoma				
+surgery	MSB-09117	N55638	Lung, right upper lobe, mass, smears and cell block, FNA:	13	Lung	No	Non-small cell carcinoma				
+surgery	MSB-06857	N856548	Stomach, antral ulcer-biopsy	-21	Stomach	No	Carcinoma, favor adenocarcinoma with ulcer formation				
+surgery	MSB-05040	N288762	Core biopsy	-88	Liver	No	Malignant neoplasm consistent with malignant melanoma by immunohistochemical stains				
+surgery	MSB-03973	N316624	needle core biopsy	-240	Prostate Gland	No					
+surgery	MSB-02917	N947670	CT guided biopsy	-509	Bone	No					
+surgery	MSB-00952	N649784	sidmoidoscopy	-139	Colon	No					
+surgery	MSB-02118	N13713	Lymph node, fine-needle aspirate (aspirate smears and cell block	-6	Lymph Node	No	Metastatic non-small cell carcinoma				
+surgery	MSB-07436	N690716	tissue pathology	-431	Prostate Gland	No					
+surgery	MSB-08178	N573744	robotic assisted laparoscopic radical prostatectomy	-1176	Prostate Gland	Yes					
+surgery	MSB-06489	N385006	fine needle biopsy	-97	Liver	No					
+surgery	MSB-06489	N137457	biopsy	-43	Left Lung	No					
+surgery	MSB-06489	N866156	biopsy	-61	Liver	No					
+surgery	MSB-04332	N859428	stereotactic volumetric resection of right occipital intraaxial lesion.	-7	Brain	Yes					
+surgery	MSB-07225	N900818	partial colectomy	-1178	Colon	Yes	adenocarcinoma				
+surgery	MSB-05563	N318748	biopsy	-873	Prostate Gland	No					
+surgery	MSB-05563	N986549	CT guided left iliac biopsy	-696	Iliac Lymph Node	No					
+surgery	MSB-05563	N948735	fine needle aspiration	-696	Lymph Node	No					
+surgery	MSB-06184	N835354	TURP and bilateral orchiectomy	-26	Prostate Gland	Yes		hepatic lesions untouched			
+surgery	MSB-04950	N620874	Thoracic Laminectomy - Removal of Lesion	182	Thoracic Spine	Yes	spinal plasmacytoma				
+surgery	MSB-04950	N128559	Thoracic Decompression - Removal of Tumor	233	Thoracic Spine	Yes	Large epidural tumor causing severe compression of the thoracic cord.				
+surgery	MSB-09601	N119192	Resection of periumbilical mass	0	Periumbilical Region	Yes	The patient had a 5 cm mass which was resected with a rim of normal tissue surrounding.				
+surgery	MSB-09601	N698625	cytoreductive surgery with HIPEC	-2092	Cecum	Yes	metastatic low grade adenocarcinoma				
+surgery	MSB-09601	N743896	Tumor debulking	-686	Caudate Lobe	Yes					
+surgery	MSB-07099	N925722	right hemicolectomy	-295	Right Colon	No	adenocarcinoma				
+surgery	MSB-09886	N684868	Biopsy	-161	Colon	No	Invasive moderately differentiated colonic adenocarcinoma				
+surgery	MSB-09886	N28922	ultrasound-guided core biopsy:	-141	Liver	No	Positive for metastatic adenocarcinoma with immunophenotypic features consistent with patient's known colonic primary				
+surgery	MSB-04315	N102983	Bronchoscopy, endobronchial ultrasound	-169	Bronchus	Yes	endobronchial adenocarcinoma partially obstructing the LLL lateral segment proximal bronchi	Lung cancer Stage IIIA			
+surgery	MSB-03796	N411497	Parietal Brain Resection, left. Parietal Craniotomy, left.	-223	Parietal Lobe	Yes	IDH1 Mutated 1p/10q, co-deleted WHO grade II/III oligodendroglioma				
+surgery	MSB-03400	N459585	rectal biopsy	-26	Rectum	No					
+surgery	MSB-04153	N613958	colonoscopy	-119	Colon	No					
+surgery	MSB-04153	N230980	hemicolectomy	-113	Colon	Yes					
+surgery	MSB-04153	N733046	hepatectomy	-113	Liver	Yes					
+surgery	MSB-04153	N800156	biopsy	-113	Liver	No					
+surgery	MSB-00939	N800057	Lymph node, left axillary, needle core biopsy	0	Lymph Node	No	Metastatic squamous cell carcinoma				
+surgery	MSB-06029	N157979	TURP	-145	Bladder	Yes	Bladder invasion	Exophytic rectosigmoid mass with bladder invasion measuring 5.9 cm			
+surgery	MSB-00352	N171674	Open partial hepatectomy	28	Liver	Yes	Cirrhosis and metastatic colorectal cancer	Residual disease in right lobe of the liver			
+surgery	MSB-00352	N175364	rectosigmoid colectomy	-293	Rectosigmoid Colon	Yes	invasive adenocarcinoma 3.2 cm with 1/15 nodes positive T4N1	None			
+surgery	MSB-09991	N371259	Laparoscopic Diverting Colostomy	62	Abdominal Cavity	No					
+surgery	MSB-04031	N932134	IR Kyphoplasty	133	Vertebral Column	Yes	Successful percutaneous kyphoplasty of T11 and L1 vertebral body compression fractures				
+surgery	MSB-03932	N524057	Left temporal craniotomy for tumor resection	-74	Brain	Yes	Left temporal tumor with associated hemorrhage	moderate left frontal pneumocephalus, mild left frontal and temporal extra-axial collection			
+surgery	MSB-08631	N989224	Laparoscopic, hand assisted low anterior resection with end descending colostomy and Laparoscopic complete mobilization of the splenic flexure	2	Rectosigmoid Colon	Yes	bulky, obstructing tumor identified at level: mid rectum. Appropriate mesorectal excision with a 5 cm fresh distal margin.	no residual disease			
+surgery	MSB-00556	N358110	Right video assisted thorascopic upper lobectomy and mediastinal lymphadenectomy	-387	Right Lung	Yes					
+surgery	MSB-03453	N628106	Open Reduction and Internal Fixation (ORIF) of the right proximal humerus fracture and curettage and cementing of right proximal humerus	171	Humerus	Yes	Plasma cell neoplasm				
+surgery	MSB-03453	N736321	Open Reduction and Internal Fixation (ORIF) of the left proximal humerus fracture and curettage and cementing of left proximal humerus	245	Humerus	Yes	Plasma cell neoplasm				
+surgery	MSB-02472	N608946	T4 and T5 laminectomy for epidural tumor resection	-108	Thoracic Spine	Yes	Epidural mass				
+surgery	MSB-01771	N964418	Port Placement, Laparoscopic loop colostomy and mobilization of the splenic flexure	-187	Sigmoid Colon	Yes	Moderate amount of ascites throughout the abdomen. Tight stricture of sigmoid colon, greatly adherent to abdominal wall				
+surgery	MSB-07917	N939241	Right sub trochanteric fracture ORIF w/ TFN	-393	Femur	Yes	Fragments of bone and hemorrhagic marrow with increased numbers of plasma cells				
+surgery	MSB-05126	N117754	Robotic Radical Nephrectomy	22	Kidney	Yes	Benign simple renal cortical cyst				
+surgery	MSB-04437	N875600	US Guided Liver Biopsy + DL Portacath Placement	1	Liver	Yes					
+surgery	MSB-02169	N901495	Colon Sigmoid Resection	-281	Sigmoid Colon	Yes	Trace residual hemoperitoneum, dilation of the entire colon, Mid sigmoid colon mass				
+surgery	MSB-02169	N718453	Exploratory Laparotomy, Total Abdominal Hysterectomy, Excision of Right ovarian mass, Bilateral oophorectomy	-281	Pelvis	Yes	2500 mL of old blood in the abdomen, right ovary was enlarged and necrotic, uterus had a small fundal fibroid	None			
+surgery	MSB-02169	N322860	Abdominal wound debridement	-199	Abdominal Cavity	Yes	periumbilical wound with non-healing tunnel communicating with large abscess pocket				
+surgery	MSB-04433	N735250	LEFT AXILLARY LYMPH NODE DISSECTION AND RESECTION OF LEFT CHEST WALL MASS	1	Axillary Lymph Node	Yes					
+surgery	MSB-01597	N729649	Right Cervical Lymph Node Biopsy	-47	Lymph Node	Yes	Large palpable right supraclavicular lymph node				
+surgery	MSB-07221	N276086	Hepatectomy	-202	Liver	Yes	METASTATIC COLORECTAL ADENOCARCINOMA				
+surgery	MSB-04415	N551823	resection of a mass at the left medial thigh	-104	Thigh	Yes	Intramuscular myxoma.				
+surgery	MSB-05676	N523712	T10 Decompressive Laminectomy and Partial Tumor Removal Surgery	-100	Thoracic Spine	Yes	Plasmacytoma				
+surgery	MSB-07784	N304055	Removal of right subclavian porta catheter and placement of a single lumen power injectable subcutaneous port	-237	Chest	Yes					
+surgery	MSB-07784	N166648	US guided needle liver biopsy	51	Liver	Yes					
+surgery	MSB-07784	N899998	CT Guided RF ablation of liver	-1022	Liver	Yes					
+surgery	MSB-07784	N971723	Partial resection of colon	-1678	Colon	Yes					
+surgery	MSB-05354	N265362	cholecystectomy	-309	Gallbladder	Yes	melanoma				
+surgery	MSB-06864	N587073	Lymph Node Biopsy	-69	Lung	Yes	Abnormal subcarinal lymph node, level 7. Frozen section positive for malignancy.				
+surgery	MSB-07146	N737355	Kyphoplasty with biopsy at T9 & T10	-25	Thoracic Spine	Yes	Pathologic compression fracture secondary to multiple myeloma at thoracic 9 and thoracic 10.				
+surgery	MSB-02901	N245163	Open biopsy of the right femur with prophylactic intramedullary nailing	-968	Femur	Yes	plasma cell neoplasm				
+surgery	MSB-02988	N2755	Thoracic Spine Biopsy	-784	Thoracic Spine	Yes	Mass lesion involving the t6 vertebral body - findings indicate plasma cell neoplasm				
+surgery	MSB-05702	N652943	Lumbar Puncture	116	Lumbar Spine	Yes	Clear colored spinal fluid; further testing indicated leptomeningeal involvement of the AML and blasts in the spinal fluid.				
+surgery	MSB-07414	N850142	Laparoscopic diverting ostomy	-34	Sigmoid Colon	Yes					
+surgery	MSB-09202	N930916	Abdominoperineal resection with permanent colostomy	-912	Abdominal Cavity	Yes	Invasive carcinoma				
+surgery	MSB-05460	N281650	Robotic-assisted right upper lobectomy and mediastinal lymph node dissection	-1838	Right Lung	Yes	adenocarcinoma	negative margins			
+surgery	MSB-04143	N48343	Cytoreduction/HIPEC, Bilateral Oophorectomy	70	Ovary	Yes	Carcinoma in fallopian tubes, ovary, abd wall soft tissue, duodenum, omentum, peritoneum	Disease free			
+surgery	MSB-04143	N632472	Right Colectomy	-408	Colon	Yes	POORLY DIFFERENTIATED ADENOCARCINOMA INVADING   VISCERAL PERITONEUM WITH LYMPH NODE METASTASES				
+surgery	MSB-03513	N42606	Left VATS	-2217	Lung	Yes	METASTATIC DISEASE				
+surgery	MSB-03513	N268546	Right hepatectomy, right colectomy	-2881	Colon	Yes					
+surgery	MSB-07991	N915963	Robotic LAR with temporary ileostomy	-397	Colon	Yes	residual disease, grade 2	Grade 2			
+surgery	MSB-09977	N211926	Liver, RUQ-biopsy	0	Liver	No	Metastatic small cell carcinoma				
+surgery	MSB-03272	N220864	Laparoscopic assisted right colectomy	-317	Transverse Colon	Yes	No obviously visible liver metastasis or carcinomatosis appreciated. Clinical R0 resection				
+surgery	MSB-09619	N526607	subtotal colectomy, end ileostomy, liver biopsy and wedge (segment 8)	-6	Abdominal Region	Yes	colonic obstruction with perforation and mucous fistula				
