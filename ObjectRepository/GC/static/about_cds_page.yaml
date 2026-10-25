@@ -1,5 +1,5 @@
 # Converted from Katalon Object Repository/CDS/Static/V_AboutCDSPage
-page: Static/V_AboutCDSPage
+page: Static/AboutCDSPage
 elements:
   AboutDescription: //div[.='ABOUT CDS']/parent::span
   BannerTitle: //*[@id = 'about_title']

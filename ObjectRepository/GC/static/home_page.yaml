@@ -1,5 +1,5 @@
 # Converted from Katalon Object Repository/CDS/Static/V_HomePage
-page: Static/V_HomePage
+page: Static/HomePage
 elements:
   BannerDescription: //div[contains(text(),'A data repository')]
   BannerTitle: //h1[contains(text(),'Enabling secure')]
