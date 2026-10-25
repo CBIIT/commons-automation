@@ -179,9 +179,12 @@ class BaseApp:
         ui = self.ui
         if not ui.is_present(xpath):
             return False
-        ui.scroll_into_view(xpath)
         if self._accordion_expanded(xpath):
             return False
+        try:
+            ui.scroll_into_view(xpath)
+        except Exception:
+            pass
         ui.js_click(xpath, repo_key=repo_key)
         ui.wait_idle(500)
         self.page.wait_for_timeout(400)

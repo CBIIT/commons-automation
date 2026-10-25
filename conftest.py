@@ -51,6 +51,11 @@ def pytest_configure(config):
         action_log.set_enabled(True)
 
 
+def pytest_runtest_setup(item):
+    """Keep live [Browser]/[UI] lines off pytest's in-progress test name row."""
+    action_log.prepare_test_live_console()
+
+
 @pytest.fixture(scope="session")
 def env(request):
     return resolve_test_env(request.config.getoption("--env"))

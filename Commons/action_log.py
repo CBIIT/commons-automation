@@ -126,11 +126,31 @@ def set_browser_log(on: bool) -> None:
     _browser_log = on
 
 
+_console_needs_leading_newline = False
+
+
+def prepare_test_live_console() -> None:
+    """
+    Pytest prints the test node id without a trailing newline; the first live
+    console line in that test would otherwise appear on the same row.
+    """
+    global _console_needs_leading_newline
+    _console_needs_leading_newline = True
+
+
+def _live_console_line(msg: str) -> str:
+    global _console_needs_leading_newline
+    if _console_needs_leading_newline:
+        _console_needs_leading_newline = False
+        return f"\n{msg}"
+    return msg
+
+
 def browser_log(msg: str) -> None:
     if not browser_log_enabled():
         return
     with pytest_table_output_live():
-        print(f"[Browser] {msg}", flush=True)
+        print(_live_console_line(f"[Browser] {msg}"), flush=True)
 
 
 _db_queries: Optional[bool] = None
