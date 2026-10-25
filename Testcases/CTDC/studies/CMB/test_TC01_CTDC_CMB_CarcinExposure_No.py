@@ -7,6 +7,7 @@ import pytest
 
 
 @pytest.mark.ctdc
+@pytest.mark.quickrun
 @pytest.mark.regression
 def test_TC01_CTDC_CMB_CarcinExposure_No(ctdc):
     ctdc.load_query_file("TC01_CTDC_CMB_CarcinExposure-No.xlsx")
