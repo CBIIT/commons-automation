@@ -19,17 +19,36 @@ apps:
         endpoint: bolt://ccdi-dcc-qa-99d933a8c11c2ea3.elb.us-east-1.amazonaws.com:7687
         username: memgraph
 
+  CCDI:
+    # Hub pages only. Explore (/explore) opens C3DC Explore Participants.
+    expected_source: neo4j
+    urls:
+      qa:    https://ccdi-qa.cancer.gov/
+      stage: https://ccdi-stage.cancer.gov/
+      prod:  https://ccdi.cancer.gov/
+    neo4j:
+      qa:
+        endpoint: bolt://neo4j.ccdi-qa.cancer.gov:7687
+        username: neo4j
+      stage:
+        endpoint: bolt://neo4j.ccdi-qa.cancer.gov:7687
+        username: neo4j
+
   CTDC:
-    expected_source: memgraph
+    # Expected data = SQL in the input Excel, run against dated TSV/TXT node files
+    # (Katalon PythonFiles/CTDC). No Bolt password. Flip back later:
+    #   expected_source: memgraph
+    #   python Tools/convert_ctdc_sql_to_cypher.py
+    expected_source: tsv
+    tsv_root: InputFiles/CTDC/tsv   # tsv/<STUDY>/YYYY-MM-DD/; override: CTDC_TSV_ROOT
     urls:
       qa:    https://clinical-qa.datacommons.cancer.gov/#/
       stage: https://clinical-stage.datacommons.cancer.gov/#/
       prod:  https://clinical.datacommons.cancer.gov/#/
-    memgraph:
-      # Override: MEMGRAPH_ENDPOINT_CTDC, MEMGRAPH_USERNAME_CTDC, MEMGRAPH_PASSWORD_CTDC
-      qa:
-        endpoint: bolt://crdc-c-nlbC3-PnIdn9bEEnH4-90d8fb37076e1f8b.elb.us-east-1.amazonaws.com:7687
-        username: admin
+    # memgraph:   # unused while expected_source is tsv
+    #   qa:
+    #     endpoint: bolt://crdc-c-nlbC3-PnIdn9bEEnH4-90d8fb37076e1f8b.elb.us-east-1.amazonaws.com:7687
+    #     username: admin
 
   ICDC:
     # Expected data = Cypher in input Excel, run against Neo4j (not Memgraph).

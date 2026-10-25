@@ -1,0 +1,8 @@
+# Converted from Katalon Object Repository/CTDC/Static/DataHarmonizationPage
+page: Static/DataHarmonizationPage
+elements:
+  BannerTitle: //span[contains(text(),'Data Harmonization')]
+  DataElementsLink: //a[@title='here']
+  DataHarmonizationDescription: //span[contains(text(),'Data Harmonization')]/following::div[1]
+  DataModelLink: //a[contains(text(),'Registry and Repository')]
+  GraphQLLink: //a[contains(@href,'data-standards')]

@@ -1,0 +1,6 @@
+# Converted from Katalon Object Repository/CTDC/Static/AboutContactPage
+page: Static/AboutContactPage
+elements:
+  BannerTitle: //span[text()='Support']
+  ContactDescription: //span[text()='Support']/following::div[1]
+  ContactLink: //a[@href='mailto:NCICRDC@mail.nih.gov']

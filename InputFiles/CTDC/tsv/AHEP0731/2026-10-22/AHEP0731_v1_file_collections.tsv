@@ -1,0 +1,2 @@
+type	study.study_short_name	data_file_uuid	data_file_name	data_file_type	data_file_format	data_file_description	data_file_size
+file	AHEP0731	dg.4DFC/collection-AHEP0731-radiology	NCTN_AHEP0731_Radiology_Images.zip	Radiology Imaging	zip	A zipped file of all the radiology imaging files for the AHEP0731 study	93705448960

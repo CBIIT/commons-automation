@@ -1,0 +1,1141 @@
+type	participant.participant_id	specimen_record_id	specimen_type	specimen_category	anatomical_collection_site	tissue_category	assessment_timepoint	collection_date	
+specimen	MSB-01068	MSB-01068-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-01068	MSB-01068-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-01068	MSB-01068-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Liver	Metastatic	Archival	-2	
+specimen	MSB-01068	MSB-01068-04	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Sigmoid Colon	Primary	Archival	-41	
+specimen	MSB-01068	MSB-01068-05	EDTA Blood	Blood	Blood		On Treatment (Fresh)	139	
+specimen	MSB-01068	MSB-01068-06	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	139	
+specimen	MSB-02291	MSB-02291-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-02291	MSB-02291-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-02291	MSB-02291-03	Streck Blood to PDMR	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-02291	MSB-02291-04	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Brain	Metastatic	Archival	-42	
+specimen	MSB-02291	MSB-02291-07	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	193	
+specimen	MSB-06720	MSB-06720-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-06720	MSB-06720-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-06720	MSB-06720-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Adrenal Gland	Metastatic	Archival	-49	
+specimen	MSB-06720	MSB-06720-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	49	
+specimen	MSB-06720	MSB-06720-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	49	
+specimen	MSB-06720	MSB-06720-06	EDTA Blood	Blood	Blood		On Treatment (Fresh)	189	
+specimen	MSB-06720	MSB-06720-07	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	189	
+specimen	MSB-04863	MSB-04863-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-04863	MSB-04863-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-04863	MSB-04863-04	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Skin	Metastatic	Archival	-631	
+specimen	MSB-04863	MSB-04863-05	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lymph Node	Metastatic	Archival	-29	
+specimen	MSB-04863	MSB-04863-06	EDTA Blood	Blood	Blood		On Treatment (Fresh)	133	
+specimen	MSB-04863	MSB-04863-07	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	133	
+specimen	MSB-04863	MSB-04863-08	EDTA Blood	Blood	Blood		On Treatment (Fresh)	217	
+specimen	MSB-04863	MSB-04863-09	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	217	
+specimen	MSB-04847	MSB-04847-02	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Colon	Primary	Archival	-536	
+specimen	MSB-04847	MSB-04847-03	EDTA Blood	Blood	Blood		On Treatment (Fresh)	1	
+specimen	MSB-04847	MSB-04847-04	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	1	
+specimen	MSB-09794	MSB-09794-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Left Lung	Primary	Archival	-563	
+specimen	MSB-09794	MSB-09794-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	41	
+specimen	MSB-09794	MSB-09794-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	41	
+specimen	MSB-09018	MSB-09018-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-09018	MSB-09018-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-09018	MSB-09018-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Flank	Primary	Archival	-42	
+specimen	MSB-09018	MSB-09018-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	481	
+specimen	MSB-09018	MSB-09018-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	481	
+specimen	MSB-06305	MSB-06305-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-06305	MSB-06305-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-06305	MSB-06305-04	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Iliac Crest		Archival	-21	
+specimen	MSB-06305	MSB-06305-05	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Bone Marrow		Archival	-157	
+specimen	MSB-06305	MSB-06305-06	EDTA Blood	Blood	Blood		On Treatment (Fresh)	95	
+specimen	MSB-06305	MSB-06305-07	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	95	
+specimen	MSB-06305	MSB-06305-10	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Metastatic	Progression (Fresh)	413	
+specimen	MSB-06305	MSB-06305-11	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Metastatic	Progression (Fresh)	413	
+specimen	MSB-06305	MSB-06305-12	EDTA Blood	Blood	Blood		Progression (Fresh)	413	
+specimen	MSB-06305	MSB-06305-13	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	413	
+specimen	MSB-01652	MSB-01652-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-01652	MSB-01652-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-01652	MSB-01652-04	Formalin Fixed Tissue	Formalin Fixed Tissue	Lymph Node	Metastatic	Baseline (Fresh)	1	
+specimen	MSB-01652	MSB-01652-09	Streck Blood to PDMR	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-01652	MSB-01652-08	Fresh Tissue in Media to PDMR	Fresh Tissue	Lymph Node	Metastatic	Baseline (Fresh)	1	
+specimen	MSB-01499	MSB-01499-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Bronchus	Primary	Archival	-846	
+specimen	MSB-01499	MSB-01499-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	64	
+specimen	MSB-01499	MSB-01499-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	64	
+specimen	MSB-09019	MSB-09019-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Colon	Primary	Archival	-552	
+specimen	MSB-09019	MSB-09019-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	22	
+specimen	MSB-09019	MSB-09019-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	22	
+specimen	MSB-09019	MSB-09019-04	EDTA Blood	Blood	Blood		Progression (Fresh)	189	
+specimen	MSB-09019	MSB-09019-05	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	189	
+specimen	MSB-01206	MSB-01206-01	Formalin Fixed Tissue	Formalin Fixed Tissue	Skin	Primary	Baseline (Fresh)	0	
+specimen	MSB-01206	MSB-01206-02	Formalin Fixed Tissue	Formalin Fixed Tissue	Skin	Adjacent Non-Tumor	Baseline (Fresh)	0	
+specimen	MSB-01206	MSB-01206-03	Formalin Fixed Tissue	Formalin Fixed Tissue	Skin	Primary	Baseline (Fresh)	0	
+specimen	MSB-01206	MSB-01206-04	EDTA Blood	Blood	Blood		Baseline (Fresh)	32	
+specimen	MSB-01206	MSB-01206-05	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	32	
+specimen	MSB-01206	MSB-01206-06	EDTA Blood	Blood	Blood		Progression (Fresh)	119	
+specimen	MSB-01206	MSB-01206-07	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	119	
+specimen	MSB-01206	MSB-01206-08	Formalin Fixed Tissue	Formalin Fixed Tissue	Lymph Node	Primary	Progression (Fresh)	150	
+specimen	MSB-01206	MSB-01206-09	Formalin Fixed Tissue	Formalin Fixed Tissue	Lymph Node	Primary	Progression (Fresh)	150	
+specimen	MSB-01206	MSB-01206-10	Formalin Fixed Tissue	Formalin Fixed Tissue	Lymph Node	Adjacent Non-Tumor	Progression (Fresh)	150	
+specimen	MSB-01206	MSB-01206-12	Snap Frozen Tissue	Frozen Tissue	Lymph Node	Primary	Progression (Fresh)	150	
+specimen	MSB-01206	MSB-01206-13	Snap Frozen Tissue	Frozen Tissue	Lymph Node	Primary	Progression (Fresh)	150	
+specimen	MSB-01206	MSB-01206-11	Fresh Tissue in Media to PDMR	Fresh Tissue	Lymph Node	Primary	Progression (Fresh)	150	
+specimen	MSB-01206	MSB-01206-14	Streck Blood to PDMR	Blood	Blood		Progression (Fresh)	150	
+specimen	MSB-02381	MSB-02381-02	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Left Lung	Metastatic	Archival	-370	
+specimen	MSB-02381	MSB-02381-03	EDTA Blood	Blood	Arm		On Treatment (Fresh)	1	
+specimen	MSB-02381	MSB-02381-04	Streck Blood to VARI	Blood	Arm		On Treatment (Fresh)	1	
+specimen	MSB-02381	MSB-02381-05	EDTA Blood	Blood	Blood		Progression (Fresh)	492	
+specimen	MSB-02381	MSB-02381-06	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	492	
+specimen	MSB-03725	MSB-03725-01	FORMALIN FIXED TISSUE	Formalin Fixed Tissue	Peritoneal Cavity	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-03725	MSB-03725-02	Snap Frozen Tissue	Frozen Tissue	Peritoneal Cavity	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-03725	MSB-03725-03	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-03725	MSB-03725-04	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-03725	MSB-03725-05	EDTA Blood	Blood	Blood		On Treatment (Fresh)	217	
+specimen	MSB-03725	MSB-03725-06	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	217	
+specimen	MSB-03725	MSB-03725-07	EDTA Blood	Blood	Blood		On Treatment (Fresh)	426	
+specimen	MSB-03725	MSB-03725-08	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	426	
+specimen	MSB-03032	MSB-03032-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Liver	Metastatic	Archival	-27	
+specimen	MSB-03032	MSB-03032-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	6	
+specimen	MSB-03032	MSB-03032-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	6	
+specimen	MSB-01459	MSB-01459-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Bronchus	Metastatic	Archival	-119	
+specimen	MSB-01459	MSB-01459-02	EDTA Blood	Blood	Blood		Progression (Fresh)	13	
+specimen	MSB-01459	MSB-01459-03	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	13	
+specimen	MSB-03808	MSB-03808-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Gastroesophageal Junction	Primary	Archival	-511	
+specimen	MSB-03808	MSB-03808-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	9	
+specimen	MSB-03808	MSB-03808-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	9	
+specimen	MSB-09027	MSB-09027-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Adrenal Gland	Metastatic	Archival	-334	
+specimen	MSB-08588	MSB-08588-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	12	
+specimen	MSB-08588	MSB-08588-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	12	
+specimen	MSB-08588	MSB-08588-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lung	Metastatic	Archival	-92	
+specimen	MSB-08588	MSB-08588-04	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lung	Metastatic	On Treatment (Fresh)	-12	
+specimen	MSB-08588	MSB-08588-05	EDTA Blood	Blood	Blood		Progression (Fresh)	342	
+specimen	MSB-08588	MSB-08588-06	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	342	
+specimen	MSB-07473	MSB-07473-01	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-07473	MSB-07473-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-07473	MSB-07473-03	Bone Marrow Aspirate	Bone Marrow	Bone Marrow	Primary	Baseline (Fresh)	0	
+specimen	MSB-07473	MSB-07473-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	77	
+specimen	MSB-07473	MSB-07473-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	77	
+specimen	MSB-01849	MSB-01849-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-01849	MSB-01849-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-01849	MSB-01849-03	Formalin Fixed Tissue	Formalin Fixed Tissue	Lymph Node	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-01849	MSB-01849-04	Formalin Fixed Tissue	Formalin Fixed Tissue	Lymph Node	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-01849	MSB-01849-05	Snap Frozen Tissue	Frozen Tissue	Lymph Node	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-01849	MSB-01849-06	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Foot	Primary	Archival	-42	
+specimen	MSB-09737	MSB-09737-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-09737	MSB-09737-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-09737	MSB-09737-03	Formalin Fixed Tissue	Formalin Fixed Tissue	Sigmoid Colon	Primary	Baseline (Fresh)	1	
+specimen	MSB-09737	MSB-09737-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	202	
+specimen	MSB-09737	MSB-09737-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	202	
+specimen	MSB-09737	MSB-09737-07	FORMALIN FIXED TISSUE	Formalin Fixed Tissue	Sigmoid Colon	Primary	On Treatment (Fresh)	202	
+specimen	MSB-09737	MSB-09737-08	FORMALIN FIXED TISSUE	Formalin Fixed Tissue	Sigmoid Colon	Adjacent Non-Tumor	On Treatment (Fresh)	202	
+specimen	MSB-05283	MSB-05283-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-05283	MSB-05283-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-05283	MSB-05283-03	EDTA Blood	Blood	Blood		On Treatment (Fresh)	140	
+specimen	MSB-05283	MSB-05283-04	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	140	
+specimen	MSB-05283	MSB-05283-05	EDTA Blood	Blood	Blood		Progression (Fresh)	215	
+specimen	MSB-05283	MSB-05283-06	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	215	
+specimen	MSB-09151	MSB-09151-01	Formalin Fixed Tissue	Formalin Fixed Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-09151	MSB-09151-02	Snap Frozen Tissue	Frozen Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-09151	MSB-09151-03	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-09151	MSB-09151-05	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-04831	MSB-04831-01	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Skin	Primary	Archival	-41	
+specimen	MSB-05412	MSB-05412-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-05412	MSB-05412-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-05412	MSB-05412-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Abdominal Wall	Primary	Archival	-15	
+specimen	MSB-00263	MSB-00263-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Skin	Primary	Baseline (Fresh)	0	
+specimen	MSB-00263	MSB-00263-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-00263	MSB-00263-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-00263	MSB-00263-04	Formalin Fixed Tissue	Formalin Fixed Tissue	Skin	Primary	Baseline (Fresh)	0	
+specimen	MSB-00263	MSB-00263-05	Snap Frozen Tissue	Frozen Tissue	Skin	Primary	Baseline (Fresh)	0	
+specimen	MSB-00263	MSB-00263-06	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Skin	Primary	Archival	-30	
+specimen	MSB-02286	MSB-02286-01	Bone Marrow Aspirate	Bone Marrow	Bone Marrow	Primary	Baseline (Fresh)	0	
+specimen	MSB-02286	MSB-02286-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-02286	MSB-02286-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-02286	MSB-02286-04	EDTA Blood	Blood	Blood		Progression (Fresh)	133	
+specimen	MSB-02286	MSB-02286-05	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	133	
+specimen	MSB-05508	MSB-05508-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Left Lung	Primary	Archival	-69	
+specimen	MSB-08170	MSB-08170-01	FORMALIN FIXED TISSUE	Formalin Fixed Tissue	Bone	Metastatic	Progression (Fresh)	0	
+specimen	MSB-08170	MSB-08170-02	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lung	Metastatic	Archival	-1905	
+specimen	MSB-08170	MSB-08170-03	Snap Frozen Tissue	Frozen Tissue	Bone	Metastatic	Progression (Fresh)	0	
+specimen	MSB-08170	MSB-08170-04	EDTA Blood	Blood	Blood		Progression (Fresh)	0	
+specimen	MSB-08170	MSB-08170-05	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	0	
+specimen	MSB-09286	MSB-09286-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-09286	MSB-09286-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-09495	MSB-09495-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-09495	MSB-09495-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-09495	MSB-09495-03	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Skin	Primary	Archival	-36	
+specimen	MSB-04030	MSB-04030-01	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Iliac Crest		Archival	-10	
+specimen	MSB-04030	MSB-04030-04	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Iliac Crest	Primary	Archival	-809	
+specimen	MSB-04030	MSB-04030-05	Stained Bone Marrow Aspirate Slide	Bone Marrow	Iliac Crest		Archival	-10	
+specimen	MSB-04030	MSB-04030-06	Stained Bone Marrow Aspirate Slide	Bone Marrow	Iliac Crest		Archival	-809	
+specimen	MSB-04030	MSB-04030-07	EDTA Blood	Blood	Blood		Baseline (Fresh)	23	
+specimen	MSB-04030	MSB-04030-08	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	23	
+specimen	MSB-04030	MSB-04030-09	EDTA Blood	Blood	Blood		On Treatment (Fresh)	128	
+specimen	MSB-04030	MSB-04030-10	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	128	
+specimen	MSB-04030	MSB-04030-11	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	On Treatment (Fresh)	128	
+specimen	MSB-04030	MSB-04030-12	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	On Treatment (Fresh)	128	
+specimen	MSB-04030	MSB-04030-13	EDTA Blood	Blood	Blood		Progression (Fresh)	700	
+specimen	MSB-04030	MSB-04030-14	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	700	
+specimen	MSB-04030	MSB-04030-15	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Iliac Crest	Primary	Progression (Fresh)	700	
+specimen	MSB-07612	MSB-07612-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-07612	MSB-07612-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-07612	MSB-07612-04	Snap Frozen Tissue	Frozen Tissue	Lymph Node	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-07612	MSB-07612-06	FORMALIN FIXED TISSUE	Formalin Fixed Tissue	Lymph Node	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-07612	MSB-07612-07	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Skin	Primary	Archival	-1714	
+specimen	MSB-07612	MSB-07612-08	EDTA Blood	Blood	Blood		Progression (Fresh)	108	
+specimen	MSB-07612	MSB-07612-09	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	108	
+specimen	MSB-07612	MSB-07612-02	Streck Blood to PDMR	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-07612	MSB-07612-05	Fresh Tissue in Media to PDMR	Fresh Tissue	Lymph Node	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-09977	MSB-09977-01	FORMALIN FIXED TISSUE	Formalin Fixed Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-09977	MSB-09977-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-09977	MSB-09977-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-09977	MSB-09977-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	92	
+specimen	MSB-09977	MSB-09977-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	92	
+specimen	MSB-00205	MSB-00205-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-00205	MSB-00205-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-00205	MSB-00205-03	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Shoulder	Primary	Archival	-66	
+specimen	MSB-07994	MSB-07994-01	Formalin Fixed Tissue	Formalin Fixed Tissue	Shoulder	Primary	Baseline (Fresh)	21	
+specimen	MSB-07994	MSB-07994-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	21	
+specimen	MSB-07994	MSB-07994-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	21	
+specimen	MSB-07994	MSB-07994-04	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Skin	Primary	Baseline (Fresh)	21	
+specimen	MSB-01262	MSB-01262-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	6	
+specimen	MSB-01262	MSB-01262-02	FORMALIN FIXED TISSUE	Formalin Fixed Tissue	Liver	Metastatic	Baseline (Fresh)	6	
+specimen	MSB-01262	MSB-01262-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	6	
+specimen	MSB-01262	MSB-01262-04	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Liver	Metastatic	Archival	-993	
+specimen	MSB-01262	MSB-01262-05	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Liver	Metastatic	Baseline (Fresh)	6	
+specimen	MSB-01262	MSB-01262-06	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	190	
+specimen	MSB-01262	MSB-01262-07	EDTA Blood	Blood	Blood		Progression (Fresh)	190	
+specimen	MSB-01262	MSB-01262-08	Formalin Fixed Tissue	Formalin Fixed Tissue	Liver	Metastatic	Progression (Fresh)	202	
+specimen	MSB-01262	MSB-01262-09	Formalin Fixed Tissue	Formalin Fixed Tissue	Liver	Metastatic	Progression (Fresh)	202	
+specimen	MSB-01262	MSB-01262-10	Formalin Fixed Tissue	Formalin Fixed Tissue	Liver	Metastatic	Progression (Fresh)	202	
+specimen	MSB-07483	MSB-07483-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lymph Node	Metastatic	Archival	-20	
+specimen	MSB-07483	MSB-07483-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-07483	MSB-07483-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-07483	MSB-07483-04	EDTA Blood	Blood	Blood		Progression (Fresh)	70	
+specimen	MSB-07483	MSB-07483-05	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	70	
+specimen	MSB-05837	MSB-05837-01	FORMALIN FIXED TISSUE	Formalin Fixed Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-05837	MSB-05837-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-05837	MSB-05837-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-05837	MSB-05837-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	90	
+specimen	MSB-05837	MSB-05837-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	90	
+specimen	MSB-05837	MSB-05837-06	EDTA Blood	Blood	Blood		Progression (Fresh)	167	
+specimen	MSB-05837	MSB-05837-07	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	167	
+specimen	MSB-07865	MSB-07865-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-07865	MSB-07865-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-07865	MSB-07865-03	Formalin Fixed Tissue	Formalin Fixed Tissue	Skin	Primary	Baseline (Fresh)	0	
+specimen	MSB-07865	MSB-07865-04	Snap Frozen Tissue	Frozen Tissue	Skin	Primary	Baseline (Fresh)	0	
+specimen	MSB-07865	MSB-07865-05	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Skin	Primary	Archival	-78	
+specimen	MSB-07865	MSB-07865-06	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Skin	Primary	Baseline (Fresh)	0	
+specimen	MSB-03053	MSB-03053-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-03053	MSB-03053-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-03053	MSB-03053-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Skin	Primary	Baseline (Fresh)	0	
+specimen	MSB-03053	MSB-03053-04	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Skin	Primary	Archival	-41	
+specimen	MSB-08267	MSB-08267-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-08267	MSB-08267-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-08267	MSB-08267-03	FORMALIN FIXED TISSUE	Formalin Fixed Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-08267	MSB-08267-04	Snap Frozen Tissue	Frozen Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-08267	MSB-08267-05	EDTA Blood	Blood	Blood		On Treatment (Fresh)	89	
+specimen	MSB-08267	MSB-08267-06	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	89	
+specimen	MSB-09117	MSB-09117-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-09117	MSB-09117-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-09117	MSB-09117-03	Formalin Fixed Tissue	Formalin Fixed Tissue	Lung	Primary	Baseline (Fresh)	0	
+specimen	MSB-09117	MSB-09117-04	EDTA Blood	Blood	Blood		Progression (Fresh)	78	
+specimen	MSB-09117	MSB-09117-05	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	78	
+specimen	MSB-03258	MSB-03258-01	FORMALIN FIXED TISSUE	Formalin Fixed Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-03258	MSB-03258-02	Snap Frozen Tissue	Frozen Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-03258	MSB-03258-03	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-03258	MSB-03258-04	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-03258	MSB-03258-05	EDTA Blood	Blood	Blood		On Treatment (Fresh)	302	
+specimen	MSB-03258	MSB-03258-06	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	302	
+specimen	MSB-03258	MSB-03258-07	EDTA Blood	Blood	Blood		Progression (Fresh)	315	
+specimen	MSB-03258	MSB-03258-08	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	315	
+specimen	MSB-03258	MSB-03258-09	Formalin Fixed Tissue	Formalin Fixed Tissue	Liver	Metastatic	Progression (Fresh)	315	
+specimen	MSB-03258	MSB-03258-10	Snap Frozen Tissue	Frozen Tissue	Liver	Metastatic	Progression (Fresh)	315	
+specimen	MSB-03258	MSB-03258-11	Formalin Fixed Tissue	Formalin Fixed Tissue	Liver	Adjacent Non-Tumor	Progression (Fresh)	315	
+specimen	MSB-03258	MSB-03258-12	Snap Frozen Tissue	Frozen Tissue	Liver	Adjacent Non-Tumor	Progression (Fresh)	315	
+specimen	MSB-06857	MSB-06857-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Stomach	Primary	Archival	-21	
+specimen	MSB-06857	MSB-06857-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-06857	MSB-06857-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-06857	MSB-06857-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	95	
+specimen	MSB-06857	MSB-06857-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	95	
+specimen	MSB-05040	MSB-05040-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Liver	Metastatic	Archival	-88	
+specimen	MSB-03973	MSB-03973-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Prostate Gland	Primary	Archival	-240	
+specimen	MSB-03973	MSB-03973-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	22	
+specimen	MSB-03973	MSB-03973-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	22	
+specimen	MSB-02917	MSB-02917-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Prostate Gland	Primary	Archival	-463	
+specimen	MSB-02917	MSB-02917-02	EDTA Blood	Blood	Blood		Progression (Fresh)	539	
+specimen	MSB-02917	MSB-02917-03	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	539	
+specimen	MSB-00952	MSB-00952-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Colon	Primary	Archival	-139	
+specimen	MSB-02118	MSB-02118-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lung	Primary	Archival	-1046	
+specimen	MSB-02118	MSB-02118-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-02118	MSB-02118-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-07436	MSB-07436-01	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	3	
+specimen	MSB-07436	MSB-07436-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	3	
+specimen	MSB-07436	MSB-07436-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Prostate Gland	Primary	Archival	-431	
+specimen	MSB-02249	MSB-02249-01	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Bone Marrow	Primary	Archival	47	
+specimen	MSB-02249	MSB-02249-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	56	
+specimen	MSB-02249	MSB-02249-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	56	
+specimen	MSB-02249	MSB-02249-04	Bone Marrow Aspirate	Bone Marrow	Bone Marrow	Metastatic	Progression (Fresh)	161	
+specimen	MSB-02249	MSB-02249-05	EDTA Blood	Blood	Blood		Progression (Fresh)	161	
+specimen	MSB-02249	MSB-02249-06	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	161	
+specimen	MSB-02249	MSB-02249-07	Formalin Fixed Tissue	Formalin Fixed Tissue	Bone	Metastatic	Progression (Fresh)	161	
+specimen	MSB-03244	MSB-03244-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-03244	MSB-03244-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-01103	MSB-01103-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-01103	MSB-01103-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-01103	MSB-01103-03	Bone Marrow Aspirate	Bone Marrow	Iliac Crest		Baseline (Fresh)	0	
+specimen	MSB-01103	MSB-01103-04	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	0	
+specimen	MSB-01103	MSB-01103-05	EDTA Blood	Blood	Blood		On Treatment (Fresh)	151	
+specimen	MSB-01103	MSB-01103-06	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	151	
+specimen	MSB-01103	MSB-01103-07	Bone Marrow Aspirate	Bone Marrow	Iliac Crest		On Treatment (Fresh)	151	
+specimen	MSB-01103	MSB-01103-08	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	On Treatment (Fresh)	151	
+specimen	MSB-01103	MSB-01103-09	EDTA Blood	Blood	Blood		Progression (Fresh)	522	
+specimen	MSB-01103	MSB-01103-10	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	522	
+specimen	MSB-08178	MSB-08178-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Prostate Gland	Primary	Archival	-1289	
+specimen	MSB-08178	MSB-08178-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	36	
+specimen	MSB-08178	MSB-08178-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	36	
+specimen	MSB-08922	MSB-08922-01	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	18	
+specimen	MSB-08922	MSB-08922-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	18	
+specimen	MSB-08922	MSB-08922-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Liver	Metastatic	Archival	-502	
+specimen	MSB-08922	MSB-08922-04	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Cerebellum	Metastatic	Archival	8	
+specimen	MSB-08922	MSB-08922-05	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Cerebellum	Adjacent Non-Tumor	Archival	8	
+specimen	MSB-06489	MSB-06489-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Liver	Metastatic	Archival	-61	
+specimen	MSB-06489	MSB-06489-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	12	
+specimen	MSB-06489	MSB-06489-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	12	
+specimen	MSB-04332	MSB-04332-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-04332	MSB-04332-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-07225	MSB-07225-01	FORMALIN FIXED TISSUE	Formalin Fixed Tissue	Liver	Primary	Baseline (Fresh)	0	
+specimen	MSB-07225	MSB-07225-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	22	
+specimen	MSB-07225	MSB-07225-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	22	
+specimen	MSB-07225	MSB-07225-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	113	
+specimen	MSB-07225	MSB-07225-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	113	
+specimen	MSB-07225	MSB-07225-06	EDTA Blood	Blood	Blood		Progression (Fresh)	225	
+specimen	MSB-07225	MSB-07225-07	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	225	
+specimen	MSB-05563	MSB-05563-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lymph Node	Metastatic	Archival	-696	
+specimen	MSB-05563	MSB-05563-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	4	
+specimen	MSB-05563	MSB-05563-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	4	
+specimen	MSB-07059	MSB-07059-01	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	8	
+specimen	MSB-07059	MSB-07059-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	8	
+specimen	MSB-07059	MSB-07059-03	FORMALIN FIXED TISSUE	Formalin Fixed Tissue	Lung	Metastatic	Baseline (Fresh)	8	
+specimen	MSB-07059	MSB-07059-04	EDTA Blood	Blood	Blood		Progression (Fresh)	147	
+specimen	MSB-07059	MSB-07059-05	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	147	
+specimen	MSB-07059	MSB-07059-06	Formalin Fixed Tissue	Formalin Fixed Tissue	Liver	Metastatic	Progression (Fresh)	147	
+specimen	MSB-06184	MSB-06184-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-06184	MSB-06184-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-06184	MSB-06184-04	FORMALIN FIXED TISSUE	Formalin Fixed Tissue	Liver	Metastatic	Baseline (Fresh)	1	
+specimen	MSB-06184	MSB-06184-06	Snap Frozen Tissue	Frozen Tissue	Liver	Metastatic	Baseline (Fresh)	1	
+specimen	MSB-06184	MSB-06184-07	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Prostate Gland	Primary	Archival	-91	
+specimen	MSB-06184	MSB-06184-02	Streck Blood to PDMR	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-06184	MSB-06184-05	Fresh Tissue in Media to PDMR	Fresh Tissue	Liver	Metastatic	Baseline (Fresh)	1	
+specimen	MSB-08536	MSB-08536-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Skin	Primary	Archival	-13	
+specimen	MSB-04950	MSB-04950-01	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	0	
+specimen	MSB-04950	MSB-04950-02	Bone Marrow Aspirate	Bone Marrow	Iliac Crest		Baseline (Fresh)	0	
+specimen	MSB-04950	MSB-04950-03	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-04950	MSB-04950-04	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-04950	MSB-04950-06	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Iliac Crest	Primary	Archival	-1080	
+specimen	MSB-04950	MSB-04950-07	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Iliac Crest	Primary	Archival	-1080	
+specimen	MSB-04950	MSB-04950-08	EDTA Blood	Blood	Blood		On Treatment (Fresh)	110	
+specimen	MSB-04950	MSB-04950-09	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	110	
+specimen	MSB-04950	MSB-04950-10	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Spinal Canal	Primary	Progression (Fresh)	202	
+specimen	MSB-09601	MSB-09601-01	FORMALIN FIXED TISSUE	Formalin Fixed Tissue	Periumbilical Region	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-09601	MSB-09601-02	Snap Frozen Tissue	Frozen Tissue	Periumbilical Region	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-09601	MSB-09601-03	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-09601	MSB-09601-04	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-05789	MSB-05789-01	Stained Bone Marrow Aspirate Slide	Bone Marrow	Bone Marrow	Metastatic	Archival	-447	
+specimen	MSB-02746	MSB-02746-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-02746	MSB-02746-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-07099	MSB-07099-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-07099	MSB-07099-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-07099	MSB-07099-03	FORMALIN FIXED TISSUE	Formalin Fixed Tissue	Hepatic Flexure	Metastatic	Baseline (Fresh)	1	
+specimen	MSB-07099	MSB-07099-04	Snap Frozen Tissue	Frozen Tissue	Hepatic Flexure	Metastatic	Baseline (Fresh)	1	
+specimen	MSB-07099	MSB-07099-05	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Ascending Colon	Primary	Archival	-295	
+specimen	MSB-09886	MSB-09886-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Colon	Primary	Archival	-161	
+specimen	MSB-01031	MSB-01031-05	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Colon	Primary	Archival	-237	
+specimen	MSB-04315	MSB-04315-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lung	Primary	Archival	-217	
+specimen	MSB-04315	MSB-04315-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-04315	MSB-04315-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-03272	MSB-03272-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	0	
+specimen	MSB-03272	MSB-03272-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	0	
+specimen	MSB-08142	MSB-08142-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-08142	MSB-08142-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-08142	MSB-08142-03	Formalin Fixed Tissue	Formalin Fixed Tissue	Axilla	Primary	Baseline (Fresh)	0	
+specimen	MSB-08142	MSB-08142-04	Snap Frozen Tissue	Frozen Tissue	Axilla	Primary	Baseline (Fresh)	0	
+specimen	MSB-03796	MSB-03796-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-03796	MSB-03796-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-09774	MSB-09774-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-09774	MSB-09774-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-01363	MSB-01363-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-01363	MSB-01363-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-03400	MSB-03400-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	13	
+specimen	MSB-03400	MSB-03400-02	Formalin Fixed Tissue	Formalin Fixed Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-03400	MSB-03400-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	13	
+specimen	MSB-06735	MSB-06735-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Gallbladder	Metastatic	Archival	-27	
+specimen	MSB-06735	MSB-06735-02	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Brain	Metastatic	Archival	-163	
+specimen	MSB-06735	MSB-06735-03	EDTA Blood	Blood	Blood		On Treatment (Fresh)	181	
+specimen	MSB-06735	MSB-06735-04	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	181	
+specimen	MSB-06236	MSB-06236-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-06236	MSB-06236-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-06236	MSB-06236-03	Snap Frozen Tissue	Frozen Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-06236	MSB-06236-04	Formalin Fixed Tissue	Formalin Fixed Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-06236	MSB-06236-05	EDTA Blood	Blood	Blood		On Treatment (Fresh)	200	
+specimen	MSB-06236	MSB-06236-06	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	200	
+specimen	MSB-05562	MSB-05562-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-05562	MSB-05562-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-05562	MSB-05562-03	Bone Marrow Aspirate	Bone Marrow	Bone Marrow	Primary	Baseline (Fresh)	0	
+specimen	MSB-05562	MSB-05562-04	Formalin Bone Marrow Biopsy	Bone Marrow	Bone Marrow	Primary	Baseline (Fresh)	0	
+specimen	MSB-05562	MSB-05562-05	EDTA Blood	Blood	Blood		On Treatment (Fresh)	174	
+specimen	MSB-05562	MSB-05562-06	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	174	
+specimen	MSB-01649	MSB-01649-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lung	Primary	Archival	-133	
+specimen	MSB-01649	MSB-01649-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	50	
+specimen	MSB-01649	MSB-01649-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	50	
+specimen	MSB-04153	MSB-04153-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Colon	Primary	Archival	-124	
+specimen	MSB-06226	MSB-06226-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lung	Metastatic	Archival	-35	
+specimen	MSB-06226	MSB-06226-02	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lung	Metastatic	Archival	-35	
+specimen	MSB-01413	MSB-01413-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lymph Node	Metastatic	Archival	-102	
+specimen	MSB-01413	MSB-01413-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	22	
+specimen	MSB-01413	MSB-01413-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	22	
+specimen	MSB-01413	MSB-01413-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	81	
+specimen	MSB-01413	MSB-01413-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	81	
+specimen	MSB-03548	MSB-03548-01	Formalin Fixed Tissue	Formalin Fixed Tissue	Skin	Metastatic	Baseline (Fresh)	-1	
+specimen	MSB-03548	MSB-03548-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	-1	
+specimen	MSB-03548	MSB-03548-03	EDTA Blood	Blood	Blood		Baseline (Fresh)	-1	
+specimen	MSB-00939	MSB-00939-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-00939	MSB-00939-02	Formalin Fixed Tissue	Formalin Fixed Tissue	Lymph Node	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-00939	MSB-00939-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-00939	MSB-00939-04	EDTA Blood	Blood	Blood		Progression (Fresh)	224	
+specimen	MSB-00939	MSB-00939-05	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	224	
+specimen	MSB-04432	MSB-04432-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-04432	MSB-04432-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-04432	MSB-04432-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Skin	Primary	Archival	7	
+specimen	MSB-01627	MSB-01627-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lymph Node	Metastatic	Archival	-82	
+specimen	MSB-01627	MSB-01627-02	Streck Blood to VARI	Blood	Vein		On Treatment (Fresh)	14	
+specimen	MSB-01627	MSB-01627-03	EDTA Blood	Blood	Vein		On Treatment (Fresh)	14	
+specimen	MSB-01627	MSB-01627-06	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	183	
+specimen	MSB-01627	MSB-01627-07	EDTA Blood	Blood	Blood		Progression (Fresh)	183	
+specimen	MSB-01627	MSB-01627-08	Formalin Fixed Tissue	Formalin Fixed Tissue	Lymph Node	Metastatic	Progression (Fresh)	183	
+specimen	MSB-01627	MSB-01627-09	Snap Frozen Tissue	Frozen Tissue	Lymph Node	Metastatic	Progression (Fresh)	183	
+specimen	MSB-03226	MSB-03226-01	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Iliac Crest		Archival	-1385	
+specimen	MSB-03226	MSB-03226-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	5	
+specimen	MSB-03226	MSB-03226-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	5	
+specimen	MSB-03226	MSB-03226-04	Bone Marrow Aspirate	Bone Marrow	Iliac Crest		Baseline (Fresh)	5	
+specimen	MSB-03226	MSB-03226-05	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest		Baseline (Fresh)	5	
+specimen	MSB-03226	MSB-03226-06	EDTA Blood	Blood	Blood		On Treatment (Fresh)	135	
+specimen	MSB-03226	MSB-03226-07	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	135	
+specimen	MSB-03226	MSB-03226-08	Bone Marrow Aspirate	Bone Marrow	Iliac Crest		On Treatment (Fresh)	135	
+specimen	MSB-03226	MSB-03226-09	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	On Treatment (Fresh)	135	
+specimen	MSB-06029	MSB-06029-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-06029	MSB-06029-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-06029	MSB-06029-03	Formalin Fixed Tissue	Formalin Fixed Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-06029	MSB-06029-04	Snap Frozen Tissue	Frozen Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-06029	MSB-06029-05	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Bladder	Metastatic	Archival	-145	
+specimen	MSB-05206	MSB-05206-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-05206	MSB-05206-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-05206	MSB-05206-03	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Bone Marrow	Primary	Archival	-16	
+specimen	MSB-05206	MSB-05206-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	87	
+specimen	MSB-05206	MSB-05206-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	87	
+specimen	MSB-00352	MSB-00352-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-00352	MSB-00352-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-00352	MSB-00352-03	Formalin Fixed Tissue	Formalin Fixed Tissue	Liver	Primary	Baseline (Fresh)	0	
+specimen	MSB-00352	MSB-00352-04	Snap Frozen Tissue	Frozen Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-00352	MSB-00352-05	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Sigmoid Colon	Primary	Archival	-293	
+specimen	MSB-06426	MSB-06426-01	Formalin Fixed Tissue	Formalin Fixed Tissue	Abdominal Region	Metastatic	Baseline (Fresh)	22	
+specimen	MSB-06426	MSB-06426-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	22	
+specimen	MSB-06426	MSB-06426-03	EDTA Blood	Blood	Blood		Baseline (Fresh)	22	
+specimen	MSB-05281	MSB-05281-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Liver	Metastatic	Archival	-63	
+specimen	MSB-05281	MSB-05281-03	EDTA Blood	Blood	Blood		On Treatment (Fresh)	42	
+specimen	MSB-05281	MSB-05281-04	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	42	
+specimen	MSB-01617	MSB-01617-01	Formalin Fixed Tissue	Formalin Fixed Tissue	Lung	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-01617	MSB-01617-02	EDTA Blood	Blood	Unknown		Baseline (Fresh)	0	
+specimen	MSB-01617	MSB-01617-03	Streck Blood to VARI	Blood	Unknown		Baseline (Fresh)	0	
+specimen	MSB-01617	MSB-01617-04	Snap Frozen Tissue	Frozen Tissue	Lung	Primary	Baseline (Fresh)	0	
+specimen	MSB-01617	MSB-01617-05	Streck Blood to PDMR	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-09991	MSB-09991-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lung	Metastatic	Archival	-29	
+specimen	MSB-09991	MSB-09991-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-09991	MSB-09991-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-09991	MSB-09991-04	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	133	
+specimen	MSB-09991	MSB-09991-05	EDTA Blood	Blood	Blood		On Treatment (Fresh)	133	
+specimen	MSB-09991	MSB-09991-06	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	165	
+specimen	MSB-09991	MSB-09991-07	EDTA Blood	Blood	Blood		Progression (Fresh)	165	
+specimen	MSB-09991	MSB-09991-08	Formalin Fixed Tissue	Formalin Fixed Tissue	Lung	Metastatic	Progression (Fresh)	165	
+specimen	MSB-09991	MSB-09991-09	Snap Frozen Tissue	Frozen Tissue	Lung	Metastatic	Progression (Fresh)	165	
+specimen	MSB-07848	MSB-07848-01	Formalin Fixed Tissue	Formalin Fixed Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-07848	MSB-07848-03	Snap Frozen Tissue	Frozen Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-07848	MSB-07848-04	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-07848	MSB-07848-06	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-07848	MSB-07848-07	Formalin Fixed Tissue	Formalin Fixed Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-07848	MSB-07848-02	Fresh Tissue in Media to PDMR	Fresh Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-07848	MSB-07848-05	Streck Blood to PDMR	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-04031	MSB-04031-01	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	1	
+specimen	MSB-04031	MSB-04031-02	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	1	
+specimen	MSB-04031	MSB-04031-03	EDTA Blood	Blood	Blood		Baseline (Fresh)	33	
+specimen	MSB-04031	MSB-04031-04	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	33	
+specimen	MSB-03932	MSB-03932-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	0	
+specimen	MSB-03932	MSB-03932-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	0	
+specimen	MSB-03932	MSB-03932-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Brain	Metastatic	Archival	-74	
+specimen	MSB-05387	MSB-05387-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lung	Primary	Baseline (Fresh)	-308	
+specimen	MSB-05387	MSB-05387-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	56	
+specimen	MSB-05387	MSB-05387-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	56	
+specimen	MSB-03406	MSB-03406-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	2	
+specimen	MSB-03406	MSB-03406-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	2	
+specimen	MSB-03406	MSB-03406-03	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Bone Marrow	Primary	Archival	-228	
+specimen	MSB-03406	MSB-03406-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	79	
+specimen	MSB-03406	MSB-03406-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	79	
+specimen	MSB-08045	MSB-08045-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-08045	MSB-08045-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-08045	MSB-08045-03	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Colon	Primary	Archival	-167	
+specimen	MSB-08045	MSB-08045-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	83	
+specimen	MSB-08045	MSB-08045-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	83	
+specimen	MSB-01723	MSB-01723-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-01723	MSB-01723-03	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	0	
+specimen	MSB-01723	MSB-01723-04	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	0	
+specimen	MSB-01723	MSB-01723-05	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-01723	MSB-01723-06	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-01723	MSB-01723-07	EDTA Blood	Blood	Blood		On Treatment (Fresh)	15	
+specimen	MSB-01723	MSB-01723-08	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	15	
+specimen	MSB-01723	MSB-01723-09	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	On Treatment (Fresh)	15	
+specimen	MSB-01723	MSB-01723-10	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	On Treatment (Fresh)	15	
+specimen	MSB-02271	MSB-02271-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Axilla	Primary	Archival	0	
+specimen	MSB-02271	MSB-02271-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-02271	MSB-02271-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-02271	MSB-02271-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	168	
+specimen	MSB-02271	MSB-02271-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	168	
+specimen	MSB-09619	MSB-09619-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-09619	MSB-09619-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-09619	MSB-09619-03	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Liver	Metastatic	Archival	-6	
+specimen	MSB-08093	MSB-08093-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-08093	MSB-08093-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-08093	MSB-08093-03	Bone Marrow Aspirate	Bone Marrow	Bone Marrow	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-08093	MSB-08093-04	Formalin Bone Marrow Biopsy	Bone Marrow	Bone Marrow	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-03315	MSB-03315-01	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest		Baseline (Fresh)	0	
+specimen	MSB-03315	MSB-03315-02	Bone Marrow Aspirate	Bone Marrow	Iliac Crest		Baseline (Fresh)	0	
+specimen	MSB-03315	MSB-03315-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-03315	MSB-03315-04	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-03315	MSB-03315-05	EDTA Blood	Blood	Blood		On Treatment (Fresh)	195	
+specimen	MSB-03315	MSB-03315-06	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	195	
+specimen	MSB-03315	MSB-03315-07	EDTA Blood	Blood	Blood		Progression (Fresh)	314	
+specimen	MSB-03315	MSB-03315-08	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	314	
+specimen	MSB-01224	MSB-01224-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-01224	MSB-01224-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-01224	MSB-01224-03	Bone Marrow Aspirate	Bone Marrow	Iliac Crest		Baseline (Fresh)	1	
+specimen	MSB-01224	MSB-01224-04	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest		Baseline (Fresh)	1	
+specimen	MSB-01224	MSB-01224-05	EDTA Blood	Blood	Blood		On Treatment (Fresh)	155	
+specimen	MSB-01224	MSB-01224-06	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	155	
+specimen	MSB-01224	MSB-01224-07	EDTA Blood	Blood	Blood		Progression (Fresh)	554	
+specimen	MSB-01224	MSB-01224-08	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	554	
+specimen	MSB-05742	MSB-05742-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-05742	MSB-05742-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-05742	MSB-05742-03	Bone Marrow Aspirate	Bone Marrow	Iliac Crest		Baseline (Fresh)	0	
+specimen	MSB-05742	MSB-05742-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	165	
+specimen	MSB-05742	MSB-05742-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	165	
+specimen	MSB-08631	MSB-08631-01	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	2	
+specimen	MSB-08631	MSB-08631-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	2	
+specimen	MSB-08631	MSB-08631-03	Formalin Fixed Tissue	Formalin Fixed Tissue	Sigmoid Colon	Primary	Baseline (Fresh)	2	
+specimen	MSB-08631	MSB-08631-04	Formalin Fixed Tissue	Formalin Fixed Tissue	Sigmoid Colon	Adjacent Non-Tumor	Baseline (Fresh)	2	
+specimen	MSB-08631	MSB-08631-05	Snap Frozen Tissue	Frozen Tissue	Sigmoid Colon	Primary	Baseline (Fresh)	2	
+specimen	MSB-03885	MSB-03885-01	Bone Marrow Aspirate	Bone Marrow	Bone Marrow	Primary	Archival	-601	
+specimen	MSB-03885	MSB-03885-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	1	
+specimen	MSB-03885	MSB-03885-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	1	
+specimen	MSB-00556	MSB-00556-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-00556	MSB-00556-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-00556	MSB-00556-04	Formalin Fixed Tissue	Formalin Fixed Tissue	Brain	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-00556	MSB-00556-05	Snap Frozen Tissue	Frozen Tissue	Brain	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-05975	MSB-05975-01	Formalin Fixed Tissue	Formalin Fixed Tissue	Abdominal Wall	Metastatic	Baseline (Fresh)	4	
+specimen	MSB-05975	MSB-05975-02	Snap Frozen Tissue	Frozen Tissue	Abdominal Wall	Metastatic	Baseline (Fresh)	4	
+specimen	MSB-05975	MSB-05975-03	EDTA Blood	Blood	Blood		Baseline (Fresh)	4	
+specimen	MSB-05975	MSB-05975-04	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	4	
+specimen	MSB-05975	MSB-05975-05	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Lymph Node	Metastatic	Archival	-618	
+specimen	MSB-05975	MSB-05975-06	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Lymph Node	Metastatic	Archival	-666	
+specimen	MSB-05975	MSB-05975-07	EDTA Blood	Blood	Blood		On Treatment (Fresh)	203	
+specimen	MSB-05975	MSB-05975-08	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	203	
+specimen	MSB-03453	MSB-03453-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Iliac Crest	Primary	Archival	-1069	
+specimen	MSB-03453	MSB-03453-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	9	
+specimen	MSB-03453	MSB-03453-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	9	
+specimen	MSB-03453	MSB-03453-04	Bone Marrow Aspirate	Bone Marrow	Iliac Crest		Baseline (Fresh)	9	
+specimen	MSB-03453	MSB-03453-05	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest		Baseline (Fresh)	9	
+specimen	MSB-03453	MSB-03453-06	EDTA Blood	Blood	Blood		Progression (Fresh)	100	
+specimen	MSB-03453	MSB-03453-07	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	100	
+specimen	MSB-03453	MSB-03453-08	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Humerus	Metastatic	Progression (Fresh)	171	
+specimen	MSB-03453	MSB-03453-09	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Humerus	Metastatic	Progression (Fresh)	245	
+specimen	MSB-00643	MSB-00643-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-00643	MSB-00643-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-00643	MSB-00643-03	Formalin Fixed Tissue	Formalin Fixed Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-00643	MSB-00643-04	Snap Frozen Tissue	Frozen Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-02472	MSB-02472-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	0	
+specimen	MSB-02472	MSB-02472-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	0	
+specimen	MSB-02472	MSB-02472-03	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Spinal Cord	Primary	Archival	-108	
+specimen	MSB-05737	MSB-05737-01	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-05737	MSB-05737-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-05737	MSB-05737-03	Formalin Bone Marrow Biopsy	Bone Marrow	Bone Marrow		Baseline (Fresh)	0	
+specimen	MSB-01771	MSB-01771-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Sigmoid Colon	Primary	Archival	-195	
+specimen	MSB-01771	MSB-01771-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	13	
+specimen	MSB-01771	MSB-01771-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	13	
+specimen	MSB-01771	MSB-01771-05	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	85	
+specimen	MSB-01771	MSB-01771-06	EDTA Blood	Blood	Blood		Progression (Fresh)	85	
+specimen	MSB-01771	MSB-01771-07	EDTA Blood	Blood	Blood		Progression (Fresh)	132	
+specimen	MSB-01771	MSB-01771-08	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	132	
+specimen	MSB-01771	MSB-01771-09	Formalin Fixed Tissue	Formalin Fixed Tissue	Left Lobe of the Liver	Metastatic	Progression (Fresh)	132	
+specimen	MSB-01771	MSB-01771-10	Snap Frozen Tissue	Frozen Tissue	Left Lobe of the Liver	Metastatic	Progression (Fresh)	132	
+specimen	MSB-06699	MSB-06699-01	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	0	
+specimen	MSB-06699	MSB-06699-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	237	
+specimen	MSB-06699	MSB-06699-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	237	
+specimen	MSB-06699	MSB-06699-04	Bone Marrow Aspirate	Bone Marrow	Bone Marrow	Primary	On Treatment (Fresh)	285	
+specimen	MSB-06699	MSB-06699-05	EDTA Blood	Blood	Blood		On Treatment (Fresh)	348	
+specimen	MSB-06699	MSB-06699-06	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	348	
+specimen	MSB-05746	MSB-05746-02	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Pleural Cavity	Metastatic	Archival	-60	
+specimen	MSB-07917	MSB-07917-01	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Iliac Crest		Archival	-995	
+specimen	MSB-07917	MSB-07917-02	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Iliac Crest	Primary	Archival	-995	
+specimen	MSB-07917	MSB-07917-03	EDTA Blood	Blood	Blood		On Treatment (Fresh)	20	
+specimen	MSB-07917	MSB-07917-04	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	20	
+specimen	MSB-07917	MSB-07917-07	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Femur	Primary	Archival	-392	
+specimen	MSB-05388	MSB-05388-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lymph Node	Metastatic	Archival	-1120	
+specimen	MSB-05388	MSB-05388-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	15	
+specimen	MSB-05388	MSB-05388-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	15	
+specimen	MSB-09348	MSB-09348-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	11	
+specimen	MSB-09348	MSB-09348-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	11	
+specimen	MSB-09348	MSB-09348-04	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Blood	Primary	Archival	-27	
+specimen	MSB-03069	MSB-03069-01	Formalin Bone Marrow Biopsy	Bone Marrow	Bone Marrow	Primary	Archival	-533	
+specimen	MSB-03069	MSB-03069-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	14	
+specimen	MSB-03069	MSB-03069-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	14	
+specimen	MSB-07715	MSB-07715-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	12	
+specimen	MSB-07715	MSB-07715-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	12	
+specimen	MSB-07715	MSB-07715-03	Bone Marrow Aspirate	Bone Marrow	Iliac Crest		Baseline (Fresh)	12	
+specimen	MSB-07715	MSB-07715-04	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest		Baseline (Fresh)	12	
+specimen	MSB-07715	MSB-07715-05	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Iliac Crest	Primary	Archival	-400	
+specimen	MSB-07715	MSB-07715-06	EDTA Blood	Blood	Blood		On Treatment (Fresh)	326	
+specimen	MSB-07715	MSB-07715-07	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	326	
+specimen	MSB-02429	MSB-02429-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-02429	MSB-02429-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-02429	MSB-02429-03	Bone Marrow Aspirate	Bone Marrow	Iliac Crest		Baseline (Fresh)	0	
+specimen	MSB-02429	MSB-02429-04	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest		Baseline (Fresh)	0	
+specimen	MSB-02429	MSB-02429-05	EDTA Blood	Blood	Blood		On Treatment (Fresh)	192	
+specimen	MSB-02429	MSB-02429-06	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	192	
+specimen	MSB-04141	MSB-04141-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Liver	Metastatic	Archival	-120	
+specimen	MSB-04141	MSB-04141-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	0	
+specimen	MSB-04141	MSB-04141-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	0	
+specimen	MSB-04141	MSB-04141-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	70	
+specimen	MSB-04141	MSB-04141-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	70	
+specimen	MSB-04141	MSB-04141-06	EDTA Blood	Blood	Blood		On Treatment (Fresh)	201	
+specimen	MSB-04141	MSB-04141-07	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	201	
+specimen	MSB-04141	MSB-04141-08	EDTA Blood	Blood	Blood		On Treatment (Fresh)	425	
+specimen	MSB-04141	MSB-04141-09	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	425	
+specimen	MSB-08799	MSB-08799-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	0	
+specimen	MSB-08799	MSB-08799-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	0	
+specimen	MSB-08799	MSB-08799-03	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	On Treatment (Fresh)	0	
+specimen	MSB-08799	MSB-08799-04	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	On Treatment (Fresh)	0	
+specimen	MSB-08799	MSB-08799-05	EDTA Blood	Blood	Blood		On Treatment (Fresh)	274	
+specimen	MSB-08799	MSB-08799-06	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	274	
+specimen	MSB-00241	MSB-00241-01	Formalin Fixed Tissue	Formalin Fixed Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-00241	MSB-00241-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-00241	MSB-00241-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-05126	MSB-05126-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	13	
+specimen	MSB-05126	MSB-05126-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	13	
+specimen	MSB-05126	MSB-05126-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Iliac Crest	Primary	Archival	-281	
+specimen	MSB-00140	MSB-00140-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	7	
+specimen	MSB-00140	MSB-00140-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	7	
+specimen	MSB-00140	MSB-00140-03	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Iliac Crest	Primary	Archival	-46	
+specimen	MSB-00140	MSB-00140-04	EDTA Blood	Blood	Blood		Progression (Fresh)	102	
+specimen	MSB-00140	MSB-00140-05	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	102	
+specimen	MSB-00140	MSB-00140-06	Bone Marrow Aspirate	Bone Marrow	Iliac Crest		Progression (Fresh)	102	
+specimen	MSB-00140	MSB-00140-07	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest		Progression (Fresh)	102	
+specimen	MSB-07278	MSB-07278-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Pleural Cavity	Metastatic	Archival	-98	
+specimen	MSB-07278	MSB-07278-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	14	
+specimen	MSB-07278	MSB-07278-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	14	
+specimen	MSB-00520	MSB-00520-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	21	
+specimen	MSB-00520	MSB-00520-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	21	
+specimen	MSB-00520	MSB-00520-03	Formalin Fixed Tissue	Formalin Fixed Tissue	Foot	Primary	Archival	-83	
+specimen	MSB-01049	MSB-01049-01	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Iliac Crest	Primary	Archival	-117	
+specimen	MSB-01049	MSB-01049-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	27	
+specimen	MSB-01049	MSB-01049-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	27	
+specimen	MSB-07270	MSB-07270-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Left Lung	Metastatic	Archival	-439	
+specimen	MSB-07270	MSB-07270-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	21	
+specimen	MSB-07270	MSB-07270-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	21	
+specimen	MSB-04437	MSB-04437-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-04437	MSB-04437-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-04437	MSB-04437-04	Snap Frozen Tissue	Frozen Tissue	Liver	Metastatic	Baseline (Fresh)	1	
+specimen	MSB-04437	MSB-04437-05	Formalin Fixed Tissue	Formalin Fixed Tissue	Liver	Metastatic	Baseline (Fresh)	1	
+specimen	MSB-04437	MSB-04437-07	EDTA Blood	Blood	Blood		On Treatment (Fresh)	20	
+specimen	MSB-04437	MSB-04437-08	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	20	
+specimen	MSB-04437	MSB-04437-01	Streck Blood to PDMR	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-04437	MSB-04437-06	Fresh Tissue in Media to PDMR	Fresh Tissue	Liver	Primary	Baseline (Fresh)	1	
+specimen	MSB-02302	MSB-02302-01	Formalin Fixed Tissue	Formalin Fixed Tissue	Lymph Node	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-02302	MSB-02302-02	Formalin Fixed Tissue	Formalin Fixed Tissue	Lymph Node	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-02302	MSB-02302-03	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-02302	MSB-02302-04	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-07839	MSB-07839-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Iliac Crest	Primary	Archival	-6	
+specimen	MSB-07839	MSB-07839-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	9	
+specimen	MSB-07839	MSB-07839-03	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	9	
+specimen	MSB-07839	MSB-07839-04	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	9	
+specimen	MSB-07839	MSB-07839-05	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	9	
+specimen	MSB-07839	MSB-07839-06	EDTA Blood	Blood	Blood		On Treatment (Fresh)	35	
+specimen	MSB-07839	MSB-07839-07	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	35	
+specimen	MSB-07839	MSB-07839-08	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	On Treatment (Fresh)	35	
+specimen	MSB-07839	MSB-07839-09	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	On Treatment (Fresh)	35	
+specimen	MSB-07839	MSB-07839-10	EDTA Blood	Blood	Blood		Post-Treatment (No progression)	378	
+specimen	MSB-07839	MSB-07839-11	Streck Blood to VARI	Blood	Blood		Post-Treatment (No progression)	378	
+specimen	MSB-03330	MSB-03330-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	10	
+specimen	MSB-03330	MSB-03330-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	10	
+specimen	MSB-03330	MSB-03330-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lung	Primary	Archival	-13	
+specimen	MSB-07709	MSB-07709-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	3	
+specimen	MSB-07709	MSB-07709-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	3	
+specimen	MSB-07709	MSB-07709-03	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Iliac Crest	Primary	Archival	-147	
+specimen	MSB-09491	MSB-09491-01	Bone Marrow Aspirate	Bone Marrow	Bone Marrow		On Treatment (Fresh)	0	
+specimen	MSB-09491	MSB-09491-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	28	
+specimen	MSB-09491	MSB-09491-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	28	
+specimen	MSB-09491	MSB-09491-04	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Bone Marrow		Archival	-1001	
+specimen	MSB-05435	MSB-05435-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Iliac Crest	Primary	Archival	-1088	
+specimen	MSB-05435	MSB-05435-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	41	
+specimen	MSB-05435	MSB-05435-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	41	
+specimen	MSB-06894	MSB-06894-01	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Liver	Metastatic	Archival	-604	
+specimen	MSB-06894	MSB-06894-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	19	
+specimen	MSB-06894	MSB-06894-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	19	
+specimen	MSB-07945	MSB-07945-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Left Lung	Primary	Archival	-392	
+specimen	MSB-07656	MSB-07656-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-07656	MSB-07656-02	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	1	
+specimen	MSB-07656	MSB-07656-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-07656	MSB-07656-04	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	1	
+specimen	MSB-07656	MSB-07656-05	EDTA Blood	Blood	Blood		On Treatment (Fresh)	15	
+specimen	MSB-07656	MSB-07656-06	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	15	
+specimen	MSB-07656	MSB-07656-07	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	On Treatment (Fresh)	15	
+specimen	MSB-07656	MSB-07656-08	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	On Treatment (Fresh)	15	
+specimen	MSB-07656	MSB-07656-09	EDTA Blood	Blood	Blood		Post-Treatment (No progression)	42	
+specimen	MSB-07656	MSB-07656-10	Streck Blood to VARI	Blood	Blood		Post-Treatment (No progression)	42	
+specimen	MSB-07656	MSB-07656-11	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	Post-Treatment (No progression)	42	
+specimen	MSB-07656	MSB-07656-12	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	Post-Treatment (No progression)	42	
+specimen	MSB-07656	MSB-07656-13	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Iliac Crest	Primary	Progression (Fresh)	113	
+specimen	MSB-07656	MSB-07656-14	EDTA Blood	Blood	Blood		Progression (Fresh)	127	
+specimen	MSB-07656	MSB-07656-15	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	127	
+specimen	MSB-07435	MSB-07435-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-07435	MSB-07435-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-07435	MSB-07435-04	Formalin Fixed Tissue	Formalin Fixed Tissue	Blood	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-07435	MSB-07435-05	Formalin Fixed Tissue	Formalin Fixed Tissue	Blood	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-07435	MSB-07435-07	Snap Frozen Tissue	Frozen Tissue	Blood	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-07435	MSB-07435-08	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lymph Node	Metastatic	Archival	-2345	
+specimen	MSB-07435	MSB-07435-02	Streck Blood to PDMR	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-07435	MSB-07435-06	Fresh Tissue in Media to PDMR	Fresh Tissue	Blood	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-02661	MSB-02661-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lymph Node	Metastatic	Archival	-1099	
+specimen	MSB-02661	MSB-02661-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	26	
+specimen	MSB-02661	MSB-02661-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	26	
+specimen	MSB-04286	MSB-04286-01	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Lung	Primary	Archival	-166	
+specimen	MSB-04286	MSB-04286-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	21	
+specimen	MSB-04286	MSB-04286-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	21	
+specimen	MSB-02169	MSB-02169-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Ovary	Metastatic	Archival	-280	
+specimen	MSB-02169	MSB-02169-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	6	
+specimen	MSB-02169	MSB-02169-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	6	
+specimen	MSB-08354	MSB-08354-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lymph Node	Metastatic	Archival	-280	
+specimen	MSB-08354	MSB-08354-04	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Lymph Node	Metastatic	Archival	-280	
+specimen	MSB-04433	MSB-04433-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-04433	MSB-04433-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-04433	MSB-04433-03	Snap Frozen Tissue	Frozen Tissue	Lymph Node	Metastatic	Baseline (Fresh)	1	
+specimen	MSB-04433	MSB-04433-04	Formalin Fixed Tissue	Formalin Fixed Tissue	Lymph Node	Metastatic	Baseline (Fresh)	1	
+specimen	MSB-04433	MSB-04433-05	EDTA Blood	Blood	Blood		On Treatment (Fresh)	294	
+specimen	MSB-04433	MSB-04433-06	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	294	
+specimen	MSB-01597	MSB-01597-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	2	
+specimen	MSB-01597	MSB-01597-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	2	
+specimen	MSB-01597	MSB-01597-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lymph Node	Metastatic	Archival	-47	
+specimen	MSB-01597	MSB-01597-04	EDTA Blood	Blood	Blood		Progression (Fresh)	174	
+specimen	MSB-01597	MSB-01597-05	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	174	
+specimen	MSB-08544	MSB-08544-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-08544	MSB-08544-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-08544	MSB-08544-04	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Skin	Primary	Archival	-52	
+specimen	MSB-07272	MSB-07272-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	28	
+specimen	MSB-07272	MSB-07272-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	28	
+specimen	MSB-07272	MSB-07272-03	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Lung	Primary	Archival	-183	
+specimen	MSB-06403	MSB-06403-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	1	
+specimen	MSB-06403	MSB-06403-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	1	
+specimen	MSB-06403	MSB-06403-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lymph Node	Metastatic	Archival	-274	
+specimen	MSB-06682	MSB-06682-02	Formalin Fixed Tissue	Formalin Fixed Tissue	Cervical Lymph Node	Metastatic	Archival	-89	
+specimen	MSB-06682	MSB-06682-03	EDTA Blood	Blood	Blood		On Treatment (Fresh)	14	
+specimen	MSB-06682	MSB-06682-04	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	14	
+specimen	MSB-05756	MSB-05756-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Sacrum	Metastatic	Archival	-434	
+specimen	MSB-05756	MSB-05756-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	85	
+specimen	MSB-05756	MSB-05756-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	85	
+specimen	MSB-07221	MSB-07221-02	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Liver	Metastatic	Archival	-202	
+specimen	MSB-07221	MSB-07221-03	EDTA Blood	Blood	Blood		On Treatment (Fresh)	21	
+specimen	MSB-07221	MSB-07221-04	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	21	
+specimen	MSB-07221	MSB-07221-05	EDTA Blood	Blood	Unknown		Progression (Fresh)		
+specimen	MSB-07221	MSB-07221-06	Streck Blood to VARI	Blood	Unknown		Progression (Fresh)		
+specimen	MSB-07479	MSB-07479-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	6	
+specimen	MSB-07479	MSB-07479-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	6	
+specimen	MSB-07479	MSB-07479-03	Bone Marrow Aspirate	Bone Marrow	Iliac Crest		Baseline (Fresh)	6	
+specimen	MSB-07479	MSB-07479-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	146	
+specimen	MSB-07479	MSB-07479-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	146	
+specimen	MSB-04415	MSB-04415-01	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Prostate Gland	Primary	Archival	-673	
+specimen	MSB-04415	MSB-04415-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	175	
+specimen	MSB-04415	MSB-04415-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	175	
+specimen	MSB-09897	MSB-09897-02	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Rectum	Primary	Archival	-395	
+specimen	MSB-09897	MSB-09897-03	EDTA Blood	Blood	Blood		On Treatment (Fresh)	25	
+specimen	MSB-09897	MSB-09897-04	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	25	
+specimen	MSB-05676	MSB-05676-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Thoracic Spine	Primary	Archival	-100	
+specimen	MSB-05676	MSB-05676-02	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Iliac Crest	Primary	Archival	-70	
+specimen	MSB-05676	MSB-05676-03	Stained Bone Marrow Aspirate Slide	Bone Marrow	Iliac Crest	Primary	Archival	-70	
+specimen	MSB-05676	MSB-05676-05	EDTA Blood	Blood	Blood		On Treatment (Fresh)	15	
+specimen	MSB-05676	MSB-05676-06	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	15	
+specimen	MSB-07784	MSB-07784-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	14	
+specimen	MSB-07784	MSB-07784-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	14	
+specimen	MSB-07784	MSB-07784-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Colon	Primary	Archival	-1672	
+specimen	MSB-07784	MSB-07784-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	48	
+specimen	MSB-07784	MSB-07784-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	48	
+specimen	MSB-05354	MSB-05354-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Gallbladder	Primary	Archival	-309	
+specimen	MSB-05354	MSB-05354-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	15	
+specimen	MSB-05354	MSB-05354-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	15	
+specimen	MSB-05354	MSB-05354-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	293	
+specimen	MSB-05354	MSB-05354-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	293	
+specimen	MSB-07662	MSB-07662-01	Formalin Fixed Tissue	Formalin Fixed Tissue	Lymph Node	Metastatic	Archival	-51	
+specimen	MSB-07662	MSB-07662-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	43	
+specimen	MSB-07662	MSB-07662-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	43	
+specimen	MSB-06864	MSB-06864-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lymph Node	Metastatic	Archival	-69	
+specimen	MSB-06864	MSB-06864-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	20	
+specimen	MSB-06864	MSB-06864-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	20	
+specimen	MSB-06864	MSB-06864-04	EDTA Blood	Blood	Blood		Progression (Fresh)	195	
+specimen	MSB-06864	MSB-06864-05	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	195	
+specimen	MSB-00268	MSB-00268-02	Bone Marrow Aspirate	Bone Marrow	Bone Marrow		Baseline (Fresh)	0	
+specimen	MSB-00268	MSB-00268-03	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-00268	MSB-00268-04	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-07146	MSB-07146-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Bone	Metastatic	Archival	-61	
+specimen	MSB-07146	MSB-07146-02	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Iliac Crest	Metastatic	Archival	-61	
+specimen	MSB-07146	MSB-07146-03	EDTA Blood	Blood	Blood		On Treatment (Fresh)	7	
+specimen	MSB-07146	MSB-07146-04	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	7	
+specimen	MSB-07146	MSB-07146-05	EDTA Blood	Blood	Blood		Progression (Fresh)	170	
+specimen	MSB-07146	MSB-07146-06	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	170	
+specimen	MSB-07146	MSB-07146-07	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	Progression (Fresh)	170	
+specimen	MSB-01493	MSB-01493-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	6	
+specimen	MSB-01493	MSB-01493-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	6	
+specimen	MSB-01493	MSB-01493-03	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Thyroid Gland	Metastatic	Archival	-60	
+specimen	MSB-01493	MSB-01493-04	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Pancreas	Metastatic	On Treatment (Fresh)	77	
+specimen	MSB-05602	MSB-05602-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Prostate Gland	Primary	Archival	-286	
+specimen	MSB-05602	MSB-05602-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	52	
+specimen	MSB-05602	MSB-05602-04	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	52	
+specimen	MSB-05602	MSB-05602-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	52	
+specimen	MSB-07370	MSB-07370-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lung	Primary	Archival	-1850	
+specimen	MSB-07370	MSB-07370-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	0	
+specimen	MSB-07370	MSB-07370-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	0	
+specimen	MSB-01437	MSB-01437-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	39	
+specimen	MSB-01437	MSB-01437-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	39	
+specimen	MSB-01437	MSB-01437-03	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Lung	Primary	Archival	-305	
+specimen	MSB-07085	MSB-07085-01	Bone Marrow Aspirate	Bone Marrow	Bone Marrow		On Treatment (Fresh)	0	
+specimen	MSB-07085	MSB-07085-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	30	
+specimen	MSB-07085	MSB-07085-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	30	
+specimen	MSB-07085	MSB-07085-04	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Bone Marrow		Archival	-265	
+specimen	MSB-07186	MSB-07186-01	Bone Marrow Aspirate	Bone Marrow	Bone Marrow	Primary	Baseline (Fresh)	0	
+specimen	MSB-07186	MSB-07186-02	Formalin Bone Marrow Biopsy	Bone Marrow	Bone Marrow	Primary	Baseline (Fresh)	0	
+specimen	MSB-07186	MSB-07186-03	EDTA Blood	Blood	Blood		Baseline (Fresh)	31	
+specimen	MSB-07186	MSB-07186-04	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	31	
+specimen	MSB-07186	MSB-07186-05	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Bone Marrow	Primary	Archival	-409	
+specimen	MSB-07186	MSB-07186-06	EDTA Blood	Blood	Blood		On Treatment (Fresh)	129	
+specimen	MSB-07186	MSB-07186-07	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	129	
+specimen	MSB-02901	MSB-02901-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	27	
+specimen	MSB-02901	MSB-02901-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	27	
+specimen	MSB-02901	MSB-02901-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Iliac Crest	Primary	Archival	-966	
+specimen	MSB-01594	MSB-01594-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	19	
+specimen	MSB-01594	MSB-01594-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	19	
+specimen	MSB-01594	MSB-01594-03	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Lung	Metastatic	Archival	119	
+specimen	MSB-02988	MSB-02988-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Thoracic Spine	Metastatic	Archival	-784	
+specimen	MSB-02988	MSB-02988-02	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Iliac Crest	Primary	Archival	-784	
+specimen	MSB-02988	MSB-02988-03	EDTA Blood	Blood	Blood		On Treatment (Fresh)	36	
+specimen	MSB-02988	MSB-02988-04	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	36	
+specimen	MSB-05702	MSB-05702-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-05702	MSB-05702-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-05702	MSB-05702-03	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	1	
+specimen	MSB-05702	MSB-05702-04	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	1	
+specimen	MSB-05702	MSB-05702-05	EDTA Blood	Blood	Blood		Progression (Fresh)	35	
+specimen	MSB-05702	MSB-05702-06	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	35	
+specimen	MSB-05702	MSB-05702-09	EDTA Blood	Blood	Blood		Progression (Fresh)	43	
+specimen	MSB-05702	MSB-05702-10	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	43	
+specimen	MSB-05702	MSB-05702-11	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	Progression (Fresh)	43	
+specimen	MSB-05702	MSB-05702-12	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	Progression (Fresh)	43	
+specimen	MSB-05702	MSB-05702-07	Streck Blood to PDMR	Blood	Blood		Progression (Fresh)	43	
+specimen	MSB-05702	MSB-05702-08	Fresh Tissue in Media to PDMR	Fresh Tissue	Iliac Crest	Primary	Progression (Fresh)	43	
+specimen	MSB-07075	MSB-07075-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-07075	MSB-07075-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-07075	MSB-07075-03	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	0	
+specimen	MSB-07075	MSB-07075-04	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	0	
+specimen	MSB-02370	MSB-02370-01	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Lung	Primary	Archival	26	
+specimen	MSB-02370	MSB-02370-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	22	
+specimen	MSB-02370	MSB-02370-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	22	
+specimen	MSB-04176	MSB-04176-01	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Bone Marrow	Primary	Archival	-8	
+specimen	MSB-04176	MSB-04176-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	76	
+specimen	MSB-04176	MSB-04176-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	76	
+specimen	MSB-09124	MSB-09124-03	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-09124	MSB-09124-04	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-09124	MSB-09124-05	Bone Marrow Aspirate	Bone Marrow	Iliac Crest		Baseline (Fresh)	0	
+specimen	MSB-09124	MSB-09124-06	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	0	
+specimen	MSB-09124	MSB-09124-07	EDTA Blood	Blood	Blood		On Treatment (Fresh)	90	
+specimen	MSB-09124	MSB-09124-08	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	90	
+specimen	MSB-09124	MSB-09124-01	Streck Blood to PDMR	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-09124	MSB-09124-02	Fresh Tissue in Media to PDMR	Fresh Tissue	Iliac Crest		Baseline (Fresh)	0	
+specimen	MSB-08058	MSB-08058-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	26	
+specimen	MSB-08058	MSB-08058-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	26	
+specimen	MSB-08058	MSB-08058-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Iliac Crest	Primary	Archival	-1811	
+specimen	MSB-07578	MSB-07578-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	20	
+specimen	MSB-07578	MSB-07578-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	20	
+specimen	MSB-07578	MSB-07578-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lymph Node	Primary	Archival	-59	
+specimen	MSB-06606	MSB-06606-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	23	
+specimen	MSB-06606	MSB-06606-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	23	
+specimen	MSB-06606	MSB-06606-03	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Iliac Crest	Primary	Archival	-2306	
+specimen	MSB-01208	MSB-01208-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-01208	MSB-01208-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-01208	MSB-01208-03	Bone Marrow Aspirate	Bone Marrow	Iliac Crest		Baseline (Fresh)	1	
+specimen	MSB-01208	MSB-01208-04	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	1	
+specimen	MSB-01208	MSB-01208-05	EDTA Blood	Blood	Blood		On Treatment (Fresh)	91	
+specimen	MSB-01208	MSB-01208-06	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	91	
+specimen	MSB-04500	MSB-04500-01	Formalin Fixed Tissue	Formalin Fixed Tissue	Liver	Metastatic	Archival	-518	
+specimen	MSB-04500	MSB-04500-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	91	
+specimen	MSB-04500	MSB-04500-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	91	
+specimen	MSB-09666	MSB-09666-02	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lymph Node	Metastatic	Archival	-200	
+specimen	MSB-09666	MSB-09666-03	EDTA Blood	Blood	Blood		On Treatment (Fresh)	40	
+specimen	MSB-09666	MSB-09666-04	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	40	
+specimen	MSB-07414	MSB-07414-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-07414	MSB-07414-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-07414	MSB-07414-03	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Rectum	Primary	Archival	-45	
+specimen	MSB-07414	MSB-07414-06	EDTA Blood	Blood	Blood		On Treatment (Fresh)	64	
+specimen	MSB-07414	MSB-07414-07	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	64	
+specimen	MSB-07414	MSB-07414-08	EDTA Blood	Blood	Blood		On Treatment (Fresh)	190	
+specimen	MSB-07414	MSB-07414-09	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	190	
+specimen	MSB-07414	MSB-07414-10	EDTA Blood	Blood	Blood		Progression (Fresh)	227	
+specimen	MSB-07414	MSB-07414-11	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	227	
+specimen	MSB-05856	MSB-05856-02	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Scalp	Metastatic	Archival	-144	
+specimen	MSB-05856	MSB-05856-03	EDTA Blood	Blood	Blood		On Treatment (Fresh)	30	
+specimen	MSB-05856	MSB-05856-04	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	30	
+specimen	MSB-00089	MSB-00089-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Iliac Crest	Primary	Archival	-56	
+specimen	MSB-00089	MSB-00089-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	7	
+specimen	MSB-00089	MSB-00089-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	7	
+specimen	MSB-08228	MSB-08228-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Iliac Crest	Primary	Archival	-36	
+specimen	MSB-08228	MSB-08228-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	16	
+specimen	MSB-08228	MSB-08228-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	16	
+specimen	MSB-01463	MSB-01463-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-01463	MSB-01463-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-01463	MSB-01463-04	Formalin Fixed Tissue	Formalin Fixed Tissue	Flank	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-01463	MSB-01463-06	Snap Frozen Tissue	Frozen Tissue	Flank	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-01463	MSB-01463-03	Streck Blood to PDMR	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-01463	MSB-01463-05	Fresh Tissue in Media to PDMR	Fresh Tissue	Flank	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-01433	MSB-01433-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	-1	
+specimen	MSB-01433	MSB-01433-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	-1	
+specimen	MSB-01433	MSB-01433-03	Formalin Fixed Tissue	Formalin Fixed Tissue	Lymph Node	Metastatic	Archival	-231	
+specimen	MSB-05151	MSB-05151-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	-1	
+specimen	MSB-05151	MSB-05151-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	-1	
+specimen	MSB-05151	MSB-05151-03	Bone Marrow Aspirate	Bone Marrow	Bone Marrow	Primary	Baseline (Fresh)	1	
+specimen	MSB-05151	MSB-05151-04	Formalin Bone Marrow Biopsy	Bone Marrow	Bone Marrow	Primary	Baseline (Fresh)	1	
+specimen	MSB-05151	MSB-05151-05	EDTA Blood	Blood	Blood		On Treatment (Fresh)	161	
+specimen	MSB-05151	MSB-05151-06	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	161	
+specimen	MSB-09202	MSB-09202-01	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	6	
+specimen	MSB-09202	MSB-09202-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	6	
+specimen	MSB-09202	MSB-09202-03	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Rectum	Primary	Archival	-912	
+specimen	MSB-08965	MSB-08965-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Prostate Gland	Metastatic	Archival	-119	
+specimen	MSB-08965	MSB-08965-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	32	
+specimen	MSB-08965	MSB-08965-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	32	
+specimen	MSB-01960	MSB-01960-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Transverse Colon	Primary	Archival	-748	
+specimen	MSB-01960	MSB-01960-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	19	
+specimen	MSB-01960	MSB-01960-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	19	
+specimen	MSB-01960	MSB-01960-05	EDTA Blood	Blood	Blood		Progression (Fresh)	75	
+specimen	MSB-01960	MSB-01960-06	Snap Frozen Tissue	Frozen Tissue	Bladder	Metastatic	Progression (Fresh)	75	
+specimen	MSB-01960	MSB-01960-07	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	75	
+specimen	MSB-01960	MSB-01960-09	Formalin Fixed Tissue	Formalin Fixed Tissue	Bladder	Metastatic	Progression (Fresh)	75	
+specimen	MSB-01960	MSB-01960-08	Streck Blood to PDMR	Blood	Blood		Progression (Fresh)	75	
+specimen	MSB-01960	MSB-01960-04	Fresh Tissue in Media to PDMR	Fresh Tissue	Bladder	Metastatic	Progression (Fresh)	75	
+specimen	MSB-04319	MSB-04319-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lung	Metastatic	Archival	-267	
+specimen	MSB-04319	MSB-04319-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	26	
+specimen	MSB-04319	MSB-04319-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	26	
+specimen	MSB-04591	MSB-04591-03	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-04591	MSB-04591-04	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-04591	MSB-04591-05	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	0	
+specimen	MSB-04591	MSB-04591-06	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	0	
+specimen	MSB-04591	MSB-04591-07	EDTA Blood	Blood	Blood		On Treatment (Fresh)	27	
+specimen	MSB-04591	MSB-04591-08	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	27	
+specimen	MSB-04591	MSB-04591-09	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	On Treatment (Fresh)	27	
+specimen	MSB-04591	MSB-04591-10	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	On Treatment (Fresh)	27	
+specimen	MSB-04591	MSB-04591-11	EDTA Blood	Blood	Blood		Post-Treatment (No progression)	61	
+specimen	MSB-04591	MSB-04591-12	Streck Blood to VARI	Blood	Blood		Post-Treatment (No progression)	61	
+specimen	MSB-04591	MSB-04591-13	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Iliac Crest	Primary	Post-Treatment (No progression)	47	
+specimen	MSB-04591	MSB-04591-01	Streck Blood to PDMR	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-04591	MSB-04591-02	Fresh Tissue in Media to PDMR	Fresh Tissue	Iliac Crest	Primary	Baseline (Fresh)	0	
+specimen	MSB-00902	MSB-00902-03	EDTA Blood	Blood	Blood		Baseline (Fresh)	7	
+specimen	MSB-00902	MSB-00902-04	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	7	
+specimen	MSB-00902	MSB-00902-05	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	7	
+specimen	MSB-00902	MSB-00902-06	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	7	
+specimen	MSB-00902	MSB-00902-01	Streck Blood to PDMR	Blood	Blood		Baseline (Fresh)	7	
+specimen	MSB-00902	MSB-00902-02	Fresh Tissue in Media to PDMR	Fresh Tissue	Iliac Crest	Primary	Baseline (Fresh)	7	
+specimen	MSB-00956	MSB-00956-02	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Thoracic Spine	Metastatic	Archival	-58	
+specimen	MSB-00956	MSB-00956-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	16	
+specimen	MSB-00956	MSB-00956-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	16	
+specimen	MSB-00956	MSB-00956-05	EDTA Blood	Blood	Blood		Progression (Fresh)	120	
+specimen	MSB-00956	MSB-00956-06	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	120	
+specimen	MSB-00437	MSB-00437-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Iliac Crest	Primary	Archival	-57	
+specimen	MSB-00437	MSB-00437-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	14	
+specimen	MSB-00437	MSB-00437-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	14	
+specimen	MSB-00437	MSB-00437-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	102	
+specimen	MSB-00437	MSB-00437-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	102	
+specimen	MSB-00437	MSB-00437-06	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	On Treatment (Fresh)	102	
+specimen	MSB-00437	MSB-00437-07	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	On Treatment (Fresh)	102	
+specimen	MSB-04006	MSB-04006-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	36	
+specimen	MSB-04006	MSB-04006-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	36	
+specimen	MSB-04006	MSB-04006-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Scalp	Primary	Archival	-2196	
+specimen	MSB-00316	MSB-00316-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	0	
+specimen	MSB-00316	MSB-00316-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	0	
+specimen	MSB-00316	MSB-00316-03	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Pleural Cavity	Primary	Archival	-428	
+specimen	MSB-08777	MSB-08777-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lung	Primary	Archival	-663	
+specimen	MSB-08777	MSB-08777-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	15	
+specimen	MSB-08777	MSB-08777-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	15	
+specimen	MSB-05460	MSB-05460-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Anterior Mediastinum	Metastatic	Archival	-116	
+specimen	MSB-05460	MSB-05460-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	8	
+specimen	MSB-05460	MSB-05460-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	8	
+specimen	MSB-00755	MSB-00755-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lung	Primary	Archival	-589	
+specimen	MSB-00755	MSB-00755-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	23	
+specimen	MSB-00755	MSB-00755-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	23	
+specimen	MSB-07840	MSB-07840-01	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Iliac Crest	Primary	Archival	-975	
+specimen	MSB-07840	MSB-07840-02	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lymph Node	Primary	Archival	-989	
+specimen	MSB-07840	MSB-07840-03	EDTA Blood	Blood	Blood		On Treatment (Fresh)	26	
+specimen	MSB-07840	MSB-07840-04	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	26	
+specimen	MSB-06833	MSB-06833-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	7	
+specimen	MSB-06833	MSB-06833-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	7	
+specimen	MSB-06833	MSB-06833-03	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Bone Marrow	Primary	Archival	-52	
+specimen	MSB-08700	MSB-08700-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-08700	MSB-08700-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-08700	MSB-08700-03	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	0	
+specimen	MSB-08700	MSB-08700-04	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	0	
+specimen	MSB-04388	MSB-04388-01	Formalin Fixed Tissue	Formalin Fixed Tissue	Neck	Metastatic	Archival	-983	
+specimen	MSB-04388	MSB-04388-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	42	
+specimen	MSB-04388	MSB-04388-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	42	
+specimen	MSB-01307	MSB-01307-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lymph Node	Metastatic	Archival	6	
+specimen	MSB-01307	MSB-01307-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	20	
+specimen	MSB-01307	MSB-01307-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	20	
+specimen	MSB-01307	MSB-01307-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	160	
+specimen	MSB-01307	MSB-01307-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	160	
+specimen	MSB-06711	MSB-06711-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-06711	MSB-06711-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-06711	MSB-06711-03	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	0	
+specimen	MSB-06711	MSB-06711-04	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	0	
+specimen	MSB-06711	MSB-06711-05	EDTA Blood	Blood	Blood		On Treatment (Fresh)	14	
+specimen	MSB-06711	MSB-06711-06	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	14	
+specimen	MSB-06711	MSB-06711-07	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	On Treatment (Fresh)	14	
+specimen	MSB-06711	MSB-06711-08	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	On Treatment (Fresh)	14	
+specimen	MSB-06711	MSB-06711-09	EDTA Blood	Blood	Blood		Post-Treatment (No progression)	38	
+specimen	MSB-06711	MSB-06711-10	Streck Blood to VARI	Blood	Blood		Post-Treatment (No progression)	38	
+specimen	MSB-06711	MSB-06711-11	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	Post-Treatment (No progression)	38	
+specimen	MSB-06711	MSB-06711-12	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	Post-Treatment (No progression)	38	
+specimen	MSB-05167	MSB-05167-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	6	
+specimen	MSB-05167	MSB-05167-02	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Bone Marrow	Primary	Archival	-114	
+specimen	MSB-05167	MSB-05167-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	6	
+specimen	MSB-08104	MSB-08104-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	5	
+specimen	MSB-08104	MSB-08104-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	5	
+specimen	MSB-08104	MSB-08104-03	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Lymph Node	Metastatic	Archival	-214	
+specimen	MSB-04143	MSB-04143-02	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Pelvis	Metastatic	Archival	-54	
+specimen	MSB-04143	MSB-04143-03	EDTA Blood	Blood	Blood		On Treatment (Fresh)	8	
+specimen	MSB-04143	MSB-04143-04	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	8	
+specimen	MSB-06059	MSB-06059-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lymph Node	Metastatic	Archival	-71	
+specimen	MSB-06059	MSB-06059-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	41	
+specimen	MSB-06059	MSB-06059-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	41	
+specimen	MSB-02151	MSB-02151-01	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Lung	Primary	Archival	-844	
+specimen	MSB-02151	MSB-02151-02	Formalin Fixed Tissue	Formalin Fixed Tissue	Lung	Primary	On Treatment (Fresh)	4	
+specimen	MSB-02151	MSB-02151-03	EDTA Blood	Blood	Blood		On Treatment (Fresh)	19	
+specimen	MSB-02151	MSB-02151-04	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	19	
+specimen	MSB-04968	MSB-04968-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	0	
+specimen	MSB-04968	MSB-04968-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	0	
+specimen	MSB-04968	MSB-04968-03	Formalin Fixed Tissue	Formalin Fixed Tissue	Pleural Cavity	Primary	Archival	-256	
+specimen	MSB-04968	MSB-04968-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	135	
+specimen	MSB-04968	MSB-04968-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	135	
+specimen	MSB-05098	MSB-05098-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	0	
+specimen	MSB-05098	MSB-05098-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	0	
+specimen	MSB-05098	MSB-05098-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lung	Primary	Archival	-72	
+specimen	MSB-05098	MSB-05098-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	46	
+specimen	MSB-05098	MSB-05098-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	46	
+specimen	MSB-08454	MSB-08454-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	10	
+specimen	MSB-08454	MSB-08454-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	10	
+specimen	MSB-08454	MSB-08454-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lung	Primary	Archival	-31	
+specimen	MSB-06256	MSB-06256-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lymph Node	Metastatic	Archival	-122	
+specimen	MSB-06256	MSB-06256-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	35	
+specimen	MSB-06256	MSB-06256-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	35	
+specimen	MSB-05876	MSB-05876-01	Formalin Fixed Tissue	Formalin Fixed Tissue	Lung	Primary	Baseline (Fresh)	1	
+specimen	MSB-05876	MSB-05876-02	EDTA Blood	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-05876	MSB-05876-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	1	
+specimen	MSB-02960	MSB-02960-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-02960	MSB-02960-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-02960	MSB-02960-03	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	0	
+specimen	MSB-02960	MSB-02960-04	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	0	
+specimen	MSB-02960	MSB-02960-05	EDTA Blood	Blood	Blood		On Treatment (Fresh)	14	
+specimen	MSB-02960	MSB-02960-06	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	14	
+specimen	MSB-02960	MSB-02960-07	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	On Treatment (Fresh)	14	
+specimen	MSB-02960	MSB-02960-08	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	On Treatment (Fresh)	14	
+specimen	MSB-02960	MSB-02960-09	EDTA Blood	Blood	Blood		Post-Treatment (No progression)	45	
+specimen	MSB-02960	MSB-02960-10	Streck Blood to VARI	Blood	Blood		Post-Treatment (No progression)	45	
+specimen	MSB-02960	MSB-02960-11	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	Post-Treatment (No progression)	45	
+specimen	MSB-02960	MSB-02960-12	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	Post-Treatment (No progression)	45	
+specimen	MSB-04064	MSB-04064-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	0	
+specimen	MSB-04064	MSB-04064-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	0	
+specimen	MSB-04064	MSB-04064-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Sigmoid Colon	Primary	Archival	-73	
+specimen	MSB-04064	MSB-04064-04	EDTA Blood	Blood	Blood		On Treatment (Fresh)	42	
+specimen	MSB-04064	MSB-04064-05	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	42	
+specimen	MSB-06817	MSB-06817-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Skin	Primary	Archival	-1233	
+specimen	MSB-06817	MSB-06817-03	Snap Frozen Tissue	Frozen Tissue	Parotid Gland	Metastatic	On Treatment (Fresh)	5	
+specimen	MSB-06817	MSB-06817-04	Formalin Fixed Tissue	Formalin Fixed Tissue	Parotid Gland	Metastatic	On Treatment (Fresh)	5	
+specimen	MSB-06817	MSB-06817-05	EDTA Blood	Blood	Blood		On Treatment (Fresh)	5	
+specimen	MSB-06817	MSB-06817-07	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	5	
+specimen	MSB-03312	MSB-03312-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Iliac Crest	Primary	Archival	-1498	
+specimen	MSB-03312	MSB-03312-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	5	
+specimen	MSB-03312	MSB-03312-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	5	
+specimen	MSB-03312	MSB-03312-04	EDTA Blood	Blood	Blood		Progression (Fresh)	112	
+specimen	MSB-03312	MSB-03312-05	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	112	
+specimen	MSB-04450	MSB-04450-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Iliac Crest	Primary	Archival	-1129	
+specimen	MSB-04450	MSB-04450-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	34	
+specimen	MSB-04450	MSB-04450-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	34	
+specimen	MSB-02829	MSB-02829-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Arm	Metastatic	Archival	-262	
+specimen	MSB-02829	MSB-02829-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	25	
+specimen	MSB-02829	MSB-02829-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	25	
+specimen	MSB-03513	MSB-03513-01	Formalin Fixed Tissue	Formalin Fixed Tissue	Lung	Metastatic	Progression (Fresh)	0	
+specimen	MSB-03513	MSB-03513-02	EDTA Blood	Blood	Blood		Progression (Fresh)	0	
+specimen	MSB-03513	MSB-03513-03	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	0	
+specimen	MSB-02139	MSB-02139-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Iliac Crest	Primary	Archival	-491	
+specimen	MSB-02139	MSB-02139-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	62	
+specimen	MSB-02139	MSB-02139-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	62	
+specimen	MSB-04939	MSB-04939-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-04939	MSB-04939-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-04939	MSB-04939-03	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	0	
+specimen	MSB-04939	MSB-04939-04	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	Baseline (Fresh)	0	
+specimen	MSB-05447	MSB-05447-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-05447	MSB-05447-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-05447	MSB-05447-04	Formalin Fixed Tissue	Formalin Fixed Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-05447	MSB-05447-05	Snap Frozen Tissue	Frozen Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-05447	MSB-05447-03	Streck Blood to PDMR	Blood	Blood		Baseline (Fresh)	0	
+specimen	MSB-05447	MSB-05447-06	Fresh Tissue in Media to PDMR	Fresh Tissue	Liver	Metastatic	Baseline (Fresh)	0	
+specimen	MSB-03483	MSB-03483-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	14	
+specimen	MSB-03483	MSB-03483-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	14	
+specimen	MSB-03483	MSB-03483-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Lung	Primary	Archival	-134	
+specimen	MSB-05620	MSB-05620-01	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	14	
+specimen	MSB-05620	MSB-05620-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	14	
+specimen	MSB-05620	MSB-05620-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Liver	Metastatic	Archival	-68	
+specimen	MSB-05620	MSB-05620-04	EDTA Blood	Blood	Unknown		On Treatment (Fresh)		
+specimen	MSB-05620	MSB-05620-05	Streck Blood to VARI	Blood	Unknown		On Treatment (Fresh)		
+specimen	MSB-00602	MSB-00602-02	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Bone	Metastatic	Archival	-82	
+specimen	MSB-00602	MSB-00602-03	EDTA Blood	Blood	Blood		Baseline (Fresh)	84	
+specimen	MSB-00602	MSB-00602-04	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	84	
+specimen	MSB-03738	MSB-03738-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Stomach	Primary	Archival	-143	
+specimen	MSB-03738	MSB-03738-01	EDTA Blood	Blood	Unknown		On Treatment (Fresh)		
+specimen	MSB-03738	MSB-03738-02	Streck Blood to VARI	Blood	Unknown		On Treatment (Fresh)		
+specimen	MSB-08063	MSB-08063-01	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	1	
+specimen	MSB-08063	MSB-08063-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	1	
+specimen	MSB-08063	MSB-08063-03	Streck Blood to PDMR	Blood	Blood		On Treatment (Fresh)	1	
+specimen	MSB-08063	MSB-08063-04	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Lung	Primary	Archival	1	
+specimen	MSB-08063	MSB-08063-05	Formalin Fixed Tissue	Formalin Fixed Tissue	Lung	Primary	On Treatment (Fresh)	1	
+specimen	MSB-08063	MSB-08063-06	Fresh Tissue in Media to PDMR	Fresh Tissue	Lung	Primary	On Treatment (Fresh)	1	
+specimen	MSB-08063	MSB-08063-07	Snap Frozen Tissue	Frozen Tissue	Lung	Primary	On Treatment (Fresh)	1	
+specimen	MSB-09350	MSB-09350-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Iliac Crest	Primary	Archival	-1447	
+specimen	MSB-09350	MSB-09350-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	2	
+specimen	MSB-09350	MSB-09350-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	2	
+specimen	MSB-01757	MSB-01757-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	7	
+specimen	MSB-01757	MSB-01757-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	7	
+specimen	MSB-01757	MSB-01757-03	Unstained Bone Marrow Aspirate Slide	Bone Marrow	Bone Marrow	Primary	Archival	-62	
+specimen	MSB-09880	MSB-09880-01	EDTA Blood	Blood	Blood		Baseline (Fresh)	8	
+specimen	MSB-09880	MSB-09880-03	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	8	
+specimen	MSB-09880	MSB-09880-05	Formalin Fixed Tissue	Formalin Fixed Tissue	Lymph Node	Metastatic	Baseline (Fresh)	8	
+specimen	MSB-09880	MSB-09880-02	Streck Blood to PDMR	Blood	Blood		Baseline (Fresh)	8	
+specimen	MSB-09880	MSB-09880-04	Fresh Tissue in Media to PDMR	Fresh Tissue	Lymph Node	Metastatic	Baseline (Fresh)	8	
+specimen	MSB-01825	MSB-01825-01	Bone Marrow Aspirate	Bone Marrow	Bone Marrow	Primary	Baseline (Fresh)	0	
+specimen	MSB-01825	MSB-01825-02	Streck Blood to VARI	Blood	Blood		Baseline (Fresh)	14	
+specimen	MSB-01825	MSB-01825-03	EDTA Blood	Blood	Blood		Baseline (Fresh)	14	
+specimen	MSB-07991	MSB-07991-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	0	
+specimen	MSB-07991	MSB-07991-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	0	
+specimen	MSB-07991	MSB-07991-03	Unstained Slide	Formalin Fixed Paraffin Embedded Tissue	Colon	Primary	Archival	-328	
+specimen	MSB-07991	MSB-07991-04	Snap Frozen Tissue	Frozen Tissue	Liver	Metastatic	On Treatment (Fresh)	43	
+specimen	MSB-07991	MSB-07991-05	Formalin Fixed Tissue	Formalin Fixed Tissue	Liver	Metastatic	On Treatment (Fresh)	43	
+specimen	MSB-03321	MSB-03321-01	EDTA Blood	Blood	Blood		On Treatment (Fresh)	14	
+specimen	MSB-03321	MSB-03321-02	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	14	
+specimen	MSB-03321	MSB-03321-03	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Ovary		Archival	-1030	
+specimen	MSB-09994	MSB-09994-01	EDTA Blood	Blood	Blood		Progression (Fresh)	0	
+specimen	MSB-09994	MSB-09994-02	Streck Blood to VARI	Blood	Blood		Progression (Fresh)	0	
+specimen	MSB-09994	MSB-09994-03	Bone Marrow Aspirate	Bone Marrow	Iliac Crest	Primary	Progression (Fresh)	0	
+specimen	MSB-09994	MSB-09994-04	Formalin Bone Marrow Biopsy	Bone Marrow	Iliac Crest	Primary	Progression (Fresh)	0	
+specimen	MSB-09994	MSB-09994-05	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Iliac Crest	Primary	Archival	-918	
+specimen	MSB-00498	MSB-00498-01	FFPE Block	Formalin Fixed Paraffin Embedded Tissue	Iliac Crest	Primary	Archival	-2465	
+specimen	MSB-00498	MSB-00498-02	EDTA Blood	Blood	Blood		On Treatment (Fresh)	29	
+specimen	MSB-00498	MSB-00498-03	Streck Blood to VARI	Blood	Blood		On Treatment (Fresh)	29	

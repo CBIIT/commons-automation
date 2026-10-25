@@ -1,0 +1,6 @@
+# GC /#/studies catalog (not the Data explore result tabs).
+page: StudiesPage
+elements:
+  Table: //*[@id='studies_table']
+  Table-Hdr: //*[@id='studies_table']//thead
+  Next-Btn: //*[@id='studies_table']//button[@aria-label='Next page']

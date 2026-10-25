@@ -65,7 +65,8 @@ groups:
       Transcriptomic: //*[@id="checkbox_Library Source Molecule_Transcriptome"]
       ViralRNA: //*[@id="checkbox_Library Source_Viral RNA"]
   GenomicFacet/LibraryStrategy:
-    dropdown: //*[@id="Library Strategy"]/div[2]
+    facet: (//*[@id="[object Object]"])[4]
+    dropdown: //*[@id="Library Strategy"]
     checkboxes:
       ATACSeq: //*[@id="checkbox_Library Strategy_ATAC-seq"]
       Amplicon: //*[@id="checkbox_Library Strategy_AMPLICON"]

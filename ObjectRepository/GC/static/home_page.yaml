@@ -1,0 +1,29 @@
+# Converted from Katalon Object Repository/CDS/Static/V_HomePage
+page: Static/HomePage
+elements:
+  BannerDescription: //div[contains(text(),'A data repository')]
+  BannerTitle: //h1[contains(text(),'Enabling secure')]
+  FooterAboutCDSLabel: //div[(text() = 'About CDS Portal')]
+  FooterAccessibilityLink: //div[(text() = 'Accessibility')]/..
+  FooterBentoLink: //div[.='Bento']/..
+  FooterCDSLink: //div[.='CDS']/..
+  FooterCRDCHelpLink: //div[.='CDRC Help Desk']/..
+  FooterCRDCLink: //div[.='CRDC']/..
+  FooterContactInfoLabel: //div[(text() = 'Contact Information')]
+  FooterDataModelLink: //div[.='Data Model']/..
+  FooterDisclaimerLink: //div[(text() = 'Disclaimer')]/..
+  FooterFOIALink: //div[(text() = 'FOIA')]/..
+  FooterGraphQLLink: //div[.='GraphQL']/..
+  FooterMoreInformationLabel: //div[(text() = 'More Information')]
+  FooterPoliciesLink: //div[(text() = 'Policies')]/..
+  FooterSystemInfoLabel: //div[(text() = 'Sysinfo')]
+  FooterSystemInfoPageLink: //div[.='System Information Page']/..
+  FooterVulnerabilityLink: //div[(text() = 'HHS Vulnerability Disclosure')]/..
+  SpotlightDescription1: //*[@id = 'tile1_description']
+  SpotlightDescription2: //*[@id = 'tile2_description']
+  SpotlightDescription3: //*[@id = 'tile3_description']
+  SpotlightDescription4: //*[@id = 'tile4_description']
+  SpotlightTitle1: //*[@id = 'tile1_title']
+  SpotlightTitle2: //*[@id = 'tile2_title']
+  SpotlightTitle3: //*[@id = 'tile3_title']
+  SpotlightTitle4: //*[@id = 'tile4_title']

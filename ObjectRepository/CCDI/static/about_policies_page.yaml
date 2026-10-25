@@ -1,0 +1,23 @@
+# Converted from Katalon Object Repository/CCDI/Static/AboutPoliciesPage
+page: Static/AboutPoliciesPage
+elements:
+  BannerTitle: //div[@class='policiesHeaderContainer']
+  CCDIAckDescription: //div[@id='CCDI_Acknowledgement' and @class='mciTitle']/following::div[@class='mciContentContainer'][1]
+  CCDIAckTitle: //div[@id='CCDI_Acknowledgement' and @class='mciTitle']
+  CCDIEmailLink: (//a[contains(@href,'initiative@mail.nih.gov')])[1]
+  CCDILink1: (//a[.='ccdi.cancer.gov'])[1]
+  CCDILink2: (//a[.='ccdi.cancer.gov'])[2]
+  CCDILink3: (//a[.='ccdi.cancer.gov'])[3]
+  CitingDescription: //div[@id='Citing_the_CCDI_Hub' and @class='mciTitle']/following::div[@class='mciContentContainer'][1]
+  CitingTitle: //div[@id='Citing_the_CCDI_Hub' and @class='mciTitle']
+  ContactDescription: //div[@id='Contact' and @class='mciTitle']/following::div[@class='mciContentContainer'][1]
+  ContactEmailLink: (//a[contains(@href,'initiative@mail.nih.gov')])[2]
+  ContactTitle: //div[@id='Contact' and @class='mciTitle']
+  DataAccessLink: //a[contains(@href,'user-guide')]
+  DataCommonsLink: //a[.='datacommons.cancer.gov']
+  DataDisclaimersDescription: //div[@id='Data_Disclaimers' and @class='mciTitle']/following::div[@class='mciContentContainer'][1]
+  DataDisclaimersTitle: //div[@id='Data_Disclaimers' and @class='mciTitle']
+  DataSharingLink: //a[contains(@href,'policy-guidance')]
+  DataUseDescription: //div[@id='Data_Use_Expectations' and @class='mciTitle']/following::div[@class='mciContentContainer'][1]
+  DataUseTitle: //div[@id='Data_Use_Expectations' and @class='mciTitle']
+  IntroDescription: //div[@class='introContainer']

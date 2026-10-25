@@ -2,8 +2,9 @@
 page: Data_page/Filter/FilesFacet
 groups:
   FilesFacet/FileType:
-    dropdown: //*[@id="File Type"]/div[2]
-    search: //input[@placeholder='e.g. BAM']
+    facet: (//*[@id="[object Object]"])[7]
+    dropdown: //*[@id="File Type"]
+    search: //input[@aria-label='Search within Files facet']
     checkboxes:
       CSV: //*[@id="checkbox_File Type_CSV"]
       GCT: //*[@id="checkbox_File Type_GCT/RES FORMAT"]

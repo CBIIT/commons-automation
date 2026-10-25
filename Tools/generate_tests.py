@@ -49,7 +49,7 @@ SUITE_MARKERS = {
     "CDS_QuickRun": "quickrun",              # GC quickrun
     "CTDC_Regression": "regression",
 }
-FIXTURE = {"C3DC": "c3dc", "CTDC": "ctdc", "GC": "gc"}
+FIXTURE = {"C3DC": "c3dc", "CCDI": "ccdi", "CTDC": "ctdc", "GC": "gc"}
 # All Explore Participants result tabs (after read_statbar) — matches hand-maintained C3DC tests.
 CTDC_VERIFY_TABS = (
     "Participants",

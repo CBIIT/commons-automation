@@ -1,0 +1,250 @@
+type	participant.participant_id	diagnosis_record_id	ctep_disease_term	meddra_disease_code	snomed_disease_term	snomed_disease_code	primary_disease_site	histology	histological_subtype	date_of_diagnosis	primary_diagnosis_disease_group	
+diagnosis	MSB-01068	N478918	Colorectal Carcinoma	10010029	Adenocarcinoma	35917007	Sigmoid Colon	Colonic Adenocarcinoma	moderately differentiated	-41	Colorectal cancer, NOS	
+diagnosis	MSB-02291	N258187	Non-Small Cell Lung Carcinoma	10029514	Lung Adenocarcinoma	254626006	Lower Lobe of the Right Lung	NonSmall Cell Lung Cancer	Adenocarcinoma	-52	Non-small cell lung cancer, NOS	
+diagnosis	MSB-06720	N233896	Non-Small Cell Lung Carcinoma	10029514	Adenocarcinoma	35917007	Upper Lobe of the Left Lung	Metastatic adenocarcinoma	Adenocarcinoma	-49	Non-small cell lung cancer, NOS	
+diagnosis	MSB-04863	N755293	Melanoma	10053571	Cutaneous Melanoma	93655004	Skin	Melanoma	Metastatic melanoma	-661	Melanoma	
+diagnosis	MSB-04847	N55891	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Right Colon	Colon, Invasive Adenocarcinoma	Poorly-Differentiated	-536	Colorectal cancer, NOS	
+diagnosis	MSB-09794	N443048	Non-Small Cell Lung Carcinoma	10029514	Non-Small Cell Lung Carcinoma	254637007	Left Lung	non-small cell lung	adenocarcinoma	-563	Non-small cell lung cancer, NOS	
+diagnosis	MSB-09018	N944689	Melanoma	10053571	Melanoma	2092003	Skin	Invasive Melanoma	Nodular melanoma	-42	Melanoma	
+diagnosis	MSB-06305	N34617	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Kappa light chain myeloma	R-ISS III, high-risk cytogenetics	-160	Myeloma, NOS	
+diagnosis	MSB-01652	N921309	Melanoma	10053571	Melanoma	2092003	Shoulder	malignant melanoma	malignant melanoma	-39	Melanoma	
+diagnosis	MSB-01499	N577042	Non-Small Cell Lung Carcinoma	10029514	Colorectal Adenocarcinoma	408645001	Lung	Metastatic Adenocarcinoma	adenocarcinoma	-846	Non-small cell lung cancer, NOS	
+diagnosis	MSB-09019	N437273	Colorectal Carcinoma	10010029	Colon Adenoma	428054006	Colon	Colon cancer	adenocarcinoma	-552	Colorectal cancer, NOS	
+diagnosis	MSB-01206	N152509	Melanoma	10053571	Melanoma	2092003	Foot	Malignant melanoma	Malignant melanoma	-53	Melanoma	
+diagnosis	MSB-02381	N568619	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Colon	Colorectal Carcinoma	Adenocarcinoma	-614	Colorectal cancer, NOS	
+diagnosis	MSB-03725	N28006	Colorectal Carcinoma	10010029	Adenocarcinoma	35917007	Sigmoid Colon	adenocarcinoma	moderately differentiated	-443	Colorectal cancer, NOS	
+diagnosis	MSB-03032	N985233	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Hepatic Flexure	colorectal cancer	adenocarcinoma	-407	Colorectal cancer, NOS	
+diagnosis	MSB-01459	N325532	Non-Small Cell Lung Carcinoma	10029514	Squamous Cell Lung Carcinoma	254634000	Lower Lobe of the Right Lung	Squamous Cell Carcinoma	Poorly-differentiated	-119	Non-small cell lung cancer, NOS	
+diagnosis	MSB-03808	N731259	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Colon	Invasive Adenocarcinoma	Moderately-Differentiated	-501	Colorectal cancer, NOS	
+diagnosis	MSB-09027	N823810	Non-Small Cell Lung Carcinoma	10029514	Lung Adenocarcinoma	254626006	Left Lung	Adenocarcinoma	Nonsmall Cell	-498	Non-small cell lung cancer, NOS	
+diagnosis	MSB-08588	N313670	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Colon	Invasive Adenocarcinoma	Moderately-Differentiated	-1314	Colorectal cancer, NOS	
+diagnosis	MSB-07473	N861529	Plasma Cell Myeloma	10028566	Multiple myeloma	55921005	Rib	Kappa light chain myeloma	Hypercellular bone marrow	-128	Myeloma, NOS	
+diagnosis	MSB-01849	N827171	Melanoma	10053571	Nodular Melanoma	254731001	Foot Skin	Melanoma	NOS	-101	Melanoma	
+diagnosis	MSB-05283	N639110	Plasma Cell Myeloma	10028566	Plasma Cell Leukemia	128922003	general	Multiple Myeloma	Plasma cell leukemia	-2	Myeloma, NOS	
+diagnosis	MSB-09151	N317450	Colorectal Carcinoma	10010029	Adenocarcinoma	35917007	Colon	Hyperplastic	hyperplastic	-1151	Colorectal cancer, NOS	
+diagnosis	MSB-05412	N535819	Melanoma	10053571	Melanoma	2092003	Abdominal Wall	Residual in situ and invasive melanoma	invasive melanoma	-45	Melanoma	
+diagnosis	MSB-02286	N11234	Plasma Cell Myeloma	10028566	Plasma Cell Leukemia	128922003	general	multiple myeloma	plasma cell leukemia	-5	Myeloma, NOS	
+diagnosis	MSB-05508	N421809	Non-Small Cell Lung Carcinoma	10029514	Lung Adenocarcinoma	254626006	Lung	Lung Adenocarcinoma	Adenocarcinoma	-42	Non-small cell lung cancer, NOS	
+diagnosis	MSB-08170	N996706	Colorectal Carcinoma	10010029	Adenocarcinoma	35917007	Sigmoid Colon	colon cancer	adenocarcinoma	-2393	Colorectal cancer, NOS	
+diagnosis	MSB-04030	N766582	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell Neoplasm	MONOTYPIC KAPPA LIGHT CHAIN RESTRICTION PLASMA CELL POPULATION IS  IDENTIFIED.	-809	Myeloma, NOS	
+diagnosis	MSB-07612	N945696	Melanoma	10053571	Amelanotic Melanoma	70594002	Skin of the Thigh	metastatic melanoma	metastatic melanoma	-1736	Melanoma	
+diagnosis	MSB-07994	N313145	Melanoma	10053571	Melanoma	2092003	Skin Of The Back	Malignant Melanoma	Unk	-24	Melanoma	
+diagnosis	MSB-01262	N389040	Colorectal Carcinoma	10010029	Adenocarcinoma	35917007	Rectum	adenocarcinoma	adenocarcinoma	-2855	Colorectal cancer, NOS	
+diagnosis	MSB-07483	N510607	Prostate Carcinoma	10036910	Prostate Carcinoma	254900004	Prostate Gland	metastatic prostate carcinoma	Prostatic adenocarcinoma	-628	Prostate cancer, NOS	
+diagnosis	MSB-05837	N973910	Small Cell Lung Carcinoma	10041071	Small Cell Lung Carcinoma	254632001	Lung	small cell carcinoma	small cell carcinoma	-1115	Small cell lung cancer	
+diagnosis	MSB-07865	N29827	Melanoma	10053571	Melanoma	2092003	Foot Skin	Malignant Melanoma	Melanoma, NOS	-78	Melanoma	
+diagnosis	MSB-03053	N701719	Melanoma	10053571	Melanoma	2092003	Skin Of The Back	Malignant Melanoma	Mixed Desmoplastic Melanoma	-40	Melanoma	
+diagnosis	MSB-08267	N94589	Non-Small Cell Lung Carcinoma	10029514	Squamous Cell Lung Carcinoma	254634000	Lung	Squamous	cT3, cN3, cM1c	-15	Non-small cell lung cancer, NOS	
+diagnosis	MSB-09117	N88815	Non-Small Cell Lung Carcinoma	10029514	Non-Small Cell Lung Carcinoma	254637007	Lung	NSCLC	adenocarcinoma	-1119	Non-small cell lung cancer, NOS	
+diagnosis	MSB-03258	N499323	Colorectal Carcinoma	10010029	Adenocarcinoma	443961001	Rectum	metastatic adenocarcioma consistent with colorectal primary	colorectal	-21	Colorectal cancer, NOS	
+diagnosis	MSB-06857	N45025	Adenocarcinoma of the Gastroesophageal Junction	10017760	Gastric Adenocarcinoma	408647009	Stomach	carcinoma, favor adenocarcinoma	adenocarcinoma	-21	Gastric cancer, NOS	
+diagnosis	MSB-05040	N967678	Melanoma	10053571	Melanoma	2092003	Liver	Melanoma	Melanoma	-88	Melanoma	
+diagnosis	MSB-03973	N899879	Prostate Carcinoma	10036910	Prostate Adenocarcinoma	399490008	Prostate Gland	Prostatic Adenocarcinoma	Grade Group 5	-240	Prostate cancer, NOS	
+diagnosis	MSB-02917	N866814	Prostate Carcinoma	10036910	Prostate Adenocarcinoma	399490008	Prostate Gland	Prostatic Adenocarcinoma	Grade Group 5	-463	Prostate cancer, NOS	
+diagnosis	MSB-00952	N755755	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Colon	Invasive Adenocarcinoma	Moderately-Differentiated	-139	Colorectal cancer, NOS	
+diagnosis	MSB-02118	N957291	Non-Small Cell Lung Carcinoma	10029514	Lung Carcinoma	448993007	Lung	squamous cell carcinoma	squamous cell carcinoma	-1046	Non-small cell lung cancer, NOS	
+diagnosis	MSB-07436	N594577	Prostate Carcinoma	10036910	Prostate Adenocarcinoma	399490008	Prostate Gland	prostate	adenocarcinoma	-431	Prostate cancer, NOS	
+diagnosis	MSB-02249	N702919	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Multiple Myeloma  Monotypic Kappa	Monotypic Kappa	-569	Myeloma, NOS	
+diagnosis	MSB-03244	N524801	Melanoma	10053571	Melanoma	2092003	Forearm	Malignant Melanoma	Nodular melanoma	-50	Melanoma	
+diagnosis	MSB-01103	N987639	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	plasma cell neoplasm	HYPOCELLULAR BONE MARROW WITH SMALL CLONAL PLASMA CELL POPULATION	-3657	Myeloma, NOS	
+diagnosis	MSB-08178	N772218	Prostate Carcinoma	10036910	Prostate Adenocarcinoma	399490008	Prostate Gland	Prostatic Adenocarcinoma	Grade Group 2	-1289	Prostate cancer, NOS	
+diagnosis	MSB-08922	N566432	Melanoma	10053571	Melanoma	2092003	Skin	metastatic melanoma	melanoma	-504	Melanoma	
+diagnosis	MSB-06489	N862486	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Colon	Adenocarcinoma	Metastatic	-61	Colorectal cancer, NOS	
+diagnosis	MSB-04332	N323246	Small Cell Lung Carcinoma	10041071	Small Cell Lung Carcinoma	254632001	Lower Lobe of the Left Lung	metastatic small cell lung	Metastatic carcinoma consistent with small cell carcinoma of the lung	-21	Small cell lung cancer	
+diagnosis	MSB-07225	N53642	Colorectal Carcinoma	10010029	Colon Carcinoma	269533000	Colon	adenocarcinoma	adenocarcinoma	-1175	Colorectal cancer, NOS	
+diagnosis	MSB-05563	N455210	Prostate Carcinoma	10036910	Prostate Adenocarcinoma	399490008	Prostate Gland	Prostatic Adenocarcinoma	Metastatic	-873	Prostate cancer, NOS	
+diagnosis	MSB-07059	N245330	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Rectosigmoid Colon	adenocarcinoma	low grade	-2188	Colorectal cancer, NOS	
+diagnosis	MSB-06184	N807034	Prostate Carcinoma	10036910	Adenocarcinoma	443961001	Prostate Gland	Prostatic adenocarcinoma, acinar	acinar	-91	Prostate cancer, NOS	
+diagnosis	MSB-08536	N535355	Melanoma	10053571	Melanoma	2092003	Arm Skin	Invasive Melanoma	Superficial Spreading (low CSD melanoma)	-43	Melanoma	
+diagnosis	MSB-04950	N407783	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell neoplasm	Hypercelular bone marrow with trilineage heatopoises involved by plasma cell neoplasm	-1080	Myeloma, NOS	
+diagnosis	MSB-09601	N891817	Colorectal Carcinoma	10010029	Adenocarcinoma	35917007	Appendix	Metastatic low grade mucinous adenocarci	Not reported	-2219	Colorectal cancer, NOS	
+diagnosis	MSB-05789	N310697	Plasma Cell Myeloma	10028566	Multiple myeloma	55921005	Bone	kappa light chai-restricted plasma cells	plasma cell myeloma	-453	Myeloma, NOS	
+diagnosis	MSB-07099	N589813	Colorectal Carcinoma	10010029	Adenocarcinoma	35917007	Ascending Colon	poorly differentiated	poorly differentiated	-295	Colorectal cancer, NOS	
+diagnosis	MSB-09886	N737211	Colorectal Carcinoma	10010029	Colon Carcinoma	269533000	Colon	adenocarcinoma	invasive moderately differentiated colonic adenocarcinoma	-163	Colorectal cancer, NOS	
+diagnosis	MSB-01031	N655225	Colorectal Carcinoma	10010029	Adenocarcinoma	35917007	Colon	adenocarcinoma	adenocarcinoma	-237	Colorectal cancer, NOS	
+diagnosis	MSB-04315	N746201	Non-Small Cell Lung Carcinoma	10029514	Non-Small Cell Lung Carcinoma	254637007	Lung	non-small cell carcinoma	adenocarcinoma	-217	Non-small cell lung cancer, NOS	
+diagnosis	MSB-03796	N369396	Melanoma	10053571	Melanoma	2092003	Buttock	Malignant Melanoma	Superficial Spreading (low CSD melanoma)	-50	Melanoma	
+diagnosis	MSB-09774	N946988	Melanoma	10053571	Melanoma	2092003	Bone	Malignant Melanoma	Metastatic neoplasm of Bone	-1248	Melanoma	
+diagnosis	MSB-03400	N197562	Colorectal Carcinoma	10010029	Rectal Carcinoma	254582000	Rectum	adenocarcinoma	adenocarcinoma	-26	Colorectal cancer, NOS	
+diagnosis	MSB-06735	N360291	Melanoma	10053571	Epithelioid Cell Melanoma	37138001	Arm	Metastatic Melanoma	Melanoma	-1242	Melanoma	
+diagnosis	MSB-06236	N448914	Colorectal Carcinoma	10010029	Adenocarcinoma	35917007	Rectum	tubulovillous adenoma	multifocal high-grade dysplasia	0	Colorectal cancer, NOS	
+diagnosis	MSB-05562	N893852	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell Myeloma	extensive involvment	-588	Myeloma, NOS	
+diagnosis	MSB-01649	N720224	Non-Small Cell Lung Carcinoma	10029514	Non-Small Cell Lung Carcinoma	254637007	Upper Lobe of the Right Lung	adenocarcinoma	with micropapillary features	-133	Non-small cell lung cancer, NOS	
+diagnosis	MSB-04153	N871419	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Colon	invasive adenocarcinoma	moderate to poorly differentiated	-107	Colorectal cancer, NOS	
+diagnosis	MSB-01413	N614641	Non-Small Cell Lung Carcinoma	10029514	Lung Adenocarcinoma	254626006	Upper Lobe of the Right Lung	lung adenocarcinoma	adenocarcinoma	-102	Non-small cell lung cancer, NOS	
+diagnosis	MSB-00939	N202787	Non-Small Cell Lung Carcinoma	10029514	Non-Small Cell Lung Carcinoma	254637007	Left Lung	squamous cell carcinoma	squamous cell carcinoma	-774	Non-small cell lung cancer, NOS	
+diagnosis	MSB-04432	N928953	Melanoma	10053571	Melanoma	2092003	Axillary Lymph Node	Malignant melanoma	Nodular melanoma	-525	Melanoma	
+diagnosis	MSB-01627	N670237	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Colon	adenocarcinoma	adenocarcinoma	-82	Colorectal cancer, NOS	
+diagnosis	MSB-03226	N99817	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell Neoplasm	Plasma cells account for 80% of cellularity	-1385	Myeloma, NOS	
+diagnosis	MSB-06029	N303181	Colorectal Carcinoma	10010029	Mucinous Adenocarcinoma	72495009	Cecum	Mucinous adenocarcinoma	Mucinous	-4775	Colorectal cancer, NOS	
+diagnosis	MSB-05206	N188757	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	myeloma	plasma cell myeloma	-16	Myeloma, NOS	
+diagnosis	MSB-00352	N180428	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Rectosigmoid Colon	adenocarcinoma	adenocarcinoma	-297	Colorectal cancer, NOS	
+diagnosis	MSB-05281	N285935	Small Cell Lung Carcinoma	10041071	Small Cell Lung Carcinoma	254632001	Lung	metastatic small cell carcinoma	small cell carcinoma	-63	Small cell lung cancer	
+diagnosis	MSB-01617	N888587	Non-Small Cell Lung Carcinoma	10029514	Non-Small Cell Lung Carcinoma	254637007	Upper Lobe of the Right Lung	R Lung Squamous cell carcinoma	R Lung Squamous cell carcinoma	-47	Non-small cell lung cancer, NOS	
+diagnosis	MSB-09991	N892928	Colorectal Carcinoma	10010029	Adenocarcinoma	443961001	Rectum	adenocarcinoma	adenocarcinoma	-1638	Colorectal cancer, NOS	
+diagnosis	MSB-04031	N143700	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell Neoplasm	75% cellular marrow with lambda restricted plasma cells comprising 90% of marrow cellularity	-1063	Myeloma, NOS	
+diagnosis	MSB-03932	N360643	Melanoma	10053571	Melanoma	2092003	Brain	Melanoma	Melanoma	-74	Melanoma	
+diagnosis	MSB-03406	N900894	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	plasma cell myeloma	monoclonal plasma cell	-228	Myeloma, NOS	
+diagnosis	MSB-08045	N904929	Colorectal Carcinoma	10010029	Colon Adenoma	428054006	Colon	adenocarcinoma	NOS	-148	Colorectal cancer, NOS	
+diagnosis	MSB-01723	N946161	Acute Myeloid Leukemia Not Otherwise Specified	10000884	Acute Myeloid Leukemia	17788007	Bone Marrow	Acute Myeloid Leukemia w/o maturation	Increased myeloid blast population present (84%), consistent with acute myeloid leukemia.	0	Acute myeloid leukemia, NOS	
+diagnosis	MSB-02271	N165067	Melanoma	10053571	Melanoma	2092003	Axilla	Melanoma	Melanoma	-56	Melanoma	
+diagnosis	MSB-08093	N154150	Plasma Cell Myeloma	10028566	Multiple myeloma and immunoproliferative disease	188717001	Bone Marrow	myeloma	myeloma		Myeloma, NOS	
+diagnosis	MSB-03315	N175557	Plasma Cell Myeloma	10028566	Multiple myeloma	55921005	Bone Marrow	plasma cell neoplasm	Hypercellular bone marrow with involvement by plasma cell dyscrasia (60% plasma cells by CD138 immunostain)	-2401	Myeloma, NOS	
+diagnosis	MSB-01224	N986764	Plasma Cell Myeloma	10028566	Multiple myeloma	55921005	Bone Marrow	Plasma Cell Myeloma	Plasma cell neoplasm	-1066	Myeloma, NOS	
+diagnosis	MSB-05742	N576902	Plasma Cell Myeloma	10028566	Multiple myeloma	55921005	Bone Marrow	Plasma cell neoplasm	Plasma cells account for 45-50% of cellularity by CD138 immunohistochemical stain	0	Myeloma, NOS	
+diagnosis	MSB-08631	N626736	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Rectum	adenocarcinoma	adenocarcinoma	-32	Colorectal cancer, NOS	
+diagnosis	MSB-03885	N909020	Plasma Cell Myeloma	10028566	Multiple myeloma	55921005	Bone Marrow	Smoldering Myeloma	Multiple Myeloma	-601	Myeloma, NOS	
+diagnosis	MSB-00556	N772198	Non-Small Cell Lung Carcinoma	10029514	Lung Adenocarcinoma	254626006	Right Lung	Lung right adenocarcinoma	Adenocarcinoma	-587	Non-small cell lung cancer, NOS	
+diagnosis	MSB-05975	N816948	Melanoma	10053571	Melanoma	2092003	Skin	metastatic melanoma	Ki-67/MIB-1 Low, 10% A5-4  MART-1 Positive A1-2  HMB-45 Positive A1-3  SOX-10 Positive  A1-4	-641	Melanoma	
+diagnosis	MSB-05975	N843863	Melanoma	10053571	Melanoma	2092003	Skin	metastatic melanoma	Ki-67/MIB-1 Low, 10% A5-4  MART-1  Positive A1-2  HMB-45 Positive A1-3  SOX-10 Positive A1-4	-641	Melanoma	
+diagnosis	MSB-03453	N472407	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma cell neoplasm	Plasma cells account for 30% cellularity by CD138 immunohistochemical stain in interstitial and focally coalescent pattern.	-1370	Myeloma, NOS	
+diagnosis	MSB-02472	N967502	Prostate Carcinoma	10036910	Prostate Carcinoma	399068003	Prostate Gland	Malignant carcinoma consistent w prostat	Cellular Epithelioid Neoplasm	-108	Prostate cancer, NOS	
+diagnosis	MSB-05737	N386212	Plasma Cell Myeloma	10028566	Multiple myeloma	55921005	Humerus	Suspected MML	Suspected MML	0	Myeloma, NOS	
+diagnosis	MSB-01771	N932149	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Sigmoid Colon	Colorectal Adenocarcinoma	adenocarcinoma	-202	Colorectal cancer, NOS	
+diagnosis	MSB-06699	N323910	Plasma Cell Myeloma	10028566	Multiple myeloma	55921005	Bone Marrow	IgG Kappa Multiple Myeloma	RISS - I	-6	Myeloma, NOS	
+diagnosis	MSB-05746	N365233	Non-Small Cell Lung Carcinoma	10029514	Lung Adenocarcinoma	254626006	Lung	METASTATIC ADENOCARCINOMA	moderately to poorly-differentiated ADENOCARCINOMA	-56	Non-small cell lung cancer, NOS	
+diagnosis	MSB-07917	N557971	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Hyper. bm w/ plasma cell dyscrasia	>95% plasma cells by CD138 immunostain; monoclonal lambda plasma cell population	-2462	Myeloma, NOS	
+diagnosis	MSB-05388	N382074	Small Cell Lung Carcinoma	10041071	Small Cell Lung Carcinoma	254632001	Hilar	Small Cell Carcinoma	small cell carcinoma	-1150	Small cell lung cancer	
+diagnosis	MSB-09348	N954425	Adenocarcinoma of the Gastroesophageal Junction	10066354	Gastric Adenocarcinoma	408647009	Stomach	Gastric Adenocarcinoma	Diffuse	-23	Adenocarcinoma of the gastroesophageal junction	
+diagnosis	MSB-03069	N814100	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	55921005	Bone Marrow	plasma cell myeloma	Plasma cell myeloma	-533	Myeloma, NOS	
+diagnosis	MSB-07715	N987503	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	MML	MML	-6413	Myeloma, NOS	
+diagnosis	MSB-02429	N235443	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma cell neoplasm	Plasma cells account for 70% cellularity by CD138 immunostain	0	Myeloma, NOS	
+diagnosis	MSB-04141	N169837	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Rectosigmoid Region	Metastatic adenocarcinoma	Metastatic adenocarcinoma, colorectal origin	-120	Colorectal cancer, NOS	
+diagnosis	MSB-08799	N727370	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma cell neoplasma	Plasma cells account for 20% of differential count and 70% of cellularity by CD138 immunostain.	0	Myeloma, NOS	
+diagnosis	MSB-05126	N210294	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma cell neoplasm	Plasma cells account for 25% of cellularity by differential count and 40-45% by CD138 immunostain.	-281	Myeloma, NOS	
+diagnosis	MSB-00140	N354175	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma cell neoplasm	50% involvement in a 70% cellular bone marrow	-46	Myeloma, NOS	
+diagnosis	MSB-07278	N993667	Non-Small Cell Lung Carcinoma	10029514	Non-Small Cell Lung Carcinoma	254637007	Lung	Non-Small Cell Lung Cancer	cT2aNxM1b	-98	Non-small cell lung cancer, NOS	
+diagnosis	MSB-00520	N854605	Melanoma	10053571	Superficial Spreading Melanoma	254730000	Foot	Superficial Spreading Melanoma	CSD	-83	Melanoma	
+diagnosis	MSB-01049	N12834	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma cell myeloma	Plasma cells account for 80-90% of cellularity by CD138 immunohistochemical stain and by differential count	-117	Myeloma, NOS	
+diagnosis	MSB-07270	N766074	Melanoma	10053571	Melanoma	2092003	Lung	melanoma	CSD melanoma	-475	Melanoma	
+diagnosis	MSB-04437	N312061	Adenocarcinoma of the Gastroesophageal Junction	10017760	Adenocarcinoma	35917007	Gastroesophageal Junction	Gastroesophageal cancer: stage IV	Adenocarcinoma, HER 2 +	-26	Gastric cancer, NOS	
+diagnosis	MSB-02302	N345647	Small Cell Lung Carcinoma	10041071	Non-Small Cell Lung Carcinoma	254637007	Left Lung	Poorly differentiated carcinoma with neuroendocrine features	Stage IIIA	-1717	Small cell lung cancer	
+diagnosis	MSB-07839	N742249	Acute Myeloid Leukemia Not Otherwise Specified	10000884	Acute Myeloid Leukemia	17788007	Bone Marrow	Acute myeloid leukemia	Bone marrow involved by AML w/ myelodysplasia related changes. Blasts account for 54% cellularity differential count.	-6	Acute myeloid leukemia, NOS	
+diagnosis	MSB-03330	N301114	Non-Small Cell Lung Carcinoma	10029514	Non-Small Cell Lung Carcinoma	254637007	Lower Lobe of the Right Lung	Invasive adenocarcinoma with mixed non-mucinous and mucinous components	moderate to poorly differentiated	-28	Non-small cell lung cancer, NOS	
+diagnosis	MSB-07709	N387657	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma cell neoplasm	Plasma cells account for 10-15% of cellularity by CD138 immunohistochemical stain.	-147	Myeloma, NOS	
+diagnosis	MSB-09491	N133956	Plasma Cell Myeloma	10028566	Multiple myeloma	55921005	Bone Marrow	Multiple Myeloma	NA	-262	Myeloma, NOS	
+diagnosis	MSB-05435	N257232	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell Neoplasm	Plasma cells account for 15-20% cellularity by CD138 immunohistochemical stain.	-1088	Myeloma, NOS	
+diagnosis	MSB-06894	N420312	Prostate Carcinoma	10036910	Prostate Adenocarcinoma	399490008	Prostate Gland	Invasive adenocarcinoma with necrosis, fully compatible with metastatic prostatic adenocarcinoma	Adenocarcinoma	-604	Prostate cancer, NOS	
+diagnosis	MSB-07945	N380937	Non-Small Cell Lung Carcinoma	10029514	Non-Small Cell Lung Carcinoma	254637007	Left Lung	adenocarcinoma	well to moderately differentiated	-392	Non-small cell lung cancer, NOS	
+diagnosis	MSB-07656	N549430	Acute Myeloid Leukemia Not Otherwise Specified	10000884	Acute Myeloid Leukemia	17788007	Bone Marrow	Hypercellular bone marrow involved by acute myeloid leukemia.	Blasts account for 33% cellularity by differential count; Flow cytometry demonstrates an abnormal myeloid blast population.	-3	Acute myeloid leukemia, NOS	
+diagnosis	MSB-07435	N401433	Melanoma	10053571	Melanoma	2092003	Gluteal Muscle	Melanoma	Melanoma	-2372	Melanoma	
+diagnosis	MSB-02661	N151106	Non-Small Cell Lung Carcinoma	10029514	Lung Adenocarcinoma	254626006	Left Lung	adenocarcinoma	positive for TTF-1 and CK7	-1107	Non-small cell lung cancer, NOS	
+diagnosis	MSB-04286	N115594	Small Cell Lung Carcinoma	10041071	Small Cell Lung Carcinoma	254632001	Lung	Small cell carcinoma	N/A	-166	Small cell lung cancer	
+diagnosis	MSB-02169	N362632	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Colon	Colorectal Adenocarcinoma	adenocarcinoma	-280	Colorectal cancer, NOS	
+diagnosis	MSB-08354	N696893	Non-Small Cell Lung Carcinoma	10029514	Squamous Cell Carcinoma	28899001	Lung	Non small cell lung cancer	Squamous	-280	Non-small cell lung cancer, NOS	
+diagnosis	MSB-04433	N885217	Melanoma	10053571	Melanoma	2092003	Chest Wall	Melanoma	SOX10, MART1	-292	Melanoma	
+diagnosis	MSB-01597	N208378	Non-Small Cell Lung Carcinoma	10029514	Lung Adenocarcinoma	254626006	Lung	Stage IV Non-small cell lung cancer	metastatic adenocarcinoma	-47	Non-small cell lung cancer, NOS	
+diagnosis	MSB-08544	N678881	Melanoma	10053571	Cutaneous Melanoma	93655004	Skin	Melanoma	Acral melanoma	-52	Melanoma	
+diagnosis	MSB-07272	N539932	Non-Small Cell Lung Carcinoma	10029514	Lung Adenocarcinoma	254626006	Lower Lobe of the Right Lung	Non-Small Cell Lungc arcinoma	poorly differentiated adenocarcinoma	-183	Non-small cell lung cancer, NOS	
+diagnosis	MSB-06403	N103475	Melanoma	10053571	Amelanotic Melanoma	70594002	Flank	melanoma	unknown	-651	Melanoma	
+diagnosis	MSB-06682	N758043	Adenocarcinoma of the Gastroesophageal Junction	10066354	Esophageal Adenocarcinoma	276803003	Esophagus	adenocarcinoma	high grade	-1155	Adenocarcinoma of the gastroesophageal junction	
+diagnosis	MSB-05756	N542312	Non-Small Cell Lung Carcinoma	10029514	Non-Small Cell Lung Carcinoma	254637007	Lung	Adenocarcinoma	positive for keratin 7, TTF1 and Napsin A	-434	Non-small cell lung cancer, NOS	
+diagnosis	MSB-07221	N118523	Colorectal Carcinoma	10010029	Adenocarcinoma	35917007	Rectum	INVASIVE ADENOCARCINOMA	COLORECTAL ADENOCARCINOMA	-630	Colorectal cancer, NOS	
+diagnosis	MSB-07479	N301602	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma cell neoplasm	Plasma cell neoplasm w/ 35% plasma cells by aspirate count and approx. 35% by CD138 staining.	-7	Myeloma, NOS	
+diagnosis	MSB-04415	N873502	Prostate Carcinoma	10036910	Prostate Adenocarcinoma	399490008	Prostate Gland	adenocarcinoma of prostate	adenocarcinoma of prostate	-673	Prostate cancer, NOS	
+diagnosis	MSB-09897	N711617	Colorectal Carcinoma	10010029	Adenocarcinoma	35917007	Rectum	adenocarcinoma of the rectum	mucinous adenocarcinoma	-756	Colorectal cancer, NOS	
+diagnosis	MSB-05676	N850385	Plasma Cell Myeloma	10028566	Multiple myeloma	55921005	Bone Marrow	Multiple myeloma	Plasma cell neoplasm	-100	Myeloma, NOS	
+diagnosis	MSB-07784	N827327	Colorectal Carcinoma	10010029	Adenocarcinoma	35917007	Colon	Adenocarcinoma	Stage IV	-1678	Colorectal cancer, NOS	
+diagnosis	MSB-05354	N776076	Melanoma	10053571	Melanoma	2092003	Gallbladder	Metastatic melanoma	none	-309	Melanoma	
+diagnosis	MSB-07662	N91367	Non-Small Cell Lung Carcinoma	10029514	Neuroendocrine Carcinoma	253000007	Lung	Neuroendocrine carcinoma	Neuroendocrine carcinoma	-51	Non-small cell lung cancer, NOS	
+diagnosis	MSB-06864	N44558	Small Cell Lung Carcinoma	10041071	Small Cell Lung Carcinoma	254632001	Lung	Stage IV Small Cell Lung Cancer	small cell carcinoma	-69	Small cell lung cancer	
+diagnosis	MSB-07146	N312531	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell Myeloma	Cellular bone marrow with extensive involvement by plasma cell myeloma. Plasma cells account for nearly 100% of cellularity by CD138 immunostain.	-61	Myeloma, NOS	
+diagnosis	MSB-01493	N63868	Adenocarcinoma of the Gastroesophageal Junction	10066354	Gastric Adenocarcinoma	408647009	Stomach	Gastric Adenocarcinoma	poorly differentiated adenocarcinoma, diffuse type	-68	Adenocarcinoma of the gastroesophageal junction	
+diagnosis	MSB-05602	N776946	Prostate Carcinoma	10036910	Prostate Adenocarcinoma	399490008	Prostate Gland	adenocarcinoma of prostate	adenocarcinoma of prostate	-286	Prostate cancer, NOS	
+diagnosis	MSB-07370	N956243	Non-Small Cell Lung Carcinoma	10029514	Adenocarcinoma	35917007	Lung	Pulmonary Adenocarcinoma	Adenocarcinoma	-1850	Non-small cell lung cancer, NOS	
+diagnosis	MSB-01437	N556263	Non-Small Cell Lung Carcinoma	10029514	Lung Adenocarcinoma	254626006	Right Lung	adenocarcinoma	adenocarcinoma	-305	Non-small cell lung cancer, NOS	
+diagnosis	MSB-07085	N66832	Plasma Cell Myeloma	10028566	Multiple myeloma and immunoproliferative disease	188717001	Bone Marrow	Multiple Myeloma	Lightchain LC	-269	Myeloma, NOS	
+diagnosis	MSB-07186	N505387	Plasma Cell Myeloma	10028566	Multiple myeloma	55921005	Bone Marrow	myeloma	myeloma	-409	Myeloma, NOS	
+diagnosis	MSB-02901	N922276	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell Neoplasm	Plasma cells account for 15% of cellularity by CD138 immunohistochemical stain; Lambda light chain restricted plasma cell population.	-968	Myeloma, NOS	
+diagnosis	MSB-01594	N517831	Adenocarcinoma of the Gastroesophageal Junction	10066354	Esophageal Adenocarcinoma	276803003	Esophagus	Esophageal Adenocarcinoma	poorly differentiated adenocarcinoma	-56	Adenocarcinoma of the gastroesophageal junction	
+diagnosis	MSB-02988	N295311	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell Neoplasm	Plasma cells enumerated 26.3% and est. 40-50% on CD138 staining, with demonstrated kappa restriction with CD56 and CD117 on positive flow cytometry.	-784	Myeloma, NOS	
+diagnosis	MSB-05702	N393798	Acute Myeloid Leukemia Not Otherwise Specified	10000884	Acute Myeloid Leukemia	17788007	Bone Marrow	Acute Myeloid Leukemia	Hypercellular bone marrow involved by acute myeloid leukemia; blasts account for 95% cellularity; flow cytometry demonstrates an abnormal myeloid blast population.	-1	Acute myeloid leukemia, NOS	
+diagnosis	MSB-02370	N117411	Non-Small Cell Lung Carcinoma	10029514	Lung Adenocarcinoma	254626006	Right Lung	adenocarcinoma	unknown	-9	Non-small cell lung cancer, NOS	
+diagnosis	MSB-04176	N894565	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	plasma cell myeloma	plasma cell myeloma	-15	Myeloma, NOS	
+diagnosis	MSB-09124	N367536	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell Neoplasm	Plasma cells account for 47% of differential count and 50% of cellularity by CD138 immunostain.	-2	Myeloma, NOS	
+diagnosis	MSB-08058	N683175	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	multiple myeloma	plasma cell dyscrasia	-2395	Myeloma, NOS	
+diagnosis	MSB-07578	N553850	Non-Small Cell Lung Carcinoma	10029514	Non-Small Cell Lung Carcinoma	254637007	Lung	Stage IV non-small cell lung cancer	metastatic poorly differentiated adenocarcinoma with bilateral lung disease	-59	Non-small cell lung cancer, NOS	
+diagnosis	MSB-06606	N50611	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell Neoplasm	Plasma cell neoplasm with 80% plasma cells by CD138 immunostain.	-2308	Myeloma, NOS	
+diagnosis	MSB-01208	N477297	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell Myeloma	Hypercellular bone marrow with extensive involvement by plasma cell myeloma. Plasma cells account for 76% of differential count and 90% of cellularity by CD138 immunostain.	0	Myeloma, NOS	
+diagnosis	MSB-04500	N442545	Non-Small Cell Lung Carcinoma	10029514	Non-Small Cell Lung Carcinoma	254637007	Lung	carcinoma	carcinoma	-504	Non-small cell lung cancer, NOS	
+diagnosis	MSB-09666	N803928	Non-Small Cell Lung Carcinoma	10029514	Squamous Cell Carcinoma	402815007	Right Lung	Squamous cell carcinoma	Squamous cell carcinoma	-202	Non-small cell lung cancer, NOS	
+diagnosis	MSB-07414	N199397	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Rectum	Adenocarcinoma	T4bN1	-45	Colorectal cancer, NOS	
+diagnosis	MSB-05856	N174502	Melanoma	10053571	Melanoma	2092003	Scalp	melanoma	cutaneous	-139	Melanoma	
+diagnosis	MSB-00089	N523946	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma cell neoplasm	Plasma cells account for 19% of differential count and 15-20% cellularity by CD138 immunostain	-56	Myeloma, NOS	
+diagnosis	MSB-08228	N369166	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma cell neoplasm	Plasma cells account for 37% of differential count and 50% cellularity by CD138 immunostain.	-38	Myeloma, NOS	
+diagnosis	MSB-01463	N368353	Melanoma	10053571	Melanoma	2092003	Flank	Malignant melanoma	Malignant melanoma	-49	Melanoma	
+diagnosis	MSB-01433	N122932	Non-Small Cell Lung Carcinoma	10029514	Lung Adenocarcinoma	254626006	Lung	Metastatic Lung Adenocarcinoma	Adenocarcinoma	-231	Non-small cell lung cancer, NOS	
+diagnosis	MSB-05151	N73314	Plasma Cell Myeloma	10028566	Multiple myeloma	55921005	Bone Marrow	Monoclonal gammopathy of renal significance	Monoclonal gammopathy of renal significance	-13	Myeloma, NOS	
+diagnosis	MSB-09202	N151631	Colorectal Carcinoma	10010029	Rectal Adenoma	399730005	Rectum	adenocarcinoma	adenocarcinoma	-1184	Colorectal cancer, NOS	
+diagnosis	MSB-08965	N952667	Prostate Carcinoma	10036910	Prostate Adenocarcinoma	399490008	Prostate Gland	Prostatic Adenocarcinoma	Gleason 7	-119	Prostate cancer, NOS	
+diagnosis	MSB-01960	N653525	Colorectal Carcinoma	10010029	Colon Carcinoma	269533000	Transverse Colon	adenocarcinoma	G3 poorly differentiated	-18	Colorectal cancer, NOS	
+diagnosis	MSB-04319	N824890	Non-Small Cell Lung Carcinoma	10029514	Squamous Cell Lung Carcinoma	254634000	Upper Lobe of the Left Lung	squamous	Moderately differentiaed	-267	Non-small cell lung cancer, NOS	
+diagnosis	MSB-04591	N32798	Acute Myeloid Leukemia Not Otherwise Specified	10000884	Acute Myeloid Leukemia	17788007	Bone Marrow	Acute Myeloid Leukemia	Hypercellular bone marrow involved by acute myeloid leukemia. Blasts account for nearly 100% of cellularity. Flow cytometry demonstrates abnormal myeloid blast population.	0	Acute myeloid leukemia, NOS	
+diagnosis	MSB-00902	N302553	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell Myeloma	Plasma cell myeloma, 50-60% cellularity; markedly increased interstitial large plasma cells	-1379	Myeloma, NOS	
+diagnosis	MSB-00956	N432935	Non-Small Cell Lung Carcinoma	10029514	Lung Adenocarcinoma	254626006	Lung	Lung	Metastatic non-small cell carcinoma	-937	Non-small cell lung cancer, NOS	
+diagnosis	MSB-00437	N760576	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell Myeloma	Cellular marrow (avg 50%) demonstrating plasma cell neoplasm, maturing trilineage hematopoiesis. Plasma cells enumerated 39% and estimated 80% on CD138 IHC stain.	-57	Myeloma, NOS	
+diagnosis	MSB-04006	N423914	Melanoma	10053571	Melanoma	2092003	Scalp	melanoma	malignant melanoma	-2196	Melanoma	
+diagnosis	MSB-00316	N438578	Non-Small Cell Lung Carcinoma	10029514	Lung Adenocarcinoma	254626006	Lung	adenocarcinoma	adenocarcinoma	-443	Non-small cell lung cancer, NOS	
+diagnosis	MSB-08777	N625209	Non-Small Cell Lung Carcinoma	10029514	Squamous Cell Lung Carcinoma	254634000	Upper Lobe of the Left Lung	Non small cell lung cancer	Squamous	-53	Non-small cell lung cancer, NOS	
+diagnosis	MSB-05460	N925685	Non-Small Cell Lung Carcinoma	10029514	Lung Adenocarcinoma	254626006	Upper Lobe of the Right Lung	adenocarcinoma	unknown	-1838	Non-small cell lung cancer, NOS	
+diagnosis	MSB-07840	N551764	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell Neoplasm	Mildly hypercellular bone marrow w/ trilineage hematopoiesis and 5-10% plasma cells. Plasma cells show lambda light chain predominance by in-situ hybridization for kappa and lambda light chains.	-975	Myeloma, NOS	
+diagnosis	MSB-06833	N870635	Plasma Cell Myeloma	10028566	Multiple myeloma	55921005	Bone Marrow	plasma cell myeloma	plasma cell myeloma	-52	Myeloma, NOS	
+diagnosis	MSB-08700	N702845	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell Neoplasm	Normocellular bone marrow with trilineage hematopoiesis involved by plasma cell neoplasm. Plasma cells account for 23% of differential count and 40-45% of cellularity by CD138 immunostain.	-6	Myeloma, NOS	
+diagnosis	MSB-04388	N114721	Non-Small Cell Lung Carcinoma	10029514	Adenocarcinoma	35917007	Lung	adenocarcinoma stage IV	adenocarcinoma	-983	Non-small cell lung cancer, NOS	
+diagnosis	MSB-01307	N773157	Small Cell Lung Carcinoma	10041071	Small Cell Lung Carcinoma	254633006	Lung	extensive stage small cell lung ca	small cell	-548	Small cell lung cancer	
+diagnosis	MSB-06711	N852435	Acute Myeloid Leukemia Not Otherwise Specified	10000884	Acute Myeloid Leukemia	17788007	Bone Marrow	Acute Myeloid Leukemia	Markedly hypercellular marrow involved by acute myeloid leukemia (47.5% blasts by aspirate differential and 22% by flow cytometry). Background trilineage hypoplasia and megakaryocytic dysplasia.	-3	Acute myeloid leukemia, NOS	
+diagnosis	MSB-05167	N774171	Acute Myeloid Leukemia Not Otherwise Specified	10000884	Acute Myeloid Leukemia	17788007	Bone Marrow	Acute Myeloid Leukemia	FLT3-ITD, NPM1+	-114	Acute myeloid leukemia, NOS	
+diagnosis	MSB-04143	N727729	Colorectal Carcinoma	10010029	Colon Carcinoma	269533000	Colon	Adenocarcinoma, with signet ring cells	poorly-differentiated		Colorectal cancer, NOS	
+diagnosis	MSB-06059	N364207	Non-Small Cell Lung Carcinoma	10029514	Squamous Cell Lung Carcinoma	254634000	Lung	squamous	poorly differentiated	-71	Non-small cell lung cancer, NOS	
+diagnosis	MSB-04968	N246647	Non-Small Cell Lung Carcinoma	10029514	Lung Adenocarcinoma	254626006	Lung	adenocarcinoma	adenocarcinoma	-249	Non-small cell lung cancer, NOS	
+diagnosis	MSB-05098	N582178	Non-Small Cell Lung Carcinoma	10029514	Non-Small Cell Lung Carcinoma	254637007	Lung	adenocarcinoma	adenocarcinoma, intermediate grade	-72	Non-small cell lung cancer, NOS	
+diagnosis	MSB-08454	N247793	Non-Small Cell Lung Carcinoma	10029514	Small Cell Lung Carcinoma	254633006	Upper Lobe of the Right Lung	adenocarcinoma	Squamous	-3744	Non-small cell lung cancer, NOS	
+diagnosis	MSB-06256	N542419	Melanoma	10053571	Nodular Melanoma	2142002	Back	melanoma	nodular melanoma	-135	Melanoma	
+diagnosis	MSB-02960	N431544	Acute Myeloid Leukemia Not Otherwise Specified	10000884	Acute Myeloid Leukemia	17788007	Bone Marrow	Acute Myeloid Leukemia	Hypercellular marrow, involved by acute myeloid leukemia (90% myelomonocytic blasts by aspirate diff).	0	Acute myeloid leukemia, NOS	
+diagnosis	MSB-04064	N732784	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Colon	adenocarcinoma	adenocarcinoma, well differentiated	-73	Colorectal cancer, NOS	
+diagnosis	MSB-06817	N487913	Melanoma	10053571	Melanoma	2092003	Scalp	melanoma	unknown	-1326	Melanoma	
+diagnosis	MSB-03312	N928591	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell Myeloma	Hypercellular bone marrow with reduced trilineage hematopoiesis involved by plasma cell neoplasm; plasma cells account for 70-80% of cellularity by CD138 immunohistochemical stain.	-1498	Myeloma, NOS	
+diagnosis	MSB-04450	N631156	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell Myeloma	Normocellular bone marrow involved by plasma cell neoplasm; Plasma cells account for 60% of cellularity by CD138 immunohistochemical stain	-1129	Myeloma, NOS	
+diagnosis	MSB-02829	N202344	Melanoma	10053571	Melanoma	2092003	Hand Digit 1	melanoma	unknown	-1104	Melanoma	
+diagnosis	MSB-03513	N377660	Colorectal Carcinoma	10010029	Adenocarcinoma	35917007	Cecum	adenocarcinoma	adenocarcinoma	-3024	Colorectal cancer, NOS	
+diagnosis	MSB-02139	N598275	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell Myeloma	Normocellular bone marrow with trilineage hematopoiesis involved by plasma cell neoplasm; monotypic lambda light chain restricted plasma cell population is identified with CD56 expression.	-491	Myeloma, NOS	
+diagnosis	MSB-03483	N642730	Non-Small Cell Lung Carcinoma	10029514	Adenocarcinoma	35917007	Right Lung	Lung adenocarcinoma	poorly differentiated	-133	Non-small cell lung cancer, NOS	
+diagnosis	MSB-05620	N258670	Small Cell Lung Carcinoma	10041071	Small Cell Lung Carcinoma	254632001	Right Lung	small cell	neuroendocrine	-68	Small cell lung cancer	
+diagnosis	MSB-03738	N802345	Adenocarcinoma of the Gastroesophageal Junction	10066354	Gastric Adenocarcinoma	408647009	Gastroesophageal Junction	metastatic adenocarcinoma	poorly differentiated	-86	Adenocarcinoma of the gastroesophageal junction	
+diagnosis	MSB-09350	N182388	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell Myeloma	Hypercellular bone marrow involved by plasma cell neoplasm; plasma cells account for 70% of cellularity by CD138 immunohistochemical stain.	-1447	Myeloma, NOS	
+diagnosis	MSB-01757	N273508	Plasma Cell Myeloma	10028566	Multiple myeloma	55921005	Bone Marrow	plasma cell myeloma	plasma cell myeloma	-63	Myeloma, NOS	
+diagnosis	MSB-09880	N229076	Non-Small Cell Lung Carcinoma	10029514	Adenocarcinoma	443961001	Lower Lobe of the Left Lung	Non-small cell carcinoma	Non-small cell carcinoma	-147	Non-small cell lung cancer, NOS	
+diagnosis	MSB-07991	N399485	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Colon	adenocarcinoma	moderately  differentiated	-328	Colorectal cancer, NOS	
+diagnosis	MSB-09994	N879327	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell Myeloma	Normocellular bone marrow w/ trilineage hematopoiesis involved by plasma cell neoplasm; plasma cells account for 20-25% of cellularity; lambda light chain restricted plasma cell population.	-918	Myeloma, NOS	
+diagnosis	MSB-00498	N665193	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell Myeloma	Plasma cell neoplasm with 80% plasma cells.	-2465	Myeloma, NOS	
+diagnosis	MSB-09737	N652175	Colorectal Carcinoma	10010029	Colon Carcinoma	269533000	Sigmoid Colon	adenocarcinoma	adenocarcinoma	-20	Colorectal cancer, NOS	
+diagnosis	MSB-04831	N575418	Melanoma	10053571	Melanoma	2092003	Back	Malignant Melanoma	Malignant Melanoma	-35	Melanoma	
+diagnosis	MSB-00263	N770492	Melanoma	10053571	Melanoma	2092003	Skin	Malignant Melanoma	Superficial spreading - Nodular Patterns	-30	Melanoma	
+diagnosis	MSB-09286	N24028	Melanoma	10053571	Melanoma	2092003	Skin	Malignant Melanoma	Superficial Spreading (low CSD melanoma)	-37	Melanoma	
+diagnosis	MSB-09495	N948476	Melanoma	10053571	Melanoma	2092003	Skin	Ulcerated Melanoma	polypoid/nodular	-36	Melanoma	
+diagnosis	MSB-09977	N768517	Small Cell Lung Carcinoma	10041071	Small Cell Carcinoma	74364000	Lung	small cell neuroendocrine carcinoma	small cell neuroendocrine carcinoma	-371	Small cell lung cancer	
+diagnosis	MSB-00205	N678318	Melanoma	10053571	Melanoma	2092003	Shoulder	Malignant Melanoma	Superficial Spreading pattern	-66	Melanoma	
+diagnosis	MSB-02746	N950713	Melanoma	10053571	Melanoma	2092003	Skin Of The Back	Melanoma, Not Otherwise Specified	Malignant Melanoma	-51	Melanoma	
+diagnosis	MSB-03272	N480626	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Colon	colon adenocarcinoma	colon adenocarcinoma	-332	Colorectal cancer, NOS	
+diagnosis	MSB-08142	N747203	Melanoma	10053571	Melanoma	2092003	Axilla	Melanoma, Not Otherwise Specified	Unk	-44	Melanoma	
+diagnosis	MSB-01363	N210664	Melanoma	10053571	Melanoma	2092003	Back	Malignant Melanoma	mixed nodular and superficial spreading features	-27	Melanoma	
+diagnosis	MSB-06226	N402545	Melanoma	10053571	Melanoma	372244006	Skin	metastatic malignant melanoma	metastatic malignant melanoma	-1549	Melanoma	
+diagnosis	MSB-03548	N264450	Non-Small Cell Lung Carcinoma	10029514	Non-Small Cell Lung Carcinoma	254637007	Lung	poorly differentiated carcinoma	NUT carcinoma	-321	Non-small cell lung cancer, NOS	
+diagnosis	MSB-06426	N844143	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Colon	Colon	Adenocarcionoma right colon	-671	Colorectal cancer, NOS	
+diagnosis	MSB-05387	N930798	Non-Small Cell Lung Carcinoma	10029514	Adenocarcinoma	35917007	Lower Lobe of the Left Lung	Invasive pulmonary adenocarcinoma	acinar predominant	-308	Non-small cell lung cancer, NOS	
+diagnosis	MSB-09619	N631894	Colorectal Carcinoma	10010029	Adenocarcinoma	443961001	Rectum	Adenocarcinoma	Adenocarcinoma	-3	Colorectal cancer, NOS	
+diagnosis	MSB-00643	N858306	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Rectum	Invasive adenocarcinoma	Moderately differentiated	-15	Colorectal cancer, NOS	
+diagnosis	MSB-00241	N164238	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Sigmoid Colon	no path consistent with colon	no path consistent with colon	-1	Colorectal cancer, NOS	
+diagnosis	MSB-00268	N223021	Plasma Cell Myeloma	10028566	Multiple myeloma	55921005	BLOOD	Multiple Myeloma	Unavailable	0	Myeloma, NOS	
+diagnosis	MSB-07075	N506147	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	IgG MGUS	Normocellular bone marrow with trilineage hematopoiesis. No evidence of involvement by plasma cell neoplasm; plasma cells account for 2% of differential count and 2% of cellularity by CD138.	-12	Myeloma, NOS	
+diagnosis	MSB-00755	N674825	Non-Small Cell Lung Carcinoma	10029514	Squamous Cell Lung Carcinoma	254634000	Right Lung	adenocarcinoma	Squamous	-589	Non-small cell lung cancer, NOS	
+diagnosis	MSB-08104	N572654	Melanoma	10053571	Amelanotic Melanoma	70594002	External Ear	Malignant Melanoma	Superficial Spreading Melanoma	-234	Melanoma	
+diagnosis	MSB-05876	N224716	Non-Small Cell Lung Carcinoma	10029514	Non-Small Cell Lung Carcinoma	254637007	Right Lung	Stage IV Non-Small Cell Lung Cancer	Non-small cell carcinoma, favor adenocarcinoma	-6	Non-small cell lung cancer, NOS	
+diagnosis	MSB-04939	N98864	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	Plasma Cell Neoplasm	Mildly hypocellular bone marrow with trilineage hematopoiesis involved by plasma cell neoplasm; Plasma cells account for 5-10% cellularity by CD138 immunostain.	0	Myeloma, NOS	
+diagnosis	MSB-05447	N914575	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Colon	Adenocarcinoma	Adenocarcinoma	-557	Colorectal cancer, NOS	
+diagnosis	MSB-03321	N807363	Colorectal Carcinoma	10010029	Colorectal Adenocarcinoma	408645001	Cecum	Adenocarcinoma	moderately to poorly differentiated	-1503	Colorectal cancer, NOS	
+diagnosis	MSB-07848	N839268	Melanoma	10053571	Melanoma	372244006	Neck	Melanoma	Melanoma	-105	Melanoma	
+diagnosis	MSB-02151	N199786	Non-Small Cell Lung Carcinoma	10029514	Lung Adenocarcinoma	254626006	Lung	Metastatic adenocarcinoma	Adenocarcinoma	-221	Non-small cell lung cancer, NOS	
+diagnosis	MSB-00602	N89187	Non-Small Cell Lung Carcinoma	10029514	Lung Adenocarcinoma	254626006	Lung	Non-small cell lung adenocarcinoma	Metastatic lung adenocarcinoma	-96	Non-small cell lung cancer, NOS	
+diagnosis	MSB-08063	N61894	Non-Small Cell Lung Carcinoma	10029514	Lung Adenocarcinoma	254626006	Lung	Pathologically confirmed¬†Lung adenocarcinoma	Metastatic lung adenocarcinoma	-210	Non-small cell lung cancer, NOS	
+diagnosis	MSB-01825	N590635	Plasma Cell Myeloma	10028566	Plasma Cell Myeloma	109989006	Bone Marrow	TBD	TBD	-1	Myeloma, NOS	

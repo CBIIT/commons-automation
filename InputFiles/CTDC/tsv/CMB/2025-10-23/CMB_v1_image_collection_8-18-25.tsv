@@ -1,0 +1,13 @@
+type	study.study_short_name	image_collection_record_id	image_collection_name	image_type_included	image_collection_url	repository_name	collection_access
+image_collection	CMB	CMB-PCA-TCIA	CMB-PCA	CT| MR | NM	https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=95224082	TCIA	Download
+image_collection	CMB	CMB-PCA-IDC	CMB-PCA	CT | MR | NM	https://portal.imaging.datacommons.cancer.gov/explore/filters/?collection_id=cmb_pca	IDC	Unrestricted
+image_collection	CMB	CMB-MML-TCIA	CMB-MML	CT | MR | PT	https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=93258436	TCIA	Download
+image_collection	CMB	CMB-MML-IDC	CMB-MML	CT | MR | PT	https://portal.imaging.datacommons.cancer.gov/explore/filters/?collection_id=cmb_mml	IDC	Unrestricted
+image_collection	CMB	CMB-MEL-TCIA	CMB-MEL	CT | PT | US	https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=93258432	TCIA	Download
+image_collection	CMB	CMB-MEL-IDC	CMB-MEL	CT | PT | US	https://portal.imaging.datacommons.cancer.gov/explore/filters/?collection_id=cmb_mel	IDC	Unrestricted
+image_collection	CMB	CMB-LCA-TCIA	CMB-LCA	CT | DX | MR | NM | US	https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=93258420	TCIA	Download
+image_collection	CMB	CMB-LCA-IDC	CMB-LCA	CT | DX | MR | NM | US	https://portal.imaging.datacommons.cancer.gov/explore/filters/?collection_id=cmb_lca	IDC	Unrestricted
+image_collection	CMB	CMB-GEC-TCIA	CMB-GEC	CT | PT	https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=127665431	TCIA	Download
+image_collection	CMB	CMB-GEC-IDC	CMB-GEC	CT | PT	https://portal.imaging.datacommons.cancer.gov/explore/filters/?collection_id=cmb_gec	IDC	Unrestricted
+image_collection	CMB	CMB-CRC-TCIA	CMB-CRC	CT | DX | MR | PT | US	https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=93257955	TCIA	Download
+image_collection	CMB	CMB-CRC-IDC	CMB-CRC	CT | DX | MR | PT | US	https://portal.imaging.datacommons.cancer.gov/explore/filters/?collection_id=cmb_crc	IDC	Unrestricted

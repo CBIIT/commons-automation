@@ -1,11 +1,12 @@
 """
 Static marketing/info pages: compare UI text and links to InputFiles/<app>/*_StaticData.xlsx.
-Each sheet (e.g. V_HomePage) lists object names, expected copy, and optional link URLs (QA host in file;
+Each sheet (e.g. HomePage) lists object names, expected copy, and optional link URLs (QA host in file;
 stage/prod URLs are derived when the object name contains Link).
 """
 import re
 from pathlib import Path
 from typing import List, TYPE_CHECKING
+from urllib.parse import urlparse
 
 import openpyxl
 
@@ -23,8 +24,64 @@ if TYPE_CHECKING:
 
 
 def _normalize_text(text: str) -> str:
-    """Collapse newlines and trim (UI inner_text vs Excel cell)."""
-    return re.sub(r"\r?\n", " ", text or "").strip()
+    """Collapse newlines, non-breaking spaces, and curly quotes (UI inner_text vs Excel)."""
+    text = text or ""
+    text = text.replace("\u00a0", " ").replace("\u202f", " ").replace("\u200b", "")
+    text = text.replace("\u2019", "'").replace("\u2018", "'")
+    text = text.replace("\u201c", '"').replace("\u201d", '"')
+    text = re.sub(r"\r?\n", " ", text)
+    text = re.sub(r" +", " ", text)
+    return text.strip()
+
+
+def _normalize_href(href: str) -> str:
+    return (href or "").replace("%20", " ").strip()
+
+
+def _hash_route(href: str) -> str:
+    """'#/support' from either '#/support' or 'https://host/#/support'."""
+    if "#/" in href:
+        return "#/" + href.split("#/", 1)[1]
+    return ""
+
+
+def _is_site_path(href: str) -> bool:
+    """True for same-site paths like /about (not //cdn or a full URL)."""
+    return href.startswith("/") and not href.startswith("//")
+
+
+def _url_path(href: str) -> str:
+    parsed = urlparse(href)
+    path = parsed.path or "/"
+    if parsed.query:
+        path = f"{path}?{parsed.query}"
+    return path.rstrip("/") or "/"
+
+
+def _path_matches_absolute(maybe_path: str, maybe_abs: str) -> bool:
+    """'/about' matches 'https://host/about'. Do not treat '/' as every homepage."""
+    if not _is_site_path(maybe_path) or not maybe_abs.startswith("http"):
+        return False
+    path = _url_path(maybe_path)
+    if path == "/":
+        return False
+    return path == _url_path(maybe_abs)
+
+
+def _hrefs_match(got: str, want: str) -> bool:
+    """True if hrefs are the same after trim, trailing slash, hash routes, or path vs full URL."""
+    got = _normalize_href(got)
+    want = _normalize_href(want)
+    if got == want:
+        return True
+    if got.rstrip("/") == want.rstrip("/"):
+        return True
+    got_hash, want_hash = _hash_route(got), _hash_route(want)
+    if got_hash and want_hash and got_hash == want_hash:
+        return True
+    if _path_matches_absolute(got, want) or _path_matches_absolute(want, got):
+        return True
+    return False
 
 
 def _link_href_for_env(qa_href: str, env: str) -> str:
@@ -69,9 +126,9 @@ def verify_static_page(app: "BaseApp", sheet_name: str) -> List[str]:
                 problems.append(f"{obj}: text is '{actual}', expected '{expected_text}'")
             url_ok = True
             if "Link" in obj:
-                want = _link_href_for_env(expected_url, app.settings.env).replace("%20", " ")
-                got = (el.get_attribute("href") or "").replace("%20", " ")
-                url_ok = got == want
+                want = _link_href_for_env(expected_url, app.settings.env)
+                got = el.get_attribute("href") or ""
+                url_ok = _hrefs_match(got, want)
                 if not url_ok:
                     problems.append(f"{obj}: link is '{got}', expected '{want}'")
             ok = text_ok and url_ok

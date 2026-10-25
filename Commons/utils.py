@@ -101,7 +101,7 @@ def hover(page: Page, xpath: str) -> None:
 
 
 def fill(page: Page, xpath: str, text: str, *, timeout_ms: int = 10000) -> None:
-    target = locator(page, xpath)
+    target = visible_locator(page, xpath)
     target.wait_for(state="visible", timeout=timeout_ms)
     target.click()
     target.fill(text)

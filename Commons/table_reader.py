@@ -40,6 +40,10 @@ C3DC_TABLE_BODY_XPATH: dict = {
     "//*[@id='study_tab_table']": "//*[@id='study_tab_table']//table/tbody",
     "//*[@id='treatment_tab_table']": "//*[@id='treatment_tab_table']//table/tbody",
     "//*[@id='survival_tab_table']": "//*[@id='survival_tab_table']//table/tbody",
+    # /studies catalog (not Explore Studies tab)
+    "//div[contains(@class,'studiesTableWrapper')]": (
+        "//div[contains(@class,'studiesTableWrapper')]//table/tbody"
+    ),
 }
 
 
@@ -225,8 +229,12 @@ def read_table_header_data(app_key: str, tbl_main: str, col_header: Sequence[str
     n = len(col_header)
 
     if app_key == "GC":
-        for c in range(1, n):
-            _keep_header(hdr, c, _header_at(col_header, c))
+        if tbl_main == "//*[@id='studies_table']":
+            for c in range(n):
+                _keep_header(hdr, c, _header_at(col_header, c))
+        else:
+            for c in range(1, n):
+                _keep_header(hdr, c, _header_at(col_header, c))
 
     elif app_key == "ICDC":
         for c in range(n):
@@ -240,6 +248,12 @@ def read_table_header_data(app_key: str, tbl_main: str, col_header: Sequence[str
                 text = _header_at(col_header, c).strip()
                 if text != "Available CPI Mapping":
                     _keep_header(hdr, c, text)
+        elif tbl_main == "//div[contains(@class,'studiesTableWrapper')]":
+            for c in range(n):
+                text = _header_at(col_header, c)
+                if text in ("Data Availability", "Manifest"):
+                    continue
+                _keep_header(hdr, c, text)
         else:
             for c in range(n):
                 text = _header_at(col_header, c)
@@ -312,6 +326,16 @@ def read_table_row_data(
             tblcol = tblcol - 2
             for j in range(1, tblcol + 1):
                 add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/*[{j + 1}]{child}"), j)
+        elif tbl_main == "//*[@id='studies_table']":
+            for j in range(len(col_header)):
+                value = _inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]")
+                if _header_at(col_header, j) == "Study Version":
+                    value = "; ".join(
+                        part.strip()
+                        for part in value.replace("\r", "\n").split("\n")
+                        if part.strip()
+                    )
+                add(value, j)
         else:
             raise RuntimeError(f"Invalid tab for GC: {tbl_main}")
 
@@ -381,6 +405,12 @@ def read_table_row_data(
             tblcol = tblcol + 2
             for j in range(1, tblcol):
                 add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
+        elif tbl_main == "//div[contains(@class,'studiesTableWrapper')]":
+            for j in range(len(col_header)):
+                text = _header_at(col_header, j)
+                if text in ("Data Availability", "Manifest"):
+                    continue
+                add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
         else:
             print("Check C3DC table data collection for tbl_main", tbl_main, file=sys.stderr)
 
@@ -437,8 +467,9 @@ def read_table_row_data(
                 if _header_at(col_header, j) != "Access":
                     add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
         elif tbl_main == '//*[@id="study_file_tab_table"]':
-            tblcol = tblcol + 3
-            for j in range(1, tblcol):
+            # Use the real header count. The old g_rowcount_files+3 loop asked for
+            # cells past the last column; each miss waits the full Playwright timeout.
+            for j in range(1, len(col_header)):
                 if _header_at(col_header, j) != "Access":
                     add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
         else:
