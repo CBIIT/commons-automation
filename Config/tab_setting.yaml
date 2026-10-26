@@ -28,7 +28,7 @@ apps:
       Studies: true               # Study records
       Diagnosis: true             # Diagnosis details
       "Genetic Analysis": true    # Genomic / genetic analysis
-      Treatments: true            # Treatment records
+      Treatments: false           # Treatment records
       "Treatment Responses": true # Response to treatment
       Survival: true              # Survival data
       Samples: true               # Biospecimen samples

@@ -18,7 +18,7 @@ def test_TC02_C3DC_phs000469_Race_White(c3dc):
     c3dc.verify_tab("Studies")
     c3dc.verify_tab("Diagnosis")
     c3dc.verify_tab("Genetic Analysis")
-    c3dc.verify_tab("Treatments")
+    c3dc.verify_tab("Treatments") 
     c3dc.verify_tab("Treatment Responses")
     c3dc.verify_tab("Survival")
     c3dc.verify_tab("Samples")
