@@ -7,6 +7,7 @@ import pytest
 
 
 @pytest.mark.ctdc
+@pytest.mark.quickrun
 @pytest.mark.regression
 def test_TC01_CTDC_CMB_AnatomCollecSite_AbdomWall(ctdc):
     ctdc.load_query_file("TC01_CTDC_CMB_AnatomCollecSite-AbdomWall.xlsx")
