@@ -1,0 +1,9 @@
+# Converted from Katalon Object Repository/Bento/StatBar
+page: StatBar
+elements:
+  Bento_StatBar-Arms: //*[@id="statsbar_count_2"]
+  Bento_StatBar-Assays: //*[@id="statsbar_count_5"]
+  Bento_StatBar-Cases: //*[@id="statsbar_count_3"]
+  Bento_StatBar-Files: //*[@id="statsbar_count_6"]
+  Bento_StatBar-Programs: //*[@id="statsbar_title_1"]//preceding-sibling::div
+  Bento_StatBar-Samples: //*[@id="statsbar_count_4"]

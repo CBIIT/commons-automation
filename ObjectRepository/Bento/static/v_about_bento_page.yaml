@@ -1,0 +1,5 @@
+# Converted from Katalon Object Repository/Bento/Static/V_AboutBentoPage
+page: Static/V_AboutBentoPage
+elements:
+  Bento_BannerTitle: //*[@id = 'about_title']
+  Bento_Description: //div[contains(@class,'MuiGrid-item')][1]

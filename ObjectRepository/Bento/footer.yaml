@@ -1,0 +1,16 @@
+# Converted from Katalon Object Repository/Bento/Footer
+page: Footer
+elements:
+  AboutBento_Label: //*[contains(text(),'About Bento')]
+  ContactUs_Hplink: //img[contains(@src,'Logo_USAGov.png')]
+  Documentation_Hplink: //a[@href="https://cbiit.github.io/bento-docs/master/index.html"]
+  FNLCR_Logo: //*[text()='at the National Institutes of Health']
+  HHS_Hplink: //a[@href="https://www.hhs.gov"]
+  LinkedIn_Hplink: (//img[@alt='Footer Logo'])[2]
+  NCI_Hplink: //a[@href="https://www.cancer.gov"]
+  NIH_Hplink: //a[@href="https://www.nih.gov"]
+  Purpose_Hplink: //a[@href='#/bento']
+  Resources_Hplink: //a[@href='#/bento']
+  Support_Label: //*[contains(text(),'Support')]
+  TurningDiscIntoHlth_Label: //span[contains(text(),'NIH … Turning Discovery Into Health')]
+  USA_Hplink: //a[@href="https://www.usa.gov"]

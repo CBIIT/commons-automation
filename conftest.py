@@ -155,6 +155,14 @@ def icdc(page, env, browser_settings, _repos):
     source.close()
 
 
+@pytest.fixture
+def bento(page, env, browser_settings, _repos):
+    """BENTO (TAILORx Explore on bento-tools.org), already opened at the environment's URL."""
+    app, source = _make_app("Bento", page, env, browser_settings, _repos)
+    yield app
+    source.close()
+
+
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     """Fail a test whose tab/stat-bar checks failed (they are collected, not raised one by one),

@@ -1,0 +1,4 @@
+# Converted from Katalon Object Repository/Bento/Banner
+page: Banner
+elements:
+  Bento_Warning_Continue_Btn: //span[contains(text(),"Continue")]

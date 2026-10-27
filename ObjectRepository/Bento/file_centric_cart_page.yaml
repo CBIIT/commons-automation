@@ -1,0 +1,9 @@
+# Converted from Katalon Object Repository/Bento/FileCentricCart_page
+page: FileCentricCart_page
+elements:
+  Bento_DownloadManifest_Btn: //*[contains(text(),'DOWNLOAD MANIFEST')]
+  Bento_MyFilesHeader_logo: //img[@alt="Bento MyFiles header logo"]
+  Bento_SelectedFilesTable: //*[@id='table_selected_files']
+  Bento_SelectedFiles_Nextbtn: //button[@title='Next page']
+  Bento_SelectedFiles_TblBdy: //*[@id='table_selected_files']//tbody
+  Bento_SelectedFiles_TblHdr: //*[@id='table_selected_files']//thead

@@ -808,6 +808,16 @@ def test_read_cds_query_file_has_cypher():
     assert qf.queries_by_tab["ParticipantsTab"].startswith("MATCH")
 
 
+def test_bento_arm_workbooks_use_neo4j_cypher():
+    qf = read_query_file("Bento", "TC01_Bento_arm-a_Diagnosis-Adenocarcinoma.xlsx")
+    assert set(qf.queries_by_tab) == {"CasesTab", "SamplesTab", "FilesTab"}
+    for tab in qf.queries_by_tab.values():
+        assert tab.strip().upper().startswith("MATCH") or tab.strip().upper().startswith("WITH")
+    assert "study_acronym = 'A'" in qf.queries_by_tab["CasesTab"]
+    assert "Adenocarcinoma" in qf.queries_by_tab["CasesTab"]
+    assert qf.stat_bar_query.startswith("MATCH")
+
+
 def test_gc_sample_filter_stat_counts_files_from_sample():
     """Sample filters must count Files via from_sample, not every file on the participant."""
     bad = []
@@ -830,7 +840,7 @@ def test_every_input_excel_is_readable():
     have no stat bar, so StatQuery is optional.
     """
     bad = []
-    for app in ("C3DC", "GC"):
+    for app in ("Bento", "C3DC", "GC"):
         for f in sorted(input_dir(app).glob("TC*.xlsx")):
             try:
                 c = read_query_file(app, f.name)

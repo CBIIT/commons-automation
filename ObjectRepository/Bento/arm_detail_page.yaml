@@ -1,0 +1,10 @@
+# Converted from Katalon Object Repository/Bento/ArmDetail_page
+page: ArmDetail_page
+elements:
+  ArmDetail_AssocFiles_TableTitle: //div[@id='table_case_detail']//span
+  ArmDetail_AssocFiles_Tbl: //div[@id='table_case_detail']//table
+  ArmDetail_AssocFiles_TblBdy: //div[@id='table_case_detail']//tbody
+  ArmDetail_AssocFiles_TblHdr: //div[@id='table_case_detail']//thead
+  ArmDetail_HdrLogo: //*[@alt="Bento arm detail header logo"]
+  ArmDetail_NumOfCases_count: (//a[@href="#/cases"])[2]/span
+  ArmDetail_NumOfFiles_count: //img[@alt="Bento file count icon"]/parent::div/div/span

@@ -67,6 +67,18 @@ apps:
       "Study Files": true  # Files at study level
 
   # -------------------------------------------------------------------------
+  # Bento — TAILORx demo Explore (Cases / Samples / Files)
+  # Portal: bento-tools.org
+  # -------------------------------------------------------------------------
+  Bento:
+    tab_row_limit: 15
+    pagination_max_pages: 25
+    tabs:
+      Cases: true
+      Samples: true
+      Files: true
+
+  # -------------------------------------------------------------------------
   # CTDC — Clinical Trial Data Commons
   # Portal: clinical*.datacommons.cancer.gov
   # -------------------------------------------------------------------------

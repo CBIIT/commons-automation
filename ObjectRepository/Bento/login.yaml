@@ -1,0 +1,8 @@
+# Converted from Katalon Object Repository/Bento/Login
+page: Login
+elements:
+  Login_EmailIDNextBtn: //*[contains(@id,'next') or text()='Next']
+  Login_EmailID_Txtbx: //*[@id='Email' or @id='identifierId']
+  Login_PasswdNextBtn: //*[@id="passwordNext"]/div/button
+  Login_Passwd_Txtbx: //input[@type='password']
+  Login_SignInWGoogle_Btn: //*[text()='Sign in with Google']

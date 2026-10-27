@@ -1,0 +1,12 @@
+# Converted from Katalon Object Repository/Bento/CaseDetail_page
+page: CaseDetail_page
+elements:
+  Bento_CDFilesTable: //*[@id='case_detail_table_associated_files']
+  Bento_CDFilesTable_Bdy: //*[@id='case_detail_table_associated_files']//table/tbody
+  Bento_CDFilesTable_Hdr: //*[@id='case_detail_table_associated_files']//table/thead
+  Bento_CDFilesTable_NxtBtn: (//*[@id='case_detail_table_associated_files']//following::button)[2]
+  Bento_CDHeader_logo: //img[@alt="Bento case detail header logo"]
+  Bento_CDSamplesTable: //*[@id='case_detail_table_associated_samples']
+  Bento_CDSamplesTable_Bdy: //*[@id='case_detail_table_associated_samples']//table/tbody
+  Bento_CDSamplesTable_Hdr: //*[@id='case_detail_table_associated_samples']//table/thead
+  Bento_CDSamplesTable_NxtBtn: (//*[@id='case_detail_table_associated_Samples']//following::button)[2]

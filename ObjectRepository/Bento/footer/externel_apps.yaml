@@ -1,0 +1,8 @@
+# Converted from Katalon Object Repository/Bento/Footer/Externel_Apps
+page: Footer/Externel_Apps
+elements:
+  FNLCR_HomePage_Logo: //*[@id="extended-mega-logo"]/a/picture/img
+  HHS_logo: //*[@alt="HHS.gov"]
+  NCI_logo: //*[@id="extended-mega-logo"]/a/picture/img
+  NIH_logo: //img[contains(@src, 'nih-logo-color.png')]
+  USA_logo: //img[contains(@src,'Logo_USAGov.png')]

@@ -5,4 +5,4 @@ openpyxl>=3.1
 pandas>=2.0              # CTDC TSV expected data (load/merge node files)
 XlsxWriter>=3.2
 PyYAML>=6.0
-neo4j>=5.20              # Memgraph expected data (C3DC and GC)
+neo4j>=5.20              # Bolt driver: Memgraph (C3DC, GC) and Neo4j (ICDC, Bento)
