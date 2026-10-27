@@ -1,6 +1,6 @@
 # BENTO input workbooks
 
-All query workbooks live **flat** in this folder (`InputFiles/Bento/`), same as GC/C3DC top-level `TC*.xlsx` names. The arm is encoded in the file name, e.g. `TC01_Bento_arm-a_Diagnosis-Adenocarcinoma.xlsx`.
+All query workbooks live **flat** in this folder (`InputFiles/BENTO/`), same as GC/C3DC top-level `TC*.xlsx` names. The arm is encoded in the file name, e.g. `TC01_Bento_arm-a_Diagnosis-Adenocarcinoma.xlsx`.
 
 | Also here | Purpose |
 |-----------|---------|

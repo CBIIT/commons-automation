@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Write Neo4j Cypher into InputFiles/Bento/TC*_Bento_arm-*.xlsx from Katalon sources + facet specs."""
+"""Write Neo4j Cypher into InputFiles/BENTO/TC*_Bento_arm-*.xlsx from Katalon sources + facet specs."""
 from __future__ import annotations
 
 import sys
@@ -9,7 +9,7 @@ import openpyxl
 
 ROOT = Path(__file__).resolve().parents[1]
 KATALON_INPUT = ROOT.parent / "Commons_Automation" / "InputFiles" / "Bento"
-INPUT_ROOT = ROOT / "InputFiles" / "Bento"
+INPUT_ROOT = ROOT / "InputFiles" / "BENTO"
 
 sys.path.insert(0, str(ROOT))
 from Commons.bento_arm_filters import (  # noqa: E402

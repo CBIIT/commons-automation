@@ -13,6 +13,10 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG_FILE = ROOT / "Config" / "environments.yaml"
 OBJECT_REPO_ROOT = ROOT / "ObjectRepository"
+
+# App fixture name → on-disk folder under InputFiles/ (when they differ).
+_INPUTFILES_DIRS: dict[str, str] = {"Bento": "BENTO"}
+
 INPUTFILES_ROOT = Path(
     os.environ.get("INPUTFILES_ROOT")
     or os.environ.get("TESTDATA_ROOT")  # legacy env name
@@ -344,4 +348,5 @@ def get_app_settings(app: str, env: str | None = None, cfg: dict | None = None) 
 
 def input_dir(app: str) -> Path:
     """Folder holding the input Excel files for an app (Katalon: InputFiles/<app>)."""
-    return INPUTFILES_ROOT / app
+    folder = _INPUTFILES_DIRS.get(app, app)
+    return INPUTFILES_ROOT / folder

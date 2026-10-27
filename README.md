@@ -82,7 +82,7 @@ pytest --junitxml=Reports/junit.xml
 |-----|--------|--------|-------------------------|
 | **C3DC**, **GC** | Memgraph | Cypher in `TabQuery` / `StatQuery` | `MEMGRAPH_PASSWORD_<APP>` |
 | **ICDC** | Neo4j | Same column layout | `NEO4J_PASSWORD_ICDC` (or legacy `MEMGRAPH_PASSWORD_ICDC`) |
-| **Bento** | Neo4j | Cypher in `TabQuery` / `StatQuery` (port from Katalon SQL; see `InputFiles/Bento/README.md`) | `NEO4J_PASSWORD_BENTO` |
+| **Bento** | Neo4j | Cypher in `TabQuery` / `StatQuery` (port from Katalon SQL; see `InputFiles/BENTO/README.md`) | `NEO4J_PASSWORD_BENTO` |
 | **CTDC** | TSV/TXT snapshot (`InputFiles/CTDC/tsv/<STUDY>/YYYY-MM-DD/`) | SQL in `TabQuery` / `StatQuery` | none (`CTDC_TSV_ROOT` optional) |
 
 C3DC/GC/ICDC each have their **own** cluster; do not share passwords. CTDC loads node files into an in-memory SQLite database at runtime (Katalon pandasql). When CTDC has Memgraph, set `expected_source: memgraph` and run `Tools/convert_ctdc_sql_to_cypher.py`. Tests read queries from the workbook— they do not import `Tools/cypher/`.

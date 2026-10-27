@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate Testcases/Bento/arm-{a,d}/ tests and flat InputFiles/Bento/TC*.xlsx from Katalon workbooks."""
+"""Generate Testcases/BENTO/arm-{a,d}/ tests and flat InputFiles/BENTO/TC*.xlsx from Katalon workbooks."""
 from __future__ import annotations
 
 import shutil
@@ -9,8 +9,8 @@ import openpyxl
 
 ROOT = Path(__file__).resolve().parents[1]
 KATALON_INPUT = ROOT.parent / "Commons_Automation" / "InputFiles" / "Bento"
-TEST_ROOT = ROOT / "Testcases" / "Bento"
-INPUT_ROOT = ROOT / "InputFiles" / "Bento"
+TEST_ROOT = ROOT / "Testcases" / "BENTO"
+INPUT_ROOT = ROOT / "InputFiles" / "BENTO"
 
 import sys
 
@@ -126,7 +126,7 @@ def main() -> None:
             test_file.write_text(_test_py(arm, spec, choice))
 
     total = len(ARMS) * len(BENTO_FACET_SPECS)
-    print(f"Generated {total} tests; workbooks in InputFiles/Bento/ (flat, distinct checkbox per arm per facet)")
+    print(f"Generated {total} tests; workbooks in InputFiles/BENTO/ (flat, distinct checkbox per arm per facet)")
 
 
 if __name__ == "__main__":
