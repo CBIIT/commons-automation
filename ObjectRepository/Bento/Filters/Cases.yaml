@@ -1,0 +1,128 @@
+# Explore sidebar — Filter By Cases (Program, Arm, Diagnosis, … Age)
+page: Filters/Cases
+elements:
+  FilterByCases_Facet: //*[@id="Cases"]/div[text()='Cases']
+groups:
+  Filter/Age:
+    facet: //*[@id="Cases"]/div[text()='Cases']
+    dropdown: (//div[@id='Age'])[1]
+    other:
+      MaxAge_Input: //input[@id='slider_INPUT_MAX']
+      MinAge_Input: //input[@id='slider_INPUT_MIN']
+  Filter/Arm:
+    facet: //*[@id="Cases"]/div[text()='Cases']
+    dropdown: //*[@id='Arm']
+    checkboxes:
+      A: '//*[@id=''checkbox_Arm_A: RS 0-10, assigned endocrine therapy alone'']'
+      B: '//*[@id=''checkbox_Arm_B: RS 11-25, randomized to endocrine therapy alone'']'
+      C: '//*[@id=''checkbox_Arm_C: RS 11-25, randomized to chemo + endocrine therapy'']'
+      D: '//*[@id=''checkbox_Arm_D: RS > 25, assigned to chemo +'']'
+  Filter/Chemotherapy:
+    facet: //*[@id="Cases"]/div[text()='Cases']
+    dropdown: //*[@id='Chemotherapy' and @role='button']
+    checkboxes:
+      DoseDenseAC2WkCycle: //input[@id='checkbox_Chemotherapy_Dose dense AC (2 week cycles)']
+      DoseDenseACTaxane: //input[@id='checkbox_Chemotherapy_Dose dense AC followed by a taxane']
+      FEC3WkCycle: //*[@id='checkbox_Chemotherapy_FEC (3 week cycles)']
+      IVCMF-3WkCycle: //input[@id='checkbox_Chemotherapy_IV CMF (3 week cycles)']
+      None: //*[@id='checkbox_Chemotherapy_None']
+      OralCMF-4WkCycle: //*[@id='checkbox_Chemotherapy_Oral CMF (4 week cycles)']
+      OtherAnthraWithNoTaxane: //*[@id='checkbox_Chemotherapy_Other anthracycline with no taxane']
+      OtherAnthraWithTaxane: //*[@id='checkbox_Chemotherapy_Other anthracycline with a taxane']
+      OtherTreatment: //*[@id='checkbox_Chemotherapy_Other treatment given as part of a CTSU protocol']
+      Other: //*[@id='checkbox_Chemotherapy_Other']
+      StandardAC-3WkCycle: //*[@id='checkbox_Chemotherapy_Standard AC (3 week cycles)']
+      StdACFollowedByTaxane: //*[@id='checkbox_Chemotherapy_standard AC followed by a taxane']
+      TAC-3WkCycle: //*[@id='checkbox_Chemotherapy_TAC (3 week cycles)']
+      TC-3WkCycle: //input[@id='checkbox_Chemotherapy_TC (3 week cycles, includes any taxane with cyclophosphamide)']
+      TaxaneOnly: //*[@id='checkbox_Chemotherapy_Taxane only']
+  Filter/Diagnosis:
+    facet: //*[@id="Cases"]/div[text()='Cases']
+    dropdown: //*[@id='Diagnosis' and @role='button']
+    checkboxes:
+      Adenocarcinoma: //*[@id='checkbox_Diagnosis_Adenocarcinoma']
+      CarcinomaNOS: //*[@id='checkbox_Diagnosis_Carcinoma, NOS']
+      Comedocarcinoma: //*[@id='checkbox_Diagnosis_Comedocarcinoma']
+      InfiltrDuctalCarcinoma: //*[@id='checkbox_Diagnosis_Infiltrating Ductal Carcinoma']
+      InfiltrDuctalLobularCarcinoma: //*[contains(text(),'Infiltrating Ductal & Lobular Carcinoma')]
+      InfiltrLobuCarcinoma: //*[@id='checkbox_Diagnosis_Infiltrating Lobular Carcinoma']
+      MedullaryCarcinoma: //*[@id='checkbox_Diagnosis_Medullary Carcinoma']
+      MucinousCollCarcinoma: //*[@id='checkbox_Diagnosis_Mucinous (colloid) Carcinoma']
+      NotReported: //*[@id='checkbox_Diagnosis_Not Reported']
+      PagetsDisease: //*[contains(@id,'Paget')]
+      PapillaryCarcinoma: //*[@id='checkbox_Diagnosis_Papillary Carcinoma']
+      TubularCarcinoma: //*[@id='checkbox_Diagnosis_Tubular Carcinoma']
+  Filter/ERStatus:
+    facet: //*[@id="Cases"]/div[text()='Cases']
+    dropdown: //*[@id='ER Status' and @role='button']
+    checkboxes:
+      Negative: //input[@id='checkbox_ER Status_Negative']
+      NotReported: //input[@id='checkbox_ER Status_Not Reported']
+      Positive: //input[@id='checkbox_ER Status_Positive']
+  Filter/EndocrineTherapy:
+    facet: //*[@id="Cases"]/div[text()='Cases']
+    dropdown: //*[@id='Endocrine Therapy' and @role='button']
+    checkbox_template: //*[@id='checkbox_Endocrine Therapy_{value}']
+    values: [AI, None, OFS, Tam]
+    checkboxes:
+      OFS-AI: //*[@id='checkbox_Endocrine Therapy_OFS & AI']
+      Other: //input[@id="checkbox_Endocrine Therapy_Other"]
+    other:
+      Tam-AI_chkbx: //*[@id='checkbox_Endocrine Therapy_Tam & AI']
+  Filter/MenopauseStatus:
+    facet: //*[@id="Cases"]/div[text()='Cases']
+    dropdown: //*[@id='Menopause Status' and @role='button']
+    checkboxes:
+      Post: //*[@id='checkbox_Menopause Status_Postmenopausal']
+      Pre: //*[@id='checkbox_Menopause Status_Premenopausal']
+  Filter/PRStatus:
+    facet: //*[@id="Cases"]/div[text()='Cases']
+    dropdown: //*[@id='PR Status' and @role='button']
+    checkboxes:
+      Negative: //input[@id='checkbox_PR Status_Negative']
+      NotReported: //input[@id='checkbox_PR Status_Not Reported']
+      Positive: //input[@id='checkbox_PR Status_Positive']
+  Filter/Program:
+    facet: //*[@id="Cases"]/div[text()='Cases']
+    dropdown: //*[@id='Program']
+    checkboxes:
+      tailorX: //*[@id='checkbox_Program_TAILORx']
+  Filter/Recurrence Score:
+    facet: //*[@id="Cases"]/div[text()='Cases']
+    dropdown: //*[@id='Recurrence Score' and @role='button']
+    checkboxes:
+      00_to_05: //*[@id='checkbox_Recurrence Score_0-5']
+      06_to_10: //*[@id="checkbox_Recurrence Score_6-10"]
+      11_to_15: //*[@id='checkbox_Recurrence Score_11-15']
+      16_to_20: //*[@id="checkbox_Recurrence Score_16-20"]
+      21_to_25: //*[@id="checkbox_Recurrence Score_21-25"]
+      26_to_30: //input[@id="checkbox_Recurrence Score_26-30"]
+      31_to_35: //*[@id='checkbox_Recurrence Score_31-35']
+      36_to_40: //*[@id="checkbox_Recurrence Score_36-40"]
+      41_to_50: //*[@id="checkbox_Recurrence Score_41-50"]
+      51_to_100: //*[@id="checkbox_Recurrence Score_51-100"]
+  Filter/Study:
+    facet: //*[@id="Cases"]/div[text()='Cases']
+    dropdown: //*[@id='Study' and @role='button']
+    checkboxes:
+      A: '//div[contains(text(),''A: RS 0-10, assigned endocrine therapy alone '')]'
+      B: '//div[contains(text(),''B: RS 11-25, randomized to endocrine therapy alone '')]'
+      C: '//div[contains(text(),''C: RS 11-25, randomized to chemo + endocrine therapy '')]'
+      D: '//div[contains(text(),''D: RS > 25, assigned to chemo '')]'
+  Filter/TumorGrade:
+    facet: //*[@id="Cases"]/div[text()='Cases']
+    dropdown: //*[@id='Tumor Grade' and @role='button']
+    checkbox_template: //*[@id='checkbox_Tumor Grade_{value} Grade']
+    values: [High, Intermediate, Low]
+    checkboxes:
+      NotReported: //*[@id='checkbox_Tumor Grade_Not Reported']
+  Filter/TumorSize:
+    facet: //*[@id="Cases"]/div[text()='Cases']
+    dropdown: //*[@id='Tumor Size' and @role='button']
+    checkboxes:
+      1_to_2: //*[@id='checkbox_Tumor Size_(1,2]']
+      2_to_3: //*[@id='checkbox_Tumor Size_(2,3]']
+      3_to_4: //*[@id='checkbox_Tumor Size_(3,4]']
+      Above_4: //*[@id='checkbox_Tumor Size_>4']
+      Below_1: //*[@id='checkbox_Tumor Size_<=1']
+      NotReported: //*[@id='checkbox_Tumor Size_Not Reported']

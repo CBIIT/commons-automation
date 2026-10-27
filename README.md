@@ -1,8 +1,8 @@
 # Playwright + pytest UI automation
 
-End-to-end regression framework for **Data Commons web apps**: open a browser, apply explore filters, read result tables from the UI, and compare them to expected data (usually **Memgraph Cypher** from per-test Excel workbooks). Tests are plain Python files run with **pytest**; each **application** (GC, C3DC, and others you add) gets its own app class, object repository, input data, and test tree.
+End-to-end regression framework for **Data Commons web apps**: open a browser, apply explore filters, read result tables from the UI, and compare them to expected data (**Memgraph/Neo4j Cypher**, or **CTDC TSV + SQL**). Tests are plain Python files run with **pytest**; each **application** (GC, C3DC, and others you add) gets its own app class, object repository, input data, and test tree.
 
-Apps in the tree today include **GC**, **C3DC**, **ICDC**, and **CTDC** (plus locators for others). Each app follows the same folders: `Commons/apps/<app>.py`, `Testcases/<APP>/`, `InputFiles/<APP>/`, `ObjectRepository/<APP>/`.
+Apps in the tree today include **GC**, **C3DC**, **ICDC**, **CTDC**, and **Bento** (plus locators for others). Each app follows the same folders: `Commons/apps/<app>.py`, `Testcases/<APP>/`, `InputFiles/<APP>/`, `ObjectRepository/<APP>/`.
 
 ## Framework map
 
@@ -48,8 +48,8 @@ cp .env.example .env           # gitignored; Memgraph passwords + optional run d
 |--------|---------|
 | **`Config/environments.yaml`** | Per-app URLs and Memgraph host/username per `qa` / `stage` / `prod` (no secrets) |
 | **`.env`** | `MEMGRAPH_PASSWORD_<APP>`, optional `ENV`, `BROWSER`, `HEADLESS` / `HEADED`, `SLOWMO`, `COMMONS_VERBOSE`, `FORCE_COLOR` |
-| **`conftest.py`** | Session browser, `page` fixture, **`gc`** / **`c3dc`** fixtures (app opened at env URL) |
-| **`pytest.ini`** | Markers: `gc`, `c3dc`, `smoke`, `regression`, `quickrun`, `static`, `unit` |
+| **`conftest.py`** | Session browser, `page` fixture, app fixtures (`gc`, `c3dc`, `icdc`, `bento`, …) opened at env URL |
+| **`pytest.ini`** | Markers: `gc`, `c3dc`, `ccdi`, `ctdc`, `icdc`, `bento`, `smoke`, `regression`, `quickrun`, `static`, `unit` |
 
 CLI flags override `.env` when both are set: `--env`, `--headed`, `--browser`, `--slowmo`, `--trace-actions`.
 
@@ -71,6 +71,7 @@ pytest --headed --browser firefox <path-or-k>
 pytest --trace-actions <test>                     # verbose steps (or COMMONS_VERBOSE=1 in .env)
 pytest -n 4 -m "gc and regression"              # parallel (pytest-xdist)
 pytest --junitxml=Reports/junit.xml
+# HTML suite report: set HTML_REPORT=true in .env → Reports/GC_quickrun_YYYYMMDD_HHMMSS.html + Reports/latest.html
 ```
 
 **Output:** per-check summary in the report (`Participants PASSED UI=13 DB=13`); row counts can match while a tab still **FAILED** (cell **DATA MISMATCH** — see stderr or the Checks section). Compare mismatches on stderr (red when terminal or `FORCE_COLOR=1`). Failures: `Reports/screenshots/`, `OutputFiles/<APP>/<ENV>/` → `*_UI.xlsx` / `*_DB.xlsx` with one sheet per result tab plus **`StatOutput`** for stat-bar counts (gitignored). Console prints Katalon-style stat lines when the bar is read and when DB expected counts are fetched.
@@ -79,10 +80,12 @@ pytest --junitxml=Reports/junit.xml
 
 | App | Engine | Excel | Credentials (examples) |
 |-----|--------|--------|-------------------------|
-| **C3DC**, **GC**, **CTDC** | Memgraph | Cypher in `TabQuery` / `StatQuery` | `MEMGRAPH_PASSWORD_<APP>` |
+| **C3DC**, **GC** | Memgraph | Cypher in `TabQuery` / `StatQuery` | `MEMGRAPH_PASSWORD_<APP>` |
 | **ICDC** | Neo4j | Same column layout | `NEO4J_PASSWORD_ICDC` (or legacy `MEMGRAPH_PASSWORD_ICDC`) |
+| **Bento** | Neo4j | Cypher in `TabQuery` / `StatQuery` (port from Katalon SQL; see `InputFiles/BENTO/README.md`) | `NEO4J_PASSWORD_BENTO` |
+| **CTDC** | TSV/TXT snapshot (`InputFiles/CTDC/tsv/<STUDY>/YYYY-MM-DD/`) | SQL in `TabQuery` / `StatQuery` | none (`CTDC_TSV_ROOT` optional) |
 
-Each app has its **own** cluster; do not share passwords. Tests read Cypher from the workbook— they do not import `Tools/cypher/`.
+C3DC/GC/ICDC each have their **own** cluster; do not share passwords. CTDC loads node files into an in-memory SQLite database at runtime (Katalon pandasql). When CTDC has Memgraph, set `expected_source: memgraph` and run `Tools/convert_ctdc_sql_to_cypher.py`. Tests read queries from the workbook— they do not import `Tools/cypher/`.
 
 ## Example tests
 
@@ -119,6 +122,7 @@ Config/tab_setting.yaml      Tab row cap + which tabs verify_tab runs, per app
 .env                         Passwords and local overrides (gitignored)
 
 InputFiles/<app>/            TC*.xlsx — TabQuery / StatQuery for each test
+InputFiles/CTDC/tsv/<STUDY>/ Dated TSV/TXT node files per study (CMB, AHEP0731, …)
 ObjectRepository/<app>/      YAML — xpath keys for filters, tabs, static pages
 
 Commons/                     Runtime (imported by pytest)
@@ -126,8 +130,9 @@ Commons/                     Runtime (imported by pytest)
   query_reader.py            Read query workbooks
   object_repository.py       YAML → xpath / filter groups
   db_source.py               Run Cypher over Bolt (Memgraph or Neo4j)
+  tsv_source.py              CTDC only: load TSV node files and run SQL
   apps/base.py               Filters, stat bar, verify_tab, assert_no_failures
-  apps/{gc,c3dc,icdc,ctdc}.py
+  apps/{gc,c3dc,ccdi,icdc,ctdc}.py
   table_reader.py, compare.py, browser_actions.py, static_data.py, …
 
 Testcases/<APP>/             pytest tests
@@ -151,7 +156,7 @@ Reports/                     Screenshots, JUnit
 | Enter explore | `open_data()` (GC) / `open_explore()` (C3DC) |
 | Filter | `select_filter("Group/Name", "value")` — facet expand, dropdown, **checkbox click** (C3DC & GC) |
 | Stat bar | `read_statbar()` |
-| Result tab | `verify_tab("Participants")` — opens tab, reads UI, Memgraph, compare, stat bar once |
+| Result tab | `verify_tab("Participants")` — opens tab, reads UI, expected data, compare, stat bar once |
 | End | `assert_no_failures()` |
 
 Table pagination limits: **C3DC** `max_pages=2` per tab; **GC** `max_pages=10` (see `Commons/apps/*.py`). Table scraping rules live in `Commons/table_reader.py` (GC, ICDC, C3DC, INS, Bento, CTDC).

@@ -2,7 +2,7 @@
 Read per-test query workbooks from InputFiles/<app>/ (usually TC*.xlsx).
 
 First sheet: TabName, TabQuery (or query), StatQuery, optional UIExcel/WebExcel output names.
-Tests load via BaseApp.load_query_file(); db_source runs the Cypher strings from here.
+Tests load via BaseApp.load_query_file(); db_source runs Cypher (Memgraph/Neo4j) or SQL (CTDC TSV).
 """
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -36,7 +36,7 @@ class QueryFile:
         return sorted(self.queries_by_tab)
 
     def query_for_tab(self, tab_key: str) -> str:
-        """Cypher for one TabName row (e.g. 'ParticipantsTab')."""
+        """Query text for one TabName row (Cypher or CTDC SQL, e.g. 'ParticipantsTab')."""
         try:
             return self.queries_by_tab[tab_key]
         except KeyError:

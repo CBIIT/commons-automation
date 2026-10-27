@@ -1,0 +1,6 @@
+page: Static/DataModelPage
+elements:
+  DataModelCDSLink: //a[text() = ' Cancer Data Standards Registry and Repository']
+  DataModelLink: //a[text() = 'Data Model']
+  DataModelParagraph1: //div[@class='introParagraph']
+  DataModelParagraph2: //div[@class='secondParagraph sectionStart']

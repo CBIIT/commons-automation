@@ -5,7 +5,7 @@ Replace SQL in InputFiles/CTDC/TC*.xlsx with Memgraph Cypher (StatQuery + 4 tab 
     python Tools/convert_ctdc_sql_to_cypher.py
     python Tools/convert_ctdc_sql_to_cypher.py --dry-run
 
-Skips CTDC_StaticData.xlsx and TC01_CTDC_LocalSearch*.xlsx (legacy non-CTDC graph).
+Skips TC01_CTDC_StaticData.xlsx and TC01_CTDC_LocalSearch*.xlsx (legacy non-CTDC graph).
 """
 from __future__ import annotations
 
@@ -22,7 +22,7 @@ import ctdc_cypher as cc  # noqa: E402
 from ctdc_cypher import parse_sql_filters  # noqa: E402
 
 INPUT = ROOT / "InputFiles" / "CTDC"
-SKIP = {"CTDC_StaticData.xlsx"}
+SKIP = {"TC01_CTDC_StaticData.xlsx", "CTDC_StaticData.xlsx"}
 
 
 def _cell_map(ws) -> dict:

@@ -7,45 +7,45 @@ import pytest
 @pytest.mark.static
 def test_TC01_CTDC_StaticData(ctdc):
     ctdc.accept_banner()
-    ctdc.verify_static_data("V_HomePage")
+    ctdc.verify_static_data("HomePage")
 
     ctdc.click("NavBar/Data-Tab")
     ctdc.click("NavBar/Data-Cloud-Btn")
-    ctdc.verify_static_data("V_DataCloudPage")
+    ctdc.verify_static_data("DataCloudPage")
 
     ctdc.click("NavBar/Data-Tab")
     ctdc.click("NavBar/Data-Harmonization-Btn")
-    ctdc.verify_static_data("V_DataHarmonizationPage")
+    ctdc.verify_static_data("DataHarmonizationPage")
 
     ctdc.click("NavBar/Data-Tab")
     ctdc.click("NavBar/Data-Terms-Btn")
-    ctdc.verify_static_data("V_DataTermsPage")
+    ctdc.verify_static_data("DataTermsPage")
 
     ctdc.click("NavBar/Data-Tab")
     ctdc.click("NavBar/Data-Submission-Btn")
-    ctdc.verify_static_data("V_DataSubmissionPage")
+    ctdc.verify_static_data("DataSubmissionPage")
 
     ctdc.click("NavBar/Resources-Tab")
     ctdc.click("NavBar/Resources-GraphQL-Btn")
-    ctdc.verify_static_data("V_ResourcesGraphQLPage")
+    ctdc.verify_static_data("ResourcesGraphQLPage")
 
     ctdc.click("NavBar/Resources-Tab")
     ctdc.click("NavBar/Resources-AddtlInfo-Btn")
-    ctdc.verify_static_data("V_ResourcesInfoPage")
+    ctdc.verify_static_data("ResourcesInfoPage")
 
     ctdc.click("NavBar/About-Tab")
     ctdc.click("NavBar/About-Purpose-Btn")
-    ctdc.verify_static_data("V_AboutPurposePage")
+    ctdc.verify_static_data("AboutPurposePage")
 
     ctdc.click("NavBar/About-Tab")
     ctdc.click("NavBar/About-ContactUs-Btn")
-    ctdc.verify_static_data("V_AboutContactPage")
+    ctdc.verify_static_data("AboutContactPage")
 
     ctdc.click("NavBar/RequestAccess-Btn")
     ctdc.click("RequestAccess_page/ObtainCommonsDropdown")
     ctdc.click("RequestAccess_page/ObtainDbgapDropdown")
     ctdc.click("RequestAccess_page/RequestAccessDropdown")
     ctdc.click("RequestAccess_page/AccessDatasetsDropdown")
-    ctdc.verify_static_data("V_RequestAccessPage")
+    ctdc.verify_static_data("RequestAccessPage")
 
     ctdc.assert_no_failures()

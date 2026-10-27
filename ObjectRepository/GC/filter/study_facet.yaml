@@ -2,7 +2,7 @@ page: Data_page/Filter/StudyFacet
 groups:
   StudyFacet/ExperimentalStrategy:
     facet: (//*[@id="[object Object]"])[2]
-    dropdown: //*[@id="Experimental Strategy" and text()="Experimental Strategy"]
+    dropdown: //*[@id="Experimental Strategy"]
     checkboxes:
       ArcherFusion: //*[@id="checkbox_Experimental Strategy_Archer Fusion"]
       BisulfiteSeq: //*[@id="checkbox_Experimental Strategy_Bisulfite-Seq"]
@@ -22,8 +22,8 @@ groups:
       WXS: //*[@id="checkbox_Experimental Strategy_WXS"]
   StudyFacet/PHS_Accession:
     facet: (//*[@id="[object Object]"])[2]
-    dropdown: //*[@id="PHS Accession"]/div[2]
-    search: //input[@placeholder='e.g. phs000000']
+    dropdown: //*[@id="PHS Accession"]
+    search: //input[@aria-label='Search within Study facet']
     checkboxes:
       phs001554: //*[@id='checkbox_PHS Accession_phs001554']
       phs001713: //*[@id='checkbox_PHS Accession_phs001713']
@@ -63,7 +63,7 @@ groups:
       phs004225: //*[@id="checkbox_PHS Accession_phs004225"]
   StudyFacet/StudyDataTypes:
     facet: (//*[@id="[object Object]"])[2]
-    dropdown: //*[@id="Study Data Types" and text()="Study Data Types"]
+    dropdown: //*[@id="Study Data Types"]
     checkboxes:
       Genomic: //*[@id="checkbox_Study Data Types_Genomics"]
       Imaging: //*[@id="checkbox_Study Data Types_Imaging"]

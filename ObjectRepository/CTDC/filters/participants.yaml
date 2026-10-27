@@ -65,7 +65,8 @@ groups:
       'Yes': //*[@id='checkbox_Carcinogen Exposure_Yes']
   Participants/TargetedTherapy:
     facet: (//*[contains(normalize-space(.), "Filter by Participants")])[1]
-    dropdown: (//*[@id='Trial Arm'])[1]
+    dropdown: (//*[@id='Targeted Therapy'])[1]
     checkboxes:
-      Q: //input[@id='checkbox_Trial Arm_Q_Ado-trastuzumab Emtansine']
-      Z1D: //input[@id='checkbox_Trial Arm_Z1D_Nivolumab']
+      Q: //*[@id='checkbox_Targeted Therapy_Ado-trastuzumab Emtansine']
+      Z1D: //*[@id='checkbox_Targeted Therapy_Nivolumab']
+      Nivolumab: //*[@id='checkbox_Targeted Therapy_Nivolumab']

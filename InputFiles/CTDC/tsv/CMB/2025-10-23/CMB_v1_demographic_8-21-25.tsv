@@ -1,0 +1,249 @@
+type	participant.participant_id	demographic_record_id	age_at_enrollment	race	ethnicity	sex	height	weight	body_surface_area	occupation	highest_level_of_education	income	ncbi_taxonomy_id	ncbi_taxonomy_name
+demographic	MSB-01068	N644463	72	White	Not Hispanic or Latino	Male	177.8	77	1.94	Navy/Construction/Plant	Some college or Associate degree	not reported	9606	Homo sapiens
+demographic	MSB-02291	N691647	60	White	Not Hispanic or Latino	Female	162.5	59.5	1.66	dog groomer	Some college or Associate degree	not reported	9606	Homo sapiens
+demographic	MSB-06720	N339018	71	Black or African American	Not Hispanic or Latino	Male	172.72	95.7	2.14	Truck Driver	Not high school graduate	10680	9606	Homo sapiens
+demographic	MSB-04863	N63342	43	White	Hispanic or Latino	Male	170	72.6	1.7	unemployed	High school graduate (including equivalency)	10000	9606	Homo sapiens
+demographic	MSB-04847	N518279	88	White	Not Hispanic or Latino	Male	172.7	61.96	2.43	Army	Some college or Associate degree		9606	Homo sapiens
+demographic	MSB-09794	N398473	65	White	Not Hispanic or Latino	Female	157.48	101	1.42	Sales	Some college or Associate degree	25000	9606	Homo sapiens
+demographic	MSB-09018	N518412	40	White	Not Hispanic or Latino	Female	167	87.4	2	School employee			9606	Homo sapiens
+demographic	MSB-06305	N208779	70	White	Not Hispanic or Latino	Male	180.3	110.8	34.08	Truck Driver			9606	Homo sapiens
+demographic	MSB-01652	N573583	57	White	Not Hispanic or Latino	Female	160	82.9	1.86	none	Some college or Associate degree	not given	9606	Homo sapiens
+demographic	MSB-01499	N592054	60	Black or African American	Not Hispanic or Latino	Male	180.34	122.6	1.67	Truck Driver	Some college or Associate degree		9606	Homo sapiens
+demographic	MSB-09019	N8921	67	Asian	Not Hispanic or Latino	Female	76	55.33	1.08	Accountant	High school graduate (including equivalency)		9606	Homo sapiens
+demographic	MSB-01206	N320968	37	White	Hispanic or Latino	Male	154.9	98.4	2.06	Mover			9606	Homo sapiens
+demographic	MSB-02381	N303336	71	White	Not Hispanic or Latino	Female	157.48	45.6	1.41	CASINO WOKRER	High school graduate (including equivalency)	UNKNOWN	9606	Homo sapiens
+demographic	MSB-03725	N318152	39	White	Not Hispanic or Latino	Female	167.6	100.6	2.16	realtor	Master's degree		9606	Homo sapiens
+demographic	MSB-03032	N253862	67	White	Not Hispanic or Latino	Male	168	99.8	2.16	unknown	High school graduate (including equivalency)		9606	Homo sapiens
+demographic	MSB-01459	N926811	75	Asian	Not Hispanic or Latino	Female	154.9	45.9	1.41	Retired	High school graduate (including equivalency)		9606	Homo sapiens
+demographic	MSB-03808	N191234	63	Native Hawaiian or other Pacific Islander	Not Hispanic or Latino	Male	180.3	98.9	2.23	Retired	High school graduate (including equivalency)		9606	Homo sapiens
+demographic	MSB-09027	N514775	65	White	Not Hispanic or Latino	Male	170.2	81.6	1.93	Custodian	High school graduate (including equivalency)		9606	Homo sapiens
+demographic	MSB-08588	N926313	51	Black or African American	Not Hispanic or Latino	Male	184.2	83	2.06	Blue Dog RV	Declined to answer		9606	Homo sapiens
+demographic	MSB-07473	N656040	76	White	Not Hispanic or Latino	Male	172	67	1.8	retired journalist			9606	Homo sapiens
+demographic	MSB-01849	N645247	58	Asian	Not Hispanic or Latino	Male	167.64	85.2	1.95	No information available			9606	Homo sapiens
+demographic	MSB-05283	N758705	47	White	Hispanic or Latino	Male	175	74.3	1.8	Cook	Grade school		9606	Homo sapiens
+demographic	MSB-09151	N941138	68	White	Not Hispanic or Latino	Female	157.5	69.9	1.67	Not available			9606	Homo sapiens
+demographic	MSB-05412	N20274	52	White	Not Hispanic or Latino	Female	66	79.3	1.2	teacher	Bachelor's degree		9606	Homo sapiens
+demographic	MSB-02286	N620828	52	Black or African American	Not Hispanic or Latino	Male	179	84.4	2	Cook			9606	Homo sapiens
+demographic	MSB-05508	N35444	41	White	Not Hispanic or Latino	Male	185.4	78.47	2.01	Maintenance Manager	Bachelor's degree		9606	Homo sapiens
+demographic	MSB-08170	N430860	53	White	Not Hispanic or Latino	Female	167.64	70.9	1.84	family specialist	Bachelor's degree	1700/month	9606	Homo sapiens
+demographic	MSB-04030	N18986	64	White	Not Hispanic or Latino	Female	142.2	44.4	1.32	Retired	High school graduate (including equivalency)	1000 per month	9606	Homo sapiens
+demographic	MSB-07612	N204025	70	White	Not Hispanic or Latino	Female	147.3	69.9	1.69	secretarial office work	Some college or Associate degree	retired, no income given	9606	Homo sapiens
+demographic	MSB-07994	N696575	74	White	Not Hispanic or Latino	Male	175.3	111.2	2.28	Retired Military			9606	Homo sapiens
+demographic	MSB-01262	N69841	67	White	Not Hispanic or Latino	Male	180	79.5	2	Forklift Driver	Some college or Associate degree		9606	Homo sapiens
+demographic	MSB-07483	N999183	69	White	Not Hispanic or Latino	Male	177.8	92.8	2.13	retired			9606	Homo sapiens
+demographic	MSB-05837	N864786	60	White	Not Hispanic or Latino	Male	175.3	104.3	2.25	unknown			9606	Homo sapiens
+demographic	MSB-07865	N554997	83	Black or African American	Not Hispanic or Latino	Female	153	59	1.56	Disabled/Unemployment			9606	Homo sapiens
+demographic	MSB-03053	N515405	65	White	Not Hispanic or Latino	Female	163	95.1	1.95	Retired	High school graduate (including equivalency)		9606	Homo sapiens
+demographic	MSB-08267	N128604	63	White	Not Hispanic or Latino	Male	182	80.7	2.03	bakery, driver, handyman			9606	Homo sapiens
+demographic	MSB-09117	N577360	76	White	Not Hispanic or Latino	Male	180.3	67.8	1.86	unknown			9606	Homo sapiens
+demographic	MSB-03258	N161427	78	White	Not Hispanic or Latino	Female	160.02	49	1.49	Retired Mortgage Auditor	High school graduate (including equivalency)	$1800/month	9606	Homo sapiens
+demographic	MSB-06857	N601922	75	White	Not Hispanic or Latino	Female	154.9	47.3	1.44	unknown			9606	Homo sapiens
+demographic	MSB-05040	N934784	59	White	Not Hispanic or Latino	Male	172.7	113.4	2.25	Warehouse work	Declined to answer		9606	Homo sapiens
+demographic	MSB-03973	N672869	72	Asian	Not Hispanic or Latino	Male	170.18	75.75	1.89	retired	High school graduate (including equivalency)		9606	Homo sapiens
+demographic	MSB-02917	N913889	76	Black or African American	Not Hispanic or Latino	Male	180.34	92.08	1.96	retired			9606	Homo sapiens
+demographic	MSB-00952	N105426	75	White	Not Hispanic or Latino	Female	160.02	56.97	1.59	retired			9606	Homo sapiens
+demographic	MSB-02118	N356745	70	White	Not Hispanic or Latino	Female	160	72.6	1.79	unknown			9606	Homo sapiens
+demographic	MSB-07436	N47296	85	Black or African American	Not Hispanic or Latino	Male	157.48	68.95	1.42	Anesthesist	Declined to answer		9606	Homo sapiens
+demographic	MSB-02249	N940704	69	Not Reported	Not Hispanic or Latino	Male	180.34	114.3	2.33	retired		unknown	9606	Homo sapiens
+demographic	MSB-03244	N182451	64	White	Not Hispanic or Latino	Male	172	89.4	2.1	Business owner	Some college or Associate degree		9606	Homo sapiens
+demographic	MSB-01103	N282109	74	Black or African American	Not Hispanic or Latino	Male	188	109	2.38	Retired	Some college or Associate degree		9606	Homo sapiens
+demographic	MSB-08178	N710357	58	White	Not Hispanic or Latino	Male	172.72	118.57	1.46	Grocery Store Clerk	High school graduate (including equivalency)		9606	Homo sapiens
+demographic	MSB-08922	N447257	50	White	Not Hispanic or Latino	Female	168	65	1.74	secretary	High school graduate (including equivalency)	unknown	9606	Homo sapiens
+demographic	MSB-06489	N699343	64	White	Not reported	Female	175.26	94.08	1.86	Hotel Inventory	High school graduate (including equivalency)		9606	Homo sapiens
+demographic	MSB-04332	N372992	65	Black or African American	Not Hispanic or Latino	Male	177.8	92.27	2.19	not employed			9606	Homo sapiens
+demographic	MSB-07225	N817808	69	White	Not Hispanic or Latino	Male	168.9	86.5	2.01	mail carrier			9606	Homo sapiens
+demographic	MSB-05563	N754866	62	Black or African American	Not Hispanic or Latino	Male	75.39	182.42	2.46	unemployed			9606	Homo sapiens
+demographic	MSB-07059	N642521	65	White	Not Hispanic or Latino	Male	173	89.7	2.07	Truck driver	Some college or Associate degree		9606	Homo sapiens
+demographic	MSB-06184	N730130	63	White	Not Hispanic or Latino	Male	177.8	79.6	1.97	Transportation	Declined to answer	unknown	9606	Homo sapiens
+demographic	MSB-08536	N126122	70	White	Not Hispanic or Latino	Male	172.72	102.35	2.15	Retired Teacher			9606	Homo sapiens
+demographic	MSB-04950	N529386	61	Black or African American	Not Hispanic or Latino	Male	178	109	2.3	Retired	Some college or Associate degree	n/a - patient refusal	9606	Homo sapiens
+demographic	MSB-09601	N654437	65	White	Not Hispanic or Latino	Male	70	82.6	2.03	IT			9606	Homo sapiens
+demographic	MSB-05789	N828954	64	White	Not Hispanic or Latino	Female	153	52	1.5	Teacher			9606	Homo sapiens
+demographic	MSB-07099	N449751	66	White	Not Hispanic or Latino	Female	170	109	2.18	librarian			9606	Homo sapiens
+demographic	MSB-09886	N291934	67	White	Not Hispanic or Latino	Male	180.3	80.7	2	Retired robotics tech			9606	Homo sapiens
+demographic	MSB-01031	N853702	55	Black or African American	Not Hispanic or Latino	Male	170	110	2.19	truck driver	High school graduate (including equivalency)	unknown	9606	Homo sapiens
+demographic	MSB-04315	N142907	73	White	Not Hispanic or Latino	Male	182.9	94.4	2.19	unknown			9606	Homo sapiens
+demographic	MSB-03796	N171535	48	White	Not Hispanic or Latino	Female	172.7	80.2	1.98	Homemaker	Bachelor's degree		9606	Homo sapiens
+demographic	MSB-09774	N270888	80	White	Not Hispanic or Latino	Male	182.9	79.2	2.04	Retired			9606	Homo sapiens
+demographic	MSB-03400	N505580	52	White	Not Hispanic or Latino	Female	167.6	75.2	1.87	unknown			9606	Homo sapiens
+demographic	MSB-06735	N400802	53	White	Not Hispanic or Latino	Male	183	98.7	2.21	electrician	High school graduate (including equivalency)	unknown	9606	Homo sapiens
+demographic	MSB-06236	N962235	35	White	Not Hispanic or Latino	Female	157	79.6	1.8	Truck Driver	High school graduate (including equivalency)		9606	Homo sapiens
+demographic	MSB-05562	N437480	73	White	Not Hispanic or Latino	Female	170	82.4	1.97	Retired			9606	Homo sapiens
+demographic	MSB-01649	N130604	65	White	Not Hispanic or Latino	Female	165.1	130	2.44	Works for SB Phillips Co	Declined to answer		9606	Homo sapiens
+demographic	MSB-04153	N816029	34	Unknown	Hispanic or Latino	Male	167.6	65.8	1.7	warehouse manager	High school graduate (including equivalency)		9606	Homo sapiens
+demographic	MSB-01413	N130476	68	White	Not Hispanic or Latino	Female	159.5	68.7	1.74	Retired			9606	Homo sapiens
+demographic	MSB-00939	N719577	63	White	Not Hispanic or Latino	Female	154.9	82.1	1.88	unemployed			9606	Homo sapiens
+demographic	MSB-04432	N840473	41	White	Not Hispanic or Latino	Male	181.4	81.4	2.02	unknown			9606	Homo sapiens
+demographic	MSB-01627	N347216	51	White	Not Hispanic or Latino	Female	172.7	55.1	1.63	unknown			9606	Homo sapiens
+demographic	MSB-03226	N981081	57	Black or African American	Not Hispanic or Latino	Male	172.7	89.2	2.07	Builder	Some college or Associate degree	50,000 annually	9606	Homo sapiens
+demographic	MSB-06029	N379317	71	Black or African American	Not Hispanic or Latino	Male	175.3	82.9	1.99	Law Enforcement	Bachelor's degree	65000	9606	Homo sapiens
+demographic	MSB-05206	N647656	70	White	Not Hispanic or Latino	Male	180.3	78	1.98	UPS driver	Some college or Associate degree		9606	Homo sapiens
+demographic	MSB-00352	N675712	58	White	Not Hispanic or Latino	Female	165.1	97.52	2.04	Former hairstylist/waitre	Not high school graduate	Not provided	9606	Homo sapiens
+demographic	MSB-05281	N396608	74	White	Not Hispanic or Latino	Male	193	79	2.09	Retired mail carrier	Some college or Associate degree	40000	9606	Homo sapiens
+demographic	MSB-01617	N254452	80	Unknown	Not Hispanic or Latino	Male	188	61.7	1.79	Boeing Receiving Clerk	Declined to answer		9606	Homo sapiens
+demographic	MSB-09991	N896409	66	White	Not Hispanic or Latino	Male	193.04	128.2	2.56	retired			9606	Homo sapiens
+demographic	MSB-04031	N764954	58	White	Not Hispanic or Latino	Female	152.4	47.6	1.42	Currently not working	High school graduate (including equivalency)	$100,000 yearly (spouse)	9606	Homo sapiens
+demographic	MSB-03932	N182319	82	White	Not Hispanic or Latino	Male	172.7	69.4	1.82	Microbiologist	Bachelor's degree		9606	Homo sapiens
+demographic	MSB-03406	N956203	71	White	Not Hispanic or Latino	Male	185.4	73.44	1.94	artist			9606	Homo sapiens
+demographic	MSB-08045	N444762	64	White	Not Hispanic or Latino	Female	165	95.3	2.09	retired	High school graduate (including equivalency)		9606	Homo sapiens
+demographic	MSB-01723	N364374	72	White	Not Hispanic or Latino	Male	177.8	86.2	2.06	Retired	Bachelor's degree	$150.000 annually	9606	Homo sapiens
+demographic	MSB-02271	N689967	56	White	Not Hispanic or Latino	Male	175.2	71.7	1.88	unknown			9606	Homo sapiens
+demographic	MSB-08093	N441124	56	White	Not Hispanic or Latino	Male	188	96.4	2.25	engineer	Bachelor's degree		9606	Homo sapiens
+demographic	MSB-03315	N553314	60	Black or African American	Not Hispanic or Latino	Female	163	66.7	1.75	IT Director	Master's degree	patient refused	9606	Homo sapiens
+demographic	MSB-01224	N1667	63	Black or African American	Not Hispanic or Latino	Female	154.9	81.6	1.87	Retired	Some college or Associate degree	Disability mthly $1271	9606	Homo sapiens
+demographic	MSB-05742	N119160	65	White	Not Hispanic or Latino	Male	182.9	107	2.33	Retired	High school graduate (including equivalency)	patient refused	9606	Homo sapiens
+demographic	MSB-08631	N867476	74	White	Not Hispanic or Latino	Male	185	82.5	2.06	Electrician	Some college or Associate degree	50000	9606	Homo sapiens
+demographic	MSB-03885	N755310	73	Black or African American	Not Hispanic or Latino	Male	175.26	122.47	2.35	retired - USPS			9606	Homo sapiens
+demographic	MSB-00556	N903858	60	White	Not Hispanic or Latino	Male	182.9	70.8	1.9	Retired			9606	Homo sapiens
+demographic	MSB-05975	N752883	68	White	Not Hispanic or Latino	Male	170.2	60.1	1.73	service technician			9606	Homo sapiens
+demographic	MSB-03453	N301793	45	Black or African American	Not Hispanic or Latino	Male	180.3	77.7	1.97	Unemployed - disabled	High school graduate (including equivalency)	No income	9606	Homo sapiens
+demographic	MSB-02472	N945642	72	Black or African American	Not Hispanic or Latino	Male	175.3	65.9	1.75	Retired state employee			9606	Homo sapiens
+demographic	MSB-05737	N232371	61	Black or African American	Not Hispanic or Latino	Male	167.6	89	2	Unknown			9606	Homo sapiens
+demographic	MSB-01771	N858497	38	White	Not Hispanic or Latino	Male	170.2	65.7	1.7	Marketing	Bachelor's degree		9606	Homo sapiens
+demographic	MSB-06699	N368232	51	White	Not Hispanic or Latino	Male	185	87.8	2.13	Administration/Marketing			9606	Homo sapiens
+demographic	MSB-05746	N533760	69	White	Not Hispanic or Latino	Male	172.7	75.2	1.89	unknown			9606	Homo sapiens
+demographic	MSB-07917	N363144	79	Black or African American	Not Hispanic or Latino	Female	152.4	55.9	1.54	Retired from HR - 30 yrs	Master's degree	Patient refused	9606	Homo sapiens
+demographic	MSB-05388	N300961	55	White	Not Hispanic or Latino	Female	170.2	72.8	1.9	Disabled			9606	Homo sapiens
+demographic	MSB-09348	N370699	59	White	Hispanic or Latino	Female	152.4	59.08	1.58	retired			9606	Homo sapiens
+demographic	MSB-03069	N556231	77	White	Not Hispanic or Latino	Male	172.7	89.4	2.07	Truck Driver			9606	Homo sapiens
+demographic	MSB-07715	N986900	70	White	Not Hispanic or Latino	Male	170.2	77.3	1.91	Retired car mechanic	Bachelor's degree	Patient refused	9606	Homo sapiens
+demographic	MSB-02429	N361714	69	Black or African American	Not Hispanic or Latino	Male	175.3	77.6	1.94	Forklift driver - pallets	Not high school graduate	Patient refused	9606	Homo sapiens
+demographic	MSB-04141	N277923	52	White	Not reported	Male	177.8	98.1	31.04	packaging			9606	Homo sapiens
+demographic	MSB-08799	N302240	51	White	Not Hispanic or Latino	Male	190.5	113	2.45	Material handler	High school graduate (including equivalency)	Patient refused	9606	Homo sapiens
+demographic	MSB-05126	N10675	71	Black or African American	Not Hispanic or Latino	Female	185.4	97.6	2.24	Retired	High school graduate (including equivalency)	Patient refused	9606	Homo sapiens
+demographic	MSB-00140	N650761	65	White	Not Hispanic or Latino	Female	167.6	62.1	1.7	Retired	Bachelor's degree	Patient refused	9606	Homo sapiens
+demographic	MSB-07278	N378141	74	White	Hispanic or Latino	Female	174	63.6	1.77	retired teacher			9606	Homo sapiens
+demographic	MSB-00520	N443335	50	White	Not Hispanic or Latino	Female	161	85.7	1.96	child care			9606	Homo sapiens
+demographic	MSB-01049	N912081	52	White	Not Hispanic or Latino	Male	175.3	75.6	1.92	cabinet maker/woodworker	High school graduate (including equivalency)	Patient refused	9606	Homo sapiens
+demographic	MSB-07270	N250652	79	White	Not Hispanic or Latino	Male	170	70.7	1.83	unknown			9606	Homo sapiens
+demographic	MSB-04437	N327170	38	Asian	Hispanic or Latino	Female	160	74.1	1.81	Federal Employee			9606	Homo sapiens
+demographic	MSB-02302	N301970	69	White	Not Hispanic or Latino	Female	149.9	38.6	1.27	retired			9606	Homo sapiens
+demographic	MSB-07839	N257663	47	Black or African American	Not Hispanic or Latino	Female	169.5	105	2.22	Line technician	Some college or Associate degree	Patient refused	9606	Homo sapiens
+demographic	MSB-03330	N833701	68	White	Not Hispanic or Latino	Female	158	79.4	1.87	massage therapist			9606	Homo sapiens
+demographic	MSB-07709	N615335	67	Black or African American	Not Hispanic or Latino	Male	193	113	2.46	Retired	High school graduate (including equivalency)	Patient refused	9606	Homo sapiens
+demographic	MSB-09491	N251068	66	Asian	Not Hispanic or Latino	Male	1.72	93.2	2.09	Banker			9606	Homo sapiens
+demographic	MSB-05435	N730658	53	Black or African American	Not Hispanic or Latino	Male	180.3	162	2.85	Former machine operator	High school graduate (including equivalency)	$1567 monthly	9606	Homo sapiens
+demographic	MSB-06894	N472195	73	White	Not Hispanic or Latino	Male	172.7	93.4	2.12	IT Delta airlines	Declined to answer		9606	Homo sapiens
+demographic	MSB-07945	N950526	69	White	Unknown	Female	163	95.3	2.04	retired			9606	Homo sapiens
+demographic	MSB-07656	N759720	31	Black or African American	Not Hispanic or Latino	Female	170.2	74	1.87	Unemployed	Some college or Associate degree	Patient refused	9606	Homo sapiens
+demographic	MSB-07435	N313696	61	White	Not Hispanic or Latino	Male	182.8	86.3	2.08	Contractor	Some college or Associate degree	100,000+	9606	Homo sapiens
+demographic	MSB-02661	N970986	60	White	Not Hispanic or Latino	Female	164	58	1.63	retired			9606	Homo sapiens
+demographic	MSB-04286	N166700	71	White	Not Hispanic or Latino	Female	168	101.9	2.18	Not on file			9606	Homo sapiens
+demographic	MSB-02169	N680887	56	White	Not Hispanic or Latino	Female	167.6	135.6	2.47	Medical Assistant	Some college or Associate degree		9606	Homo sapiens
+demographic	MSB-08354	N680140	67	White	Not Hispanic or Latino	Female	152	36	1.23	retired			9606	Homo sapiens
+demographic	MSB-04433	N152165	52	White	Unknown	Male	188	115.7	2.41	Jason's Auto Service			9606	Homo sapiens
+demographic	MSB-01597	N777631	64	White	Not Hispanic or Latino	Male	180.3	78.1	1.98	Electrician - marines	High school graduate (including equivalency)	124,000 annually	9606	Homo sapiens
+demographic	MSB-08544	N823719	73	White	Hispanic or Latino	Male	168	103	2.1	Tortia maker			9606	Homo sapiens
+demographic	MSB-07272	N777209	61	White	Hispanic or Latino	Female	157.5	70.3	1.75	Unemployed			9606	Homo sapiens
+demographic	MSB-06403	N457893	49	White	Not Hispanic or Latino	Female	168	94.6	2.1	unknown			9606	Homo sapiens
+demographic	MSB-06682	N2093	57	White	Not Hispanic or Latino	Male	175	70.8	1.86	unk			9606	Homo sapiens
+demographic	MSB-05756	N505196	55	White	Not Hispanic or Latino	Female	160	88.2	1.91				9606	Homo sapiens
+demographic	MSB-07221	N498731	57	White	Not Hispanic or Latino	Male	170	122	2.29	unknown			9606	Homo sapiens
+demographic	MSB-07479	N222721	73	White	Not Hispanic or Latino	Male	170.2	89.1	2.05	Retired Engineer	Bachelor's degree	3,000 monthly	9606	Homo sapiens
+demographic	MSB-04415	N208691	75	White	Unknown	Male	170.2	87.1	1.9	Retired			9606	Homo sapiens
+demographic	MSB-09897	N762896	59	White	Hispanic or Latino	Male	175	94	2.09	Engineer			9606	Homo sapiens
+demographic	MSB-05676	N664756	75	White	Not Hispanic or Latino	Male	188	84.4	2.1	Retired	Some college or Associate degree	39,000 yearly	9606	Homo sapiens
+demographic	MSB-07784	N743617	56	White	Not Hispanic or Latino	Male	1.74	59.3	1.69	Packaging Factory			9606	Homo sapiens
+demographic	MSB-05354	N483345	62	White	Not Hispanic or Latino	Female	166	131	2.46	unknown			9606	Homo sapiens
+demographic	MSB-07662	N15292	72	White	Not Hispanic or Latino	Female	170.2	62.9	1.7	Retired			9606	Homo sapiens
+demographic	MSB-06864	N159529	76	White	Not Hispanic or Latino	Male	175.3	85.5	2.04	Retired	Some college or Associate degree	Patient refused	9606	Homo sapiens
+demographic	MSB-07146	N901601	51	Black or African American	Not Hispanic or Latino	Female	157.5	58.3	1.6	School Teacher	Master's degree	Patient Refused	9606	Homo sapiens
+demographic	MSB-01493	N996356	69	White	Hispanic or Latino	Female	165.1	77.11	1.88	retired			9606	Homo sapiens
+demographic	MSB-05602	N819735	64	White	Not Hispanic or Latino	Male	167	76.9	1.8	Pastor			9606	Homo sapiens
+demographic	MSB-07370	N770926	70	White	Not Hispanic or Latino	Female	160	79.8	1.88	Retired	Declined to answer	N/A	9606	Homo sapiens
+demographic	MSB-01437	N756447	69	White	Not Hispanic or Latino	Male	170	67.6	1.8	Retired			9606	Homo sapiens
+demographic	MSB-07085	N891933	70	Black or African American	Not Hispanic or Latino	Male	188	109.6	2.33	Printer			9606	Homo sapiens
+demographic	MSB-07186	N142535	69	White	Not Hispanic or Latino	Female	140	62.5	1.6	Retired			9606	Homo sapiens
+demographic	MSB-02901	N174612	64	White	Not Hispanic or Latino	Female	152.4	60.3	1.6	Accounts Payable	High school graduate (including equivalency)	48,000 yearly	9606	Homo sapiens
+demographic	MSB-01594	N672221	57	Black or African American	Not Hispanic or Latino	Male	177.8	124.7	39.46	Metro Transit Authority	Declined to answer	yes	9606	Homo sapiens
+demographic	MSB-02988	N71143	47	Black or African American	Not Hispanic or Latino	Female	162.6	130	2.42	Disabled	Not high school graduate	Patient refused	9606	Homo sapiens
+demographic	MSB-05702	N719633	72	Black or African American	Not Hispanic or Latino	Female	162.6	89.4	2.01	Retired	Not high school graduate	patient refused	9606	Homo sapiens
+demographic	MSB-02370	N682914	79	White	Not Hispanic or Latino	Male	161	71.7	1.79	unknown			9606	Homo sapiens
+demographic	MSB-04176	N662632	76	White	Not Hispanic or Latino	Female	160	67.4	1.82				9606	Homo sapiens
+demographic	MSB-09124	N56622	47	White	Not Hispanic or Latino	Male	177.8	114	2.37	General Manager	Some college or Associate degree	Patient refused	9606	Homo sapiens
+demographic	MSB-08058	N43506	80	White	Not Hispanic or Latino	Male	165.1	73.3	1.83	Retired Accountant	Some college or Associate degree	Patient refused	9606	Homo sapiens
+demographic	MSB-07578	N631350	51	White	Not Hispanic or Latino	Male	172.7	60.8	1.71	Auto Technician	Bachelor's degree	35,000 yearly	9606	Homo sapiens
+demographic	MSB-06606	N455933	53	Black or African American	Not Hispanic or Latino	Male	185.4	74	1.95	Unemployed	High school graduate (including equivalency)	Patient refused	9606	Homo sapiens
+demographic	MSB-01208	N960728	57	Black or African American	Not Hispanic or Latino	Male	167.6	65	1.74	Ship/Rcvd at Lowe's	Some college or Associate degree	Patient refused	9606	Homo sapiens
+demographic	MSB-04500	N537112	69	White	Not Hispanic or Latino	Female	167	59.8	1.61	Retired			9606	Homo sapiens
+demographic	MSB-09666	N269656	66	White	Not Hispanic or Latino	Male	185	93	2.17	MECHANIC			9606	Homo sapiens
+demographic	MSB-07414	N950391	55	White	Not Hispanic or Latino	Male	170.2	78.9	1.93	Not currently working			9606	Homo sapiens
+demographic	MSB-05856	N784322	76	White	Not Hispanic or Latino	Female	160	75.8	1.79	College Professor			9606	Homo sapiens
+demographic	MSB-00089	N749880	67	Black or African American	Not Hispanic or Latino	Female	165.1	70.6	1.8	Fast food worker Hardee's	Not high school graduate	Patient refused	9606	Homo sapiens
+demographic	MSB-08228	N345439	51	White	Not Hispanic or Latino	Male	177.8	94.7	2.16	Mobile Detailer - Cars	Some college or Associate degree	Patient refused	9606	Homo sapiens
+demographic	MSB-01463	N896962	60	White	Not Hispanic or Latino	Male	180	74	1.93	farmer	High school graduate (including equivalency)	not answered	9606	Homo sapiens
+demographic	MSB-01433	N798734	66	White	Not reported	Male	188	64.2	1.83	Musician			9606	Homo sapiens
+demographic	MSB-05151	N184006	52	White	Not Hispanic or Latino	Female	159	32.94	1.87	CNA			9606	Homo sapiens
+demographic	MSB-09202	N114427	51	White	Not Hispanic or Latino	Male	159	59.7	1.59	Drywall business			9606	Homo sapiens
+demographic	MSB-08965	N970893	70	White	Not Hispanic or Latino	Male	190.5	90.7	2.19	Farm Credit Services			9606	Homo sapiens
+demographic	MSB-01960	N981046	88	American Indian or Alaska Native	Not Hispanic or Latino	Female	157	77.3	1.84	unknown			9606	Homo sapiens
+demographic	MSB-04319	N608918	61	White	Not Hispanic or Latino	Male	166	88.3	1.96	unknown			9606	Homo sapiens
+demographic	MSB-04591	N875195	38	White	Not Hispanic or Latino	Female	165.1	76.4	1.87	Teacher	Master's degree	Patient refused	9606	Homo sapiens
+demographic	MSB-00902	N780596	59	Black or African American	Not Hispanic or Latino	Female	160	73.5	1.81	Poet & Teaching Artist	Master's degree	65,000 yearly	9606	Homo sapiens
+demographic	MSB-00956	N27600	51	White	Not Hispanic or Latino	Female	160	48	1.48	Librarian			9606	Homo sapiens
+demographic	MSB-00437	N844267	58	Black or African American	Not Hispanic or Latino	Male	185.4	96	2.22	Retired from HR	Bachelor's degree	Patient refused	9606	Homo sapiens
+demographic	MSB-04006	N751266	73	White	Not Hispanic or Latino	Male	178	84.3	2.04	unknown			9606	Homo sapiens
+demographic	MSB-00316	N596679	68	White	Not Hispanic or Latino	Female	154	56.9	1.55	Unknown			9606	Homo sapiens
+demographic	MSB-08777	N565826	66	White	Not Hispanic or Latino	Male	180	81.7	2.02	unknown			9606	Homo sapiens
+demographic	MSB-05460	N729653	71	White	Not Hispanic or Latino	Female	156	40.3	1.32	unknown			9606	Homo sapiens
+demographic	MSB-07840	N743475	55	Black or African American	Not Hispanic or Latino	Female	162.6	92.1	2.04	Principal & Educator	Master's degree	Patient refused	9606	Homo sapiens
+demographic	MSB-06833	N999341	64	White	Not Hispanic or Latino	Male	1.85	92.9	2.19	Admissions			9606	Homo sapiens
+demographic	MSB-08700	N528780	68	White	Not Hispanic or Latino	Male	172.7	83.8	2.01	Retired - Carpenter	Some college or Associate degree	80,000 yearly	9606	Homo sapiens
+demographic	MSB-04388	N641506	68	White	Not Hispanic or Latino	Male	174	78.2	1.94	Retired			9606	Homo sapiens
+demographic	MSB-01307	N751733	67	White	Not Hispanic or Latino	Female	170	73	1.86	unknown			9606	Homo sapiens
+demographic	MSB-06711	N36148	70	White	Not Hispanic or Latino	Male	168	83.7	1.98	Car Salesman	High school graduate (including equivalency)	Patient declined	9606	Homo sapiens
+demographic	MSB-05167	N993315	49	White	Not Hispanic or Latino	Male	182.9	93.9	2.18	Mcguire Woods			9606	Homo sapiens
+demographic	MSB-04143	N938	38	White	Not Hispanic or Latino	Female	170	115	2.27	Teacher			9606	Homo sapiens
+demographic	MSB-06059	N165346	75	White	Not Hispanic or Latino	Male	172	76.3	1.91	Farmer			9606	Homo sapiens
+demographic	MSB-04968	N577849	70	White	Not Hispanic or Latino	Female	167	83.1	1.97	Retired			9606	Homo sapiens
+demographic	MSB-05098	N185873	74	White	Not Hispanic or Latino	Female	165.1	58	1.71	travel agent			9606	Homo sapiens
+demographic	MSB-08454	N873403	72	White	Not Hispanic or Latino	Male	168	86	2	unknown			9606	Homo sapiens
+demographic	MSB-06256	N510450	68	White	Not Hispanic or Latino	Male	167	80	1.93	water softener technician			9606	Homo sapiens
+demographic	MSB-02960	N874058	28	White	Not Hispanic or Latino	Female	162.6	49.1	1.49	Unemployed - due to medhx	Some college or Associate degree	$0 annually	9606	Homo sapiens
+demographic	MSB-04064	N973393	73	American Indian or Alaska Native	Not Hispanic or Latino	Male	170.2	64.9	1.8	labor			9606	Homo sapiens
+demographic	MSB-06817	N289202	76	White	Not Hispanic or Latino	Male	170	91	2.07	Military, retired			9606	Homo sapiens
+demographic	MSB-03312	N40116	75	White	Not Hispanic or Latino	Female	162.6	93.7	2.06	Housewife - Retired	Some college or Associate degree	Patient declined	9606	Homo sapiens
+demographic	MSB-04450	N96689	64	White	Not Hispanic or Latino	Female	162.6	61.6	1.67	Retired - SEW EuroDrivers	High school graduate (including equivalency)	Patient declined	9606	Homo sapiens
+demographic	MSB-02829	N109011	59	White	Not Hispanic or Latino	Male	181	91	2.14	Physical Therapist Asst			9606	Homo sapiens
+demographic	MSB-03513	N663057	60	White	Not Hispanic or Latino	Female	177.8	77.1	1.95	Analyst			9606	Homo sapiens
+demographic	MSB-02139	N305411	53	White	Not Hispanic or Latino	Male	170.2	89.7	2.06	Sales	Bachelor's degree	Patient declined	9606	Homo sapiens
+demographic	MSB-03483	N428465	76	White	Not Hispanic or Latino	Female	175.3	75.8	1.91	accountant, retired			9606	Homo sapiens
+demographic	MSB-05620	N64348	57	White	Not Hispanic or Latino	Male	176	105	2.27	Unavailable			9606	Homo sapiens
+demographic	MSB-03738	N97186	64	White	Not Hispanic or Latino	Male	195	149.6	2.85	paper mill/maintenance			9606	Homo sapiens
+demographic	MSB-09350	N24238	85	White	Not Hispanic or Latino	Male	182.9	86.5	2.1	Retired	High school graduate (including equivalency)	Patient declined	9606	Homo sapiens
+demographic	MSB-01757	N241861	67	White	Not Hispanic or Latino	Male	182	77	2.01	Retired			9606	Homo sapiens
+demographic	MSB-09880	N491237	66	White	Not Hispanic or Latino	Male	170.18	67.13	1.78	maintenance man			9606	Homo sapiens
+demographic	MSB-07991	N75078	47	White	Not Hispanic or Latino	Female	172	110	2.18	Self-employed			9606	Homo sapiens
+demographic	MSB-09994	N986992	65	White	Not Hispanic or Latino	Male	177.8	100	2.22	Retired - construction	Some college or Associate degree	130,000 annually	9606	Homo sapiens
+demographic	MSB-00498	N491048	71	Black or African American	Not Hispanic or Latino	Male	172.7	85	2.02	Retired - print company	Some college or Associate degree	0.00 monthly	9606	Homo sapiens
+demographic	MSB-09737	N45549	50	White	Not Hispanic or Latino	Female	162.56	53.98	1.58	Closing Coordinator	Bachelor's degree		9606	Homo sapiens
+demographic	MSB-04831	N773556	58	White	Not Hispanic or Latino	Male	177.8	115.2	2.4	Account Manager	Bachelor's degree		9606	Homo sapiens
+demographic	MSB-00263	N700011	56	White	Not Hispanic or Latino	Male	193	123	2.54	ENT Physician	Doctoral or professional degree		9606	Homo sapiens
+demographic	MSB-09286	N471476	64	White	Not Hispanic or Latino	Female	162.6	66.2	1.79				9606	Homo sapiens
+demographic	MSB-09495	N664528	44	White	Not Hispanic or Latino	Male	68	91.3	2.06	No occupation			9606	Homo sapiens
+demographic	MSB-09977	N602602	79	White	Not Hispanic or Latino	Male	165	72.6	1.82	retired	Bachelor's degree	unknown	9606	Homo sapiens
+demographic	MSB-00205	N301106	63	White	Not Hispanic or Latino	Male	182.9	185.9	2.98	Attorney	Doctoral or professional degree		9606	Homo sapiens
+demographic	MSB-02746	N330103	40	White	Not Hispanic or Latino	Male	180.34	110	2.35	Computer Engineer			9606	Homo sapiens
+demographic	MSB-03272	N49389	76	White	Not Hispanic or Latino	Female	165.1	70.3	1.78	adminstrative retired	Grade school	18,000.00 yr.	9606	Homo sapiens
+demographic	MSB-08142	N874457	73	White	Not Hispanic or Latino	Male	180.34	97.7	2.15	Print shop owner	Bachelor's degree		9606	Homo sapiens
+demographic	MSB-01363	N634789	61	White	Not Hispanic or Latino	Male	175.3	111.3	2.26	Unknown			9606	Homo sapiens
+demographic	MSB-06226	N302375	85	White	Unknown	Male	180.34	77.11	1.97	Retired	Master's degree		9606	Homo sapiens
+demographic	MSB-03548	N262559	50	Unknown	Hispanic or Latino	Male	175.3	103	2.24	N/A	Declined to answer	N/A	9606	Homo sapiens
+demographic	MSB-06426	N356730	60	Unknown	Not Hispanic or Latino	Male	175.26	95.25	2.11	vegetable producting	Bachelor's degree		9606	Homo sapiens
+demographic	MSB-05387	N615306	66	Black or African American	Not Hispanic or Latino	Female	103.9	167.64	2.12	housekeeper	Not high school graduate	12000	9606	Homo sapiens
+demographic	MSB-09619	N865920	63	White	Not Hispanic or Latino	Male	177.8	48.53	1.6	painter	Not high school graduate	declined	9606	Homo sapiens
+demographic	MSB-00643	N477933	51	White	Not Hispanic or Latino	Female	157.5	59	1.61	Psych tech			9606	Homo sapiens
+demographic	MSB-00241	N781660	59	White	Not Hispanic or Latino	Female	165	71	1.8	Marketing			9606	Homo sapiens
+demographic	MSB-00268	N359865	56	Black or African American	Not Hispanic or Latino	Female	167.6	89.3	2.04	refused			9606	Homo sapiens
+demographic	MSB-07075	N982631	64	Black or African American	Not Hispanic or Latino	Female	157.5	170	2.73	Retired	High school graduate (including equivalency)	Patient refused	9606	Homo sapiens
+demographic	MSB-00755	N142123	81	White	Not Hispanic or Latino	Female	165	87.9	2.01	School bus driver			9606	Homo sapiens
+demographic	MSB-08104	N423842	72	White	Not Hispanic or Latino	Male	182.9	78.9	2.01	engineer			9606	Homo sapiens
+demographic	MSB-05876	N82145	63	Black or African American	Not Hispanic or Latino	Female	167.6	116	2.32	computer support	Some college or Associate degree	patient declined	9606	Homo sapiens
+demographic	MSB-04939	N147861	57	Black or African American	Not Hispanic or Latino	Male	167.6	85.2	1.99	Quality Technician	High school graduate (including equivalency)	Patient declined.	9606	Homo sapiens
+demographic	MSB-05447	N286486	53	White	Not Hispanic or Latino	Female	163	60.7	1.65	TELLER	Some college or Associate degree		9606	Homo sapiens
+demographic	MSB-03321	N699602	57	White	Not Hispanic or Latino	Female	170.2	88.9	2	Marketing Manager	Master's degree	120000	9606	Homo sapiens
+demographic	MSB-07848	N337029	70	White	Not Hispanic or Latino	Male	177.8	103	2.2				9606	Homo sapiens
+demographic	MSB-02151	N997127	70	White	Unknown	Male	177.8	79.4	1.98				9606	Homo sapiens
+demographic	MSB-00602	N810924	67	Not Reported	Hispanic or Latino	Male	167.6	63.9	1.73				9606	Homo sapiens
+demographic	MSB-08063	N530270	43	Not Reported	Hispanic or Latino	Male	175.3	87.09	2.06				9606	Homo sapiens
+demographic	MSB-01825	N186156	80	White	Hispanic or Latino	Female	154	63.5	1.72				9606	Homo sapiens

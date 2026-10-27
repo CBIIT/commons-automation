@@ -44,7 +44,7 @@ FILTER_ORDER = [
         "participants",
         "Filters/TargetedTherapy",
         "Participants/TargetedTherapy",
-        "(//*[@id='Trial Arm'])[1]",
+        "(//*[@id='Targeted Therapy'])[1]",
     ),
     (
         "biospecimens",

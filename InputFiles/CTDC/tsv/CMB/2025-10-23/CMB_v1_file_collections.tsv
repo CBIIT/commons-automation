@@ -1,0 +1,5 @@
+type	study.study_short_name	data_file_uuid	data_file_name	data_file_type	data_file_format	data_file_description	data_file_size
+file	CMB	dg.4DFC/collection-CMB-all-files	CMB-all-files.CTDCV1.zip	File Collection	zip	All CMB v1 files	120465654
+file	CMB	dg.4DFC/collection-CMB-radiology	CMB_Radiology_Images.zip	Radiology Imaging	zip	A zipped file of all the radiology imaging files for the CMB study	69728594050
+file	CMB	dg.4DFC/collection-CMB-vcf	CMB_Variant_Call_Files.zip	Variant Call File	zip	A zipped file of all the variant call files for the CMB study	27666678
+file	CMB	dg.4DFC/collection-CMB-reports	CMB_Variant_Reports.zip	Variant Report	zip	A zipped file of all variant reports for the CMB study	92783248

@@ -1,0 +1,15 @@
+page: Static/AboutPage
+elements:
+  AboutCCDILink: //a[(text() = 'NCI’s Childhood Cancer Data Initiative (CCDI)')][1]
+  AboutDataDictionaryLink: //a[(text() = 'data dictionary')]
+  AboutEmailLink: //a[(text() = 'ncichildhoodcancerdatainitiative@mail.nih.gov')]
+  AboutGithubLink: //a[(text() = 'GitHub')]
+  AboutParagraph1: //div[@class='introParagraph']
+  AboutParagraph2: //div[@class='secondParagraph sectionStart']
+  AboutParagraph3: //div[@class='thirdParagraph sectionStart']
+  AboutParagraph4: //div[@class='aboutFooter']
+  AboutParagraph5: //div[@class='fourthParagraph sectionStart']
+  AboutParagraph6: //div[@class='fifthParagraph sectionStart']
+  AboutParagraph7: //div[@class='sixthParagraph sectionStart']
+  AboutParagraph8: //div[@class='seventhParaph sectionStart']
+  AboutSignupLink: //a[text() = 'Sign-up for email updates']

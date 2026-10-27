@@ -1,0 +1,27 @@
+# Converted from Katalon Object Repository/Bento/Static/V_HomePage
+page: Static/V_HomePage
+elements:
+  BannerDescription: //div[@class='MuiGrid-root MuiGrid-container']/div/div/div[2]
+  BannerTitle: //div[@class='MuiGrid-root MuiGrid-container']/div/div/div[1]
+  FooterBentoDocumentationLink: //div[(text() = 'Bento Documentation')]/..
+  FooterBentoHelpLink: //div[(text() = 'Bento Help Desk' or . = 'Bento Help Desk')]/..
+  FooterBentoHomeLink: //div[(text() = 'Bento Home')]/..
+  FooterContactInfoLabel: //div[(text() = 'Contact Information')]
+  FooterMoreInfoLabel: //div[(text() = 'More Information')]
+  FooterNCILink: //a[@href='https://cancer.gov/']
+  FooterPoliciesAccessibilityLink: //div[(text() = 'Accessibility')]/..
+  FooterPoliciesDisclaimerLink: //div[(text() = 'Disclaimer')]/..
+  FooterPoliciesFOIALink: //div[(text() = 'FOIA')]/..
+  FooterPoliciesLabel: //div[(text() = 'Policies')]
+  FooterPoliciesVulnerabilityLink: //div[(text() = 'HHS Vulnerability Disclosure')]/..
+  FooterReleaseNotesLink: //div[(text() = 'Release Notes')]/..
+  FooterSystemInfoLabel: //div[(text() = 'System Info')]
+  FooterSystemInfoPageLink: //div[(text() = 'System Info Page')]/..
+  SpotlightPanelDescription1: //*[@id = 'tile1_description']
+  SpotlightPanelDescription2: //*[@id = 'tile2_description']
+  SpotlightPanelDescription3: //*[@id = 'tile3_description']
+  SpotlightPanelDescription4: //*[@id = 'tile4_description']
+  SpotlightPanelTitle1: //*[@id = 'tile1_title']
+  SpotlightPanelTitle2: //*[@id = 'tile2_title']
+  SpotlightPanelTitle3: //*[@id = 'tile3_title']
+  SpotlightPanelTitle4: //*[@id = 'tile4_title']

@@ -1,0 +1,10 @@
+# Converted from Katalon Object Repository/CCDI/Static/AboutCCDIPage
+page: Static/AboutCCDIPage
+elements:
+  BannerTitle: //div[@class='aboutHeaderText']
+  CCDIDescription: //div[@class='aboutBody']
+  CCDIEmailLink: //a[@class='aboutContactLink']
+  CCDIHubDescription: //div[@class='upperContentContainer']/div[@class='textParagraph']
+  CCDIHubTitle: //div[@class='upperContentContainer']/div[@class='aboutSubtitle']
+  ContactDescription: //div[@class='aboutContactUsContent']/div[2]
+  ContactTitle: //div[@class='aboutContactUsHeader']

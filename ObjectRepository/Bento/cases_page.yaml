@@ -1,0 +1,40 @@
+# Converted from Katalon Object Repository/Bento/Cases_page
+page: Cases_page
+elements:
+  BentoResults_Cases_Tab: //*[@index='0']
+  BentoResults_Files_Tab: //*[@index='2']
+  BentoResults_Samples_Tab: //*[@index='1']
+  Bento_AddAllFiles: //*[contains(text(),"Add All Files")]
+  Bento_AddSelectedFiles_Btn: //*[contains(text(),'Add Selected Files')]
+  Bento_CasesTabNextBtn: //*[@type='button' and @title='Next page']
+  Bento_CasesTable: //*[@id="case_tab_table"]
+  Bento_CasesTableHeader: //*[@id="case_tab_table"]//thead
+  Bento_ClearQuery_Btn: //button/span[contains(text(),'Clear Query')]
+  Bento_FilesTabNextBtn: //*[@type='button' and @title='Next page']
+  Bento_FilesTable: //*[@id="file_tab_table"]
+  Bento_FilesTableHeader: //*[@id="file_tab_table"]//thead
+  Bento_GoToCart_Hplink: (//*[@href="#/fileCentricCart"])[2]
+  Bento_LocalSearch_ClearAllQuery_Btn: //span[contains(text(),'Clear Query')]
+  Bento_LocalSearch_DdnArrow: //*[@id='localSearch']/following::button[1]
+  Bento_LocalSearch_EnteredCaseID: //*[@id='localFindCaseDropdown']/li[1]
+  Bento_LocalSearch_TxtBx: //input[@id='localSearch']
+  Bento_LocalSearch_Upld-View_CaseSet_Btn: //button[@id='localFindUploadCaseSetButton']
+  Bento_LocalSearch_UpldCaseSet_Btn: //*[@id="localFindUploadCaseSetButton"]/span[1]
+  Bento_LocalSearch_Upld_Browse_Btn: (//input[@type='file'])[1]
+  Bento_LocalSearch_Upld_Cancel_Btn: (//button[@id='uploadCaseSetCancel'])[3]
+  Bento_LocalSearch_Upld_Clear_Btn: (//button[@id='uploadCaseSetClear'])[3]
+  Bento_LocalSearch_Upld_MappingMsg: //*[@id='uploadCaseSetSummaryCount']
+  Bento_LocalSearch_Upld_MatchCount: //*[@id='uploadCaseSetMatchedCount']
+  Bento_LocalSearch_Upld_MismatchCount: //*[@id='uploadCaseSetUnMatchedCount']
+  Bento_LocalSearch_Upld_Submit_Btn: (//button[@id='uploadCaseSetSubmit'])[3]
+  Bento_LocalSearch_Upld_Summ_TblHdr: //*[@id='uploadCaseSetMatchedHeader']
+  Bento_LocalSearch_Upld_Summary_Tbl: //*[@id='uploadCaseSetMatchedTable']
+  Bento_LocalSearch_Upld_TxtArea: (//textarea[@name='caseDescription'])[3]
+  Bento_LocalSearch_Upld_WndwsFileUpload: (//input[@type='file'])[3]
+  Bento_LocalSearch_option: //li[@id='localSearch-option-0']
+  Bento_LocalSearch_popup: //*[@id='localSearch-popup']
+  Bento_MyFilesCart_Btn: //a[contains(@href,'#/fileCentricCart')]
+  Bento_SamplesTabNextBtn: //*[@type='button' and @title='Next page']
+  Bento_SamplesTable: //*[@id="sample_tab_table"]
+  Bento_SamplesTableHeader: //*[@id="sample_tab_table"]//thead
+  Bento_SelectAll: //thead//span/span/input

@@ -13,6 +13,10 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG_FILE = ROOT / "Config" / "environments.yaml"
 OBJECT_REPO_ROOT = ROOT / "ObjectRepository"
+
+# App fixture name → on-disk folder under InputFiles/ (when they differ).
+_INPUTFILES_DIRS: dict[str, str] = {"Bento": "BENTO"}
+
 INPUTFILES_ROOT = Path(
     os.environ.get("INPUTFILES_ROOT")
     or os.environ.get("TESTDATA_ROOT")  # legacy env name
@@ -56,13 +60,14 @@ class BrowserSettings:
 
 @dataclass
 class DbSettings:
-    """Bolt connection for expected data from input workbooks (Memgraph or Neo4j)."""
+    """Expected-data connection (Memgraph, Neo4j, or CTDC TSV)."""
 
     expected_source: str = "memgraph"
     endpoint: str = ""
     username: str = ""
     password: str = ""  # env only; never from YAML
     bolt_env: str = ""  # YAML/env block for bolt; may differ from UI env (ICDC NEO4J_ENV)
+    tsv_root: str = ""  # CTDC only: folder of YYYY-MM-DD TSV snapshots
 
 
 @dataclass
@@ -286,12 +291,23 @@ def get_app_url(app: str, env: str | None = None, cfg: dict | None = None) -> st
 
 
 def get_db_settings(app: str, env: str | None = None, cfg: dict | None = None) -> DbSettings:
-    """Bolt host/credentials for expected data (Memgraph or Neo4j per app `expected_source`)."""
+    """Expected-data settings (Memgraph/Neo4j bolt, or CTDC TSV folder)."""
     cfg = cfg or load_config()
     ui_env = _normalized_env(env)
     a = _app_config(app, cfg)
     expected_source = a.get("expected_source", "memgraph")
     bolt_env = ui_env
+    if expected_source == "tsv":
+        tsv_root = (
+            os.environ.get(f"{app.upper()}_TSV_ROOT")
+            or a.get("tsv_root")
+            or ""
+        )
+        return DbSettings(
+            expected_source="tsv",
+            tsv_root=str(tsv_root),
+            bolt_env=bolt_env,
+        )
     if expected_source == "neo4j":
         bolt_env = neo4j_bolt_env(app, ui_env)
         nj = _neo4j_yaml_for_env(a, bolt_env)
@@ -332,4 +348,5 @@ def get_app_settings(app: str, env: str | None = None, cfg: dict | None = None) 
 
 def input_dir(app: str) -> Path:
     """Folder holding the input Excel files for an app (Katalon: InputFiles/<app>)."""
-    return INPUTFILES_ROOT / app
+    folder = _INPUTFILES_DIRS.get(app, app)
+    return INPUTFILES_ROOT / folder

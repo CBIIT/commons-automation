@@ -1,0 +1,15 @@
+# Explore sidebar — sample facets (same scroll panel as Filter By Cases; no separate section header on QA UI)
+page: Filters/Samples
+elements:
+  FilterBySamples_Facet: //*[@id="Cases"]/div[text()='Cases']
+groups:
+  Filter/TissueComposition:
+    facet: //*[@id="Cases"]/div[text()='Cases']
+    dropdown: //*[@id='Tissue Composition' and @role='button']
+    checkboxes:
+      SolidTissue: //input[@id="checkbox_Tissue Composition_Solid Tissue"]
+  Filter/TissueType:
+    facet: //*[@id="Cases"]/div[text()='Cases']
+    dropdown: //*[@id='Tissue Type' and @role='button']
+    checkboxes:
+      Tumor: //input[@id="checkbox_Tissue Type_Tumor"]

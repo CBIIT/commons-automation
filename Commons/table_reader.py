@@ -21,7 +21,13 @@ if TYPE_CHECKING:
     from Commons.apps.base import TabSpec
     from Commons.browser_actions import Ui
 
-# Default column loop bounds; override with G_ROWCOUNT_FILES / G_ROWCOUNT_KATALON.
+
+# ---------------------------------------------------------------------------
+# Column loop defaults and optional debug logging
+# ---------------------------------------------------------------------------
+
+# Default upper bounds on how many <td> indices to walk per row (per app/tab).
+# Override with env G_ROWCOUNT_FILES / G_ROWCOUNT_KATALON when a tab adds columns.
 G_ROWCOUNT_FILES = int(os.environ.get("G_ROWCOUNT_FILES", "8"))
 G_ROWCOUNT_KATALON = int(os.environ.get("G_ROWCOUNT_KATALON", "13"))
 
@@ -35,11 +41,19 @@ def _table_debug(msg: str) -> None:
         print(f"[TABLE_DEBUG] {msg}", flush=True)
 
 
+# ---------------------------------------------------------------------------
+# tbody xpath (nested tables on some portals, especially C3DC)
+# ---------------------------------------------------------------------------
+
 # C3DC Explore tabs: data rows live in an inner <table> for some tabs (see ObjectRepository headers).
 C3DC_TABLE_BODY_XPATH: dict = {
     "//*[@id='study_tab_table']": "//*[@id='study_tab_table']//table/tbody",
     "//*[@id='treatment_tab_table']": "//*[@id='treatment_tab_table']//table/tbody",
     "//*[@id='survival_tab_table']": "//*[@id='survival_tab_table']//table/tbody",
+    # /studies catalog (not Explore Studies tab)
+    "//div[contains(@class,'studiesTableWrapper')]": (
+        "//div[contains(@class,'studiesTableWrapper')]//table/tbody"
+    ),
 }
 
 
@@ -48,6 +62,11 @@ def resolve_table_body_xpath(app_key: str, tbl_main: str) -> str:
     if app_key == "C3DC":
         return C3DC_TABLE_BODY_XPATH.get(tbl_main, f"{tbl_main}//tbody")
     return f"{tbl_main}//tbody"
+
+
+# ---------------------------------------------------------------------------
+# DOM snapshots (pagination wait — avoid full row scrape on every poll)
+# ---------------------------------------------------------------------------
 
 
 def _tbody_page_signature(ui: "Ui", tbl_bdy: str) -> str:
@@ -103,6 +122,11 @@ def _snapshot_first_col(rows: List[List[str]]) -> str:
     return str(rows[0][0])[:80]
 
 
+# ---------------------------------------------------------------------------
+# MUI TablePagination — scope Next/Previous to the active table wrapper
+# ---------------------------------------------------------------------------
+
+
 def pagination_next_xpath(table_xpath: str, fallback: str) -> str:
     """
     Next-page control for the active results table.
@@ -149,6 +173,10 @@ def _refresh_pagination_controls(ui: "Ui", tbl_bdy: str, table_xpath: str, fallb
     return next_xp
 
 
+# ---------------------------------------------------------------------------
+# Supported apps and result-tab record count from the tab bar label
+# ---------------------------------------------------------------------------
+
 TABLE_APPS = frozenset({"GC", "ICDC", "C3DC", "INS", "Bento", "CTDC"})
 
 # Explore result tabs show counts in the label, e.g. "Genetic Analyses (0)".
@@ -191,6 +219,11 @@ def active_result_tab_record_count(ui: "Ui") -> Optional[int]:
     return parse_result_tab_count(raw)
 
 
+# ---------------------------------------------------------------------------
+# Header load and live cell logging (console output during read)
+# ---------------------------------------------------------------------------
+
+
 def _inner_text(ui: "Ui", xpath: str) -> str:
     try:
         return ui.text(xpath).strip()
@@ -219,14 +252,23 @@ def _keep_header(hdr: List[str], _c: int, name: str) -> None:
     hdr.append(name)
 
 
+# ---------------------------------------------------------------------------
+# Per-app column selection (which UI headers become compare columns)
+# ---------------------------------------------------------------------------
+
+
 def read_table_header_data(app_key: str, tbl_main: str, col_header: Sequence[str]) -> List[str]:
     """Which UI columns to keep for this app/tab (skips Access, Manifest, etc.)."""
     hdr: List[str] = []
     n = len(col_header)
 
     if app_key == "GC":
-        for c in range(1, n):
-            _keep_header(hdr, c, _header_at(col_header, c))
+        if tbl_main == "//*[@id='studies_table']":
+            for c in range(n):
+                _keep_header(hdr, c, _header_at(col_header, c))
+        else:
+            for c in range(1, n):
+                _keep_header(hdr, c, _header_at(col_header, c))
 
     elif app_key == "ICDC":
         for c in range(n):
@@ -240,6 +282,12 @@ def read_table_header_data(app_key: str, tbl_main: str, col_header: Sequence[str
                 text = _header_at(col_header, c).strip()
                 if text != "Available CPI Mapping":
                     _keep_header(hdr, c, text)
+        elif tbl_main == "//div[contains(@class,'studiesTableWrapper')]":
+            for c in range(n):
+                text = _header_at(col_header, c)
+                if text in ("Data Availability", "Manifest"):
+                    continue
+                _keep_header(hdr, c, text)
         else:
             for c in range(n):
                 text = _header_at(col_header, c)
@@ -271,6 +319,11 @@ def read_table_header_data(app_key: str, tbl_main: str, col_header: Sequence[str
     if hdr:
         action_log.table_header_complete(app_key, hdr, n)
     return hdr
+
+
+# ---------------------------------------------------------------------------
+# Per-app row scrape (td index, nested links, skip Access/Manifest columns)
+# ---------------------------------------------------------------------------
 
 
 def read_table_row_data(
@@ -312,6 +365,16 @@ def read_table_row_data(
             tblcol = tblcol - 2
             for j in range(1, tblcol + 1):
                 add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/*[{j + 1}]{child}"), j)
+        elif tbl_main == "//*[@id='studies_table']":
+            for j in range(len(col_header)):
+                value = _inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]")
+                if _header_at(col_header, j) == "Study Version":
+                    value = "; ".join(
+                        part.strip()
+                        for part in value.replace("\r", "\n").split("\n")
+                        if part.strip()
+                    )
+                add(value, j)
         else:
             raise RuntimeError(f"Invalid tab for GC: {tbl_main}")
 
@@ -381,6 +444,12 @@ def read_table_row_data(
             tblcol = tblcol + 2
             for j in range(1, tblcol):
                 add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
+        elif tbl_main == "//div[contains(@class,'studiesTableWrapper')]":
+            for j in range(len(col_header)):
+                text = _header_at(col_header, j)
+                if text in ("Data Availability", "Manifest"):
+                    continue
+                add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
         else:
             print("Check C3DC table data collection for tbl_main", tbl_main, file=sys.stderr)
 
@@ -437,8 +506,9 @@ def read_table_row_data(
                 if _header_at(col_header, j) != "Access":
                     add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
         elif tbl_main == '//*[@id="study_file_tab_table"]':
-            tblcol = tblcol + 3
-            for j in range(1, tblcol):
+            # Use the real header count. The old g_rowcount_files+3 loop asked for
+            # cells past the last column; each miss waits the full Playwright timeout.
+            for j in range(1, len(col_header)):
                 if _header_at(col_header, j) != "Access":
                     add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
         else:
@@ -450,6 +520,11 @@ def read_table_row_data(
     if data:
         action_log.table_body_line(data)
     return parts
+
+
+# ---------------------------------------------------------------------------
+# One pagination page of tbody rows
+# ---------------------------------------------------------------------------
 
 
 def _read_table_body_page(
@@ -499,6 +574,11 @@ def _read_table_body_page(
     return out
 
 
+# ---------------------------------------------------------------------------
+# Bridge TabSpec + tab_setting.yaml → read_table_data kwargs
+# ---------------------------------------------------------------------------
+
+
 def options_from_spec(
     spec: "TabSpec",
     default_max_pages: int,
@@ -517,6 +597,11 @@ def options_from_spec(
         first_child=spec.first_child,
         max_rows=tab_row_limit if tab_row_limit and tab_row_limit > 0 else None,
     )
+
+
+# ---------------------------------------------------------------------------
+# Pagination navigation (rewind, advance, wait for tbody to change)
+# ---------------------------------------------------------------------------
 
 
 def _wait_for_pagination(ui: "Ui", next_xp: str, timeout_ms: int = 4000) -> None:
@@ -626,6 +711,11 @@ def _advance_to_page(
             return next_xp
         next_xp = _refresh_pagination_controls(ui, tbl_bdy, table_xpath, fallback_next)
     return next_xp
+
+
+# ---------------------------------------------------------------------------
+# Public entry: header + paginated body → Table for UI vs DB compare
+# ---------------------------------------------------------------------------
 
 
 def read_table_data(

@@ -51,6 +51,11 @@ def pytest_configure(config):
         action_log.set_enabled(True)
 
 
+def pytest_runtest_setup(item):
+    """Keep live [Browser]/[UI] lines off pytest's in-progress test name row."""
+    action_log.prepare_test_live_console()
+
+
 @pytest.fixture(scope="session")
 def env(request):
     return resolve_test_env(request.config.getoption("--env"))
@@ -119,6 +124,14 @@ def c3dc(page, env, browser_settings, _repos):
 
 
 @pytest.fixture
+def ccdi(page, env, browser_settings, _repos):
+    """CCDI Hub, already opened at the environment's URL. Explore opens C3DC."""
+    app, source = _make_app("CCDI", page, env, browser_settings, _repos)
+    yield app
+    source.close()
+
+
+@pytest.fixture
 def gc(page, env, browser_settings, _repos):
     """GC (General Commons), already opened at the environment's URL."""
     app, source = _make_app("GC", page, env, browser_settings, _repos)
@@ -138,6 +151,14 @@ def ctdc(page, env, browser_settings, _repos):
 def icdc(page, env, browser_settings, _repos):
     """ICDC (Integrated Canine Data Commons), already opened at the environment's URL."""
     app, source = _make_app("ICDC", page, env, browser_settings, _repos)
+    yield app
+    source.close()
+
+
+@pytest.fixture
+def bento(page, env, browser_settings, _repos):
+    """BENTO (TAILORx Explore on bento-tools.org), already opened at the environment's URL."""
+    app, source = _make_app("Bento", page, env, browser_settings, _repos)
     yield app
     source.close()
 
@@ -166,3 +187,6 @@ def pytest_runtest_makereport(item, call):
                 pg.screenshot(path=str(SCREENSHOT_DIR / f"{name}.png"), full_page=False)
             except Exception:
                 pass
+
+
+pytest_plugins = ["Commons.html_report"]

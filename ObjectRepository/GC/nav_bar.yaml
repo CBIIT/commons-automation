@@ -1,9 +1,11 @@
 # Converted from Katalon Object Repository/CDS/NavBar
 page: NavBar
 elements:
+  Popup_Continue_Btn: //span[contains(text(),'Continue')]
   About_AboutCDS-Btn: //a[@href='#/cancerDataService' and .='About CDS']
   About_DataModel-Btn: //a[@href='#/resources' and  .='Data Model']
   About_DropDown: //*[@id="navbar_dropdown_about"]
   GC_Data-Btn: //a[contains(@href,'#/data')]
   GC_Home-Btn: //a[contains(@href,'home')]
   GC_Studies-Btn: //a[contains(@href,'#/programs') and text()='studies']
+  Studies-Listing: //a[contains(@href,'#/studies') and normalize-space(.)='Studies']

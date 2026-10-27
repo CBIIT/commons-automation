@@ -21,7 +21,7 @@ def _tab(name, input_tab, stat, ui, db, max_pages=10):
 class CTDC(BaseApp):
     NAME = "CTDC"
     BANNER_KEYS = ["Home/WarningBan_Continue_Btn"]
-    STATIC_DATA_EXCEL = "CTDC_StaticData.xlsx"
+    STATIC_DATA_EXCEL = "TC01_CTDC_StaticData.xlsx"
 
     STATS = [
         StatSpec("Studies", "Statbar/Studies-Count"),
@@ -47,7 +47,7 @@ class CTDC(BaseApp):
             header="ResultTabs/StudyFiles-TblHdr",
             next="ResultTabs/All_Tabs_Next-Btn",
             input_tab="StudyFilesTab",
-            stat="Participants",
+            stat="Studies",
             ui_sheet="UI_StudyFiles",
             db_sheet="DB_StudyFiles",
             max_pages=10,
@@ -65,3 +65,7 @@ class CTDC(BaseApp):
     def open_explore(self):
         """Open Explore via navbar (Katalon: clickTab CTDC/NavBar/Explore-Btn)."""
         self.click("NavBar/Explore-Btn", ui_message="Explore opened successfully.")
+
+    def select_study(self, study: str):
+        """Tick the study checkbox (CMB, AHEP0731) before other filters, same idea as ICDC/GC."""
+        self.select_filter("Studies/Study", study)

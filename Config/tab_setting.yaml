@@ -21,24 +21,32 @@ apps:
   # Portal: clinicalcommons*.ccdi.cancer.gov
   # -------------------------------------------------------------------------
   C3DC:
-    tab_row_limit: 100
+    tab_row_limit: 13
     pagination_max_pages: 25
     tabs:
       Participants: true          # People in the study
       Studies: true               # Study records
       Diagnosis: true             # Diagnosis details
       "Genetic Analysis": true    # Genomic / genetic analysis
-      Treatments: true            # Treatment records
+      Treatments: false           # Treatment records
       "Treatment Responses": true # Response to treatment
       Survival: true              # Survival data
       Samples: true               # Biospecimen samples
+
+  # -------------------------------------------------------------------------
+  # CCDI Hub — no explore page (Explore opens C3DC Explore Participants)
+  # -------------------------------------------------------------------------
+  CCDI:
+    tab_row_limit: 100
+    pagination_max_pages: 25
+    tabs: {}
 
   # -------------------------------------------------------------------------
   # GC — General Commons (Data explore)
   # Portal: general-*.datacommons.cancer.gov / datacommons.cancer.gov
   # -------------------------------------------------------------------------
   GC:
-    tab_row_limit: 100
+    tab_row_limit: 13
     pagination_max_pages: 25
     tabs:
       Participants: true   # People / subjects
@@ -59,6 +67,18 @@ apps:
       "Study Files": true  # Files at study level
 
   # -------------------------------------------------------------------------
+  # Bento — TAILORx demo Explore (Cases / Samples / Files)
+  # Portal: bento-tools.org
+  # -------------------------------------------------------------------------
+  Bento:
+    tab_row_limit: 15
+    pagination_max_pages: 25
+    tabs:
+      Cases: true
+      Samples: true
+      Files: true
+
+  # -------------------------------------------------------------------------
   # CTDC — Clinical Trial Data Commons
   # Portal: clinical*.datacommons.cancer.gov
   # -------------------------------------------------------------------------
@@ -69,4 +89,4 @@ apps:
       Participants: true   # Trial participants
       Biospecimens: true   # Biospecimens
       Files: true          # Participant / biospecimen files
-      "Study Files": true  # Study-level files
+      "Study Files": true  # Study-level files (no participant / specimen on the TSV row)

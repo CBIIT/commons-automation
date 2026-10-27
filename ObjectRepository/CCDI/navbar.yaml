@@ -1,0 +1,9 @@
+# Converted from Katalon Object Repository/CCDI/Navbar
+# Explore_Menu href=/explore opens C3DC Explore Participants (CCDI has no explore page).
+page: Navbar
+elements:
+  WarningBan_Continue_Btn: //span[contains(text(),"Continue")]
+  About-AboutCCDI-Btn: //a[contains(@class,'dropdownSectionItem') and .='About CCDI Hub']
+  About-Btn: //div[@role='button' and .='About']
+  About-CCDITerms-Btn: //a[contains(@class,'dropdownSectionItem') and .='CCDI Data Usage Policies & Terms']
+  Explore_Menu: (//a[@href="/explore"])[1]

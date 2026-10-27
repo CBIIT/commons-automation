@@ -1,0 +1,6 @@
+# C3DC /studies catalog (not Explore Participants → Studies result tab).
+page: StudiesPage
+elements:
+  Table: //div[contains(@class,'studiesTableWrapper')]
+  Table-Hdr: //div[contains(@class,'studiesTableWrapper')]//thead
+  Next-Btn: //div[contains(@class,'studiesTableWrapper')]//button[@aria-label='Next page']

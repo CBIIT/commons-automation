@@ -1,7 +1,0 @@
-# Converted from Katalon Object Repository/CTDC/Static/V_DataModelPage
-page: Static/V_DataModelPage
-elements:
-  BannerTitle: //span[contains(text(),'Data Model')]
-  DataModelDescription: //span[contains(text(),'Data Model')]/following::div[1]
-  DataModelLink: //a[contains(@href,'ctdc-model')]
-  GraphQLLink: //a[contains(@href,'graphql')]

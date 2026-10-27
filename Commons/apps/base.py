@@ -27,6 +27,11 @@ from Commons.query_reader import QueryFile, read_query_file
 from Commons.table_reader import active_result_tab_record_count, options_from_spec, read_table_data
 
 
+# ---------------------------------------------------------------------------
+# Tab and stat-bar specs (subclasses fill TABS / STATS)
+# ---------------------------------------------------------------------------
+
+
 @dataclass
 class TabSpec:
     """Everything needed to read and check one result tab."""
@@ -50,6 +55,11 @@ class StatSpec:
     name: str                # 'Participants'
     key: str                 # locator key
     use_html: bool = False   # Katalon read innerHTML for some apps, innerText for others
+
+
+# ---------------------------------------------------------------------------
+# BaseApp — shared test flow for every portal subclass
+# ---------------------------------------------------------------------------
 
 
 class BaseApp:
@@ -77,7 +87,10 @@ class BaseApp:
         self.output_dir = OUTPUT_ROOT / settings.app / settings.env.upper()
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
-    # ------------------------------------------------------------------ session
+    # ---------------------------------------------------------------------------
+    # Session: open site, banner, input workbook
+    # ---------------------------------------------------------------------------
+
     def open(self):
         """WebUI.openBrowser + navigateToUrl."""
         action_log.navigate(self.settings.url)
@@ -114,7 +127,10 @@ class BaseApp:
         self._stat_checked = False
         return self.query_file
 
-    # ------------------------------------------------------------------ generic clicks
+    # ---------------------------------------------------------------------------
+    # Generic object-repository clicks
+    # ---------------------------------------------------------------------------
+
     def click(self, key: str, ui_message: Optional[str] = None):
         """Click any element by its object-repository key, e.g. 'Navbar/Explore-Tab'."""
         self.ui.click(self.repo.xpath(key), repo_key=key)
@@ -122,32 +138,39 @@ class BaseApp:
         if ui_message:
             action_log.ui_action(ui_message)
 
-    # ------------------------------------------------------------------ filters
+    # ---------------------------------------------------------------------------
+    # Filters (left-panel facets — Katalon clickTab *Facet / *-Ddn / checkbox)
+    # ---------------------------------------------------------------------------
+
     def select_filter(self, group: str, value: str):
         """Tick one checkbox in a filter facet, e.g. select_filter('Study/dbGaP_Accession', 'phs000466').
 
-        Opens the facet and its list only if they are not already open, scrolls a long list to the
-        checkbox, and waits for the result counts to reload.
+        Flow: open facet + sub-list when needed, wait until search or checkbox is interactable,
+        optionally type in a facet search (GC long lists), scroll if off-screen, click checkbox.
         """
         g: FilterGroup = self.repo.filter_group(group)
         chk = g.checkbox_xpath(value)
         ui = self.ui
         action_log.say(f"select_filter group={group!r} value={value!r}")
 
+        # Accordion open + readiness wait (C3DC/CTDC/ICDC: no search — waits on checkbox only).
+        self._prepare_filter_panel(g, chk)
+
+        # GC (and similar): YAML `search:` narrows long checkbox lists before click.
         if g.search:
-            if not ui.is_visible(g.search):
-                self._expand_group(g, checkbox=chk)
-            ui.fill(g.search, self._search_text(chk, value), repo_key=f"{group}/search")
+            ui.fill(
+                g.search,
+                self._search_text(chk, value),
+                repo_key=f"{group}/search",
+                timeout_ms=ui.timeout_ms,
+            )
             ui.wait_idle(3000)
-        else:
-            # Katalon: click facet accordion, then sub-filter dropdown, then checkbox.
-            self._expand_group(g, until_visible=chk, checkbox=chk)
 
         if not ui.is_visible(chk):
             header = g.dropdown_for(chk) or g.facet
             if header and ui.is_present(header):
                 ui.scroll_facet_until_visible(header, chk)
-        ui.click(chk, repo_key=f"{group}/{value}")
+        ui.click(chk, repo_key=f"{group}/{value}", timeout_ms=ui.timeout_ms)
         ui.wait_idle()
         self.page.wait_for_timeout(500)
         action_log.ui_action(self._filter_checkbox_message(group, value))
@@ -159,20 +182,56 @@ class BaseApp:
         facet = action_log.filter_facet_display(group)
         return f"{value} checkbox clicked successfully ({facet})."
 
+    # --- filter panel: accordion helpers ---
+
+    def _accordion_expanded(self, xpath: str) -> bool:
+        """True when the facet or sub-filter header is already expanded (aria-expanded=true)."""
+        loc = self.ui.loc(xpath).first
+        try:
+            return bool(
+                loc.evaluate(
+                    """(el) => {
+                        const node = el.matches('[aria-expanded]')
+                            ? el
+                            : el.querySelector('[aria-expanded]') || el.closest('[aria-expanded]');
+                        return node && node.getAttribute('aria-expanded') === 'true';
+                    }"""
+                )
+            )
+        except Exception:
+            return False
+
+    def _open_accordion(self, xpath: str, *, repo_key: Optional[str] = None) -> bool:
+        """Click an accordion header only when collapsed (do not toggle an open facet closed)."""
+        ui = self.ui
+        if not ui.is_present(xpath):
+            return False
+        if self._accordion_expanded(xpath):
+            return False
+        try:
+            ui.scroll_into_view(xpath)
+        except Exception:
+            pass
+        ui.js_click(xpath, repo_key=repo_key)
+        ui.wait_idle(500)
+        self.page.wait_for_timeout(400)
+        return True
+
     def _expand_group(self, g: FilterGroup, until_visible: Optional[str] = None, checkbox: Optional[str] = None):
-        """Open left-panel facet, then sub-filter dropdown (Katalon clickTab *Facet / *-Ddn)."""
+        """Open the facet accordion, then the sub-filter dropdown, until `until_visible` appears.
+
+        `until_visible` is the facet search xpath (GC) or the target checkbox xpath (C3DC, CTDC, ICDC).
+        Skips clicks when the target is already visible so we do not collapse an open panel.
+        """
         ui = self.ui
         dropdown = g.dropdown_for(checkbox) if checkbox else g.dropdown
         facet_label = g.facet_key or g.key.split("/")[0]
         facet_repo = f"{g.key}/facet" if g.facet else None
 
         if g.facet and ui.is_present(g.facet):
-            ui.scroll_into_view(g.facet)
-            ui.js_click(g.facet, repo_key=facet_repo or f"{facet_label}_Facet")
-            ui.wait_idle(500)
-            self.page.wait_for_timeout(400)
-            facet_name = action_log.filter_facet_display(g.key, g.facet_key)
-            action_log.ui_action(f"{facet_name} facet opened successfully.")
+            if self._open_accordion(g.facet, repo_key=facet_repo or f"{facet_label}_Facet"):
+                facet_name = action_log.filter_facet_display(g.key, g.facet_key)
+                action_log.ui_action(f"{facet_name} facet opened successfully.")
 
         if not dropdown:
             return
@@ -180,21 +239,56 @@ class BaseApp:
             return
 
         try:
-            ui.wait_visible(dropdown, timeout_ms=15000)
+            ui.wait_visible(dropdown, timeout_ms=ui.timeout_ms)
         except Exception:
             pass
         if until_visible and ui.is_visible(until_visible):
             return
         if ui.is_present(dropdown):
-            ui.js_click(dropdown, repo_key=f"{g.key}/dropdown")
-            self.page.wait_for_timeout(400)
-            sub = action_log.filter_subfilter_display(g.key)
-            action_log.ui_action(f"{sub} filter dropdown opened successfully.")
+            if self._open_accordion(dropdown, repo_key=f"{g.key}/dropdown"):
+                sub = action_log.filter_subfilter_display(g.key)
+                action_log.ui_action(f"{sub} filter dropdown opened successfully.")
+            # Best-effort; strict wait happens in _prepare_filter_panel / _wait_filter_target.
             if until_visible:
                 try:
-                    ui.wait_visible(until_visible, timeout_ms=15000)
+                    ui.wait_visible(until_visible, timeout_ms=ui.timeout_ms)
                 except Exception:
                     pass
+
+    # --- filter panel: readiness waits (suite flake hardening) ---
+
+    def _prepare_filter_panel(self, g: FilterGroup, chk: str) -> None:
+        """Expand facet/dropdown, then block until search or checkbox is ready to interact.
+
+        Retries once after a short idle when the portal is slow after prior filters (common in GC regression).
+        """
+        ui = self.ui
+        target = g.search if g.search else chk
+        for attempt in range(2):
+            self._expand_group(g, until_visible=target, checkbox=chk)
+            try:
+                self._wait_filter_target(target, search=bool(g.search))
+                return
+            except Exception:
+                if attempt == 0:
+                    ui.wait_idle(2000)
+                    continue
+                raise
+
+    def _wait_filter_target(self, xpath: str, *, search: bool) -> None:
+        """Wait for the next filter interaction target (uses browser context timeout_ms).
+
+        Search inputs: must be visible before fill.
+        Checkboxes: wait for DOM attach first (lazy lists), then visible if still off-screen/hidden.
+        """
+        timeout = self.ui.timeout_ms
+        if search:
+            self.ui.wait_visible(xpath, timeout_ms=timeout)
+            return
+        loc = self.ui.loc(xpath).first
+        loc.wait_for(state="attached", timeout=timeout)
+        if not self.ui.is_visible(xpath):
+            self.ui.wait_visible(xpath, timeout_ms=timeout)
 
     @staticmethod
     def _search_text(checkbox_xpath: str, value: str) -> str:
@@ -202,7 +296,10 @@ class BaseApp:
         m = re.search(r"checkbox_[^_\"']+_(.+?)[\"']\]", checkbox_xpath)
         return m.group(1) if m else value
 
-    # ------------------------------------------------------------------ stat bar
+    # ---------------------------------------------------------------------------
+    # Stat bar (counts after filters)
+    # ---------------------------------------------------------------------------
+
     def read_statbar(self) -> Dict[str, str]:
         """Read the counts shown in the stat bar (after filters are applied)."""
         self.ui.wait_idle()
@@ -214,6 +311,8 @@ class BaseApp:
         action_log.ui_action(f"Stat bar read: {dict(self.stats)}")
         self._stat_checked = False
         return dict(self.stats)
+
+    # --- stat bar: compare UI counts to StatQuery ---
 
     def _stat_value(self, name: str) -> int:
         try:
@@ -281,7 +380,10 @@ class BaseApp:
         )
         self._record("StatBar", cmp, ui_count=1, exp_count=1)
 
-    # ------------------------------------------------------------------ result tabs
+    # ---------------------------------------------------------------------------
+    # Result tabs (read UI table, compare to DB, optional stat bar)
+    # ---------------------------------------------------------------------------
+
     def open_tab(self, name: str):
         spec = self.TABS[name]
         xp = self.repo.xpath(spec.tab)
@@ -293,6 +395,7 @@ class BaseApp:
         self.ui.wait_idle()
 
     def _open_from_more_menu(self, spec: TabSpec):
+        """Override in apps that hide extra tabs under a 'More' menu."""
         raise RuntimeError(f"Tab '{spec.name}' is not visible and {self.NAME} has no 'More' menu handler")
 
     def read_results_table(self, spec: TabSpec) -> Table:
@@ -355,6 +458,9 @@ class BaseApp:
         expected = self.source.fetch_tab_table(
             self.query_file, spec.input_tab, tab_display_name=tab_label
         )
+        # Same sort as compare_tables so UI and DB Excel files line up row-for-row
+        ui_table.rows.sort(key=lambda row: [str(c).strip() if c is not None else "" for c in row])
+        expected.rows.sort(key=lambda row: [str(c).strip() if c is not None else "" for c in row])
         base = self.output_dir / self.query_file.name
         excel_writer.write_sheet(base.with_name(base.name + "_UI.xlsx"), spec.ui_sheet, ui_table.header, ui_table.rows)
         excel_writer.write_sheet(base.with_name(base.name + "_DB.xlsx"), spec.db_sheet, expected.header, expected.rows)
@@ -364,7 +470,10 @@ class BaseApp:
         action_log.say("Control is before validate stat bar function from multifunction")
         self.verify_statbar()
 
-    # ------------------------------------------------------------------ static pages
+    # ---------------------------------------------------------------------------
+    # Static pages (Home, About, …)
+    # ---------------------------------------------------------------------------
+
     def verify_static_data(self, sheet_name: str):
         """Verify one sheet in <app>_StaticData.xlsx (Katalon verifyStaticData)."""
         from Commons.static_data import verify_static_page
@@ -375,7 +484,10 @@ class BaseApp:
         else:
             self.results.append({"check": f"Static {sheet_name}", "status": "PASSED", "detail": ""})
 
-    # ------------------------------------------------------------------ results
+    # ---------------------------------------------------------------------------
+    # Test outcome recording (pytest assert_no_failures at end of case)
+    # ---------------------------------------------------------------------------
+
     def _record(self, check: str, cmp: Comparison, ui_count: int, exp_count: int):
         status = "PASSED" if cmp.passed else "FAILED"
         self.results.append(

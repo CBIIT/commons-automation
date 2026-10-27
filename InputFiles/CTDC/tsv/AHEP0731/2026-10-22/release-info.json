@@ -1,0 +1,83 @@
+{
+    "submission ID": "59eb273a-a098-463c-af44-b955131d2098",
+    "submission creation date": "2025-08-22 10:03:28",
+    "submission release date": "2026-05-26 19:37:18",
+    "study": {
+        "name": "Treatment of Children With All Stages of Hepatoblastoma With Temsirolimus (NSC#683864) Added to High Risk Stratum Treatment",
+        "abbreviation": "AHEP0731",
+        "dbGaPID": "phs004135"
+    },
+    "submitter": {
+        "name": "Justin Kirby",
+        "email": "kirbyju@mail.nih.gov",
+        "institution": "Frederick National Laboratory for Cancer Research"
+    },
+    "data concierge": {
+        "name": "Gina Kuffel",
+        "email": "gina.kuffel@nih.gov"
+    },
+    "data model version": "1.20.0",
+    "intention": "New/Update",
+    "submission type": "Metadata and Data Files",
+    "metadata files": {
+        "number of metadata files": 7,
+        "metadata files": [
+            "59eb273a-a098-463c-af44-b955131d2098-program.tsv",
+            "59eb273a-a098-463c-af44-b955131d2098-image_collection.tsv",
+            "59eb273a-a098-463c-af44-b955131d2098-study.tsv",
+            "59eb273a-a098-463c-af44-b955131d2098-principal_investigator.tsv",
+            "59eb273a-a098-463c-af44-b955131d2098-consent_group.tsv",
+            "59eb273a-a098-463c-af44-b955131d2098-participant.tsv",
+            "59eb273a-a098-463c-af44-b955131d2098-file.tsv"
+        ],
+        "dcf manifest file path": "dcf_manifest/2026-05-26T193739-59eb273a-a098-463c-af44-b955131d2098-indexd.tsv"
+    },
+    "metadata record counts": {
+        "program": {
+            "total": 1,
+            "new": 1,
+            "update": 0,
+            "delete": 0
+        },
+        "image_collection": {
+            "total": 1,
+            "new": 1,
+            "update": 0,
+            "delete": 0
+        },
+        "participant": {
+            "total": 190,
+            "new": 190,
+            "update": 0,
+            "delete": 0
+        },
+        "study": {
+            "total": 1,
+            "new": 1,
+            "update": 0,
+            "delete": 0
+        },
+        "principal_investigator": {
+            "total": 1,
+            "new": 1,
+            "update": 0,
+            "delete": 0
+        },
+        "consent_group": {
+            "total": 1,
+            "new": 1,
+            "update": 0,
+            "delete": 0
+        },
+        "file": {
+            "total": 5704,
+            "new": 5704,
+            "update": 0,
+            "delete": 0
+        }
+    },
+    "data files": {
+        "count": 5704,
+        "total size": "87.35 GB"
+    }
+}
