@@ -4,6 +4,7 @@ import pytest
 
 
 @pytest.mark.bento
+@pytest.mark.quickrun
 @pytest.mark.regression
 def test_TC01_Bento_arm_a_Diagnosis_Adenocarcinoma(bento):
     bento.load_query_file("TC01_Bento_arm-a_Diagnosis-Adenocarcinoma.xlsx")

@@ -22,7 +22,7 @@ groups:
     dropdown: //*[@id='Chemotherapy' and @role='button']
     checkboxes:
       DoseDenseAC2WkCycle: //input[@id='checkbox_Chemotherapy_Dose dense AC (2 week cycles)']
-      DoseDenseACTaxane: //*[@id='checkbox_Chemotherapy_Dose dense AC followed by a taxane']
+      DoseDenseACTaxane: //input[@id='checkbox_Chemotherapy_Dose dense AC followed by a taxane']
       FEC3WkCycle: //*[@id='checkbox_Chemotherapy_FEC (3 week cycles)']
       IVCMF-3WkCycle: //input[@id='checkbox_Chemotherapy_IV CMF (3 week cycles)']
       None: //*[@id='checkbox_Chemotherapy_None']
@@ -96,7 +96,7 @@ groups:
       11_to_15: //*[@id='checkbox_Recurrence Score_11-15']
       16_to_20: //*[@id="checkbox_Recurrence Score_16-20"]
       21_to_25: //*[@id="checkbox_Recurrence Score_21-25"]
-      26_to_30: //*[@id="checkbox_Recurrence Score_26-30"]
+      26_to_30: //input[@id="checkbox_Recurrence Score_26-30"]
       31_to_35: //*[@id='checkbox_Recurrence Score_31-35']
       36_to_40: //*[@id="checkbox_Recurrence Score_36-40"]
       41_to_50: //*[@id="checkbox_Recurrence Score_41-50"]

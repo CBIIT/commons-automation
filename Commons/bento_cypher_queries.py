@@ -331,6 +331,7 @@ def _build_stat_query(
                 "MATCH (ss)<-[*..2]-(parent)<--(f:file)",
                 f"WHERE f.file_type = {_quote(_FILE_TYPE[choice.filter_value])}",
                 "OPTIONAL MATCH (f)-[*]->(samp:sample)",
+                "OPTIONAL MATCH (f)-[:file_of_laboratory_procedure]->(lp:laboratory_procedure)",
             ]
         )
         return "\n".join(
@@ -341,7 +342,7 @@ def _build_stat_query(
                 "  count(DISTINCT s.study_acronym) AS Arms,",
                 "  count(DISTINCT ss.study_subject_id) AS Cases,",
                 "  count(DISTINCT samp.sample_id) AS Samples,",
-                "  count(DISTINCT f.file_id) AS Assays,",
+                "  count(DISTINCT lp.laboratory_procedure_id) AS Assays,",
                 "  count(DISTINCT f.file_id) AS Files",
             ]
         )

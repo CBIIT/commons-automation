@@ -4,6 +4,7 @@ import pytest
 
 
 @pytest.mark.bento
+@pytest.mark.quickrun
 @pytest.mark.regression
 def test_TC02_Bento_arm_a_RecurrScore_00_05(bento):
     bento.load_query_file("TC02_Bento_arm-a_RecurrScore-00-05.xlsx")
