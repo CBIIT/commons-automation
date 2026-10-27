@@ -1,0 +1,18 @@
+# Explore sidebar — file facets (under Files label in the same panel as Cases)
+page: Filters/Files
+elements:
+  FilterByFiles_Facet: //*[@id="Cases"]/div[text()='Cases']
+groups:
+  Filter/FileAssociation:
+    facet: //*[@id="Cases"]/div[text()='Cases']
+    dropdown: //*[@id='File Association' and @role='button']
+    checkboxes:
+      Sample: //input[@id="checkbox_File Association_sample"]
+  Filter/FileType:
+    facet: //*[@id="Cases"]/div[text()='Cases']
+    dropdown: //*[@id='File Type' and @role='button']
+    checkboxes:
+      Bai: //input[@id="checkbox_File Type_bai"]
+      Bam: //input[@id="checkbox_File Type_bam"]
+      Text: //input[@id="checkbox_File Type_text"]
+      Vcf: //input[@id="checkbox_File Type_vcf"]

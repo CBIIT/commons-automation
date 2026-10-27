@@ -1,0 +1,10 @@
+# Converted from Katalon Object Repository/Bento/Programs_page
+page: Programs_page
+elements:
+  Bento_ProgramsTabNextBtn: //*[@id="table_programs"]/div/div/div/table/tfoot/tr/td/div/div[3]/button[2]
+  Bento_ProgramsTable: //*[@id="table_programs"]/div/div/div
+  ProgramCode_Hplink: //a[@href="#/program/NCT00310180"]
+  Programs_TblBdy: //div[@id="table_programs"]//tbody
+  Programs_TblHdr: //div[@id="table_programs"]//thead
+  Programs_logo: //img[@alt="Bento program logo"]
+  Programs_title: //span[contains(text(),'Programs')]

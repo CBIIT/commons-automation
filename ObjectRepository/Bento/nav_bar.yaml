@@ -1,0 +1,10 @@
+# Converted from Katalon Object Repository/Bento/NavBar
+page: NavBar
+elements:
+  Bento_About-Bento-Btn: //a[@href = '#/bento' and (text() = 'Bento' or . = 'Bento')]
+  Bento_About-Btn: //*[@id = 'navbar_dropdown_about']
+  Bento_About-Resources-Btn: //a[@href = '#/resources' and (text() = 'Resources' or . = 'Resources')]
+  Bento_Cases-Btn: //a[contains(@href,'#/explore')]
+  Bento_Home-Btn: //a[contains(@href,'home')]
+  Bento_Login_Btn: //*[@id="root"]/header/div/div[2]/button[1]/span[1]
+  Bento_Programs-Btn: //a[contains(@href,'programs')]

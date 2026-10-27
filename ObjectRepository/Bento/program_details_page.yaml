@@ -1,0 +1,13 @@
+# Converted from Katalon Object Repository/Bento/ProgramDetails_page
+page: ProgramDetails_page
+elements:
+  Arm_A_Hplink: //a[@href="#/arm/B"]
+  Arm_B_Hplink: //a[@href="#/arm/B"]
+  Arm_C_Hplink: //a[@href="#/arm/C"]
+  Arm_D_Hplink: //a[@href="#/arm/D"]
+  Cases_count: (//a[@href="#/cases"])[2]/span[3]
+  NumOfFiles_count: //img[@alt="Number of files icon"]/parent::div/following-sibling::div
+  NumberOfFiles_Icon: //img[@alt="Number of files icon"]
+  ProgramDetail_Arms_Tbl: //div[@id="table_program_detail"]//table
+  ProgramDetail_Arms_TblBdy: //div[@id="table_program_detail"]//tbody
+  ProgramDetail_Arms_TblHdr: //div[@id="table_program_detail"]//thead

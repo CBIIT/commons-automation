@@ -1,0 +1,13 @@
+# Converted from Katalon Object Repository/Bento/GlobalSearch
+page: GlobalSearch
+elements:
+  GobalSearch_DropD_Options: //li[@id="search-option-0"]
+  GobalSearch_SearchIcon: //*[@alt='search icon']
+  GobalSearch_StatBar_About: //span[contains(text(),'About')]
+  GobalSearch_StatBar_Cases: //*[contains(text(),'Cases')]
+  GobalSearch_StatBar_DataModel: //*[contains(text(),'Data Model')]
+  GobalSearch_StatBar_Files: //span[contains(text(),'Files')]
+  GobalSearch_StatBar_Programs: //span[contains(text(),'Programs')]
+  GobalSearch_StatBar_Samples: //*[contains(text(),'Samples')]
+  GobalSearch_StatBar_Studies: //*[contains(text(),'Studies')]
+  GobalSearch_TxtBx: //*[@id="search"]

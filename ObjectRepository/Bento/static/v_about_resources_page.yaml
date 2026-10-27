@@ -1,0 +1,9 @@
+# Converted from Katalon Object Repository/Bento/Static/V_AboutResourcesPage
+page: Static/V_AboutResourcesPage
+elements:
+  Resources_BannerTitle: //*[@id = 'about_title']
+  Resources_CoreDataModelLink: //a[@title='https://github.com/CBIIT/bento-model']
+  Resources_Description: //div[contains(@class,'MuiGrid-root')]/span
+  Resources_FrontendLink: //a[@title='https://github.com/CBIIT/bento-frontend']
+  Resources_HereLink: //a[@title='here']
+  Resources_LoadersLink: //a[@title='https://github.com/CBIIT/icdc-dataloader']

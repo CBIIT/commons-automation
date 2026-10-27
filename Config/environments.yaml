@@ -65,6 +65,25 @@ apps:
       stage:
         endpoint: bolt://ncias-s2261-c.nci.nih.gov:7687
         username: neo4j
+  Bento:
+    # Expected data = Cypher in the input Excel, run against Neo4j (port Katalon SQL → Cypher).
+    expected_source: neo4j
+    urls:
+      qa:    https://bento-tools.org/
+      stage: https://bento-tools.org/
+      prod:  https://bento-tools.org/
+    neo4j:
+      # Fill bolt host when ready; override: NEO4J_ENDPOINT_BENTO, NEO4J_PASSWORD_BENTO
+      qa:
+        endpoint: bolt://neo4j-qa.bento-tools.org:7687
+        username: neo4j
+      stage:
+        endpoint: bolt://localhost:7687
+        username: neo4j
+      prod:
+        endpoint: bolt://localhost:7687
+        username: neo4j
+
   GC:
     # Expected data = Cypher in the input Excel, run against Memgraph.
     expected_source: memgraph

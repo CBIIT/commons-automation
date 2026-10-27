@@ -22,6 +22,9 @@ import yaml
 
 from Commons.settings import OBJECT_REPO_ROOT
 
+# App fixture name → on-disk folder under ObjectRepository/ (when they differ).
+_OBJECT_REPO_DIRS: Dict[str, str] = {"Bento": "BENTO"}
+
 
 class LocatorNotFound(KeyError):
     pass
@@ -70,7 +73,8 @@ class ObjectRepository:
         self.app = app
         self._elements: Dict[str, str] = {}
         self._groups: Dict[str, FilterGroup] = {}
-        self._load(Path(root) / app)
+        folder = _OBJECT_REPO_DIRS.get(app, app)
+        self._load(Path(root) / folder)
 
     def _load(self, folder: Path):
         if not folder.is_dir():

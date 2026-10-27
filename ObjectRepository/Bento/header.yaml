@@ -1,0 +1,4 @@
+# Converted from Katalon Object Repository/Bento/Header
+page: Header
+elements:
+  Bento_Header_Img: //img[@alt='Bento Logo']
