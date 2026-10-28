@@ -36,6 +36,7 @@ groups:
       phs002620: //*[@id="checkbox_dbGaP Accession_phs002620"]
       phs002677: //*[@id="checkbox_dbGaP Accession_phs002677"]
       phs002790: //*[@id="checkbox_dbGaP Accession_phs002790"]
+      phs002827: //*[@id="checkbox_dbGaP Accession_phs002827"]
       phs003111: //*[@id="checkbox_dbGaP Accession_phs003111"]
       phs003164: //*[@id="checkbox_dbGaP Accession_phs003164"]
       phs003432: //*[@id="checkbox_dbGaP Accession_phs003432"]
