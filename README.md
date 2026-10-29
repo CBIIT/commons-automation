@@ -74,6 +74,8 @@ Per-app layout: `Commons/apps/<app>.py`, `Testcases/<APP>/`, `InputFiles/<APP>/`
 | ICDC, Bento | Neo4j | Cypher | `NEO4J_PASSWORD_*` |
 | CTDC, INS | TSV snapshots + in-memory SQL | SQL | none |
 
+INS expected data lives under `InputFiles/INS/YYYY-MM-DD/` (or `YYYY-MM-DD.zip`, auto-extracted). When live portal publication counts outpace the snapshot, refresh `publication.tsv` from the [ins-data](https://github.com/CBIIT/ins-data) pipeline and remove `stat_bar_omit` for Publications in `Config/environments.yaml`.
+
 ## Test shape
 
 ```python

@@ -67,7 +67,7 @@ def _parse_groovy(path: Path) -> dict | None:
         if tab and tab not in tabs:
             tabs.append(tab)
     if not tabs and nav == "programs":
-        tabs = ["Programs", "Projects"]
+        tabs = ["Programs", "Projects", "Grants", "Publications"]
     return {
         "kind": "explore",
         "xlsx": xlsx,
@@ -82,6 +82,7 @@ def _test_body(info: dict) -> str:
     if info.get("kind") == "static":
         lines = []
         sheets = info.get("sheets") or []
+        lines.append("    ins.accept_banner()")
         if sheets:
             lines.append(f'    ins.verify_static_data("{sheets[0]}")')
         if len(sheets) > 1:
@@ -94,6 +95,7 @@ def _test_body(info: dict) -> str:
         return "    pytest.skip('INS QuickRun is a Katalon batch harness')"
     lines = [
         f'    ins.load_query_file("{info["xlsx"]}")',
+        "    ins.accept_banner()",
     ]
     if info["nav"] == "datasets":
         lines.append("    ins.open_datasets()")
@@ -126,8 +128,11 @@ def main() -> None:
             func = f"test_{func}"
         rel_dir = script.parent.relative_to(KATALON_SCRIPTS)
         if rel_dir.parts and rel_dir.parts[0] in PROGRAMS_KATALON_DIRS:
-            rel_dir = Path("Programs") / rel_dir
-        out_dir = OUT / rel_dir
+            out_dir = OUT / "Programs" / rel_dir.parts[0]
+        elif rel_dir.parts and rel_dir.parts[0] == "DataSets":
+            out_dir = OUT / "DataSets"
+        else:
+            out_dir = OUT / rel_dir
         out_dir.mkdir(parents=True, exist_ok=True)
         out_file = out_dir / f"{func}.py"
         body = _test_body(info)

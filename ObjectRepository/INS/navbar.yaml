@@ -1,6 +1,7 @@
 # Converted from Katalon Object Repository/INS/Navbar
 page: Navbar
 elements:
+  WarningBan_Continue_Btn: //*[contains(text(),"Continue")]
   About-Btn: //span[@class='menuLabel' and text()='About']
   About-INS-Btn: //a[contains(text(),'About INS')]
   Datasets-Btn: //a[@href='#/datasets']

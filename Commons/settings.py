@@ -81,6 +81,7 @@ class AppSettings:
     tab_row_limit: int = 100  # UI rows + DB tab Cypher LIMIT (Config/tab_setting.yaml)
     pagination_max_pages: int = 50  # UI pagination safety cap (same file)
     tab_execution: dict = field(default_factory=dict)  # tab name -> enabled (verify_tab)
+    stat_bar_omit: tuple[str, ...] = ()  # stat names skipped in UI vs StatQuery compare (INS: stale publication.tsv)
 
     @property
     def expected_source(self) -> str:
@@ -335,6 +336,9 @@ def get_app_settings(app: str, env: str | None = None, cfg: dict | None = None) 
     cfg = cfg or load_config()
     ui_env = _normalized_env(env)
     compare = settings_for_app(app)
+    app_cfg = (cfg.get("apps") or {}).get(app) or {}
+    omit_raw = app_cfg.get("stat_bar_omit") or ()
+    stat_bar_omit = tuple(str(x) for x in omit_raw)
     return AppSettings(
         app=app,
         env=ui_env,
@@ -343,6 +347,7 @@ def get_app_settings(app: str, env: str | None = None, cfg: dict | None = None) 
         tab_row_limit=compare.tab_row_limit,
         pagination_max_pages=compare.pagination_max_pages,
         tab_execution=dict(compare.tab_execution),
+        stat_bar_omit=stat_bar_omit,
     )
 
 

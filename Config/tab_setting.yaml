@@ -101,5 +101,5 @@ apps:
     tabs:
       Programs: true
       Projects: true
-      Grants: true
-      Publications: true
+      Grants: false
+      Publications: false
