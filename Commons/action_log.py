@@ -23,6 +23,10 @@ import re
 from contextlib import contextmanager
 from typing import Any, Iterable, Iterator, List, Optional, Sequence
 
+# ---------------------------------------------------------------------------
+# Pytest live console (table compare / stat bar during capture)
+# ---------------------------------------------------------------------------
+
 _pytest_config: Any = None
 
 
@@ -64,6 +68,11 @@ def pytest_table_output_live() -> Iterator[None]:
         if suspended and capman is not None:
             capman.resume_global_capture()
 
+
+# ---------------------------------------------------------------------------
+# Verbose trace (COMMONS_VERBOSE — Katalon System.out parity)
+# ---------------------------------------------------------------------------
+
 _enabled: Optional[bool] = None
 
 
@@ -83,6 +92,10 @@ def say(msg: str) -> None:
     if enabled():
         print(msg, flush=True)
 
+
+# ---------------------------------------------------------------------------
+# UI step confirmations ([UI] — COMMONS_UI_ACTIONS)
+# ---------------------------------------------------------------------------
 
 _ui_actions: Optional[bool] = None
 
@@ -108,6 +121,10 @@ def ui_action(msg: str) -> None:
     with pytest_table_output_live():
         print(f"[UI] {msg}", flush=True)
 
+
+# ---------------------------------------------------------------------------
+# Browser lifecycle ([Browser] — COMMONS_BROWSER_LOG)
+# ---------------------------------------------------------------------------
 
 _browser_log: Optional[bool] = None
 
@@ -153,6 +170,10 @@ def browser_log(msg: str) -> None:
         print(_live_console_line(f"[Browser] {msg}"), flush=True)
 
 
+# ---------------------------------------------------------------------------
+# Expected-data queries ([DB] — COMMONS_DB_QUERIES)
+# ---------------------------------------------------------------------------
+
 _db_queries: Optional[bool] = None
 
 
@@ -168,6 +189,36 @@ def db_queries_enabled() -> bool:
 def set_db_queries(on: bool) -> None:
     global _db_queries
     _db_queries = on
+
+
+def memgraph_connection(user: str, server: str, output: str = "") -> None:
+    say(f"Connection data for Memgraph is: user={user} output={output} server={server}")
+
+
+def memgraph_query(label: str, query: str) -> None:
+    if db_queries_enabled():
+        with pytest_table_output_live():
+            print(f"[DB] {label}:\n{query}", flush=True)
+    elif enabled():
+        say(f"This is the value of {label}:\n{query}")
+
+
+def memgraph_db_row(cells: Sequence[str]) -> None:
+    """Katalon ConnectNeo4jV4: System.out.println('Data STR:  '+str)"""
+    line = "||".join(str(c) for c in cells) + "||"
+    say(f"Data STR:  {line}")
+
+
+def memgraph_db_table(header: Sequence[str], rows: Sequence[Sequence[str]]) -> None:
+    if header:
+        say(f"DB header: {'||'.join(header)}||")
+    for row in rows:
+        memgraph_db_row(row)
+
+
+# ---------------------------------------------------------------------------
+# Filter labels (human-readable [UI] messages)
+# ---------------------------------------------------------------------------
 
 
 def filter_facet_display(group_key: str, facet_key: Optional[str] = None) -> str:
@@ -186,6 +237,11 @@ def _filter_token_display(token: str) -> str:
 def filter_subfilter_display(group_key: str) -> str:
     tail = group_key.split("/")[-1] if "/" in group_key else group_key
     return " ".join(_filter_token_display(part) for part in tail.split("_"))
+
+
+# ---------------------------------------------------------------------------
+# Verbose UI / navigation (COMMONS_VERBOSE only)
+# ---------------------------------------------------------------------------
 
 
 def navigate(url: str) -> None:
@@ -214,6 +270,11 @@ def stat_bar(values: dict) -> None:
     say(f"Stat bar read: {values}")
 
 
+# ---------------------------------------------------------------------------
+# Stat bar (live + verbose)
+# ---------------------------------------------------------------------------
+
+
 def stat_bar_count_from_ui(name: str, value: str) -> None:
     """Katalon readStatBar*: 'This is the value of Participants count from Stat bar: …'"""
     with pytest_table_output_live():
@@ -229,6 +290,11 @@ def stat_bar_count_from_db(name: str, value: str) -> None:
 def multifunc_stat(stat_str: str, stat_int: int) -> None:
     say(f"This is the value of stat (string) obtained from multifunction: {stat_str}")
     say(f"This is the value of stat (integer) obtained from multifunction: {stat_int}")
+
+
+# ---------------------------------------------------------------------------
+# Result table read (headers, pages, rows)
+# ---------------------------------------------------------------------------
 
 
 def table_setup(tbl_xpath: str, body_xpath: str, hdr_xpath: str, next_xpath: str) -> None:
@@ -280,29 +346,9 @@ def table_body_line(data: str) -> None:
     say(f"Table body data from current page is: {data}")
 
 
-def memgraph_connection(user: str, server: str, output: str = "") -> None:
-    say(f"Connection data for Memgraph is: user={user} output={output} server={server}")
-
-
-def memgraph_query(label: str, query: str) -> None:
-    if db_queries_enabled():
-        with pytest_table_output_live():
-            print(f"[DB] {label}:\n{query}", flush=True)
-    elif enabled():
-        say(f"This is the value of {label}:\n{query}")
-
-
-def memgraph_db_row(cells: Sequence[str]) -> None:
-    """Katalon ConnectNeo4jV4: System.out.println('Data STR:  '+str)"""
-    line = "||".join(str(c) for c in cells) + "||"
-    say(f"Data STR:  {line}")
-
-
-def memgraph_db_table(header: Sequence[str], rows: Sequence[Sequence[str]]) -> None:
-    if header:
-        say(f"DB header: {'||'.join(header)}||")
-    for row in rows:
-        memgraph_db_row(row)
+# ---------------------------------------------------------------------------
+# Compare and skips
+# ---------------------------------------------------------------------------
 
 
 def compare_step(web_sheet: str, db_sheet: str) -> None:

@@ -13,6 +13,10 @@ from playwright.sync_api import TimeoutError as PlaywrightTimeout
 from Commons import action_log
 from Commons import utils as pw
 
+# ---------------------------------------------------------------------------
+# In-browser JavaScript (facet scroll, table scrape)
+# ---------------------------------------------------------------------------
+
 _FIND_FACET_SCROLLER_JS = """
 (header) => {
   const h = header.closest("[role='button']") || header;
@@ -64,12 +68,19 @@ _READ_ROWS_JS = """
 """
 
 
+# ---------------------------------------------------------------------------
+# Ui — Playwright page with action logging (apps use this, not utils directly)
+# ---------------------------------------------------------------------------
+
+
 class Ui:
     """Thin wrapper around a Playwright Page (XPath + action logging)."""
 
     def __init__(self, page: Page, timeout_ms: int = 30000):
         self.page = page
         self.timeout_ms = timeout_ms
+
+    # --- Locators and waits ---
 
     def loc(self, xpath: str) -> Locator:
         return pw.xpath_locator(self.page, xpath)
@@ -91,6 +102,8 @@ class Ui:
 
     def wait_visible(self, xpath: str, timeout_ms: Optional[int] = None) -> Locator:
         return pw.wait_visible(self.page, xpath, timeout_ms=timeout_ms or self.timeout_ms)
+
+    # --- Clicks and forms ---
 
     def click(self, xpath: str, timeout_ms: int = 10000, prefer_visible: bool = True, repo_key: str = None):
         action_log.click(repo_key, xpath)
@@ -120,6 +133,8 @@ class Ui:
 
     def attr(self, xpath: str, name: str) -> Optional[str]:
         return pw.attribute(self.page, xpath, name, timeout_ms=self.timeout_ms)
+
+    # --- Stable reads (stat bar, labels that flicker while loading) ---
 
     def stable_text(self, xpath: str, use_html: bool = False, settle_s: float = 1.0,
                     timeout_s: float = 20.0, label: str = None) -> str:
@@ -165,6 +180,8 @@ class Ui:
         for (xp, _), val in zip(items, out):
             action_log.say(f"read stat xpath: {xp} -> {val!r}")
         return out
+
+    # --- Explore facets and result tables ---
 
     def scroll_facet_until_visible(self, header_xpath: str, target_xpath: str, timeout_s: float = 10.0) -> bool:
         if self.is_present(target_xpath):

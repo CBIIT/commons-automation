@@ -1,5 +1,14 @@
-"""INS (Index of NCI Studies): https://studycatalog.cancer.gov"""
+"""
+INS (Index of NCI Studies): https://studycatalog.cancer.gov
+
+Programs or Datasets explore: stat bar + result tabs (Programs, Projects, Grants, Publications).
+Expected data: TSV from Program.zip / DataSetsTab.zip (extracted under InputFiles/INS/) + SQL in TC*.xlsx.
+"""
 from Commons.apps.base import BaseApp, StatSpec, TabSpec
+
+# ---------------------------------------------------------------------------
+# Tab wiring (workbook TabQuery keys ↔ ResultTabs locators)
+# ---------------------------------------------------------------------------
 
 
 def _tab(name: str, input_tab: str, stat: str, ui: str, db: str, max_pages: int = 10) -> TabSpec:
@@ -18,10 +27,17 @@ def _tab(name: str, input_tab: str, stat: str, ui: str, db: str, max_pages: int 
     )
 
 
+# ---------------------------------------------------------------------------
+# App adapter
+# ---------------------------------------------------------------------------
+
+
 class INS(BaseApp):
     NAME = "INS"
     BANNER_KEYS = ["Navbar/WarningBan_Continue_Btn"]
     STATIC_DATA_EXCEL = "INS_StaticData.xlsx"
+
+    # --- Stat bar and result tabs ---
 
     STATS = [
         StatSpec("Programs", "Statbar/Statbar-Programs"),
@@ -46,10 +62,12 @@ class INS(BaseApp):
         "Publications",
     )
 
+    # --- Explore navigation ---
+
     def open_programs(self):
-        """Programs explore (Katalon: INS/Navbar/Programs-Btn)."""
+        """Open Programs explore via navbar (Katalon: INS/Navbar/Programs-Btn)."""
         self.click("Navbar/Programs-Btn", ui_message="INS Programs page opened successfully.")
 
     def open_datasets(self):
-        """Datasets explore (Katalon: INS/Navbar/Datasets-Btn)."""
+        """Open Datasets explore via navbar (Katalon: INS/Navbar/Datasets-Btn)."""
         self.click("Navbar/Datasets-Btn", ui_message="INS Datasets page opened successfully.")

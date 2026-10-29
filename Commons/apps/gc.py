@@ -1,5 +1,14 @@
-"""GC (General Commons): https://datacommons.cancer.gov"""
+"""
+GC (General Commons): https://datacommons.cancer.gov
+
+Data explore: stat bar + result tabs (Participants, Samples, Files). Studies catalog: gc_studies.py.
+Expected data: Memgraph Cypher in InputFiles/GC/TC*.xlsx.
+"""
 from Commons.apps.base import BaseApp, StatSpec, TabSpec
+
+# ---------------------------------------------------------------------------
+# Tab wiring (workbook TabQuery keys ↔ Data_page locators)
+# ---------------------------------------------------------------------------
 
 
 def _tab(name, index_key, table, input_tab, stat, ui, db, max_pages=10):
@@ -14,10 +23,17 @@ def _tab(name, index_key, table, input_tab, stat, ui, db, max_pages=10):
     )
 
 
+# ---------------------------------------------------------------------------
+# App adapter
+# ---------------------------------------------------------------------------
+
+
 class GC(BaseApp):
     NAME = "GC"
     BANNER_KEYS = ["NavBar/Popup_Continue_Btn"]
     STATIC_DATA_EXCEL = "GC_StaticData.xlsx"
+
+    # --- Stat bar and result tabs ---
 
     STATS = [
         StatSpec("Studies", "StatBar/GC_StatBar-Studies", use_html=True),
@@ -35,7 +51,10 @@ class GC(BaseApp):
                              "FilesTab", "Files", "UI_Files", "DB_Files"),
     }
 
+    # --- Data explore and Studies catalog ---
+
     def open_data(self):
+        """Open Data explore via navbar (Katalon: GC Data button)."""
         self.click("NavBar/GC_Data-Btn", ui_message="GC Data page opened successfully.")
 
     def open_studies_listing(self):

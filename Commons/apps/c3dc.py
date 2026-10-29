@@ -1,4 +1,9 @@
-"""C3DC (Clinical Commons Data Commons): https://clinicalcommons.ccdi.cancer.gov"""
+"""
+C3DC (Clinical Commons Data Commons): https://clinicalcommons.ccdi.cancer.gov
+
+Explore Participants: stat bar + result tabs (incl. More menu). Studies catalog: c3dc_studies.py.
+Expected data: Memgraph Cypher in InputFiles/C3DC/TC*.xlsx.
+"""
 import re
 import time
 from typing import Dict, List, Optional
@@ -6,6 +11,12 @@ from typing import Dict, List, Optional
 from Commons import action_log
 from Commons.apps.base import BaseApp, StatSpec, TabSpec
 from Commons.table_reader import resolve_table_body_xpath
+
+# ---------------------------------------------------------------------------
+# Tab wiring (workbook TabQuery keys ↔ ResultTabs locators)
+# ---------------------------------------------------------------------------
+
+
 def _tab(name, label, input_tab, stat, ui, db, max_pages=2):
     return TabSpec(
         name=name,
@@ -18,6 +29,11 @@ def _tab(name, label, input_tab, stat, ui, db, max_pages=2):
     )
 
 
+# ---------------------------------------------------------------------------
+# App adapter
+# ---------------------------------------------------------------------------
+
+
 class C3DC(BaseApp):
     NAME = "C3DC"
     BANNER_KEYS = ["Navbar/WarningBan_Continue_Btn"]
@@ -28,13 +44,14 @@ class C3DC(BaseApp):
         super().__init__(*args, **kwargs)
         self._active_study_accession: Optional[str] = None
 
-    # Visible text on result tabs — Katalon selectTab('Participants', 10), etc.
+    # --- Tab names (UI labels vs TABS keys; Katalon selectTab) ---
+
     TAB_SELECT_LABELS: Dict[str, List[str]] = {
         "GeneticAnalysis": ["Genetic Analyses", "Genetic Analysis"],
         "Treatment": ["Treatments", "Treatment"],
         "TreatmentResp": ["Treatment Responses", "Treatment Response"],
     }
-    # verify_tab() labels in tests → TABS keys (UI text / legacy names).
+
     TAB_VERIFY_ALIASES: Dict[str, str] = {
         "Genetic Analysis": "GeneticAnalysis",
         "Genetic Analyses": "GeneticAnalysis",
@@ -43,7 +60,7 @@ class C3DC(BaseApp):
         "Treatment Response": "TreatmentResp",
         "Treatment Reponses": "TreatmentResp",
     }
-    # Standard tab order after read_statbar() (matches Explore Participants UI labels).
+
     STANDARD_VERIFY_TABS: tuple = (
         "Participants",
         "Studies",
@@ -54,7 +71,7 @@ class C3DC(BaseApp):
         "Survival",
         "Samples",
     )
-    # Katalon TestRunner.selectTab — bar tabs, then More( N ) popover.
+
     RESULT_TAB_BUTTONS_XP = "//button[@role='tab']"
     MORE_TABS_BTN_XP = (
         "(//button[@role='tab'])[last()]/following::button"
@@ -68,7 +85,8 @@ class C3DC(BaseApp):
 }
 """
 
-    # Explore Participants stat bar order (Katalon readStatBarC3DC / validateStatBar).
+    # --- Stat bar and result tabs ---
+
     STATS = [
         StatSpec("Studies", "Statbar/Studies-Count"),
         StatSpec("Participants", "Statbar/Participants-Count"),
@@ -95,6 +113,8 @@ class C3DC(BaseApp):
                                 "UI_Samples", "DB_Samples"),
     }
 
+    # --- Explore navigation ---
+
     def open_explore(self):
         """Open Explore Participants via navbar (Katalon: clickTab Explore-Tab)."""
         action_log.say("open_explore (Navbar/Explore-Tab)")
@@ -108,6 +128,8 @@ class C3DC(BaseApp):
         if group == "Study/dbGaP_Accession":
             self._active_study_accession = value
         self._wait_explore_results_ready()
+
+    # --- Sync UI after filters (stat bar + participant grid) ---
 
     def _wait_explore_results_ready(self):
         self.page.locator("#statsbar_count_1").first.wait_for(state="visible", timeout=self.ui.timeout_ms)
@@ -155,6 +177,8 @@ class C3DC(BaseApp):
             f"Participant table did not show only study {acc!r} within {timeout_s}s "
             "(study filter may not have applied)."
         )
+
+    # --- Tab label matching (bar + More menu) ---
 
     @staticmethod
     def _normalize_tab_label(raw: str) -> str:
@@ -210,6 +234,8 @@ class C3DC(BaseApp):
                 if cls._tab_label_prefix_matches(lbl_ns, name_ns):
                     return True
         return False
+
+    # --- verify_tab / selectTab / open_tab ---
 
     def verify_tab(self, name: str):
         name = self.TAB_VERIFY_ALIASES.get(name, name)
@@ -297,6 +323,8 @@ class C3DC(BaseApp):
     def _open_from_more_menu(self, spec: TabSpec):
         """Fallback if BaseApp.open_tab is used — same as Katalon selectTab + More menu."""
         self.open_tab(spec.name)
+
+    # --- Studies catalog (/studies — see c3dc_studies.py) ---
 
     def open_studies_listing(self):
         """Open the /studies catalog (not Explore Participants → Studies)."""
