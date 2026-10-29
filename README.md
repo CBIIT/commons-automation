@@ -58,13 +58,14 @@ Use app fixtures from `conftest.py` (`gc`, `c3dc`, `ctdc`, `ins`, …). Markers 
 |------|----------|
 | URLs, DB hosts, TSV roots | `Config/environments.yaml` |
 | Secrets | `.env` (`MEMGRAPH_PASSWORD_<APP>`, …) |
+| Excel vs Python test steps | `Config/environments.yaml` → `framework.test_case_source` (`excel` collects `TC*.xlsx` under `Testcases/<APP>/studies/…`) |
 | Tab on/off, row limit | `Config/tab_setting.yaml` |
 | Locators | `ObjectRepository/<APP>/` |
 | Queries / stat SQL or Cypher | `InputFiles/<APP>/TC*.xlsx` (`TabQuery`, `StatQuery`) |
 | Portal-specific behavior | `Commons/apps/<app>.py`, `Commons/table_reader.py` |
 | Tests | `Testcases/<APP>/` |
 
-Per-app layout: `Commons/apps/<app>.py`, `Testcases/<APP>/`, `InputFiles/<APP>/`, `ObjectRepository/<APP>/`. **Tools/** is Katalon migration only—not used at pytest runtime.
+Per-app layout: `Commons/apps/<app>.py`, `Testcases/<APP>/`, `InputFiles/<APP>/`, `ObjectRepository/<APP>/`. **GC explore studies** use `TC*.xlsx` beside each study when `framework.test_case_source: excel` (see `Tools/convert_gc_study_tests_to_excel.py` to regenerate from Python). **Tools/** is otherwise Katalon migration—not used at pytest runtime.
 
 ## Expected data
 

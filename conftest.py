@@ -24,6 +24,7 @@ from Commons.settings import (
     ROOT,
     get_app_settings,
     get_browser_settings,
+    get_test_case_source,
     load_config,
     resolve_test_env,
 )
@@ -49,6 +50,18 @@ def pytest_configure(config):
     action_log.set_pytest_config(config)
     if config.getoption("--trace-actions", default=False):
         action_log.set_enabled(True)
+
+
+def pytest_ignore_collect(collection_path, config):
+    """When test_case_source=excel, skip test_*.py in study folders that use TC*.xlsx cases."""
+    if get_test_case_source() != "excel":
+        return False
+    path = Path(str(collection_path))
+    if path.suffix != ".py" or not path.name.startswith("test_"):
+        return False
+    if any(path.parent.glob("TC*.xlsx")):
+        return True
+    return False
 
 
 def pytest_runtest_setup(item):
@@ -197,4 +210,4 @@ def pytest_runtest_makereport(item, call):
                 pass
 
 
-pytest_plugins = ["Commons.html_report"]
+pytest_plugins = ["Commons.html_report", "Commons.excel_pytest_collect"]

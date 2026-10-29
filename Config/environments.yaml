@@ -2,6 +2,11 @@
 #   MEMGRAPH_PASSWORD_C3DC=...     # required for C3DC tests (cluster host under apps.C3DC.memgraph)
 # Optional overrides: MEMGRAPH_ENDPOINT_C3DC, MEMGRAPH_USERNAME_C3DC_QA, etc. (see Commons/settings.py)
 
+# test_case_source: excel = TC*.xlsx under Testcases/<APP>/studies/… (see Testcases/test_excel_cases.py)
+# python = classic test_*.py steps. Override: TEST_CASE_SOURCE in .env
+framework:
+  test_case_source: excel
+
 apps:
   C3DC:
     # Expected data = Cypher in the input Excel, run against Memgraph (Katalon: ReadExcel.Memgraph).

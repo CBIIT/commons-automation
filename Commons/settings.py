@@ -222,6 +222,20 @@ def load_config() -> dict:
         return yaml.safe_load(fh)
 
 
+def get_test_case_source() -> str:
+    """Return ``python`` or ``excel`` (global; not per app). Env ``TEST_CASE_SOURCE`` wins."""
+    raw = os.environ.get("TEST_CASE_SOURCE", "").strip().lower()
+    if raw in ("python", "py"):
+        return "python"
+    if raw in ("excel", "xlsx"):
+        return "excel"
+    fw = (load_config() or {}).get("framework") or {}
+    src = str(fw.get("test_case_source", "python")).strip().lower()
+    if src in ("excel", "xlsx"):
+        return "excel"
+    return "python"
+
+
 def env_flag(name: str) -> bool | None:
     """Parse HEADLESS=false / HEADED=true style env vars; unset → None."""
     raw = os.environ.get(name)

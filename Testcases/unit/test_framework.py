@@ -4,6 +4,7 @@
 """
 import os
 import re
+from pathlib import Path
 
 import pytest
 
@@ -16,6 +17,7 @@ from Commons.settings import (
     get_app_url,
     get_browser_settings,
     get_db_settings,
+    get_test_case_source,
     input_dir,
     resolve_test_env,
 )
@@ -852,4 +854,55 @@ def test_every_input_excel_is_readable():
             except Exception as e:                                   # noqa: BLE001
                 bad.append(f"{f.name}: {e}")
     assert not bad, "\n".join(bad[:20])
+
+
+def test_get_test_case_source_defaults_python(monkeypatch):
+    monkeypatch.delenv("TEST_CASE_SOURCE", raising=False)
+    assert get_test_case_source() == "python"
+
+
+def test_get_test_case_source_env_excel(monkeypatch):
+    monkeypatch.setenv("TEST_CASE_SOURCE", "excel")
+    assert get_test_case_source() == "excel"
+
+
+def test_phs000720_excel_testcase_steps_sheet():
+    from Commons.excel_test_runner import run_testcase_excel
+
+    path = (
+        Path(__file__).resolve().parents[1]
+        / "GC/studies/phs000720/TC02_GC_phs000720_Sex_Male.xlsx"
+    )
+    assert path.is_file(), path
+    calls = []
+
+    class Stub:
+        TABS = {"Participants": None, "Samples": None, "Files": None}
+
+        def load_query_file(self, name):
+            calls.append(("load", name))
+
+        def accept_banner(self):
+            calls.append(("banner",))
+
+        def open_data(self):
+            calls.append(("data",))
+
+        def select_filter(self, group, value):
+            calls.append(("filter", group, value))
+
+        def read_statbar(self):
+            calls.append(("stat",))
+
+        def verify_tab(self, tab):
+            calls.append(("tab", tab))
+
+        def assert_no_failures(self):
+            calls.append(("done",))
+
+    run_testcase_excel(Stub(), path)
+    assert calls[0] == ("load", "TC02_GC_phs000720_Sex_Male.xlsx")
+    assert ("filter", "DemographicsFacet/Sex", "Male") in calls
+    assert ("tab", "Files") in calls
+    assert calls[-1] == ("done",)
 
