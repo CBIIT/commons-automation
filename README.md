@@ -155,8 +155,8 @@ Reports/                     Screenshots, JUnit
 | Banner | `accept_banner()` |
 | Enter explore | `open_data()` (GC) / `open_explore()` (C3DC) |
 | Filter | `select_filter("Group/Name", "value")` — facet expand, dropdown, **checkbox click** (C3DC & GC) |
-| Stat bar | `read_statbar()` |
-| Result tab | `verify_tab("Participants")` — opens tab, reads UI, expected data, compare, stat bar once |
+| Stat bar | `read_statbar()` — reads UI counts, then runs StatQuery and compares |
+| Result tab | `verify_tab("Participants")` — opens tab, reads UI, runs TabQuery, compares |
 | End | `assert_no_failures()` |
 
 Table pagination limits: **C3DC** `max_pages=2` per tab; **GC** `max_pages=10` (see `Commons/apps/*.py`). Table scraping rules live in `Commons/table_reader.py` (GC, ICDC, C3DC, INS, Bento, CTDC).

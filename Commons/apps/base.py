@@ -6,9 +6,9 @@ Katalon (TestRunner.groovy)                      Here
 RunKatalon('X.xlsx')                             app.load_query_file('X.xlsx')
 clickTab('.../WarningBan_Continue_Btn')          app.accept_banner()
 clickTab / clickTabCDSStat (filter ddn + chkbx)  app.select_filter('Study/dbGaP_Accession', 'phs000466')
-readStatBarC3DC / readStatBarCDS                 app.read_statbar()
+readStatBarC3DC / readStatBarCDS                 app.read_statbar()  (+ StatQuery compare)
 openTab + multiFunction(...)                     app.verify_tab('Participants')
-validateStatBar                                  done inside verify_tab (once per case)
+validateStatBar                                  done inside read_statbar() after UI read
 KeywordUtil.markFailed                           recorded in app.failures; test fails at the end
 """
 import os
@@ -308,7 +308,7 @@ class BaseApp:
     # ---------------------------------------------------------------------------
 
     def read_statbar(self) -> Dict[str, str]:
-        """Read the counts shown in the stat bar (after filters are applied)."""
+        """Read stat bar UI counts, then run StatQuery and compare (Katalon validateStatBar)."""
         self.ui.wait_idle()
         values = self.ui.stable_texts([(self.repo.xpath(s.key), s.use_html) for s in self.STATS])
         for s, raw in zip(self.STATS, values):
@@ -317,6 +317,8 @@ class BaseApp:
         action_log.stat_bar(dict(self.stats))
         action_log.ui_action(f"Stat bar read: {dict(self.stats)}")
         self._stat_checked = False
+        if self.query_file is not None:
+            self.verify_statbar()
         return dict(self.stats)
 
     # --- stat bar: compare UI counts to StatQuery ---
@@ -429,7 +431,7 @@ class BaseApp:
         return tab_is_enabled(self.settings.tab_execution, tabs_key, aliases)
 
     def verify_tab(self, name: str):
-        """Katalon multiFunction: read the tab from the UI, get the expected data, compare, check stat bar."""
+        """Katalon multiFunction: read the tab from the UI, run TabQuery, compare to Memgraph."""
         spec = self.TABS[name]
         if self.query_file is None:
             raise RuntimeError("Call load_query_file() first")
@@ -474,8 +476,6 @@ class BaseApp:
         action_log.compare_step(spec.ui_sheet, spec.db_sheet)
         cmp = compare_tables(ui_table.rows, expected.rows, ui_table.header, expected.header)
         self._record(spec.name, cmp, ui_count=len(ui_table.rows), exp_count=len(expected.rows))
-        action_log.say("Control is before validate stat bar function from multifunction")
-        self.verify_statbar()
 
     # ---------------------------------------------------------------------------
     # Static pages (Home, About, …)
