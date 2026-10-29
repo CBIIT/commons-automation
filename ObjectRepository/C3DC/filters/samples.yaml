@@ -1,8 +1,8 @@
 page: Filters/Samples
 groups:
   Samples/AnatomicSite:
-    facet: (//*[@id="[object Object]"])[3]
-    dropdown: //*[@id="Anatomic site"]
+    facet: (//*[text()="Samples"])[2]
+    dropdown: //*[@id="Anatomic site" and @role='button']
     checkboxes:
       BloodC42.0: '//*[@id="checkbox_Anatomic site_C42.0 : Blood"]'
       Blood: //*[@id="checkbox_Anatomic site_Blood"]
@@ -16,20 +16,22 @@ groups:
     other:
       LymphNodeLeg: '//*[@id="checkbox_Anatomic site_C77.4 : Lymph nodes of inguinal
         region or leg"]'
-  Samples/SampleTumorClassification:
-    facet: (//*[@id="[object Object]"])[3]
-    dropdown: //*[@id="Tumor classification"]
+  Samples/TumorSpatialExtent:
+    facet: (//*[text()="Samples"])[2]
+    dropdown: //*[@id="Tumor Spatial Extent" and @role='button']
     checkboxes:
-      NotApplicable: //*[@id="checkbox_Tumor classification_Not Applicable"]
-      NotReported: //*[@id="checkbox_Tumor classification_Not Reported"]
-      Metastatic: //*[@id="checkbox_Tumor classification_Metastatic"]
-      Primary: //*[@id="checkbox_Tumor classification_Primary"]
-      Regional: //*[@id="checkbox_Tumor classification_Regional"]
-      Unknown: //*[@id="checkbox_Tumor classification_Unknown"]
+      NotApplicable: //*[@id="checkbox_Tumor Spatial Extent_Not Applicable"]
+      NotReported: //*[@id="checkbox_Tumor Spatial Extent_Not Reported"]
+      Metastatic: //*[@id="checkbox_Tumor Spatial Extent_Metastatic"]
+      Local: //*[@id="checkbox_Tumor Spatial Extent_Local"]
+      Primary: //*[@id="checkbox_Tumor Spatial Extent_Primary"]
+      Regional: //*[@id="checkbox_Tumor Spatial Extent_Regional"]
+      Unknown: //*[@id="checkbox_Tumor Spatial Extent_Unknown"]
   Samples/SampleTumorStatus:
-    facet: (//*[@id="[object Object]"])[3]
-    dropdown: //*[@id="Sample tumor status"]
+    facet: (//*[text()="Samples"])[2]
+    dropdown: //*[@id="Sample Tumor Status" and @role='button']
     checkboxes:
-      Normal: //*[@id="checkbox_Sample tumor status_Normal"]
-      Tumor: //*[@id="checkbox_Sample tumor status_Tumor"]
-      Unknown: //*[@id="checkbox_Sample tumor status_Unknown"]
+      Normal: //*[@id="checkbox_Sample Tumor Status_Normal"]
+      Tumor: //*[@id="checkbox_Sample Tumor Status_Tumor"]
+      Unknown: //*[@id="checkbox_Sample Tumor Status_Unknown"]
+      NotReported: //*[@id="checkbox_Sample Tumor Status_Not Reported"]

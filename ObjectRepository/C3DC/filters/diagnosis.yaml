@@ -16,6 +16,7 @@ groups:
       Arm: '//*[@id="checkbox_Diagnosis Anatomic Site_arm"]'
       AutonNervSysNOS: '//*[@id="checkbox_Diagnosis Anatomic Site_autonomic nervous system"]'
       Blood: '//*[@id="checkbox_Diagnosis Anatomic Site_blood"]'
+      BoneElement: '//*[@id="checkbox_Diagnosis Anatomic Site_bone element"]'
       BoneNOS: '//*[@id="checkbox_Diagnosis Anatomic Site_limb bone"]'
       Breast: '//*[@id="checkbox_Diagnosis Anatomic Site_breast"]'
       C01.9.BaseOfTongue,NOS: '//*[@id="checkbox_Diagnosis Anatomic Site_base of tongue"]'
@@ -94,6 +95,12 @@ groups:
       IndForStudy: //*[@id="checkbox_Diagnosis Classification System_Indication for
         Study"]
       WHO: //*[@id="checkbox_Diagnosis Classification System_WHO CNS5 Integrated Diagnosis"]
+  Diagnosis/DiagnosisCategory:
+    facet: (//*[text()='Diagnosis'])[1]
+    dropdown: //*[@id='Diagnosis Category' and @role='button']
+    search: //input[contains(@placeholder,'sarcoma') or contains(@placeholder,'neoplasm') or contains(@placeholder,'leukemia')]
+    checkboxes:
+      Gliomas: //*[@id="checkbox_Diagnosis Category_Gliomas"]
   Diagnosis/DiseasePhase:
     facet: (//*[text()='Diagnosis'])[1]
     dropdown: (//*[@id="Disease Phase"])[1]
@@ -104,4 +111,5 @@ groups:
       RelapProgrsion: //*[@id="checkbox_Disease Phase_Relapse/Progression"]
       Progression: //*[@id="checkbox_Disease Phase_Progression"]
       Relapse: //*[@id="checkbox_Disease Phase_Relapse"]
+      PostMortem: //*[@id="checkbox_Disease Phase_Post-Mortem"]
       Unknown: //*[@id="checkbox_Disease Phase_Unknown"]

@@ -1,0 +1,57 @@
+---
+description: C3DC Explore ObjectRepository filter YAML and select_filter() conventions
+globs: ObjectRepository/C3DC/**/*.yaml,Testcases/C3DC/**/*.py
+alwaysApply: false
+---
+
+# C3DC Explore — object repository (`ObjectRepository/C3DC/`)
+
+Use when adding or fixing **Explore filter locators** and **`select_filter()`** calls in C3DC tests. For **Memgraph tab Cypher** in xlsx workbooks, see **`c3dc-memgraph-cypher.mdc`**.
+
+Loaded by `Commons/object_repository.py`. Keys match Katalon paths minus app name.
+
+## Files
+
+| Path | Purpose |
+|------|---------|
+| `filters/study.yaml` | Study facet |
+| `filters/diagnosis.yaml` | Diagnosis |
+| `filters/demographics.yaml` | Race, sex at birth |
+| `filters/survival.yaml` | First event, survival status, cause of death |
+| `filters/treatment.yaml` | Treatment type, agent |
+| `filters/treatment_resp.yaml` | Response, category, system |
+| `filters/samples.yaml` | Anatomic site, tumor spatial extent |
+| `statbar.yaml`, `result_tabs.yaml`, `navbar.yaml` | Explore chrome |
+| `static/*.yaml` | Home / About / Data model |
+
+## Filter YAML shape
+
+```yaml
+page: Filters/Demographics
+groups:
+  Demographics/Race:
+    facet: (//*[text()="Demographics"])[1]
+    dropdown: //*[@id='Race' and @role='button']
+    checkboxes:
+      MidEastOrNorthAfrican: //*[@id="checkbox_Race_Middle Eastern or North African"]
+```
+
+- **`groups` key** = first argument to `select_filter()` (e.g. `Study/dbGaP_Accession`, `Treatment/TreatmentType`, `Samples/TumorSpatialExtent` for UI **Tumor Spatial Extent**).
+- **`checkboxes` key** = second argument to `select_filter()` (short PascalCase token, **not** the full UI label).
+- **Checkbox id pattern:** `checkbox_<Facet label>_<value>` (spaces as in UI, e.g. `checkbox_Treatment Type_Radiation`, `checkbox_Tumor Spatial Extent_Metastatic`).
+- **`dropdown`:** `@id` must match Explore facet sub-panel (verify in browser if UI renames, e.g. Tumor Spatial Extent vs legacy “Tumor classification”). Many facets use `@role='button'` on the dropdown control.
+- **Samples filters:** each group uses `facet: (//*[text()="Samples"])[2]` — **`[1]` is usually the result tab**; `[2]` is the left filter category (same pattern as `Study` / `Survival` with inline `facet`).
+- **`other`:** scroll helpers for long lists (see `study.yaml` dbGaP scroll).
+
+If `select_filter` fails with unknown checkbox, add the value under the right `groups` entry — do not hardcode XPath in tests.
+
+## Reference testcase (TC04) — filters
+
+| Filter | `select_filter()` |
+|--------|-------------------|
+| Study | `Study/dbGaP_Accession`, `phs002827` |
+| Treatment | `Treatment/TreatmentType`, `Radiation` |
+
+Locators: `ObjectRepository/C3DC/filters/study.yaml`, `filters/treatment.yaml`.
+
+**TC06 (Samples):** `Samples/TumorSpatialExtent`, `Metastatic` — see `filters/samples.yaml`.

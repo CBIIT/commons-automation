@@ -38,6 +38,13 @@ groups:
       phs002790: //*[@id="checkbox_dbGaP Accession_phs002790"]
       phs002827: //*[@id="checkbox_dbGaP Accession_phs002827"]
       phs003111: //*[@id="checkbox_dbGaP Accession_phs003111"]
+      phs003162: //*[@id="checkbox_dbGaP Accession_phs003162"]
       phs003164: //*[@id="checkbox_dbGaP Accession_phs003164"]
       phs003432: //*[@id="checkbox_dbGaP Accession_phs003432"]
       phs003519: //*[@id="checkbox_dbGaP Accession_phs003519"]
+      phs004232: //*[@id="checkbox_dbGaP Accession_phs004232"]
+  Study/StudyPhase:
+    facet: (//*[text()="Study"])[1]
+    dropdown: //*[@id="Study Phase" and @role='button']
+    checkboxes:
+      Completed: //*[@id="checkbox_Study Phase_Completed"]

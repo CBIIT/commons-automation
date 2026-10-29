@@ -16,8 +16,8 @@ apps:
         endpoint: bolt://gen-dev-cdk-nlb-ecd70c3cab6cb63f.elb.us-east-1.amazonaws.com:7687
         username: memgraph
       qa:
-        endpoint: bolt://ccdi-dcc-qa-99d933a8c11c2ea3.elb.us-east-1.amazonaws.com:7687
-        username: memgraph
+        endpoint: bolt://localhost:7687 #bolt://ccdi-dcc-qa-99d933a8c11c2ea3.elb.us-east-1.amazonaws.com:7687
+        username: user #memgraph
 
   CCDI:
     # Hub pages only. Explore (/explore) opens C3DC Explore Participants.

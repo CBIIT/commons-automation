@@ -226,9 +226,16 @@ class BaseApp:
         ui = self.ui
         dropdown = g.dropdown_for(checkbox) if checkbox else g.dropdown
         facet_label = g.facet_key or g.key.split("/")[0]
-        facet_repo = f"{g.key}/facet" if g.facet else None
+        facet_repo = f"{g.key}/facet" if (g.facet or g.facet_key) else None
+        # C3DC Explore: sidebar category labels (e.g. Samples) toggle the filter panel;
+        # do not click again when this section's sub-filter is already in the DOM.
+        skip_sidebar_category = bool(
+            g.key.startswith("Samples/")
+            and dropdown
+            and ui.is_present(dropdown)
+        )
 
-        if g.facet and ui.is_present(g.facet):
+        if g.facet and ui.is_present(g.facet) and not skip_sidebar_category:
             if self._open_accordion(g.facet, repo_key=facet_repo or f"{facet_label}_Facet"):
                 facet_name = action_log.filter_facet_display(g.key, g.facet_key)
                 action_log.ui_action(f"{facet_name} facet opened successfully.")
