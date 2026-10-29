@@ -5,6 +5,7 @@ import pytest
 
 @pytest.mark.c3dc
 @pytest.mark.regression
+@pytest.mark.datarelease
 def test_TC02_C3DC_phs004232_AnatoSite_BoneElement(c3dc):
     c3dc.load_query_file("TC02_C3DC_phs004232_AnatoSite-BoneElement.xlsx")
     c3dc.accept_banner()

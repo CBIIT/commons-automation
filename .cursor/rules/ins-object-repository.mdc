@@ -1,0 +1,35 @@
+---
+description: INS ObjectRepository filter YAML and select_filter() conventions
+globs: ObjectRepository/INS/**/*.yaml,Testcases/INS/**/*.py
+alwaysApply: false
+---
+
+# INS — object repository (`ObjectRepository/INS/`)
+
+Index of NCI Studies (studycatalog). Expected data = **TSV + SQL** in `InputFiles/INS/` (not Memgraph).
+
+## Files
+
+| Path | Purpose |
+|------|---------|
+| `Programs/cancertype.yaml` | Cancer Type facet → `select_filter("CancerType/CancerType", "<Token>")` |
+| `Programs/specialtopic.yaml` | Special Topic → `select_filter("SpecialTopic/SpecialTopic", "<Token>")` (e.g. `Moonshot`, `HIVAIDS`) |
+| `DataSets/repository.yaml` | Datasets repository checkboxes → `select_filter("DataSets/Repository", "CEDCD"|"GEO"|"dbGaP")` |
+| `navbar.yaml`, `statbar.yaml`, `result_tabs.yaml`, `data_sets.yaml` | Navigation and Programs explore tables |
+| `static/v_home_page.yaml`, `static/v_about_ins_page.yaml` | Static checks (`verify_static_data("V_HomePage")`, etc.) |
+
+Regenerate filter YAML from Katalon: `python3 Tools/build_ins_filters.py`.
+
+## Filter YAML shape
+
+```yaml
+page: Filters/CancerType
+groups:
+  CancerType/CancerType:
+    dropdown: //*[@id="Cancer Type"]
+    checkboxes:
+      BladderCancer: //*[@id="checkbox_Cancer Type_Bladder Cancer"]
+```
+
+- **`groups` key** = first argument to `select_filter()`.
+- **Checkbox map key** = second argument (Katalon `-Chkbx` stem, no spaces).

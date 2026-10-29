@@ -90,3 +90,16 @@ apps:
       Biospecimens: true   # Biospecimens
       Files: true          # Participant / biospecimen files
       "Study Files": true  # Study-level files (no participant / specimen on the TSV row)
+
+  # -------------------------------------------------------------------------
+  # INS — Index of NCI Studies (Programs explore)
+  # Portal: studycatalog*.cancer.gov
+  # -------------------------------------------------------------------------
+  INS:
+    tab_row_limit: 100
+    pagination_max_pages: 25
+    tabs:
+      Programs: true
+      Projects: true
+      Grants: true
+      Publications: true

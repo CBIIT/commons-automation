@@ -5,6 +5,7 @@ import pytest
 
 @pytest.mark.c3dc
 @pytest.mark.regression
+@pytest.mark.datarelease
 def test_TC02_C3DC_phs003162_DiagCategory_Gliomas(c3dc):
     c3dc.load_query_file("TC02_C3DC_phs003162_DiagCategory-Gliomas.xlsx")
     c3dc.accept_banner()

@@ -16,8 +16,8 @@ apps:
         endpoint: bolt://gen-dev-cdk-nlb-ecd70c3cab6cb63f.elb.us-east-1.amazonaws.com:7687
         username: memgraph
       qa:
-        endpoint: bolt://localhost:7687 #bolt://ccdi-dcc-qa-99d933a8c11c2ea3.elb.us-east-1.amazonaws.com:7687
-        username: user #memgraph
+        endpoint: bolt://ccdi-dcc-qa-99d933a8c11c2ea3.elb.us-east-1.amazonaws.com:7687 #bolt://localhost:7687 
+        username: memgraph #user
 
   CCDI:
     # Hub pages only. Explore (/explore) opens C3DC Explore Participants.
@@ -83,6 +83,15 @@ apps:
       prod:
         endpoint: bolt://localhost:7687
         username: neo4j
+
+  INS:
+    # Expected data = SQL in InputFiles/INS/TC*.xlsx against program/project/grant/publication TSVs.
+    expected_source: tsv
+    tsv_root: InputFiles/INS
+    urls:
+      qa:    https://studycatalog-stage.cancer.gov/
+      stage: https://studycatalog-stage.cancer.gov/
+      prod:  https://studycatalog.cancer.gov/
 
   GC:
     # Expected data = Cypher in the input Excel, run against Memgraph.

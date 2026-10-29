@@ -5,6 +5,7 @@ import pytest
 
 @pytest.mark.c3dc
 @pytest.mark.regression
+@pytest.mark.datarelease
 def test_TC05_C3DC_phs003162_DiseasePhase_PostMortem(c3dc):
     c3dc.load_query_file("TC05_C3DC_phs003162_DiseasePhase-PostMortem.xlsx")
     c3dc.accept_banner()

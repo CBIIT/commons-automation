@@ -1,0 +1,26 @@
+# Converted from Katalon Object Repository/INS/Static/V_HomePage
+page: Static/V_HomePage
+elements:
+  BannerDescription: //div[@class='MuiGrid-root MuiGrid-container']/div/div/div[2]
+  BannerTitle: //div[@class='MuiGrid-root MuiGrid-container']/div/div/div[1]
+  BodyText: //div[@id='root']/div[4]/div/div[3]/div/div/div
+  FooterAboutINSLink: //div[text() = 'About INS']/..
+  FooterContactINSLink: //div[text() = 'Contact INS']/..
+  FooterMoreInfoLabel: //div[(text() = 'More Information')]
+  FooterPoliciesAccessibilityLink: //div[(text() = 'Accessibility')]/..
+  FooterPoliciesDisclaimerLink: //div[(text() = 'Disclaimer')]/..
+  FooterPoliciesFOIALink: //div[(text() = 'FOIA')]/..
+  FooterPoliciesLabel: //div[text() = 'NIH Policies']
+  FooterPoliciesLink: //a[@href='https://www.cancer.gov/policies']
+  FooterPoliciesVulnerabilityLink: //div[(text() = 'HHS Vulnerability Disclosure')]/..
+  FooterReleaseNotesLink: //div[(text() = 'Release Notes')]/..
+  FooterSystemInfoLabel: //div[(text() = 'System Info')]
+  HeaderMessage: //div[@id='root']/div[3]
+  SpotlightPanelDescription1: //*[@id = 'tile1_description']
+  SpotlightPanelDescription2: //*[@id = 'tile2_description']
+  SpotlightPanelDescription3: //*[@id = 'tile3_description']
+  SpotlightPanelDescription4: //*[@id = 'tile4_description']
+  SpotlightPanelTitle1: //*[@id = 'tile1_title']
+  SpotlightPanelTitle2: //*[@id = 'tile2_title']
+  SpotlightPanelTitle3: //*[@id = 'tile3_title']
+  SpotlightPanelTitle4: //*[@id = 'tile4_title']

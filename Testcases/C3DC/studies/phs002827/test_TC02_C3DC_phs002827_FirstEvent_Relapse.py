@@ -5,6 +5,7 @@ import pytest
 
 @pytest.mark.c3dc
 @pytest.mark.regression
+@pytest.mark.datarelease
 def test_TC02_C3DC_phs002827_FirstEvent_Relapse(c3dc):
     c3dc.load_query_file("TC02_C3DC_phs002827_FirstEvent-Relapse.xlsx")
     c3dc.accept_banner()
