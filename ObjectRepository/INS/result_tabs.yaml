@@ -1,0 +1,17 @@
+# Converted from Katalon Object Repository/INS/ResultTabs
+page: ResultTabs
+elements:
+  All_Tabs_Next-Btn: //button[@type='button' and @aria-label='next page']
+  FilterByPrograms-Facet: //*[contains(text(),'Filter By Projects')]
+  Grants-Tab: //button[@index='2' and @role='tab']
+  Grants-Tbl: //*[@id='grant_tab_table']
+  Grants-TblHdr: //*[@id="grant_tab_table"]//thead
+  Programs-Tab: //button[@index='0' and @role='tab']
+  Programs-Tbl: //*[@id='program_tab_table']
+  Programs-TblHdr: //*[@id="program_tab_table"]//thead
+  Projects-Tab: //button[@index='1' and @role='tab']
+  Projects-Tbl: //*[@id='project_tab_table']
+  Projects-TblHdr: //*[@id="project_tab_table"]//thead
+  Publications-Tab: //button[@index='3' and @role='tab']
+  Publications-Tbl: //*[@id='publication_tab_table']
+  Publications-TblHdr: //*[@id="publication_tab_table"]//thead

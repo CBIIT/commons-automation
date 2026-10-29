@@ -1,0 +1,29 @@
+# INS Explore filters (CancerType)
+page: Filters/CancerType
+groups:
+  CancerType/CancerType:
+    dropdown: //*[@id="Cancer Type"]
+    checkboxes:
+      BladderCancer: //*[@id="checkbox_Cancer Type_Bladder Cancer"]
+      BrainCancer: //*[@id="checkbox_Cancer Type_Brain Cancer"]
+      BreastCancer: //*[@id="checkbox_Cancer Type_Breast Cancer"]
+      CervicalCancer: //*[@id="checkbox_Cancer Type_Cervical Cancer"]
+      ColorectalCancer: //*[@id="checkbox_Cancer Type_Colorectal Cancer"]
+      EsophagealCancer: //*[@id="checkbox_Cancer Type_Esophageal Cancer"]
+      GastricCancer: //*[@id="checkbox_Cancer Type_Gastric Cancer"]
+      GynecologicCancer: //*[@id="checkbox_Cancer Type_Gynecologic Cancer"]
+      HeadandNeckCancer: //*[@id="checkbox_Cancer Type_Head and Neck Cancer"]
+      KidneyCancer: //*[@id="checkbox_Cancer Type_Kidney Cancer"]
+      Leukemia: //*[@id="checkbox_Cancer Type_Leukemia"]
+      LiverCancer: //*[@id="checkbox_Cancer Type_Liver Cancer"]
+      LungCancer: //*[@id="checkbox_Cancer Type_Lung Cancer"]
+      Lymphoma: //*[@id="checkbox_Cancer Type_Lymphoma"]
+      Melanoma: //*[@id="checkbox_Cancer Type_Melanoma"]
+      MultipleCancerTypes: //*[@id="checkbox_Cancer Type_Multiple Cancer Types"]
+      MultipleMyeloma: //*[@id="checkbox_Cancer Type_Multiple Myeloma"]
+      OvarianCancer: //*[@id="checkbox_Cancer Type_Ovarian Cancer"]
+      PancreasCancer: //*[@id="checkbox_Cancer Type_Pancreas Cancer"]
+      ProstateCancer: //*[@id="checkbox_Cancer Type_Prostate Cancer"]
+      Sarcoma: //*[@id="checkbox_Cancer Type_Sarcoma"]
+      SkinCancer: //*[@id="checkbox_Cancer Type_Skin Cancer"]
+      ThyroidCancer: //*[@id="checkbox_Cancer Type_Thyroid Cancer"]

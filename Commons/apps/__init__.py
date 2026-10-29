@@ -5,6 +5,7 @@ from Commons.apps.ccdi import CCDI
 from Commons.apps.ctdc import CTDC
 from Commons.apps.gc import GC
 from Commons.apps.icdc import ICDC
+from Commons.apps.ins import INS
 
 APPS = {
     "Bento": Bento,
@@ -13,4 +14,5 @@ APPS = {
     "CTDC": CTDC,
     "GC": GC,
     "ICDC": ICDC,
+    "INS": INS,
 }
