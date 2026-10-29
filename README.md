@@ -14,23 +14,23 @@ Supported apps: **GC**, **C3DC**, **ICDC**, **CTDC**, **INS**, **Bento**, **CCDI
                          ┌──────────▼───────────┐
                          │  App adapter (C3DC,  │
                          │  GC, CTDC, INS, …)   │
-                         └──┬─────────┬─────────┬─┘
-              ┌──────────────┘         │         └──────────────┐
-              ▼                        ▼                        ▼
-     ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-     │ Playwright + UI │    │ ObjectRepository│    │ InputFiles      │
-     │ (scrape tables) │    │ YAML locators   │    │ TC*.xlsx queries│
-     └────────┬────────┘    └─────────────────┘    └────────┬────────┘
-              │                                              │
-              │              ┌───────────────────────────────┘
-              │              ▼
-              │     ┌─────────────────┐     ┌──────────────────┐
-              └────►│ compare_tables  │◄────│ ExpectedDataSource│
-                    │ + stat compare  │     │ Memgraph / Neo4j │
-                    └────────┬────────┘     │ or TSV + SQL     │
-                             │              └──────────────────┘
-                             ▼
-                    *_UI.xlsx / *_DB.xlsx, HTML report
+                         └──┬─────────┬───────┬─┘
+              ┌─────────────┘         │       └──────────────┐
+              ▼                       ▼                      ▼
+     ┌──────────────────┐   ┌──────────────────┐   ┌──────────────────┐
+     │ Playwright + UI  │   │ ObjectRepository │   │ InputFiles       │
+     │ (scrape tables)  │   │ YAML locators    │   │ TC*.xlsx queries │
+     └────────┬─────────┘   └──────────────────┘   └────────┬─────────┘
+              │                                             │
+              │                                          ┌──┘
+              │                                          ▼
+              │     ┌──────────────────┐          ┌──────────────────┐
+              └────►│ compare_tables   │◄──------ │ Expected Data src│
+                    │ + stat compare   │          │ Memg / Neo4j/TSV │
+                    └─────────┬────────┘          └──────────────────┘    
+                              │            
+                              ▼
+         OutputFiles: *_UI.xlsx / *_DB.xlsx, HTML report
 ```
 
 ## Setup
@@ -73,6 +73,8 @@ Per-app layout: `Commons/apps/<app>.py`, `Testcases/<APP>/`, `InputFiles/<APP>/`
 | GC, C3DC | Memgraph | Cypher | `MEMGRAPH_PASSWORD_<APP>` |
 | ICDC, Bento | Neo4j | Cypher | `NEO4J_PASSWORD_*` |
 | CTDC, INS | TSV snapshots + in-memory SQL | SQL | none |
+
+CTDC node TSVs live under `InputFiles/CTDC/<STUDY>/YYYY-MM-DD/`. INS keeps `Program.zip` / `DataSetsTab.zip` in git; the first test run extracts `InputFiles/INS/YYYY-MM-DD/` (gitignored—do not commit). When publication counts drift, refresh the zips from [ins-data](https://github.com/CBIIT/ins-data) and remove `stat_bar_omit` for Publications in `Config/environments.yaml`.
 
 ## Test shape
 

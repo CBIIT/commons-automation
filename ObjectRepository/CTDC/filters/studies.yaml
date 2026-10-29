@@ -1,4 +1,4 @@
-# CTDC study facet — one checkbox per TSV study folder (InputFiles/CTDC/tsv/<STUDY>/)
+# CTDC study facet — one checkbox per TSV study folder (InputFiles/CTDC/<STUDY>/)
 page: Filters/Studies
 groups:
   Studies/Study:

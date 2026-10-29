@@ -298,14 +298,6 @@ def create_expected_data_source(settings: AppSettings) -> ExpectedDataSource:
             tab_row_limit=settings.tab_row_limit,
         )
     if db.expected_source == "tsv":
-        if settings.app == "INS":
-            from Commons.ins_tsv_source import InsTsvSource
-
-            return InsTsvSource(
-                tsv_root=db.tsv_root,
-                app=settings.app,
-                tab_row_limit=settings.tab_row_limit,
-            )
         from Commons.tsv_source import TsvSource
 
         return TsvSource(

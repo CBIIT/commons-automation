@@ -60,14 +60,14 @@ class BrowserSettings:
 
 @dataclass
 class DbSettings:
-    """Expected-data connection (Memgraph, Neo4j, or CTDC TSV)."""
+    """Expected-data connection (Memgraph, Neo4j, or TSV for CTDC/INS)."""
 
     expected_source: str = "memgraph"
     endpoint: str = ""
     username: str = ""
     password: str = ""  # env only; never from YAML
     bolt_env: str = ""  # YAML/env block for bolt; may differ from UI env (ICDC NEO4J_ENV)
-    tsv_root: str = ""  # CTDC only: folder of YYYY-MM-DD TSV snapshots
+    tsv_root: str = ""  # CTDC/INS when expected_source is tsv
 
 
 @dataclass
@@ -81,6 +81,7 @@ class AppSettings:
     tab_row_limit: int = 100  # UI rows + DB tab Cypher LIMIT (Config/tab_setting.yaml)
     pagination_max_pages: int = 50  # UI pagination safety cap (same file)
     tab_execution: dict = field(default_factory=dict)  # tab name -> enabled (verify_tab)
+    stat_bar_omit: tuple[str, ...] = ()  # stat names skipped in UI vs StatQuery compare (INS: stale publication.tsv)
 
     @property
     def expected_source(self) -> str:
@@ -291,7 +292,7 @@ def get_app_url(app: str, env: str | None = None, cfg: dict | None = None) -> st
 
 
 def get_db_settings(app: str, env: str | None = None, cfg: dict | None = None) -> DbSettings:
-    """Expected-data settings (Memgraph/Neo4j bolt, or CTDC TSV folder)."""
+    """Expected-data settings (Memgraph/Neo4j bolt, or TSV folder for CTDC/INS)."""
     cfg = cfg or load_config()
     ui_env = _normalized_env(env)
     a = _app_config(app, cfg)
@@ -335,6 +336,9 @@ def get_app_settings(app: str, env: str | None = None, cfg: dict | None = None) 
     cfg = cfg or load_config()
     ui_env = _normalized_env(env)
     compare = settings_for_app(app)
+    app_cfg = (cfg.get("apps") or {}).get(app) or {}
+    omit_raw = app_cfg.get("stat_bar_omit") or ()
+    stat_bar_omit = tuple(str(x) for x in omit_raw)
     return AppSettings(
         app=app,
         env=ui_env,
@@ -343,6 +347,7 @@ def get_app_settings(app: str, env: str | None = None, cfg: dict | None = None) 
         tab_row_limit=compare.tab_row_limit,
         pagination_max_pages=compare.pagination_max_pages,
         tab_execution=dict(compare.tab_execution),
+        stat_bar_omit=stat_bar_omit,
     )
 
 

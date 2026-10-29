@@ -40,7 +40,7 @@ apps:
     #   expected_source: memgraph
     #   python Tools/convert_ctdc_sql_to_cypher.py
     expected_source: tsv
-    tsv_root: InputFiles/CTDC/tsv   # tsv/<STUDY>/YYYY-MM-DD/; override: CTDC_TSV_ROOT
+    tsv_root: InputFiles/CTDC   # <STUDY>/YYYY-MM-DD/; override: CTDC_TSV_ROOT
     urls:
       qa:    https://clinical-qa.datacommons.cancer.gov/#/
       stage: https://clinical-stage.datacommons.cancer.gov/#/
@@ -86,10 +86,13 @@ apps:
 
   INS:
     # Expected data = SQL in InputFiles/INS/TC*.xlsx against program/project/grant/publication TSVs.
+    # Program.zip → YYYY-MM-DD/*.tsv on first load; refresh from ins-data when counts drift (esp. Publications).
     expected_source: tsv
     tsv_root: InputFiles/INS
+    stat_bar_omit:
+      - Publications   # snapshot lags QA/prod publication ingest; remove after publication.tsv refresh
     urls:
-      qa:    https://studycatalog-stage.cancer.gov/
+      qa:    https://studycatalog-qa.cancer.gov/
       stage: https://studycatalog-stage.cancer.gov/
       prod:  https://studycatalog.cancer.gov/
 
