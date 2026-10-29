@@ -1,0 +1,116 @@
+---
+description: Fast C3DC Memgraph Cypher for InputFiles TC*.xlsx and Explore tab alignment
+globs: InputFiles/C3DC/**/*.xlsx,Testcases/C3DC/**/*.py
+alwaysApply: false
+---
+
+# C3DC Explore — Memgraph Cypher (InputFiles xlsx)
+
+Use when adding or fixing **C3DC** query workbooks: `InputFiles/C3DC/TC*.xlsx` and `Testcases/C3DC/**`. For **filter locators** and `select_filter()` keys, see **`c3dc-object-repository.mdc`**.
+
+Prefer **cohort-first** Cypher (anchor the filter, then expand). Avoid participant-wide scans with nested `EXISTS` — they can take minutes on QA Memgraph.
+
+**Primary reference (copy patterns from here first):** **TC04 — phs002827 + Treatment Type Radiation**
+
+| Artifact | Path |
+|----------|------|
+| Input workbook | `InputFiles/C3DC/TC04_C3DC_phs002827_TrtmntType-Radiation.xlsx` |
+| Pytest | `Testcases/C3DC/studies/phs002827/test_TC04_C3DC_phs002827_TrtmntType_Radiation.py` |
+| UI filters | `Study/dbGaP_Accession` → `phs002827`; `Treatment/TreatmentType` → `Radiation` |
+| QA stat bar | 1 study / **18** participants / **67** samples / **0** files |
+
+TC04 demonstrates: `treatment_radiation` anchor + `WITH DISTINCT p, s` on **all** tabs; fast StatQuery; Studies **Diagnosis (Top 5)** via `count(d)`; Diagnosis **`ORDER BY p.participant_id, d.diagnosis_id`**. When adding TC05+ for phs002827, **diff against TC04** before inventing new Cypher.
+
+Also use skill `.cursor/skills/c3dc-memgraph-cypher-assistant/` for model/index references and `scripts/query_memgraph.py` to validate counts before committing xlsx changes.
+
+## Input workbook (`TC*_C3DC_*.xlsx`)
+
+Single sheet: columns `TabName`, `TabQuery`, `StatQuery`, `TsvExcel`.
+
+| TabName | Role |
+|---------|------|
+| `ParticipantsTab` | First row often holds **StatQuery** in column C |
+| `StudiesTab` … `FilesTab` | Tab Cypher only (column B) |
+
+**Stat bar (QA):** study + samples from graph; **Files = 0** when Explore shows 0 files (file totals live on Studies tab):
+
+```cypher
+OPTIONAL MATCH (sm:sample)-[:of_sample]->(p)
+RETURN count(DISTINCT s) AS studies,
+       count(DISTINCT p) AS participants,
+       count(DISTINCT sm) AS samples,
+       0 AS files
+```
+
+Comment in StatQuery: `// Explore stat bar Files is 0 on QA for this cohort; Studies tab validates file totals.`
+
+## Cohort-first pattern (default)
+
+1. **Anchor** the active filter (treatment, survival, sample, etc.) and reach `(p:participant)` + `(s:study)` with `s.dbgap_accession = '<phs>'`.
+2. **`WITH DISTINCT p, s`** when the anchor can repeat per participant.
+3. **Second `MATCH`** for tab data (diagnosis, sample, treatment_response, …).
+
+### Treatment type (e.g. Radiation)
+
+**Do not** use four `OR EXISTS { … treatment_chemotherapy … treatment_other }` on a study-wide `MATCH (p:participant)` — very slow.
+
+**Do** start from radiation rows (verify on Memgraph that UI cohort matches; for Radiation, `treatment_radiation` alone is usually enough):
+
+```cypher
+MATCH (t:treatment_radiation)-[:of_treatment_radiation]->(p:participant)-[:of_participant]->(:consent_group)-[:of_consent_group]->(s:study)
+WHERE s.dbgap_accession = 'phs002827'
+  AND 'Radiation' IN coalesce(t.treatment_type, [])
+WITH DISTINCT p, s
+```
+
+Re-use the same `WITH DISTINCT p, s` prefix on **every** tab query (Diagnosis, Treatment Responses, Survival, Samples, Genetic Analysis), not only Participants.
+
+**StatQuery:** same anchor + `WITH DISTINCT p, s` + optional samples + `0 AS files`.
+
+### Other filters (same idea)
+
+| UI filter | Anchor |
+|-----------|--------|
+| Survival / First Event | `(sv:survival)-[:of_survival]->(p)` + `sv.first_event = '…'` |
+| Demographics / Race | `(p)` + `'Race label' IN coalesce(p.race, [])` (no heavy EXISTS) |
+| Diagnosis / Disease phase | Cohort: `MATCH (d:diagnosis)-… WHERE d.disease_phase = '…'` + `WITH DISTINCT p, s` on other tabs. **Diagnosis tab (TC05):** return **only** rows where `d.disease_phase = 'Progression'` (same idea as Treatment Responses when the active filter is on that entity — do not second-`MATCH` all `d` for the cohort). |
+| Treatment response | Anchor cohort on `(tr:treatment_response)` + `'…' IN coalesce(tr.response, [])`. **Treatment Responses tab:** when the active Explore filter *is* response (e.g. Complete Remission), return **only matching `tr` rows**—not all responses for those participants (unlike treatment-type / survival cohorts, which still list every `tr` for the cohort). |
+| Samples / Tumor Spatial Extent | Anchor on `sm.tumor_spatial_extent = '…'`. **Samples tab:** return only matching `sm` rows (`ORDER BY sm.sample_id` — Explore default sort; not `p.participant_id` first). **Diagnosis tab:** cohort via metastatic `sm`, then all `d` for those participants (do **not** filter `d.tumor_spatial_extent = 'Metastatic'` — values can be `Not Reported` while still on the tab). **`ORDER BY p.participant_id, d.diagnosis_id DESC`** for TC06 / `tab_row_limit: 13`. Stat bar: count matching samples only. |
+
+Apply the **same cohort predicate** on all tabs in the workbook (including `TreatmentTab` UNION branches — no leftover filters from a copied testcase).
+
+## Studies tab
+
+- Study row exists when cohort EXISTS matches (e.g. radiation participants).
+- **Number of Participants / Samples / Files** on Studies tab = **whole study** totals (310 / 1143 / …), not filtered cohort — keep existing StudiesTab template behavior.
+- **Diagnosis (Top 5):** count **diagnosis records** — `count(d) AS diagnosis_n`, **not** `count(DISTINCT dp)` (UI shows record counts, e.g. Osteosarcoma (154)).
+- Prefer TC01-style `(s)<-[*..6]-(dg:diagnosis)` + `count(dg)` when aligning with an existing phs002827 Studies query.
+
+## Diagnosis & Treatment Responses tabs
+
+- Multiple diagnoses per participant: usually **`ORDER BY p.participant_id, d.diagnosis_id`**. Tumor Spatial Extent cohort (TC06): **`ORDER BY p.participant_id, d.diagnosis_id DESC`** so the first page under `tab_row_limit: 13` matches Explore. Important with `tab_row_limit`.
+- **Treatment Responses tab:** **`ORDER BY p.participant_id, stable_sort, tr.treatment_response_id`** where `stable_sort` is `1` when `'Stable Disease' IN coalesce(tr.response, [])` else `0` (Explore deprioritizes Stable Disease within a participant; see TC02). Otherwise use **`tr.treatment_response_id`** as tie-breaker.
+- Respect `Config/tab_setting.yaml` → C3DC `tab_row_limit` (LIMIT in Cypher via framework).
+
+## Pytest flow
+
+```python
+c3dc.load_query_file("TC##_C3DC_<phs>_….xlsx")
+c3dc.select_filter("Study/dbGaP_Accession", "<phs>")
+c3dc.select_filter("<Group>", "<CheckboxKey>")  # keys: c3dc-object-repository.mdc
+c3dc.read_statbar()
+c3dc.verify_tab("Participants")
+# …
+```
+
+Naming: `Testcases/C3DC/studies/<phs>/test_TC##_C3DC_<phs>_….py`.
+
+## Reference testcase (TC04) — do not regress
+
+When unsure how to structure queries, open and mirror **TC04**:
+
+- **Workbook:** `InputFiles/C3DC/TC04_C3DC_phs002827_TrtmntType-Radiation.xlsx` — every `TabQuery` shares the same cohort prefix after the anchor.
+- **Test:** `test_TC04_C3DC_phs002827_TrtmntType_Radiation.py` — `load_query_file`, two `select_filter` calls, `read_statbar`, standard `verify_tab` list.
+- **Avoid:** four-way `OR EXISTS` treatment filters on study-wide participants; nested `EXISTS` on Diagnosis/TreatmentResp after a wide first `MATCH`; `count(DISTINCT dp)` for Studies Top 5; Ewing/other filters left in tabs copied from TC01.
+
+**Secondary reference (survival anchor):** `TC02_C3DC_phs002827_FirstEvent-Relapse.xlsx` — same cohort-first idea with `(sv:survival)` + `first_event = 'Relapse'`.

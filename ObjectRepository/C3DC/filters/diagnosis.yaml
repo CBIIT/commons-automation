@@ -16,6 +16,7 @@ groups:
       Arm: '//*[@id="checkbox_Diagnosis Anatomic Site_arm"]'
       AutonNervSysNOS: '//*[@id="checkbox_Diagnosis Anatomic Site_autonomic nervous system"]'
       Blood: '//*[@id="checkbox_Diagnosis Anatomic Site_blood"]'
+      BoneElement: '//*[@id="checkbox_Diagnosis Anatomic Site_bone element"]'
       BoneNOS: '//*[@id="checkbox_Diagnosis Anatomic Site_limb bone"]'
       Breast: '//*[@id="checkbox_Diagnosis Anatomic Site_breast"]'
       C01.9.BaseOfTongue,NOS: '//*[@id="checkbox_Diagnosis Anatomic Site_base of tongue"]'
@@ -41,6 +42,7 @@ groups:
   Diagnosis/Diagnosis:
     facet: (//*[text()='Diagnosis'])[1]
     dropdown: //*[@id='Diagnosis' and @role='button']
+    search: //input[contains(@placeholder,'sarcoma') or contains(@placeholder,'Sarcoma')]
     checkboxes:
       8000-0-Neoplasm,benign: '//*[@id="checkbox_Diagnosis Classification_8000/0 :
         Neoplasm, benign"]'
@@ -60,8 +62,10 @@ groups:
       AcuteLeukemiaNOS: '//*[@id="checkbox_Diagnosis_Acute leukemia, NOS"]'
       AcuteMyelLeukNOS: //*[@id="checkbox_Diagnosis_Acute myeloid leukemia, NOS"]
       AdenomaNOS: //*[@id="checkbox_Diagnosis_Adenoma, NOS"]
+      EwingSarcoma: //*[@id="checkbox_Diagnosis_Ewing sarcoma"]
       Ganglioneuroblastoma: //*[@id="checkbox_Diagnosis_Ganglioneuroblastoma"]
       JuvenileMyLeNOS: '//*[@id="checkbox_Diagnosis_Juvenile myelomonocytic leukemia, NOS"]'
+      Lipoma: //*[@id="checkbox_Diagnosis_Lipoma"]
       NeoplsmBen: //*[@id="checkbox_Diagnosis_Neoplasm, benign"]
       NephroblastomaNOS: //*[@id="checkbox_Diagnosis_Nephroblastoma, NOS"]
       Neuroblastoma: //*[@id="checkbox_Diagnosis_Neuroblastoma"]
@@ -91,6 +95,12 @@ groups:
       IndForStudy: //*[@id="checkbox_Diagnosis Classification System_Indication for
         Study"]
       WHO: //*[@id="checkbox_Diagnosis Classification System_WHO CNS5 Integrated Diagnosis"]
+  Diagnosis/DiagnosisCategory:
+    facet: (//*[text()='Diagnosis'])[1]
+    dropdown: //*[@id='Diagnosis Category' and @role='button']
+    search: //input[contains(@placeholder,'sarcoma') or contains(@placeholder,'neoplasm') or contains(@placeholder,'leukemia')]
+    checkboxes:
+      Gliomas: //*[@id="checkbox_Diagnosis Category_Gliomas"]
   Diagnosis/DiseasePhase:
     facet: (//*[text()='Diagnosis'])[1]
     dropdown: (//*[@id="Disease Phase"])[1]
@@ -101,4 +111,5 @@ groups:
       RelapProgrsion: //*[@id="checkbox_Disease Phase_Relapse/Progression"]
       Progression: //*[@id="checkbox_Disease Phase_Progression"]
       Relapse: //*[@id="checkbox_Disease Phase_Relapse"]
+      PostMortem: //*[@id="checkbox_Disease Phase_Post-Mortem"]
       Unknown: //*[@id="checkbox_Disease Phase_Unknown"]

@@ -11,6 +11,7 @@ groups:
       AmerIndAlaskan: //*[@id="checkbox_Race_American Indian or Alaska Native"]
       BlkAfricAmer: //*[@id="checkbox_Race_Black or African American"]
       HispOrLatino: //*[@id="checkbox_Race_Hispanic or Latino"]
+      MidEastOrNorthAfrican: //*[@id="checkbox_Race_Middle Eastern or North African"]
       NativeHawaiianPacific: //*[@id="checkbox_Race_Native Hawaiian or other Pacific Islander"]
       NotAlwdToCollect: //*[@id="checkbox_Race_Not Allowed to Collect"]
       NotReported: //*[@id="checkbox_Race_Not Reported"]
