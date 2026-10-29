@@ -6,10 +6,22 @@ Supported apps: **GC**, **C3DC**, **ICDC**, **CTDC**, **INS**, **Bento**, **CCDI
 
 ## How it works
 
+Two kinds of Excel file: **test case** workbooks under `Testcases/<APP>/studies/…/TC*.xlsx` (Steps: actions only) and **query** workbooks under `InputFiles/<APP>/TC*.xlsx` (Cypher/SQL for stat bar and tabs). GC explore studies use test-case Excel when `framework.test_case_source: excel`; other apps still use Python tests that call the adapter directly.
+
 ```
                          ┌──────────────────────┐
                          │  pytest + conftest   │
                          └──────────┬───────────┘
+                                    │
+              ┌─────────────────────┴─────────────────────┐
+              │ excel mode: collect Testcases/…/TC*.xlsx   │
+              │ python mode: collect test_*.py             │
+              └─────────────────────┬─────────────────────┘
+                                    │
+                         ┌──────────▼───────────┐
+                         │ excel_test_runner      │  (Steps sheet → adapter calls)
+                         │ or test function body  │
+                         └──────────┬─────────────┘
                                     │
                          ┌──────────▼───────────┐
                          │  App adapter (C3DC,  │
@@ -45,8 +57,10 @@ cp .env.example .env   # Memgraph/Neo4j passwords; optional ENV, HEADLESS, HTML_
 ## Run tests
 
 ```bash
-pytest -m unit                          # no browser
-pytest -m "c3dc and regression" --env qa
+pytest -m unit                                    # no browser
+pytest -m "c3dc and regression" --env qa          # Python study tests (most apps)
+pytest -m "gc and regression" --env qa            # GC explore: TC*.xlsx under studies/
+pytest --headed Testcases/GC/studies/phs000720/   # one study folder (excel mode)
 pytest --headed Testcases/C3DC/studies/phs000463/test_TC01_C3DC_phs000463_SexAtBirth_Female.py
 ```
 
@@ -61,9 +75,10 @@ Use app fixtures from `conftest.py` (`gc`, `c3dc`, `ctdc`, `ins`, …). Markers 
 | Excel vs Python test steps | `Config/environments.yaml` → `framework.test_case_source` (`excel` collects `TC*.xlsx` under `Testcases/<APP>/studies/…`) |
 | Tab on/off, row limit | `Config/tab_setting.yaml` |
 | Locators | `ObjectRepository/<APP>/` |
-| Queries / stat SQL or Cypher | `InputFiles/<APP>/TC*.xlsx` (`TabQuery`, `StatQuery`) |
+| Query / expected data (Cypher or SQL) | `InputFiles/<APP>/TC*.xlsx` (`TabQuery`, `StatQuery`) |
+| Excel step definitions (GC explore) | `Testcases/GC/studies/<phs>/TC*.xlsx` (sheet **Steps**); runner: `Commons/excel_test_runner.py`, collector: `Commons/excel_pytest_collect.py` |
 | Portal-specific behavior | `Commons/apps/<app>.py`, `Commons/table_reader.py` |
-| Tests | `Testcases/<APP>/` |
+| Tests | `Testcases/<APP>/` (Python and/or testcase Excel) |
 
 Per-app layout: `Commons/apps/<app>.py`, `Testcases/<APP>/`, `InputFiles/<APP>/`, `ObjectRepository/<APP>/`. **GC explore studies** use `TC*.xlsx` beside each study when `framework.test_case_source: excel` (see `Tools/convert_gc_study_tests_to_excel.py` to regenerate from Python). **Tools/** is otherwise Katalon migration—not used at pytest runtime.
 
@@ -77,6 +92,8 @@ Per-app layout: `Commons/apps/<app>.py`, `Testcases/<APP>/`, `InputFiles/<APP>/`
 
 ## Test shape
 
+**Python (C3DC, CTDC, …)** — decorators supply markers; the test calls the adapter:
+
 ```python
 @pytest.mark.c3dc
 @pytest.mark.regression
@@ -89,6 +106,8 @@ def test_example(c3dc):
     c3dc.verify_tab("Participants")
     c3dc.assert_no_failures()
 ```
+
+**GC explore (Excel testcase)** — row 2 of the Steps sheet points at `InputFiles/GC/…`; following rows are Action/Page/Params/Filter. Pytest applies `gc`, `regression`, and `smoke` (for `TC01_*`) at collection time—no `.py` per case.
 
 `verify_tab` runs all enabled tabs in the app unless you call it per tab. Empty tabs `(0)` are skipped. Failures are collected until `assert_no_failures()` (screenshot under `Reports/screenshots/`; compare workbooks under `OutputFiles/<APP>/<env>/`).
 
