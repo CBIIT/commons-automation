@@ -14,8 +14,7 @@ Two kinds of Excel file: **test case** workbooks under `Testcases/<APP>/studies/
                          └──────────┬───────────┘
                                     │
               ┌─────────────────────┴─────────────────────┐
-              │ excel mode: collect Testcases/…/TC*.xlsx   │
-              │ python mode: collect test_*.py             │
+              │        collect Testcases/…/TC*.xlsx       │            
               └─────────────────────┬─────────────────────┘
                                     │
                          ┌──────────▼───────────┐
