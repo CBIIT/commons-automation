@@ -60,14 +60,14 @@ class BrowserSettings:
 
 @dataclass
 class DbSettings:
-    """Expected-data connection (Memgraph, Neo4j, or CTDC TSV)."""
+    """Expected-data connection (Memgraph, Neo4j, or TSV for CTDC/INS)."""
 
     expected_source: str = "memgraph"
     endpoint: str = ""
     username: str = ""
     password: str = ""  # env only; never from YAML
     bolt_env: str = ""  # YAML/env block for bolt; may differ from UI env (ICDC NEO4J_ENV)
-    tsv_root: str = ""  # CTDC only: folder of YYYY-MM-DD TSV snapshots
+    tsv_root: str = ""  # CTDC/INS when expected_source is tsv
 
 
 @dataclass
@@ -292,7 +292,7 @@ def get_app_url(app: str, env: str | None = None, cfg: dict | None = None) -> st
 
 
 def get_db_settings(app: str, env: str | None = None, cfg: dict | None = None) -> DbSettings:
-    """Expected-data settings (Memgraph/Neo4j bolt, or CTDC TSV folder)."""
+    """Expected-data settings (Memgraph/Neo4j bolt, or TSV folder for CTDC/INS)."""
     cfg = cfg or load_config()
     ui_env = _normalized_env(env)
     a = _app_config(app, cfg)
