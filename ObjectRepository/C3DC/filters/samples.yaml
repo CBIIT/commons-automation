@@ -1,5 +1,10 @@
 page: Filters/Samples
 groups:
+  Samples/SampleAnatomicSite:
+    facet: (//*[text()="Samples"])[2]
+    dropdown: //*[@id="Sample Anatomic Site" and @role='button']
+    checkboxes:
+      ChestWall: //*[@id="checkbox_Sample Anatomic Site_chest wall"]
   Samples/AnatomicSite:
     facet: (//*[text()="Samples"])[2]
     dropdown: //*[@id="Anatomic site" and @role='button']
