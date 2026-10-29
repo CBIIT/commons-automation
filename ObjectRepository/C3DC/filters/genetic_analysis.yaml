@@ -1,0 +1,72 @@
+# Explore Participants — Genetic Analysis facet (sidebar filters).
+# Sub-filter labels match CCDI dashTemplate (Reported Significance, Gene Symbol, etc.).
+page: Filters/GeneticAnalysis
+groups:
+  GeneticAnalysis/ReportedSignificance:
+    facet: (//*[text()="Genetic Analysis"])[1]
+    dropdown: //*[@id="Reported Significance" and @role='button']
+    checkboxes:
+      NotApplicable: //*[@id="checkbox_Reported Significance_Not Applicable"]
+      NotReported: //*[@id="checkbox_Reported Significance_Not Reported"]
+      Tier1A: //*[@id="checkbox_Reported Significance_Tier 1A"]
+      Tier1B: //*[@id="checkbox_Reported Significance_Tier 1B"]
+      Tier2: //*[@id="checkbox_Reported Significance_Tier 2"]
+      TierILevelA: //*[@id="checkbox_Reported Significance_Tier I (Level A)"]
+      TierILevelB: //*[@id="checkbox_Reported Significance_Tier I (Level B)"]
+      TierIILevelC: //*[@id="checkbox_Reported Significance_Tier II (Level C)"]
+      TierIILevelD: //*[@id="checkbox_Reported Significance_Tier II (Level D)"]
+      TierIII: //*[@id="checkbox_Reported Significance_Tier III"]
+  GeneticAnalysis/ReportedSignificanceSystem:
+    facet: (//*[text()="Genetic Analysis"])[1]
+    dropdown: //*[@id="Reported Significance System" and @role='button']
+    checkboxes:
+      ACMGCGC: //*[@id="checkbox_Reported Significance System_ACMG/CGC"]
+      AMPASCOCAP: //*[@id="checkbox_Reported Significance System_AMP/ASCO/CAP"]
+      NotApplicable: //*[@id="checkbox_Reported Significance System_Not Applicable"]
+      NotReported: //*[@id="checkbox_Reported Significance System_Not Reported"]
+  GeneticAnalysis/GeneSymbol:
+    facet: (//*[text()="Genetic Analysis"])[1]
+    dropdown: //*[@id="Gene Symbol" and @role='button']
+    search: //input[contains(@placeholder,'BRAF') or contains(@placeholder,'TP53')]
+    checkboxes:
+      A1CF: //*[@id="checkbox_Gene Symbol_A1CF"]
+      ABCA4: //*[@id="checkbox_Gene Symbol_ABCA4"]
+      ABL1: //*[@id="checkbox_Gene Symbol_ABL1"]
+      BRAF: //*[@id="checkbox_Gene Symbol_BRAF"]
+      KRAS: //*[@id="checkbox_Gene Symbol_KRAS"]
+      MYCN: //*[@id="checkbox_Gene Symbol_MYCN"]
+      TP53: //*[@id="checkbox_Gene Symbol_TP53"]
+  GeneticAnalysis/AlterationType:
+    facet: (//*[text()="Genetic Analysis"])[1]
+    dropdown: //*[@id="Alteration Type" and @role='button']
+    checkboxes:
+      Deletion: //*[@id="checkbox_Alteration Type_Deletion"]
+      MutationNOS: //*[@id="checkbox_Alteration Type_Mutation, NOS"]
+      PertinentNegativeResult: //*[@id="checkbox_Alteration Type_Pertinent Negative Result"]
+      Rearrangement: //*[@id="checkbox_Alteration Type_Rearrangement"]
+      Substitution: //*[@id="checkbox_Alteration Type_Substitution"]
+      Translocation: //*[@id="checkbox_Alteration Type_Translocation"]
+      Unknown: //*[@id="checkbox_Alteration Type_Unknown"]
+  GeneticAnalysis/Alteration:
+    facet: (//*[text()="Genetic Analysis"])[1]
+    dropdown: //*[@id="Alteration" and @role='button']
+    search: //input[contains(@placeholder,'Somatic mutation') or contains(@placeholder,'loss')]
+    checkboxes:
+      KRASMutation: //*[@id="checkbox_Alteration_KRAS Mutation"]
+      PertinentNegativeResult: //*[@id="checkbox_Alteration_Pertinent Negative Result"]
+  GeneticAnalysis/FusionPartnerGene:
+    facet: (//*[text()="Genetic Analysis"])[1]
+    dropdown: //*[@id="Fusion Partner Gene" and @role='button']
+    checkboxes:
+      ABL2: //*[@id="checkbox_Fusion Partner Gene_ABL2"]
+      ACACA: //*[@id="checkbox_Fusion Partner Gene_ACACA"]
+      AGFG1: //*[@id="checkbox_Fusion Partner Gene_AGFG1"]
+      AKAP12: //*[@id="checkbox_Fusion Partner Gene_AKAP12"]
+  GeneticAnalysis/Status:
+    facet: (//*[text()="Genetic Analysis"])[1]
+    dropdown: //*[@id="Status" and @role='button']
+    checkboxes:
+      Absent: //*[@id="checkbox_Status_Absent"]
+      Present: //*[@id="checkbox_Status_Present"]
+      NotReported: //*[@id="checkbox_Status_Not Reported"]
+      Unknown: //*[@id="checkbox_Status_Unknown"]

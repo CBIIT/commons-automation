@@ -21,6 +21,7 @@ Loaded by `Commons/object_repository.py`. Keys match Katalon paths minus app nam
 | `filters/treatment.yaml` | Treatment type, agent |
 | `filters/treatment_resp.yaml` | Response, category, system |
 | `filters/samples.yaml` | Anatomic site, tumor spatial extent |
+| `filters/genetic_analysis.yaml` | Reported significance, gene symbol, alteration type, fusion partner, status |
 | `statbar.yaml`, `result_tabs.yaml`, `navbar.yaml` | Explore chrome |
 | `static/*.yaml` | Home / About / Data model |
 
@@ -41,7 +42,7 @@ groups:
 - **Checkbox id pattern:** `checkbox_<Facet label>_<value>` (spaces as in UI, e.g. `checkbox_Treatment Type_Radiation`, `checkbox_Tumor Spatial Extent_Metastatic`).
 - **`dropdown`:** `@id` must match Explore facet sub-panel (verify in browser if UI renames, e.g. Tumor Spatial Extent vs legacy “Tumor classification”). Many facets use `@role='button'` on the dropdown control.
 - **Samples filters:** each group uses `facet: (//*[text()="Samples"])[2]` — **`[1]` is usually the result tab**; `[2]` is the left filter category (same pattern as `Study` / `Survival` with inline `facet`).
-- **`other`:** scroll helpers for long lists (see `study.yaml` dbGaP scroll).
+- **`other`:** optional extra locators (e.g. Bento age inputs); C3DC filter YAML does not use it.
 
 If `select_filter` fails with unknown checkbox, add the value under the right `groups` entry — do not hardcode XPath in tests.
 

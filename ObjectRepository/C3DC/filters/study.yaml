@@ -1,22 +1,12 @@
 page: Filters/Study
 groups:
-  Study/StudyName:
-    dropdown: //*[@id="Study Short Title"]
-    checkboxes:
-      MolecularCharacterizationInitiative: //*[@id="checkbox_Study Short Title_TARGET
-        Neuroblastoma"]
-      TargetNeuroblastoma: //*[@id="checkbox_Study Short Title_Molecular Characterization
-        Initiative"]
-    facet: (//*[text()="Study"])[1]
   Study/dbGaP_Accession:
-    dropdown: (//*[@id="dbGaP Accession"])[1]
-    other:
-      dbGaPAccesFacet_Scroll: "//div[contains(@class,'MuiCollapse-root')]//div[\r\n\
-        \  (contains(@style,'overflow') or contains(@class,'jss'))\r\n]"
     facet: (//*[text()="Study"])[1]
+    dropdown: (//*[@id="dbGaP Accession"])[1]
     checkboxes:
       phs000463: //*[@id="checkbox_dbGaP Accession_phs000463"]
       phs000464: //*[@id="checkbox_dbGaP Accession_phs000464"]
+      phs000465: //*[@id="checkbox_dbGaP Accession_phs000465"]
       phs000466: //*[@id="checkbox_dbGaP Accession_phs000466"]
       phs000467: //*[@id="checkbox_dbGaP Accession_phs000467"]
       phs000468: //*[@id="checkbox_dbGaP Accession_phs000468"]
@@ -24,7 +14,17 @@ groups:
       phs000470: //*[@id="checkbox_dbGaP Accession_phs000470"]
       phs000471: //*[@id="checkbox_dbGaP Accession_phs000471"]
       phs000720: //*[@id="checkbox_dbGaP Accession_phs000720"]
+      phs001228: //*[@id="checkbox_dbGaP Accession_phs001228"]
+      phs001327: //*[@id="checkbox_dbGaP Accession_phs001327"]
       phs001437: //*[@id="checkbox_dbGaP Accession_phs001437"]
+      phs001714: //*[@id="checkbox_dbGaP Accession_phs001714"]
+      phs001738: //*[@id="checkbox_dbGaP Accession_phs001738"]
+      phs001846: //*[@id="checkbox_dbGaP Accession_phs001846"]
+      phs001878: //*[@id="checkbox_dbGaP Accession_phs001878"]
+      phs001987: //*[@id="checkbox_dbGaP Accession_phs001987"]
+      phs002187: //*[@id="checkbox_dbGaP Accession_phs002187"]
+      phs002276: //*[@id="checkbox_dbGaP Accession_phs002276"]
+      phs002322: //*[@id="checkbox_dbGaP Accession_phs002322"]
       phs002371: //*[@id="checkbox_dbGaP Accession_phs002371"]
       phs002430: //*[@id="checkbox_dbGaP Accession_phs002430"]
       phs002431: //*[@id="checkbox_dbGaP Accession_phs002431"]
@@ -36,12 +36,21 @@ groups:
       phs002620: //*[@id="checkbox_dbGaP Accession_phs002620"]
       phs002677: //*[@id="checkbox_dbGaP Accession_phs002677"]
       phs002790: //*[@id="checkbox_dbGaP Accession_phs002790"]
+      phs002823: //*[@id="checkbox_dbGaP Accession_phs002823"]
       phs002827: //*[@id="checkbox_dbGaP Accession_phs002827"]
+      phs002883: //*[@id="checkbox_dbGaP Accession_phs002883"]
       phs003111: //*[@id="checkbox_dbGaP Accession_phs003111"]
+      phs003160: //*[@id="checkbox_dbGaP Accession_phs003160"]
+      phs003161: //*[@id="checkbox_dbGaP Accession_phs003161"]
       phs003162: //*[@id="checkbox_dbGaP Accession_phs003162"]
+      phs003163: //*[@id="checkbox_dbGaP Accession_phs003163"]
       phs003164: //*[@id="checkbox_dbGaP Accession_phs003164"]
+      phs003215: //*[@id="checkbox_dbGaP Accession_phs003215"]
       phs003432: //*[@id="checkbox_dbGaP Accession_phs003432"]
       phs003519: //*[@id="checkbox_dbGaP Accession_phs003519"]
+      phs003975: //*[@id="checkbox_dbGaP Accession_phs003975"]
+      phs003987: //*[@id="checkbox_dbGaP Accession_phs003987"]
+      phs004222: //*[@id="checkbox_dbGaP Accession_phs004222"]
       phs004232: //*[@id="checkbox_dbGaP Accession_phs004232"]
       phs004490: //*[@id="checkbox_dbGaP Accession_phs004490"]
   Study/StudyPhase:
@@ -49,3 +58,12 @@ groups:
     dropdown: //*[@id="Study Phase" and @role='button']
     checkboxes:
       Completed: //*[@id="checkbox_Study Phase_Completed"]
+      Active: //*[@id="checkbox_Study Phase_Active"]
+  Study/StudyName:
+    facet: (//*[text()="Study"])[1]
+    dropdown: //*[@id="Study Short Title"]
+    checkboxes:
+      MolecularCharacterizationInitiative: //*[@id="checkbox_Study Short Title_TARGET
+        Neuroblastoma"]
+      TargetNeuroblastoma: //*[@id="checkbox_Study Short Title_Molecular Characterization
+        Initiative"]
