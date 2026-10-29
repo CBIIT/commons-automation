@@ -20,7 +20,7 @@ def _tab(name: str, input_tab: str, stat: str, ui: str, db: str, max_pages: int 
 
 class INS(BaseApp):
     NAME = "INS"
-    BANNER_KEYS: list = []
+    BANNER_KEYS = ["Navbar/WarningBan_Continue_Btn"]
     STATIC_DATA_EXCEL = "INS_StaticData.xlsx"
 
     STATS = [

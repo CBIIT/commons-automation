@@ -5,6 +5,8 @@ Tables: df_program, df_project, df_grant, df_publication — SQL in InputFiles/I
 """
 from __future__ import annotations
 
+import re
+import zipfile
 from pathlib import Path
 from typing import Dict, Optional
 
@@ -47,14 +49,41 @@ def _node_for_filename(file_name: str) -> Optional[str]:
     return None
 
 
+_DATE_ZIP = re.compile(r"^\d{4}-\d{2}-\d{2}\.zip$", re.I)
+
+
+def _ensure_dated_zip_extracted(tsv_root: Path) -> None:
+    """If only ``2024-10-29.zip`` is present, extract to ``2024-10-29/*.tsv`` once."""
+    for child in tsv_root.iterdir():
+        if not child.is_file() or not _DATE_ZIP.match(child.name):
+            continue
+        folder = tsv_root / child.stem
+        if folder.is_dir() and any(folder.glob("*.tsv")):
+            continue
+        folder.mkdir(parents=True, exist_ok=True)
+        with zipfile.ZipFile(child) as zf:
+            for name in zf.namelist():
+                if name.startswith("__MACOSX") or name.endswith("/"):
+                    continue
+                base = Path(name).name
+                if not base.lower().endswith(".tsv"):
+                    continue
+                target = folder / base
+                if not target.exists():
+                    target.write_bytes(zf.read(name))
+        action_log.say(f"INS TSV extracted {child.name} → {folder.name}/")
+
+
 def load_ins_tsv_versions(tsv_root: Path) -> Dict[str, pd.DataFrame]:
     """Merge YYYY-MM-DD folders under InputFiles/INS/ (e.g. 2024-10-29/*.tsv)."""
     frames: Dict[str, pd.DataFrame] = {node: pd.DataFrame() for node in INS_NODE_INDEX}
     if not tsv_root.is_dir():
         raise RuntimeError(
             f"INS TSV folder not found: {tsv_root}. "
-            "Copy Commons_Automation/InputFiles/INS/<date>/ into InputFiles/INS/."
+            "Copy Commons_Automation/InputFiles/INS/<date>/ into InputFiles/INS/ "
+            "or add YYYY-MM-DD.zip beside the TC*.xlsx workbooks."
         )
+    _ensure_dated_zip_extracted(tsv_root)
     versions = _date_release_folders(tsv_root)
     if not versions:
         # Flat layout: tsv files directly under tsv_root (single release)
@@ -79,6 +108,16 @@ def load_ins_tsv_versions(tsv_root: Path) -> Dict[str, pd.DataFrame]:
                 df_new = df_new[~df_new.index.isin(current.index)]
             frames[node] = pd.concat([current, df_new])
         action_log.say(f"INS TSV loaded for release: {label}")
+    if all(frames[node].empty for node in INS_NODE_INDEX):
+        raise RuntimeError(
+            f"No INS TSV node files loaded under {tsv_root}. "
+            "Expected InputFiles/INS/YYYY-MM-DD/*.tsv or YYYY-MM-DD.zip."
+        )
+    if "cancer_type" not in frames["program"].columns:
+        raise RuntimeError(
+            f"INS program TSV missing cancer_type column (loaded columns: {list(frames['program'].columns)}). "
+            "Re-extract InputFiles/INS/2024-10-29.zip or refresh program.tsv from Katalon InputFiles."
+        )
     return frames
 
 

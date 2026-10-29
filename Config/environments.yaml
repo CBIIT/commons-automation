@@ -86,10 +86,13 @@ apps:
 
   INS:
     # Expected data = SQL in InputFiles/INS/TC*.xlsx against program/project/grant/publication TSVs.
+    # Refresh InputFiles/INS/YYYY-MM-DD/*.tsv from CBIIT ins-data when portal counts drift (esp. Publications).
     expected_source: tsv
     tsv_root: InputFiles/INS
+    stat_bar_omit:
+      - Publications   # snapshot lags QA/prod publication ingest; remove after publication.tsv refresh
     urls:
-      qa:    https://studycatalog-stage.cancer.gov/
+      qa:    https://studycatalog-qa.cancer.gov/
       stage: https://studycatalog-stage.cancer.gov/
       prod:  https://studycatalog.cancer.gov/
 

@@ -366,6 +366,9 @@ class BaseApp:
             self._fail("Stat bar: the StatQuery returned no rows")
             return
         exp = self._expected_stat_dict(expected)
+        omit = frozenset(getattr(self.settings, "stat_bar_omit", ()) or ())
+        if omit:
+            action_log.say(f"Stat bar compare omitting: {', '.join(sorted(omit))}")
         for spec in self.STATS:
             action_log.stat_bar_count_from_db(spec.name, exp.get(spec.name, ""))
         header = [s.name for s in self.STATS]
@@ -379,8 +382,13 @@ class BaseApp:
             base.with_name(base.name + "_DB.xlsx"), self.STAT_DB_SHEET, header, [exp_row]
         )
         action_log.compare_step(self.STAT_UI_SHEET, self.STAT_DB_SHEET)
-        cmp_table = compare_tables([ui_row], [exp_row], header, header)
-        cmp_counts = compare_counts(self.stats, exp)
+        cmp_header = [h for h in header if h not in omit]
+        cmp_ui = [[v for h, v in zip(header, ui_row) if h not in omit]]
+        cmp_exp = [[v for h, v in zip(header, exp_row) if h not in omit]]
+        cmp_table = compare_tables(cmp_ui, cmp_exp, cmp_header, cmp_header)
+        ui_counts = {k: v for k, v in self.stats.items() if k not in omit}
+        exp_counts = {k: v for k, v in exp.items() if k not in omit}
+        cmp_counts = compare_counts(ui_counts, exp_counts)
         cmp = Comparison(
             cmp_table.passed and cmp_counts.passed,
             1,
