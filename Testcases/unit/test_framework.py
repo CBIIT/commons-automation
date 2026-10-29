@@ -272,7 +272,7 @@ def test_ctdc_expected_source_is_tsv_without_bolt_password():
     db = get_db_settings("CTDC", "qa")
     assert db.expected_source == "tsv"
     assert db.password == ""
-    assert "CTDC/tsv" in db.tsv_root.replace("\\", "/")
+    assert db.tsv_root.replace("\\", "/").endswith("InputFiles/CTDC")
     settings = get_app_settings("CTDC", "qa")
     assert settings.tab_execution.get("Study Files") is True
     from Commons.apps.ctdc import CTDC
@@ -691,7 +691,7 @@ def test_ctdc_cmb_study_files_are_zip_collections():
     from Commons.tsv_source import TsvSource
 
     qf = read_query_file("CTDC", "TC01_CTDC_CMB_Sex-Male.xlsx")
-    src = TsvSource(str(ROOT / "InputFiles" / "CTDC" / "tsv"), tab_row_limit=100)
+    src = TsvSource(str(ROOT / "InputFiles" / "CTDC"), tab_row_limit=100)
     try:
         tab = src.fetch_tab_table(qf, "StudyFilesTab", tab_display_name="Study Files")
     finally:
@@ -727,7 +727,7 @@ def test_ctdc_ahep_study_files_are_zip_collections():
     from Commons.tsv_source import TsvSource
 
     qf = read_query_file("CTDC", "TC01_CTDC_AHEP0731_FileType-RadiologyImaging.xlsx")
-    src = TsvSource(str(ROOT / "InputFiles" / "CTDC" / "tsv"), tab_row_limit=100)
+    src = TsvSource(str(ROOT / "InputFiles" / "CTDC"), tab_row_limit=100)
     try:
         tab = src.fetch_tab_table(qf, "StudyFilesTab", tab_display_name="Study Files")
     finally:
@@ -757,7 +757,7 @@ def test_ctdc_cmb_filetype_vcf_includes_study_level_zip():
     from Commons.tsv_source import TsvSource
 
     qf = read_query_file("CTDC", "TC01_CTDC_CMB_FileType-VariantCallFile.xlsx")
-    src = TsvSource(str(ROOT / "InputFiles" / "CTDC" / "tsv"), tab_row_limit=100)
+    src = TsvSource(str(ROOT / "InputFiles" / "CTDC"), tab_row_limit=100)
     try:
         stat = src.fetch_stat_bar_table(qf)
         study = src.fetch_tab_table(qf, "StudyFilesTab", tab_display_name="Study Files")
@@ -784,7 +784,7 @@ def test_ctdc_cmb_nivolumab_is_exact_therapy_string():
     from Commons.tsv_source import TsvSource
 
     qf = read_query_file("CTDC", "TC01_CTDC_CMB_TargetedTherapy-Nivolumab.xlsx")
-    src = TsvSource(str(ROOT / "InputFiles" / "CTDC" / "tsv"), tab_row_limit=100)
+    src = TsvSource(str(ROOT / "InputFiles" / "CTDC"), tab_row_limit=100)
     try:
         stat = src.fetch_stat_bar_table(qf)
         part = src.fetch_tab_table(qf, "ParticipantsTab")
