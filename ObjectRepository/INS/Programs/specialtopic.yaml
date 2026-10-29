@@ -1,0 +1,12 @@
+# INS Explore filters (SpecialTopic)
+page: Filters/SpecialTopic
+groups:
+  SpecialTopic/SpecialTopic:
+    dropdown: //*[@id="Special Topic"]
+    checkboxes:
+      General: //*[@id="checkbox_Special Topic_General"]
+      HIVAIDS: //*[@id="checkbox_Special Topic_HIV/AIDS"]
+      HealthDisparities: //*[@id="checkbox_Special Topic_Health Disparities"]
+      Moonshot: //*[@id="checkbox_Special Topic_Cancer Moonshot"]
+      PediatricAYA: //*[@id="checkbox_Special Topic_Pediatric/AYA"]
+      SPORE: //*[@id="checkbox_Special Topic_SPORE"]

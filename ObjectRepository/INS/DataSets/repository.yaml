@@ -1,0 +1,8 @@
+# INS Explore Datasets — repository filter checkboxes
+page: DataSets/Repository
+groups:
+  DataSets/Repository:
+    checkboxes:
+      CEDCD: //*[@value='CEDCD']
+      GEO: //*[@value='GEO']
+      dbGaP: //*[@value='dbGaP']

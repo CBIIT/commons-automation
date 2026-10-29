@@ -1,0 +1,16 @@
+# Converted from Katalon Object Repository/INS/DataSets
+page: DataSets
+elements:
+  Description: //*[@class='textSpan']
+  Next-Btn: //*[contains(@class, 'bspage-link-next')]
+  ParticipantCount: //*[@class='textSpan caseCountHighlight']
+  PrimaryDisease: //*[@class='itemSpan']
+  RowPerPaDd-Value: //*[@class='dropdown']//li[4]
+  RowsPerPage-Dd: //*[@class='dropdown']
+  SampleCount: //*[@class='textSpan sampleCountHighlight']
+  Title: //a[starts-with(@href, '#/dataset/phs')]
+  sourceID: //a[starts-with(@href, 'https://cedcd') or starts-with(@href, 'https://www.ncbi.nlm')]
+groups:
+  DataSets/Repository:
+    checkbox_template: //*[@value='{value}']
+    values: [CEDCD, GEO, dbGaP]

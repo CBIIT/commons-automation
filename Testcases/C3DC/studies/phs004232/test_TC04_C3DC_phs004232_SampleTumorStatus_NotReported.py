@@ -5,6 +5,7 @@ import pytest
 
 @pytest.mark.c3dc
 @pytest.mark.regression
+@pytest.mark.datarelease
 def test_TC04_C3DC_phs004232_SampleTumorStatus_NotReported(c3dc):
     c3dc.load_query_file("TC04_C3DC_phs004232_SampleTumorStatus-NotReported.xlsx")
     c3dc.accept_banner()

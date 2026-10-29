@@ -5,6 +5,7 @@ import pytest
 
 @pytest.mark.c3dc
 @pytest.mark.regression
+@pytest.mark.datarelease
 def test_TC02_C3DC_phs004490_Sex_Male(c3dc):
     c3dc.load_query_file("TC02_C3DC_phs004490_Sex-Male.xlsx")
     c3dc.accept_banner()

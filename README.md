@@ -2,7 +2,7 @@
 
 End-to-end regression framework for **Data Commons web apps**: open a browser, apply explore filters, read result tables from the UI, and compare them to expected data (**Memgraph/Neo4j Cypher**, or **CTDC TSV + SQL**). Tests are plain Python files run with **pytest**; each **application** (GC, C3DC, and others you add) gets its own app class, object repository, input data, and test tree.
 
-Apps in the tree today include **GC**, **C3DC**, **ICDC**, **CTDC**, and **Bento** (plus locators for others). Each app follows the same folders: `Commons/apps/<app>.py`, `Testcases/<APP>/`, `InputFiles/<APP>/`, `ObjectRepository/<APP>/`.
+Apps in the tree today include **GC**, **C3DC**, **ICDC**, **CTDC**, **INS**, and **Bento** (plus locators for others). Each app follows the same folders: `Commons/apps/<app>.py`, `Testcases/<APP>/`, `InputFiles/<APP>/`, `ObjectRepository/<APP>/`.
 
 ## Framework map
 
@@ -48,8 +48,8 @@ cp .env.example .env           # gitignored; Memgraph passwords + optional run d
 |--------|---------|
 | **`Config/environments.yaml`** | Per-app URLs and Memgraph host/username per `qa` / `stage` / `prod` (no secrets) |
 | **`.env`** | `MEMGRAPH_PASSWORD_<APP>`, optional `ENV`, `BROWSER`, `HEADLESS` / `HEADED`, `SLOWMO`, `COMMONS_VERBOSE`, `FORCE_COLOR` |
-| **`conftest.py`** | Session browser, `page` fixture, app fixtures (`gc`, `c3dc`, `icdc`, `bento`, …) opened at env URL |
-| **`pytest.ini`** | Markers: `gc`, `c3dc`, `ccdi`, `ctdc`, `icdc`, `bento`, `smoke`, `regression`, `quickrun`, `static`, `unit` |
+| **`conftest.py`** | Session browser, `page` fixture, app fixtures (`gc`, `c3dc`, `icdc`, `ins`, `bento`, …) opened at env URL |
+| **`pytest.ini`** | Markers: `gc`, `c3dc`, `ccdi`, `ctdc`, `icdc`, `ins`, `bento`, `smoke`, `regression`, `quickrun`, `static`, `unit` |
 
 CLI flags override `.env` when both are set: `--env`, `--headed`, `--browser`, `--slowmo`, `--trace-actions`.
 
@@ -84,8 +84,9 @@ pytest --junitxml=Reports/junit.xml
 | **ICDC** | Neo4j | Same column layout | `NEO4J_PASSWORD_ICDC` (or legacy `MEMGRAPH_PASSWORD_ICDC`) |
 | **Bento** | Neo4j | Cypher in `TabQuery` / `StatQuery` (port from Katalon SQL; see `InputFiles/BENTO/README.md`) | `NEO4J_PASSWORD_BENTO` |
 | **CTDC** | TSV/TXT snapshot (`InputFiles/CTDC/tsv/<STUDY>/YYYY-MM-DD/`) | SQL in `TabQuery` / `StatQuery` | none (`CTDC_TSV_ROOT` optional) |
+| **INS** | TSV snapshot (`InputFiles/INS/YYYY-MM-DD/*.tsv`) | SQL in `TabQuery` / `StatQuery` | none (`tsv_root` in `environments.yaml`) |
 
-C3DC/GC/ICDC each have their **own** cluster; do not share passwords. CTDC loads node files into an in-memory SQLite database at runtime (Katalon pandasql). When CTDC has Memgraph, set `expected_source: memgraph` and run `Tools/convert_ctdc_sql_to_cypher.py`. Tests read queries from the workbook— they do not import `Tools/cypher/`.
+C3DC/GC/ICDC each have their **own** cluster; do not share passwords. **CTDC** and **INS** load TSV node files into an in-memory SQLite database at runtime (Katalon pandasql). When CTDC has Memgraph, set `expected_source: memgraph` and run `Tools/convert_ctdc_sql_to_cypher.py`. Regenerate INS pytest from Katalon with `python3 Tools/generate_ins_tests.py` and filter YAML with `python3 Tools/build_ins_filters.py`. Tests read queries from the workbook— they do not import `Tools/cypher/`.
 
 ## Example tests
 
