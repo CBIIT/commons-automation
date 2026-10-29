@@ -429,8 +429,7 @@ def read_table_row_data(
             for j in range(0, tblcol):
                 add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
         elif tbl_main == "//*[@id='treatment_response_tab_table']":
-            tblcol = tblcol - 2
-            for j in range(1, tblcol):
+            for j in range(len(col_header)):
                 add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
         elif tbl_main == "//*[@id='survival_tab_table']":
             tblcol = tblcol - 3

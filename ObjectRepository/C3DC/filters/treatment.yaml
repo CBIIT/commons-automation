@@ -19,3 +19,6 @@ groups:
       Brachthrpy: //*[@id="checkbox_Treatment Type_Brachytherapy"]
       Chemotherapy: //*[@id="checkbox_Treatment Type_Chemotherapy"]
       Imunothrpy: //*[@id="checkbox_Treatment Type_Immunotherapy"]
+      Radiation: //*[@id="checkbox_Treatment Type_Radiation"]
+      Surgery: //*[@id="checkbox_Treatment Type_Surgery"]
+      Other: //*[@id="checkbox_Treatment Type_Other"]

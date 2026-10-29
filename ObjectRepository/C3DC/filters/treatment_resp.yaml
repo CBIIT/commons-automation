@@ -17,3 +17,4 @@ groups:
     checkboxes:
       NotDone: //*[@id="checkbox_Response_Not Done"]
       StableDisease: //*[@id="checkbox_Response_Stable Disease"]
+      CompleteRemission: //*[@id="checkbox_Response_Complete Remission"]
