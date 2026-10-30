@@ -96,10 +96,10 @@ apps:
   # Portal: studycatalog*.cancer.gov
   # -------------------------------------------------------------------------
   INS:
-    tab_row_limit: 100
+    tab_row_limit: 40
     pagination_max_pages: 25
     tabs:
       Programs: true
       Projects: true
-      Grants: false
+      Grants: true
       Publications: false
