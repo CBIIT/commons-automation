@@ -1,5 +1,14 @@
-"""CTDC (Clinical Trials Data Commons): https://clinical-qa.datacommons.cancer.gov"""
-from Commons.apps.base import BaseApp, StatSpec, TabSpec  # TabSpec used for Study Files tab
+"""
+CTDC (Clinical Trials Data Commons): https://clinical-qa.datacommons.cancer.gov
+
+Explore: stat bar + result tabs (Participants, Biospecimens, Files, Study Files).
+Expected data: TSV snapshots under InputFiles/CTDC/<STUDY>/YYYY-MM-DD/ + SQL in TC*.xlsx.
+"""
+from Commons.apps.base import BaseApp, StatSpec, TabSpec
+
+# ---------------------------------------------------------------------------
+# Tab wiring (workbook TabQuery keys ↔ ResultTabs locators)
+# ---------------------------------------------------------------------------
 
 
 def _tab(name, input_tab, stat, ui, db, max_pages=10):
@@ -18,10 +27,17 @@ def _tab(name, input_tab, stat, ui, db, max_pages=10):
     )
 
 
+# ---------------------------------------------------------------------------
+# App adapter
+# ---------------------------------------------------------------------------
+
+
 class CTDC(BaseApp):
     NAME = "CTDC"
     BANNER_KEYS = ["Home/WarningBan_Continue_Btn"]
     STATIC_DATA_EXCEL = "TC01_CTDC_StaticData.xlsx"
+
+    # --- Stat bar and result tabs ---
 
     STATS = [
         StatSpec("Studies", "Statbar/Studies-Count"),
@@ -61,6 +77,8 @@ class CTDC(BaseApp):
         "Files",
         "Study Files",
     )
+
+    # --- Explore navigation ---
 
     def open_explore(self):
         """Open Explore via navbar (Katalon: clickTab CTDC/NavBar/Explore-Btn)."""

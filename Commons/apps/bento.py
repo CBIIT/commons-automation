@@ -1,10 +1,14 @@
-"""BENTO (TAILORx demo portal): https://bento-tools.org — Explore Cases / Samples / Files."""
-from typing import TYPE_CHECKING
+"""
+BENTO (TAILORx demo portal): https://bento-tools.org
 
+Explore Cases view with stat bar (Programs … Files) and result tabs Cases / Samples / Files.
+Expected data: Neo4j Cypher in InputFiles/BENTO/TC*.xlsx. Arm + facet matrix: Tools/bento_arm_filters.py.
+"""
 from Commons.apps.base import BaseApp, StatSpec, TabSpec
 
-if TYPE_CHECKING:
-    from Commons.bento_arm_filters import ArmLetter, BentoFacetSpec
+# ---------------------------------------------------------------------------
+# Tab wiring (workbook TabQuery keys ↔ UI locators)
+# ---------------------------------------------------------------------------
 
 
 def _tab(name, input_tab, stat, ui_sheet, db_sheet, tab_key, table, header, next_key, max_pages=10):
@@ -21,6 +25,11 @@ def _tab(name, input_tab, stat, ui_sheet, db_sheet, tab_key, table, header, next
         max_pages=max_pages,
         label=name,
     )
+
+
+# ---------------------------------------------------------------------------
+# App adapter
+# ---------------------------------------------------------------------------
 
 
 class Bento(BaseApp):
@@ -75,12 +84,16 @@ class Bento(BaseApp):
 
     STANDARD_VERIFY_TABS = ("Cases", "Samples", "Files")
 
+    # --- Navigation ---
+
     def open_cases(self):
         """NavBar Explore / Cases view (Katalon: Bento_Cases-Btn)."""
         self.click("NavBar/Bento_Cases-Btn", ui_message="Bento Explore (Cases) opened successfully.")
 
-    def select_arm(self, arm: "ArmLetter"):
-        """Arm facet (A–D), e.g. A = RS 0–10 endocrine therapy alone."""
+    # --- Sidebar filters (tests use select_filter explicitly; helpers optional) ---
+
+    def select_arm(self, arm: str):
+        """Arm facet A–D (TAILORx study arms)."""
         self.select_filter("Filter/Arm", arm)
 
     def open_filter_by_samples(self):
@@ -90,26 +103,14 @@ class Bento(BaseApp):
         self.click("Filters/Files/FilterByFiles_Facet", ui_message="Filter By Files section opened.")
 
     def set_age_range(self, min_years: int, max_years: int):
+        """Filter/Age min/max inputs (not a checkbox facet)."""
         g = self.repo.filter_group("Filter/Age")
         self._prepare_filter_panel(g, g.other["MinAge_Input"])
         self.ui.fill(g.other["MinAge_Input"], str(min_years), repo_key="Filter/Age/MinAge_Input")
         self.ui.fill(g.other["MaxAge_Input"], str(max_years), repo_key="Filter/Age/MaxAge_Input")
         self.ui.wait_idle()
 
-    def apply_arm_secondary_filters(self, arm: "ArmLetter", spec: "BentoFacetSpec"):
-        """Arm + one sidebar facet (matches arm-a … arm-d study-style folders)."""
-        from Commons.bento_arm_filters import choice_for_arm
-
-        choice = choice_for_arm(spec, arm)
-        self.select_arm(arm)
-        if spec.samples_section:
-            self.open_filter_by_samples()
-        if spec.files_section:
-            self.open_filter_by_files()
-        if choice.age_min is not None:
-            self.set_age_range(choice.age_min, choice.age_max or choice.age_min)
-        elif choice.filter_value:
-            self.select_filter(spec.filter_group, choice.filter_value)
+    # --- Verify ---
 
     def verify_standard_tabs(self):
         for tab in self.STANDARD_VERIFY_TABS:

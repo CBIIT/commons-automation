@@ -1,4 +1,4 @@
-"""Explore facets for Bento arm-* tests: each arm (A–D) picks a different checkbox per facet."""
+"""Bento arm-* facet matrix (TC01–TC14 × arms A–D). Used by Tools/generate_bento_arm_tests.py and Tools/cypher/bento_cypher.py."""
 from __future__ import annotations
 
 from dataclasses import dataclass

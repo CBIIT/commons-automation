@@ -1,12 +1,20 @@
-"""Neo4j Cypher for Bento arm-* expected data (TAILORx graph model)."""
+"""Neo4j Cypher for Bento arm-* expected data (TAILORx graph model).
+
+Used by Tools/generate_bento_arm_tests.py and Tools/convert_bento_sql_to_cypher.py only.
+"""
 from __future__ import annotations
 
 import re
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict
 
-from Commons.bento_arm_filters import ArmLetter, ArmFacetChoice, BentoFacetSpec
+_TOOLS = Path(__file__).resolve().parents[1]
+if str(_TOOLS) not in sys.path:
+    sys.path.insert(0, str(_TOOLS))
+
+from bento_arm_filters import ArmLetter, ArmFacetChoice, BentoFacetSpec
 
 # UI / SQL workbook column aliases (must match Bento results tables).
 _CASES_RETURN = """

@@ -1,27 +1,41 @@
-"""Run Cypher from input Excel against Bolt (Memgraph or Neo4j) and return expected tables for UI compare."""
+"""
+Expected tab/stat data for UI compare.
+
+Backends: Memgraph or Neo4j (Cypher over Bolt), or TSV + SQL via tsv_source.TsvSource.
+create_expected_data_source() picks the backend from Config/environments.yaml.
+"""
 import json
 from dataclasses import dataclass, field
 from typing import List, Optional
 
 from Commons import action_log
-from Commons.tab_setting import apply_tab_row_limit
 from Commons.query_reader import QueryFile
 from Commons.settings import AppSettings, memgraph_password_env_keys, neo4j_password_env_keys
+from Commons.tab_setting import apply_tab_row_limit
+
+# ---------------------------------------------------------------------------
+# Action-log labels for tab queries
+# ---------------------------------------------------------------------------
+
+
+def _tab_title(tab_key: str, display_name: Optional[str] = None) -> str:
+    name = (display_name or "").strip()
+    if not name:
+        name = tab_key[:-3] if tab_key.endswith("Tab") else tab_key
+    return name
 
 
 def memgraph_tab_query_label(tab_key: str, display_name: Optional[str] = None) -> str:
-    """Console label for [DB] … when running a result-tab Cypher query."""
-    name = (display_name or "").strip()
-    if not name:
-        name = tab_key[:-3] if tab_key.endswith("Tab") else tab_key
-    return f"{name} tab query from memgraph"
+    return f"{_tab_title(tab_key, display_name)} tab query from memgraph"
 
 
 def neo4j_tab_query_label(tab_key: str, display_name: Optional[str] = None) -> str:
-    name = (display_name or "").strip()
-    if not name:
-        name = tab_key[:-3] if tab_key.endswith("Tab") else tab_key
-    return f"{name} tab query from neo4j"
+    return f"{_tab_title(tab_key, display_name)} tab query from neo4j"
+
+
+# ---------------------------------------------------------------------------
+# Table model and Bolt cell strings
+# ---------------------------------------------------------------------------
 
 
 @dataclass
@@ -30,8 +44,37 @@ class Table:
     rows: List[List[str]] = field(default_factory=list)
 
 
+def format_db_cell(value) -> str:
+    """One query result value → string for compare (matches Katalon/Java export rules)."""
+    if value is None:
+        return ""
+    if isinstance(value, str):
+        return value
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    if isinstance(value, (list, tuple, dict)):
+        return json.dumps(value, separators=(",", ":"), ensure_ascii=False)
+    return str(value)
+
+
+format_memgraph_cell = format_db_cell  # older import name
+
+
+def _records_to_table(records) -> Table:
+    if not records:
+        return Table()
+    header = list(records[0].keys())
+    rows = [[format_db_cell(record[column]) for column in header] for record in records]
+    return Table(header=header, rows=rows)
+
+
+# ---------------------------------------------------------------------------
+# Shared interface (Memgraph, Neo4j, TSV)
+# ---------------------------------------------------------------------------
+
+
 class ExpectedDataSource:
-    """Expected UI results from the app's bolt DB (see get_db_settings)."""
+    """Run TabQuery / StatQuery from the input workbook; return rows for compare."""
 
     def fetch_tab_table(
         self,
@@ -46,21 +89,9 @@ class ExpectedDataSource:
         raise NotImplementedError
 
 
-def format_db_cell(value) -> str:
-    """Convert one bolt result value to the string form used in compare (Katalon/Java export rules)."""
-    if value is None:
-        return ""
-    if isinstance(value, str):
-        return value
-    if isinstance(value, bool):
-        return "true" if value else "false"
-    if isinstance(value, (list, tuple, dict)):
-        return json.dumps(value, separators=(",", ":"), ensure_ascii=False)
-    return str(value)
-
-
-# Backward-compatible alias
-format_memgraph_cell = format_db_cell
+# ---------------------------------------------------------------------------
+# Memgraph (Bolt, no TLS — same as legacy ConnectMemgraph)
+# ---------------------------------------------------------------------------
 
 
 class MemgraphSource(ExpectedDataSource):
@@ -87,14 +118,16 @@ class MemgraphSource(ExpectedDataSource):
                 + "\n  - ".join(missing)
                 + "\nPasswords are per application (C3DC and GC differ). Put them in gitignored .env."
             )
-        self.endpoint, self.username, self.password = endpoint, username, password
-        self._app, self._env = app, env
+        self.endpoint = endpoint
+        self.username = username
+        self.password = password
+        self._app = app
+        self._env = env
         self._tab_row_limit = tab_row_limit
         self._driver = None
         self._logged_connection = False
 
     def get_bolt_driver(self):
-        """Open the Bolt driver on first use (no TLS, same as ConnectMemgraph.groovy)."""
         if self._driver is None:
             from neo4j import GraphDatabase
 
@@ -106,11 +139,9 @@ class MemgraphSource(ExpectedDataSource):
         return self._driver
 
     def _tab_cypher(self, query_file: QueryFile, tab_key: str) -> str:
-        raw = query_file.query_for_tab(tab_key)
-        return apply_tab_row_limit(raw, self._tab_row_limit)
+        return apply_tab_row_limit(query_file.query_for_tab(tab_key), self._tab_row_limit)
 
     def run_cypher_as_table(self, cypher: str, query_label: str = "tab query from memgraph") -> Table:
-        """Execute Cypher and return header + rows as strings."""
         if not self._logged_connection:
             action_log.memgraph_connection(self.username, self.endpoint)
             self._logged_connection = True
@@ -127,13 +158,7 @@ class MemgraphSource(ExpectedDataSource):
                     f"Set {per_app} or {per_env} to the password for that cluster (not a shared MEMGRAPH_PASSWORD)."
                 ) from exc
             raise
-        if not records:
-            return Table()
-        header = list(records[0].keys())
-        table = Table(
-            header=header,
-            rows=[[format_db_cell(record[column]) for column in header] for record in records],
-        )
+        table = _records_to_table(records)
         action_log.memgraph_db_table(table.header, table.rows)
         return table
 
@@ -144,35 +169,29 @@ class MemgraphSource(ExpectedDataSource):
         tab_display_name: Optional[str] = None,
         apply_row_limit: bool = True,
     ) -> Table:
-        """Run the TabQuery for one result tab (e.g. ParticipantsTab) from the input Excel."""
-        cypher = (
-            self._tab_cypher(query_file, tab_key)
-            if apply_row_limit
-            else query_file.query_for_tab(tab_key)
-        )
-        label = memgraph_tab_query_label(tab_key, tab_display_name)
-        return self.run_cypher_as_table(cypher, label)
+        cypher = self._tab_cypher(query_file, tab_key) if apply_row_limit else query_file.query_for_tab(tab_key)
+        return self.run_cypher_as_table(cypher, memgraph_tab_query_label(tab_key, tab_display_name))
 
     def fetch_stat_bar_table(self, query_file: QueryFile) -> Table:
-        """Run the StatQuery from the input Excel for stat-bar verification."""
         if not query_file.stat_bar_query:
             raise ValueError(f"{query_file.path.name} has no StatQuery")
         return self.run_cypher_as_table(query_file.stat_bar_query, "Stat bar query from memgraph")
 
-    def close_connection(self):
-        """Close the Bolt driver when the test session ends."""
+    def close_connection(self) -> None:
         if self._driver is not None:
             self._driver.close()
             self._driver = None
 
-    def close(self):
-        """Alias for pytest fixture teardown."""
+    def close(self) -> None:
         self.close_connection()
 
 
-class Neo4jSource(MemgraphSource):
-    """Expected data via Neo4j Bolt (ICDC today; same driver as MemgraphSource)."""
+# ---------------------------------------------------------------------------
+# Neo4j (Bolt — ICDC, Bento; extra hints for VPN / bolt vs UI env)
+# ---------------------------------------------------------------------------
 
+
+class Neo4jSource(MemgraphSource):
     def __init__(
         self,
         endpoint: str,
@@ -201,8 +220,11 @@ class Neo4jSource(MemgraphSource):
                 + "\n  - ".join(missing)
                 + "\nPut the password in gitignored `.env` (NEO4J_PASSWORD_<APP>)."
             )
-        self.endpoint, self.username, self.password = endpoint, username, password
-        self._app, self._env = app, env
+        self.endpoint = endpoint
+        self.username = username
+        self.password = password
+        self._app = app
+        self._env = env
         self._ui_env = ui_env or env
         self._tab_row_limit = tab_row_limit
         self._driver = None
@@ -244,13 +266,7 @@ class Neo4jSource(MemgraphSource):
                     f"Original error: {msg}"
                 ) from exc
             raise
-        if not records:
-            return Table()
-        header = list(records[0].keys())
-        table = Table(
-            header=header,
-            rows=[[format_db_cell(record[column]) for column in header] for record in records],
-        )
+        table = _records_to_table(records)
         action_log.memgraph_db_table(table.header, table.rows)
         return table
 
@@ -261,18 +277,18 @@ class Neo4jSource(MemgraphSource):
         tab_display_name: Optional[str] = None,
         apply_row_limit: bool = True,
     ) -> Table:
-        query = (
-            self._tab_cypher(query_file, tab_key)
-            if apply_row_limit
-            else query_file.query_for_tab(tab_key)
-        )
-        label = neo4j_tab_query_label(tab_key, tab_display_name)
-        return self.run_cypher_as_table(query, label)
+        cypher = self._tab_cypher(query_file, tab_key) if apply_row_limit else query_file.query_for_tab(tab_key)
+        return self.run_cypher_as_table(cypher, neo4j_tab_query_label(tab_key, tab_display_name))
 
     def fetch_stat_bar_table(self, query_file: QueryFile) -> Table:
         if not query_file.stat_bar_query:
             raise ValueError(f"{query_file.path.name} has no StatQuery")
         return self.run_cypher_as_table(query_file.stat_bar_query, "Stat bar query from neo4j")
+
+
+# ---------------------------------------------------------------------------
+# Factory (environments.yaml expected_source)
+# ---------------------------------------------------------------------------
 
 
 def create_expected_data_source(settings: AppSettings) -> ExpectedDataSource:
@@ -311,9 +327,12 @@ def create_expected_data_source(settings: AppSettings) -> ExpectedDataSource:
     )
 
 
-class LazySource(ExpectedDataSource):
-    """Defer bolt DB connect until the first tab or stat-bar fetch (browser can start without a password)."""
+# ---------------------------------------------------------------------------
+# Lazy connect (pytest: open browser before Bolt password is required)
+# ---------------------------------------------------------------------------
 
+
+class LazySource(ExpectedDataSource):
     def __init__(self, settings: AppSettings):
         self._settings = settings
         self._connected: Optional[ExpectedDataSource] = None
@@ -340,6 +359,6 @@ class LazySource(ExpectedDataSource):
     def fetch_stat_bar_table(self, query_file: QueryFile) -> Table:
         return self.get_connected_source().fetch_stat_bar_table(query_file)
 
-    def close(self):
+    def close(self) -> None:
         if self._connected is not None and hasattr(self._connected, "close_connection"):
             self._connected.close_connection()

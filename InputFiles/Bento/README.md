@@ -12,7 +12,7 @@ Regenerate tests and Cypher workbooks from Katalon sources:
 python Tools/generate_bento_arm_tests.py
 ```
 
-Refresh Cypher only (after editing `Commons/bento_cypher_queries.py`):
+Refresh Cypher only (after editing `Tools/cypher/bento_cypher.py`):
 
 ```bash
 python Tools/convert_bento_sql_to_cypher.py
