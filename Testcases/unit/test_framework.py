@@ -952,3 +952,47 @@ def test_ctdc_cmb_excel_testcase_steps_sheet():
     assert ("tab", "Study Files") in calls
     assert calls[-1] == ("done",)
 
+
+def test_c3dc_phs000463_excel_testcase_steps_sheet():
+    from Commons.excel_test_runner import run_testcase_excel
+
+    path = (
+        Path(__file__).resolve().parents[1]
+        / "C3DC/studies/phs000463/TC01_C3DC_phs000463_SexAtBirth-Female.xlsx"
+    )
+    assert path.is_file(), path
+    calls = []
+
+    class Stub:
+        NAME = "C3DC"
+        TABS = {"Participants": None, "Studies": None, "Diagnosis": None}
+
+        def load_query_file(self, name):
+            calls.append(("load", name))
+
+        def accept_banner(self):
+            calls.append(("banner",))
+
+        def open_explore(self):
+            calls.append(("explore",))
+
+        def select_filter(self, group, value):
+            calls.append(("filter", group, value))
+
+        def read_statbar(self):
+            calls.append(("stat",))
+
+        def verify_tab(self, tab):
+            calls.append(("tab", tab))
+
+        def assert_no_failures(self):
+            calls.append(("done",))
+
+    run_testcase_excel(Stub(), path)
+    assert calls[0] == ("load", "TC01_C3DC_phs000463_SexAtBirth-Female.xlsx")
+    assert ("explore",) in calls
+    assert ("filter", "Study/dbGaP_Accession", "phs000463") in calls
+    assert ("filter", "Demographics/SexAtBirth", "Female") in calls
+    assert ("tab", "Samples") in calls
+    assert calls[-1] == ("done",)
+
