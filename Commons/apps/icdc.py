@@ -1,5 +1,14 @@
-"""ICDC (Integrated Canine Data Commons): https://caninecommons-qa.cancer.gov"""
+"""
+ICDC (Integrated Canine Data Commons): https://caninecommons-qa.cancer.gov
+
+Cases explore: stat bar + result tabs (Cases, Samples, Case Files, Study Files).
+Expected data: Neo4j Cypher in InputFiles/ICDC/TC*.xlsx.
+"""
 from Commons.apps.base import BaseApp, StatSpec, TabSpec
+
+# ---------------------------------------------------------------------------
+# Tab wiring (workbook TabQuery keys ↔ Canine result tab locators)
+# ---------------------------------------------------------------------------
 
 
 def _tab(name, input_tab, stat, ui_sheet, db_sheet, tab_key, table, header, next_key, max_pages=10):
@@ -18,9 +27,16 @@ def _tab(name, input_tab, stat, ui_sheet, db_sheet, tab_key, table, header, next
     )
 
 
+# ---------------------------------------------------------------------------
+# App adapter
+# ---------------------------------------------------------------------------
+
+
 class ICDC(BaseApp):
     NAME = "ICDC"
     BANNER_KEYS = ["Canine_PopUp_Continue_Btn"]
+
+    # --- Stat bar and result tabs ---
 
     STATS = [
         StatSpec("Programs", "StatBar/Canine_StatBar-Programs"),
@@ -80,9 +96,12 @@ class ICDC(BaseApp):
 
     STANDARD_VERIFY_TABS = ("Cases", "Samples", "Case Files", "Study Files")
 
+    # --- Explore navigation ---
+
     def open_cases(self):
-        """Katalon: NavBar Canine_Cases_Btn (Explore / Cases view)."""
+        """Open Cases explore via navbar (Katalon: NavBar Canine_Cases_Btn)."""
         self.click("NavBar/Canine_Cases_Btn", ui_message="Cases (Explore) opened successfully.")
 
     def select_study(self, study_checkbox: str = "Canine_Filter_Study-COTC021"):
+        """Tick the study checkbox before other filters (default COTC021)."""
         self.select_filter("Cases/Study", study_checkbox)

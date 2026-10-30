@@ -22,12 +22,20 @@ import yaml
 
 from Commons.settings import OBJECT_REPO_ROOT
 
-# App fixture name → on-disk folder under ObjectRepository/ (when they differ).
+# ---------------------------------------------------------------------------
+# Paths and errors
+# ---------------------------------------------------------------------------
+
 _OBJECT_REPO_DIRS: Dict[str, str] = {"Bento": "BENTO"}
 
 
 class LocatorNotFound(KeyError):
     pass
+
+
+# ---------------------------------------------------------------------------
+# Filter facet groups (YAML `groups:`)
+# ---------------------------------------------------------------------------
 
 
 @dataclass
@@ -68,6 +76,11 @@ class FilterGroup:
             f"Add it under `checkboxes:` in the YAML file for this facet.")
 
 
+# ---------------------------------------------------------------------------
+# Load YAML and resolve keys (Katalon-style paths)
+# ---------------------------------------------------------------------------
+
+
 class ObjectRepository:
     def __init__(self, app: str, root: Path = OBJECT_REPO_ROOT):
         self.app = app
@@ -106,6 +119,8 @@ class ObjectRepository:
                     other=g.get("other") or {},
                 )
 
+    # --- Single elements ---
+
     def xpath(self, key: str) -> str:
         """Look up a single element, e.g. 'ResultTabs/Studies-Tab' (Katalon path minus the app)."""
         key = self._normalize_locator_key(key)
@@ -119,6 +134,8 @@ class ObjectRepository:
     def has_element(self, key: str) -> bool:
         return self._normalize_locator_key(key) in self._elements
 
+    # --- Filter groups ---
+
     def filter_group(self, key: str) -> FilterGroup:
         """Look up a filter group, e.g. 'Study/dbGaP_Accession'."""
         try:
@@ -129,6 +146,8 @@ class ObjectRepository:
 
     def filter_group_keys(self) -> List[str]:
         return sorted(self._groups)
+
+    # --- Key normalization ---
 
     def _normalize_locator_key(self, key: str) -> str:
         """Accept the full Katalon path too: 'Object Repository/C3DC/ResultTabs/X' or 'C3DC/ResultTabs/X'."""

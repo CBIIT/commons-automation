@@ -15,7 +15,9 @@ INPUT_ROOT = ROOT / "InputFiles" / "BENTO"
 import sys
 
 sys.path.insert(0, str(ROOT))
-from Commons.bento_arm_filters import (  # noqa: E402
+sys.path.insert(0, str(ROOT / "Tools"))
+sys.path.insert(0, str(ROOT / "Tools" / "cypher"))
+from bento_arm_filters import (  # noqa: E402
     ARM_LABELS,
     ARM_SLUGS,
     ARMS,
@@ -26,7 +28,7 @@ from Commons.bento_arm_filters import (  # noqa: E402
     choice_for_arm,
     workbook_relative_path,
 )
-from Commons.bento_cypher_queries import build_queries_for_arm_test  # noqa: E402
+from bento_cypher import build_queries_for_arm_test  # noqa: E402
 
 
 def _copy_workbook(choice: ArmFacetChoice, dest: Path, arm: ArmLetter, spec: BentoFacetSpec) -> None:

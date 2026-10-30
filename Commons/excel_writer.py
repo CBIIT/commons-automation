@@ -1,12 +1,20 @@
-"""Write UI and DB result tables to Excel under OutputFiles/<app>/<ENV>/ (gitignored)."""
+"""Write UI/DB compare tables to Excel under OutputFiles/<app>/<env>/ (gitignored)."""
 from pathlib import Path
 from typing import List, Optional, Sequence
 
 import openpyxl
 from openpyxl.styles import Font, PatternFill
 
+# ---------------------------------------------------------------------------
+# Sheet naming and styling
+# ---------------------------------------------------------------------------
+
 _ILLEGAL_SHEET_CHARS = "[]:*?/\\"
-LISTING_HEADER_COLOR = "9BC2E6"  # light blue; dark text stays easy to read
+LISTING_HEADER_COLOR = "9BC2E6"
+
+# ---------------------------------------------------------------------------
+# Write workbook
+# ---------------------------------------------------------------------------
 
 
 def write_sheet(
@@ -15,8 +23,8 @@ def write_sheet(
     header: Sequence[str],
     rows: List[Sequence[str]],
     header_color: Optional[str] = None,
-):
-    """Create or update one worksheet (header + rows) in an .xlsx file."""
+) -> None:
+    """Create or replace one worksheet (header + rows) in an .xlsx file."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     sheet = "".join("_" if c in _ILLEGAL_SHEET_CHARS else c for c in sheet)[:31]
@@ -38,6 +46,11 @@ def write_sheet(
             cell.fill = fill
             cell.font = font
     wb.save(path)
+
+
+# ---------------------------------------------------------------------------
+# Cell values
+# ---------------------------------------------------------------------------
 
 
 def _safe(value):

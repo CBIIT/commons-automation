@@ -20,10 +20,39 @@ from typing import List, Sequence
 
 from Commons import action_log
 
+# ---------------------------------------------------------------------------
+# Live compare output (stderr / action log)
+# ---------------------------------------------------------------------------
+
 _MATCH = "\u2713"
 _MISMATCH = "\u2717"
 _ANSI_RED = "\033[31m"
 _ANSI_RESET = "\033[0m"
+
+
+def _stderr_use_color() -> bool:
+    if os.environ.get("NO_COLOR", "").strip():
+        return False
+    force = os.environ.get("FORCE_COLOR", "").strip().lower()
+    if force in ("1", "true", "yes", "on"):
+        return True
+    return sys.stderr.isatty()
+
+
+def _compare_live(msg: str, *, err: bool = False) -> None:
+    """Katalon-style compare line (live under pytest via table reader wiring)."""
+    if err:
+        text = msg
+        if _stderr_use_color():
+            text = f"{_ANSI_RED}{msg}{_ANSI_RESET}"
+        print(text, flush=True, file=sys.stderr)
+    else:
+        action_log.table_live_print(msg)
+
+
+# ---------------------------------------------------------------------------
+# Cell text rules (when UI and expected count as the same)
+# ---------------------------------------------------------------------------
 
 
 def normalize_list(value: str) -> str:
@@ -78,6 +107,11 @@ def cells_match(ui: str, expected: str) -> bool:
     )
 
 
+# ---------------------------------------------------------------------------
+# Row sorting (before pairwise compare)
+# ---------------------------------------------------------------------------
+
+
 def _cell_text(cell) -> str:
     if cell is None:
         return ""
@@ -89,24 +123,9 @@ def _row_sort_key(row: Sequence[str]) -> tuple:
     return tuple(_cell_text(c) for c in row)
 
 
-def _stderr_use_color() -> bool:
-    if os.environ.get("NO_COLOR", "").strip():
-        return False
-    force = os.environ.get("FORCE_COLOR", "").strip().lower()
-    if force in ("1", "true", "yes", "on"):
-        return True
-    return sys.stderr.isatty()
-
-
-def _compare_live(msg: str, *, err: bool = False) -> None:
-    """Katalon-style compare line (live under pytest via table reader wiring)."""
-    if err:
-        text = msg
-        if _stderr_use_color():
-            text = f"{_ANSI_RED}{msg}{_ANSI_RESET}"
-        print(text, flush=True, file=sys.stderr)
-    else:
-        action_log.table_live_print(msg)
+# ---------------------------------------------------------------------------
+# Compare result
+# ---------------------------------------------------------------------------
 
 
 @dataclass
@@ -127,6 +146,11 @@ class Comparison:
                 lines.append(f"  {len(rows)} row(s) {label}; first {min(limit, len(rows))}:")
                 lines += [f"    {' | '.join(map(str, r))}" for r in rows[:limit]]
         return "\n".join(lines)
+
+
+# ---------------------------------------------------------------------------
+# Result tables (Explore tabs)
+# ---------------------------------------------------------------------------
 
 
 def compare_tables(
@@ -225,6 +249,11 @@ def compare_tables(
                     )
 
     return Comparison(not problems, len(ui_rows), len(expected_rows), problems, ui_only, expected_only)
+
+
+# ---------------------------------------------------------------------------
+# Stat bar counts
+# ---------------------------------------------------------------------------
 
 
 def compare_counts(ui_counts: dict, expected_counts: dict) -> Comparison:

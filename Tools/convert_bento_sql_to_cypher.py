@@ -12,14 +12,16 @@ KATALON_INPUT = ROOT.parent / "Commons_Automation" / "InputFiles" / "Bento"
 INPUT_ROOT = ROOT / "InputFiles" / "BENTO"
 
 sys.path.insert(0, str(ROOT))
-from Commons.bento_arm_filters import (  # noqa: E402
+sys.path.insert(0, str(ROOT / "Tools"))
+sys.path.insert(0, str(ROOT / "Tools" / "cypher"))
+from bento_arm_filters import (  # noqa: E402
     ARMS,
     BENTO_FACET_SPECS,
     ArmLetter,
     choice_for_arm,
     workbook_file_name,
 )
-from Commons.bento_cypher_queries import BentoQueryBundle, build_queries_for_arm_test  # noqa: E402
+from bento_cypher import BentoQueryBundle, build_queries_for_arm_test  # noqa: E402
 
 
 def _write_workbook(path: Path, bundle: BentoQueryBundle) -> None:
