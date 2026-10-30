@@ -127,6 +127,17 @@ def _snapshot_first_col(rows: List[List[str]]) -> str:
 # ---------------------------------------------------------------------------
 
 
+# MUI labels vary by portal (INS: "next page"; C3DC/GC: "Next page").
+_PAGINATION_NEXT_BTN = (
+    "@type='button' and "
+    "(@aria-label='Next page' or @aria-label='next page')"
+)
+_PAGINATION_PREV_BTN = (
+    "@type='button' and "
+    "(@aria-label='Previous page' or @aria-label='previous page')"
+)
+
+
 def pagination_next_xpath(table_xpath: str, fallback: str) -> str:
     """
     Next-page control for the active results table.
@@ -136,14 +147,16 @@ def pagination_next_xpath(table_xpath: str, fallback: str) -> str:
     """
     base = (table_xpath or "").strip()
     if base:
-        return f"({base})//button[@type='button' and @aria-label='Next page']"
+        return f"({base})//button[{_PAGINATION_NEXT_BTN}]"
     return fallback
 
 
 def pagination_prev_xpath(table_xpath: str, fallback_next: str) -> str:
     base = (table_xpath or "").strip()
     if base:
-        return f"({base})//button[@type='button' and @aria-label='Previous page']"
+        return f"({base})//button[{_PAGINATION_PREV_BTN}]"
+    if "next page" in fallback_next.lower():
+        return re.sub(r"next page", "Previous page", fallback_next, count=1, flags=re.I)
     return fallback_next.replace("Next page", "Previous page")
 
 

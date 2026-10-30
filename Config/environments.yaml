@@ -94,7 +94,7 @@ apps:
     expected_source: tsv
     tsv_root: InputFiles/INS
     urls:
-      qa:    https://studycatalog-stage.cancer.gov/
+      qa:    https://studycatalog-qa.cancer.gov/
       stage: https://studycatalog-stage.cancer.gov/
       prod:  https://studycatalog.cancer.gov/
 

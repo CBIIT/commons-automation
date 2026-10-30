@@ -140,12 +140,16 @@ def test_pagination_xpaths_scope_to_active_table():
     tbl = "//*[@id='participant_tab_table']"
     fallback = "(//button[@aria-label='Next page'])[1]"
     assert pagination_next_xpath(tbl, fallback) == (
-        "(//*[@id='participant_tab_table'])//button[@type='button' and @aria-label='Next page']"
+        "(//*[@id='participant_tab_table'])//button[@type='button' and "
+        "(@aria-label='Next page' or @aria-label='next page')]"
     )
     assert pagination_prev_xpath(tbl, fallback) == (
-        "(//*[@id='participant_tab_table'])//button[@type='button' and @aria-label='Previous page']"
+        "(//*[@id='participant_tab_table'])//button[@type='button' and "
+        "(@aria-label='Previous page' or @aria-label='previous page')]"
     )
     assert pagination_next_xpath("", fallback) == fallback
+    ins_fallback = "//button[@type='button' and @aria-label='next page']"
+    assert "next page" in pagination_next_xpath(tbl, ins_fallback)
 
 
 def test_c3dc_resolve_table_body_xpath_nested_tables():
