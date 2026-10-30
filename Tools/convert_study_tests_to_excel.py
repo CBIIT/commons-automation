@@ -23,14 +23,20 @@ from Commons.excel_testcase._step_parse import parse_test_file  # noqa: E402
 
 def convert_app(app_key: str, *, delete_py: bool = True) -> tuple[int, int, list[str]]:
     profile = get_profile(app_key)
-    studies = profile.studies_root(ROOT)
-    if not studies.is_dir():
-        raise FileNotFoundError(f"Studies folder not found: {studies}")
+    roots = [r for r in profile.case_file_roots(ROOT) if r.is_dir()]
+    if not roots:
+        raise FileNotFoundError(
+            f"No testcase folders under Testcases/{profile.testcases_dir}/ "
+            f"(expected: {', '.join(profile.case_subdirs)})"
+        )
 
     written = 0
     deleted = 0
     errors: list[str] = []
-    for py_path in sorted(studies.rglob("test_*.py")):
+    py_files: list[Path] = []
+    for root in roots:
+        py_files.extend(sorted(root.rglob("test_*.py")))
+    for py_path in py_files:
         try:
             query_file, steps = parse_test_file(py_path, profile.parse_test_function)
             stem = Path(query_file).stem

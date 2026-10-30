@@ -1,5 +1,5 @@
 """
-Collect TC*.xlsx under Testcases/<APP>/studies/ as pytest tests (excel mode only).
+Collect TC*.xlsx under Testcases/<APP>/ (studies/ or app-specific subdirs) as pytest tests.
 
 Requires framework.test_case_source: excel. Per-app profiles: Commons/excel_testcase/apps/.
 """
@@ -57,9 +57,14 @@ def pytest_collect_file(file_path, parent):
     path = Path(str(file_path))
     if path.suffix.lower() != ".xlsx" or not path.name.startswith("TC"):
         return None
-    if "studies" not in path.parts:
+    profile = profile_for_case_path(path)
+    if profile is None:
         return None
-    # Only collect apps that have an ExcelCaseProfile (extend apps/*.py for new portals).
-    if profile_for_case_path(path) is None:
+    parts = path.parts
+    try:
+        idx = parts.index("Testcases")
+        if parts[idx + 1] != profile.testcases_dir:
+            return None
+    except (ValueError, IndexError):
         return None
     return ExcelCaseFile.from_parent(parent, path=path)

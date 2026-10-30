@@ -996,3 +996,135 @@ def test_c3dc_phs000463_excel_testcase_steps_sheet():
     assert ("tab", "Samples") in calls
     assert calls[-1] == ("done",)
 
+
+def test_icdc_cotc022_excel_testcase_steps_sheet():
+    from Commons.excel_test_runner import run_testcase_excel
+
+    path = (
+        Path(__file__).resolve().parents[1]
+        / "ICDC/studies/COTC022/TC01_ICDC_COTC022_Breed-Bulldog.xlsx"
+    )
+    assert path.is_file(), path
+    calls = []
+
+    class Stub:
+        NAME = "ICDC"
+        TABS = {"Cases": None, "Samples": None, "Case Files": None, "Study Files": None}
+
+        def load_query_file(self, name):
+            calls.append(("load", name))
+
+        def accept_banner(self):
+            calls.append(("banner",))
+
+        def open_cases(self):
+            calls.append(("cases",))
+
+        def select_study(self, study):
+            calls.append(("study", study))
+
+        def select_filter(self, group, value):
+            calls.append(("filter", group, value))
+
+        def read_statbar(self):
+            calls.append(("stat",))
+
+        def verify_tab(self, tab):
+            calls.append(("tab", tab))
+
+        def assert_no_failures(self):
+            calls.append(("done",))
+
+    run_testcase_excel(Stub(), path)
+    assert calls[0] == ("load", "TC01_ICDC_COTC022_Breed-Bulldog.xlsx")
+    assert ("cases",) in calls
+    assert ("study", "Canine_Filter_Study-COTC022") in calls
+    assert ("filter", "Cases/Breed", "BullDog") in calls
+    assert ("tab", "Study Files") in calls
+    assert calls[-1] == ("done",)
+
+
+def test_bento_arm_a_excel_testcase_steps_sheet():
+    from Commons.excel_test_runner import run_testcase_excel
+
+    path = (
+        Path(__file__).resolve().parents[1]
+        / "BENTO/arm-a/TC01_Bento_arm-a_Diagnosis-Adenocarcinoma.xlsx"
+    )
+    assert path.is_file(), path
+    calls = []
+
+    class Stub:
+        NAME = "Bento"
+        TABS = {"Cases": None, "Samples": None, "Files": None}
+
+        def load_query_file(self, name):
+            calls.append(("load", name))
+
+        def accept_banner(self):
+            calls.append(("banner",))
+
+        def open_cases(self):
+            calls.append(("cases",))
+
+        def select_filter(self, group, value):
+            calls.append(("filter", group, value))
+
+        def read_statbar(self):
+            calls.append(("stat",))
+
+        def verify_tab(self, tab):
+            calls.append(("tab", tab))
+
+        def assert_no_failures(self):
+            calls.append(("done",))
+
+    run_testcase_excel(Stub(), path)
+    assert calls[0] == ("load", "TC01_Bento_arm-a_Diagnosis-Adenocarcinoma.xlsx")
+    assert ("filter", "Filter/Arm", "A") in calls
+    assert ("filter", "Filter/Diagnosis", "Adenocarcinoma") in calls
+    assert ("tab", "Files") in calls
+    assert calls[-1] == ("done",)
+
+
+def test_bento_arm_a_age_excel_testcase_steps_sheet():
+    from Commons.excel_test_runner import run_testcase_excel
+
+    path = (
+        Path(__file__).resolve().parents[1]
+        / "BENTO/arm-a/TC10_Bento_arm-a_Age-10_to_30.xlsx"
+    )
+    assert path.is_file(), path
+    calls = []
+
+    class Stub:
+        NAME = "Bento"
+
+        def load_query_file(self, name):
+            calls.append(("load", name))
+
+        def accept_banner(self):
+            pass
+
+        def open_cases(self):
+            pass
+
+        def select_filter(self, group, value):
+            calls.append(("filter", group, value))
+
+        def set_age_range(self, lo, hi):
+            calls.append(("age", lo, hi))
+
+        def read_statbar(self):
+            pass
+
+        def verify_tab(self, tab):
+            pass
+
+        def assert_no_failures(self):
+            calls.append(("done",))
+
+    run_testcase_excel(Stub(), path)
+    assert ("age", 10, 30) in calls
+    assert calls[-1] == ("done",)
+

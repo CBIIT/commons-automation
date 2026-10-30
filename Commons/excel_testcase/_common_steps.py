@@ -58,6 +58,9 @@ def common_handlers() -> Dict[str, Handler]:
     def open_explore(app, _p, _a, _b, _excel):
         app.open_explore()
 
+    def open_cases(app, _p, _a, _b, _excel):
+        app.open_cases()
+
     def select_study(app, page, params, flt, _excel):
         study = params or flt or page
         if not study:
@@ -101,11 +104,19 @@ def common_handlers() -> Dict[str, Handler]:
     def js_click(app, page, params, _flt, _excel):
         click(app, page, params, js=True)
 
+    def set_age_range(app, _page, params, _flt, _excel):
+        text = (params or "").strip()
+        if "," not in text:
+            raise ValueError("set_age_range step needs min,max in Params (e.g. 10,30)")
+        lo, hi = text.split(",", 1)
+        app.set_age_range(int(lo.strip()), int(hi.strip()))
+
     return {
         "dismiss_popup": accept_banner,
         "accept_banner": accept_banner,
         "open_data": open_data,
         "open_explore": open_explore,
+        "open_cases": open_cases,
         "select_study": select_study,
         "select_filter": lambda app, p, a, f, e: select_filter_from_step(app, p, a, f, e),
         "select_filter_value": lambda app, p, a, f, e: select_filter_from_step(app, p, a, f, e),
@@ -119,4 +130,5 @@ def common_handlers() -> Dict[str, Handler]:
         "click_and_wait": click_and_wait,
         "js_click_and_wait": js_click,
         "js_click": js_click,
+        "set_age_range": set_age_range,
     }

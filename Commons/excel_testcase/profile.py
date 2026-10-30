@@ -5,11 +5,11 @@ from __future__ import annotations
 import ast
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Callable, Dict, List, Optional, Sequence, Tuple
+from typing import Callable, Dict, List, Sequence, Tuple
 
 StepRow = Tuple[str, str, str, str]  # action, page, params, filter
 
-ParseFn = Callable[[ast.FunctionDef], Tuple[str, List[StepRow]]]
+ParseFn = Callable[[ast.FunctionDef, Dict[str, str]], Tuple[str, List[StepRow]]]
 
 
 @dataclass(frozen=True)
@@ -33,9 +33,16 @@ class ExcelCaseProfile:
     excel_actions: Sequence[str]
     parse_test_function: ParseFn
     extra_handlers: Dict[str, Callable] = field(default_factory=dict)
+    case_subdirs: Sequence[str] = ("studies",)
 
     def query_workbook_row2(self, query_filename: str) -> str:
         return f"{self.input_files_prefix.rstrip('/')}/{query_filename}"
 
     def studies_root(self, repo_root: Path) -> Path:
-        return repo_root / "Testcases" / self.testcases_dir / "studies"
+        """Primary case folder (legacy name; first entry in case_subdirs)."""
+        return repo_root / "Testcases" / self.testcases_dir / self.case_subdirs[0]
+
+    def case_file_roots(self, repo_root: Path) -> List[Path]:
+        """Directories to scan for test_*.py / TC*.xlsx (e.g. studies/ or arm-a/)."""
+        base = repo_root / "Testcases" / self.testcases_dir
+        return [base / sub for sub in self.case_subdirs]

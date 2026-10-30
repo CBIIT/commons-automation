@@ -43,7 +43,7 @@ def _multi_function(app: "BaseApp", _page: str, params: str, _flt: str, _excel: 
         raise ValueError(f"multi_function step needs tab key in Params, got {params!r}")
 
 
-def _parse_gc_test_function(test_fn: ast.FunctionDef) -> tuple[str, List[StepRow]]:
+def _parse_gc_test_function(test_fn: ast.FunctionDef, module_consts: dict) -> tuple[str, List[StepRow]]:
     def _filter(args: list[ast.AST]) -> StepRow:
         return ("select_filter", str_arg(args[0]), "", str_arg(args[1]))
 
@@ -53,6 +53,7 @@ def _parse_gc_test_function(test_fn: ast.FunctionDef) -> tuple[str, List[StepRow
     return parse_adapter_calls(
         test_fn,
         fixture_name="gc",
+        module_consts=module_consts,
         method_to_step={
             "accept_banner": lambda _a: ("accept_banner", "", "", ""),
             "open_data": lambda _a: ("open_data", "", "", ""),

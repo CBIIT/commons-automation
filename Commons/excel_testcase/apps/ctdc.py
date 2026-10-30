@@ -21,7 +21,7 @@ CTDC_EXCEL_ACTIONS = [
 ]
 
 
-def _parse_ctdc_test_function(test_fn: ast.FunctionDef) -> tuple[str, List[StepRow]]:
+def _parse_ctdc_test_function(test_fn: ast.FunctionDef, module_consts: dict) -> tuple[str, List[StepRow]]:
     def _filter(args: list[ast.AST]) -> StepRow:
         return ("select_filter", str_arg(args[0]), "", str_arg(args[1]))
 
@@ -31,6 +31,7 @@ def _parse_ctdc_test_function(test_fn: ast.FunctionDef) -> tuple[str, List[StepR
     return parse_adapter_calls(
         test_fn,
         fixture_name="ctdc",
+        module_consts=module_consts,
         method_to_step={
             "accept_banner": lambda _a: ("accept_banner", "", "", ""),
             "open_explore": lambda _a: ("open_explore", "", "", ""),
