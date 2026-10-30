@@ -906,3 +906,49 @@ def test_phs000720_excel_testcase_steps_sheet():
     assert ("tab", "Files") in calls
     assert calls[-1] == ("done",)
 
+
+def test_ctdc_cmb_excel_testcase_steps_sheet():
+    from Commons.excel_test_runner import run_testcase_excel
+
+    path = (
+        Path(__file__).resolve().parents[1]
+        / "CTDC/studies/CMB/TC01_CTDC_CMB_Sex-Male.xlsx"
+    )
+    assert path.is_file(), path
+    calls = []
+
+    class Stub:
+        TABS = {"Participants": None, "Biospecimens": None, "Files": None, "Study Files": None}
+
+        def load_query_file(self, name):
+            calls.append(("load", name))
+
+        def accept_banner(self):
+            calls.append(("banner",))
+
+        def open_explore(self):
+            calls.append(("explore",))
+
+        def select_study(self, study):
+            calls.append(("study", study))
+
+        def select_filter(self, group, value):
+            calls.append(("filter", group, value))
+
+        def read_statbar(self):
+            calls.append(("stat",))
+
+        def verify_tab(self, tab):
+            calls.append(("tab", tab))
+
+        def assert_no_failures(self):
+            calls.append(("done",))
+
+    run_testcase_excel(Stub(), path)
+    assert calls[0] == ("load", "TC01_CTDC_CMB_Sex-Male.xlsx")
+    assert ("explore",) in calls
+    assert ("study", "CMB") in calls
+    assert ("filter", "Participants/Sex", "Male") in calls
+    assert ("tab", "Study Files") in calls
+    assert calls[-1] == ("done",)
+
