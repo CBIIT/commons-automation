@@ -7,9 +7,12 @@ import pytest
 @pytest.mark.regression
 def test_TC11_INS_CancerType_LiverCancer(ins):
     ins.load_query_file("TC11_INS_CancerType-LiverCancer.xlsx")
+    ins.accept_banner()
     ins.open_programs()
     ins.select_filter("CancerType/CancerType", "LiverCancer")
     ins.read_statbar()
     ins.verify_tab("Programs")
     ins.verify_tab("Projects")
+    ins.verify_tab("Grants")
+    ins.verify_tab("Publications")
     ins.assert_no_failures()

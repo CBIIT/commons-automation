@@ -7,9 +7,12 @@ import pytest
 @pytest.mark.regression
 def test_TC14_INS_CancerType_MultipleMyeloma(ins):
     ins.load_query_file("TC14_INS_CancerType-MultipleMyeloma.xlsx")
+    ins.accept_banner()
     ins.open_programs()
     ins.select_filter("CancerType/CancerType", "MultipleMyeloma")
     ins.read_statbar()
     ins.verify_tab("Programs")
     ins.verify_tab("Projects")
+    ins.verify_tab("Grants")
+    ins.verify_tab("Publications")
     ins.assert_no_failures()

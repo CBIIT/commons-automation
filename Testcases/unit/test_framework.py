@@ -343,6 +343,29 @@ def test_ctdc_tsv_discovers_study_date_folders(tmp_path):
     assert found == ["CMB/2025-10-23", "AHEP0731/2026-10-22"]
 
 
+def test_ins_tsv_bundles_extract_and_release_paths(tmp_path):
+    import zipfile
+
+    from Commons.ins_tsv_bundles import ensure_ins_tsv_bundles, ins_tsv_release_paths
+    from Commons.ins_tsv_source import _node_for_filename, load_ins_tsv_versions
+
+    assert _node_for_filename("cedcd_datasets.tsv") == "cedcd"
+    assert _node_for_filename("program.tsv") == "program"
+
+    zpath = tmp_path / "Programs.zip"
+    with zipfile.ZipFile(zpath, "w") as zf:
+        zf.writestr(
+            "Programs/program.tsv",
+            "type\tprogram_id\tprogram_name\nprogram\tP1\tAlpha\n",
+        )
+    ensure_ins_tsv_bundles(tmp_path)
+    assert (tmp_path / "Programs" / "program.tsv").is_file()
+    paths = [p.relative_to(tmp_path).as_posix() for p in ins_tsv_release_paths(tmp_path)]
+    assert "Programs" in paths
+    frames = load_ins_tsv_versions(tmp_path)
+    assert len(frames["program"]) == 1
+
+
 def test_ui_action_filter_labels():
     from Commons import action_log
 

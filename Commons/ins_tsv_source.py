@@ -15,12 +15,8 @@ from Commons.db_source import ExpectedDataSource, Table, format_db_cell
 from Commons.query_reader import QueryFile
 from Commons.settings import ROOT
 from Commons.tab_setting import apply_tab_row_limit
-from Commons.tsv_source import (
-    _DATE_FOLDER,
-    _date_release_folders,
-    load_tsv_file,
-    tsv_tab_query_label,
-)
+from Commons.ins_tsv_bundles import ensure_ins_tsv_bundles, ins_tsv_release_paths
+from Commons.tsv_source import load_tsv_file, tsv_tab_query_label
 
 import sqlite3
 
@@ -29,6 +25,9 @@ INS_NODE_INDEX: Dict[str, str] = {
     "project": "project_id",
     "grant": "grant_id",
     "publication": "pmid",
+    "cedcd": "dataset_uuid",
+    "dbgap": "dataset_uuid",
+    "geo": "dataset_uuid",
 }
 
 INS_NODE_TABLE: Dict[str, str] = {
@@ -36,11 +35,20 @@ INS_NODE_TABLE: Dict[str, str] = {
     "project": "df_project",
     "grant": "df_grant",
     "publication": "df_publication",
+    "cedcd": "df_cedcd",
+    "dbgap": "df_dbgap",
+    "geo": "df_geo",
 }
 
 
 def _node_for_filename(file_name: str) -> Optional[str]:
     stem = Path(file_name).stem.lower()
+    if "cedcd" in stem:
+        return "cedcd"
+    if "dbgap" in stem:
+        return "dbgap"
+    if "geo" in stem and "dataset" in stem:
+        return "geo"
     for node in sorted(INS_NODE_INDEX, key=len, reverse=True):
         if node in stem:
             return node
@@ -48,19 +56,24 @@ def _node_for_filename(file_name: str) -> Optional[str]:
 
 
 def load_ins_tsv_versions(tsv_root: Path) -> Dict[str, pd.DataFrame]:
-    """Merge YYYY-MM-DD folders under InputFiles/INS/ (e.g. 2024-10-29/*.tsv)."""
+    """Merge dated folders and zip bundles under InputFiles/INS/ (Programs.zip, DataSetsTab.zip)."""
     frames: Dict[str, pd.DataFrame] = {node: pd.DataFrame() for node in INS_NODE_INDEX}
     if not tsv_root.is_dir():
         raise RuntimeError(
             f"INS TSV folder not found: {tsv_root}. "
-            "Copy Commons_Automation/InputFiles/INS/<date>/ into InputFiles/INS/."
+            "Add InputFiles/INS/Programs.zip and DataSetsTab.zip (extracted automatically at run time)."
         )
-    versions = _date_release_folders(tsv_root)
+    ensure_ins_tsv_bundles(tsv_root)
+    versions = list(ins_tsv_release_paths(tsv_root))
     if not versions:
-        # Flat layout: tsv files directly under tsv_root (single release)
         versions = [tsv_root]
     for version_path in versions:
-        label = version_path.name if version_path == tsv_root else f"{version_path.parent.name}/{version_path.name}"
+        if version_path == tsv_root:
+            label = tsv_root.name
+        elif version_path.parent == tsv_root:
+            label = version_path.name
+        else:
+            label = f"{version_path.parent.name}/{version_path.name}"
         for file_name in version_path.iterdir():
             if file_name.suffix.lower() not in (".tsv", ".txt"):
                 continue

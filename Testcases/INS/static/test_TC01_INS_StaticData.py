@@ -6,6 +6,7 @@ import pytest
 @pytest.mark.ins
 @pytest.mark.static
 def test_TC01_INS_StaticData(ins):
+    ins.accept_banner()
     ins.verify_static_data("V_HomePage")
     ins.click("Navbar/About-Btn")
     ins.click("Navbar/About-INS-Btn")
