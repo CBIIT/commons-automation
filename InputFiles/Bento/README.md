@@ -6,13 +6,7 @@ All query workbooks live **flat** in this folder (`InputFiles/BENTO/`), same as 
 |-----------|---------|
 | `Bento_StaticData.xlsx` | Static page checks |
 
-Regenerate tests and Cypher workbooks from Katalon sources:
-
-```bash
-python Tools/generate_bento_arm_tests.py
-```
-
-Refresh Cypher only (after editing `Commons/bento_cypher_queries.py`):
+Refresh query workbooks (after editing `Commons/bento_cypher_queries.py` or Katalon SQL inputs):
 
 ```bash
 python Tools/convert_bento_sql_to_cypher.py

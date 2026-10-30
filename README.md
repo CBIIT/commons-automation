@@ -79,7 +79,7 @@ Use app fixtures from `conftest.py` (`gc`, `c3dc`, `ctdc`, `ins`, …). Markers 
 | Portal-specific behavior | `Commons/apps/<app>.py`, `Commons/table_reader.py` |
 | Tests | `Testcases/<APP>/` (Python and/or testcase Excel) |
 
-Per-app layout: `Commons/apps/<app>.py`, `Testcases/<APP>/`, `InputFiles/<APP>/`, `ObjectRepository/<APP>/`. **GC, CTDC, C3DC, ICDC, and Bento** use `TC*.xlsx` when `framework.test_case_source: excel` (see `Commons/excel_testcase/README.md` to add INS/…). **Tools/** migration scripts are not used at pytest runtime except `convert_study_tests_to_excel.py`.
+Per-app layout: `Commons/apps/<app>.py`, `Testcases/<APP>/`, `InputFiles/<APP>/`, `ObjectRepository/<APP>/`. **GC, CTDC, C3DC, ICDC, and Bento** use `TC*.xlsx` when `framework.test_case_source: excel` (see `Commons/excel_testcase/README.md` to add INS/…). Maintainer scripts: **`Tools/README.md`** (not used at pytest runtime).
 
 ## Expected data
 
