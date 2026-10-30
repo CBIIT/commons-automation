@@ -23,7 +23,7 @@ class ExcelCaseProfile:
     input_files_prefix: row-2 path prefix, e.g. InputFiles/GC/
     excel_actions: Steps sheet Action dropdown values for this app only.
     extra_handlers: action name → runner handler (app-specific steps).
-    parse_test_function: AST parser for Tools/convert_study_tests_to_excel.py
+    parse_test_function: optional AST parser (legacy; cases are authored as TC*.xlsx)
     """
 
     app_key: str

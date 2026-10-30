@@ -6,12 +6,6 @@ All query workbooks live **flat** in this folder (`InputFiles/BENTO/`), same as 
 |-----------|---------|
 | `Bento_StaticData.xlsx` | Static page checks |
 
-Refresh query workbooks (after editing `Commons/bento_cypher_queries.py` or Katalon SQL inputs):
-
-```bash
-python Tools/convert_bento_sql_to_cypher.py
-```
-
-`TabQuery` / `StatQuery` are Neo4j Cypher (`expected_source: neo4j` in `Config/environments.yaml`).
+Edit `TabQuery` / `StatQuery` Cypher in each `TC*.xlsx` directly (`expected_source: neo4j` in `Config/environments.yaml`). Reference queries: `Commons/bento_cypher_queries.py`.
 
 Credentials: `NEO4J_PASSWORD_BENTO`, optional `NEO4J_ENDPOINT_BENTO`, `URL_BENTO_QA` in `.env`.

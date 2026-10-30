@@ -75,11 +75,11 @@ Use app fixtures from `conftest.py` (`gc`, `c3dc`, `ctdc`, `ins`, …). Markers 
 | Tab on/off, row limit | `Config/tab_setting.yaml` |
 | Locators | `ObjectRepository/<APP>/` |
 | Query / expected data (Cypher or SQL) | `InputFiles/<APP>/TC*.xlsx` (`TabQuery`, `StatQuery`) |
-| Excel step definitions | `Testcases/<APP>/…/TC*.xlsx`; per-app: `Commons/excel_testcase/apps/`; convert: `Tools/convert_study_tests_to_excel.py <APP_KEY>` |
+| Excel step definitions | `Testcases/<APP>/…/TC*.xlsx` (Steps sheet); per-app runner: `Commons/excel_testcase/apps/` |
 | Portal-specific behavior | `Commons/apps/<app>.py`, `Commons/table_reader.py` |
-| Tests | `Testcases/<APP>/` (Python and/or testcase Excel) |
+| Tests | `Testcases/<APP>/` (`TC*.xlsx` when `test_case_source: excel`; `Testcases/unit/` for library tests) |
 
-Per-app layout: `Commons/apps/<app>.py`, `Testcases/<APP>/`, `InputFiles/<APP>/`, `ObjectRepository/<APP>/`. Explore cases use `TC*.xlsx` when `framework.test_case_source: excel` (see `Commons/excel_testcase/README.md`). Maintainer scripts: **`Tools/README.md`** (not used at pytest runtime).
+Per-app layout: `Commons/apps/<app>.py`, `Testcases/<APP>/`, `InputFiles/<APP>/`, `ObjectRepository/<APP>/`. Explore cases use `TC*.xlsx` when `framework.test_case_source: excel` (see `Commons/excel_testcase/README.md`). Edit locators and query workbooks in-tree (`Tools/` has no runtime scripts).
 
 ## Expected data
 

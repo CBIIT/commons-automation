@@ -25,15 +25,4 @@ Examples matching Katalon test intent:
 
 Sidebar sections use facet xpaths from `crdc-ctdc-ui` (`Filter by Participants`, `Filter by Biospecimens`, `Filter by Data Files`). Dropdowns use UI `@id` labels from `src/bento/dashTemplate.js`.
 
-## Regenerate from Katalon + UI
-
-```bash
-python3 Tools/build_ctdc_object_repository.py
-```
-
-Sources:
-
-- `../Commons_Automation/Object Repository/CTDC` (Katalon `.rs`)
-- Facet section titles and filter labels from `../ctdc-fe-be/crdc-ctdc-ui-main/src/bento/dashTemplate.js`
-
-A few Katalon diagnosis checkboxes used `//div[contains(text(),…)]`; the builder replaces those with standard `checkbox_Diagnosis_*` ids where the UI uses Bento checkboxes.
+Update YAML here when the CTDC UI changes. Facet section titles and filter labels align with `crdc-ctdc-ui` (`dashTemplate.js` filter `@id`s).

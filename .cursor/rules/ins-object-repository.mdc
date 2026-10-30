@@ -18,7 +18,7 @@ Index of NCI Studies (studycatalog). Expected data = **TSV + SQL** in `InputFile
 | `navbar.yaml`, `statbar.yaml`, `result_tabs.yaml`, `data_sets.yaml` | Navigation and Programs explore tables |
 | `static/v_home_page.yaml`, `static/v_about_ins_page.yaml` | Static checks (`verify_static_data("V_HomePage")`, etc.) |
 
-Regenerate filter YAML from Katalon: `python3 Tools/build_ins_filters.py`.
+Edit filter YAML by hand under `ObjectRepository/INS/Programs/` and `DataSets/`.
 
 ## Filter YAML shape
 
