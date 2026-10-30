@@ -86,7 +86,7 @@ apps:
 
   INS:
     # Expected data = SQL in InputFiles/INS/TC*.xlsx against program/project/grant/publication TSVs.
-    # Program.zip → YYYY-MM-DD/*.tsv on first load; refresh from ins-data when counts drift (esp. Publications).
+    # Programs.zip → YYYY-MM-DD/*.tsv on first load; refresh from ins-data when counts drift (esp. Publications).
     expected_source: tsv
     tsv_root: InputFiles/INS
     stat_bar_omit:

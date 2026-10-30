@@ -126,6 +126,16 @@ def _snapshot_first_col(rows: List[List[str]]) -> str:
 # MUI TablePagination — scope Next/Previous to the active table wrapper
 # ---------------------------------------------------------------------------
 
+# INS studycatalog uses lowercase aria-label; GC/C3DC use "Next page".
+_MUI_NEXT_BTN = (
+    "@type='button' and "
+    "(@aria-label='Next page' or @aria-label='next page' or @title='Next page')"
+)
+_MUI_PREV_BTN = (
+    "@type='button' and "
+    "(@aria-label='Previous page' or @aria-label='previous page' or @title='Previous page')"
+)
+
 
 def pagination_next_xpath(table_xpath: str, fallback: str) -> str:
     """
@@ -136,15 +146,41 @@ def pagination_next_xpath(table_xpath: str, fallback: str) -> str:
     """
     base = (table_xpath or "").strip()
     if base:
-        return f"({base})//button[@type='button' and @aria-label='Next page']"
+        return f"({base})//button[{_MUI_NEXT_BTN}]"
     return fallback
 
 
 def pagination_prev_xpath(table_xpath: str, fallback_next: str) -> str:
     base = (table_xpath or "").strip()
     if base:
-        return f"({base})//button[@type='button' and @aria-label='Previous page']"
-    return fallback_next.replace("Next page", "Previous page")
+        return f"({base})//button[{_MUI_PREV_BTN}]"
+    text = fallback_next or ""
+    return (
+        text.replace("next page", "previous page")
+        .replace("Next page", "Previous page")
+    )
+
+
+def _resolve_pagination_next_xpath(ui: "Ui", table_xpath: str, fallback_next: str) -> str:
+    """Prefer table-scoped Next; INS often uses lowercase aria-label or places controls outside the grid id."""
+    scoped = pagination_next_xpath(table_xpath, fallback_next)
+    if ui.is_visible(scoped):
+        return scoped
+    if fallback_next and ui.is_visible(fallback_next):
+        action_log.say(f"Pagination: using repo Next xpath (scoped control not visible): {fallback_next}")
+        return fallback_next
+    return scoped
+
+
+def _resolve_pagination_prev_xpath(ui: "Ui", table_xpath: str, fallback_next: str) -> str:
+    scoped = pagination_prev_xpath(table_xpath, fallback_next)
+    if ui.is_visible(scoped):
+        return scoped
+    if fallback_next:
+        derived = pagination_prev_xpath("", fallback_next)
+        if derived and ui.is_visible(derived):
+            return derived
+    return scoped
 
 
 def _pagination_next_disabled(ui: "Ui", next_xp: str) -> bool:
@@ -167,7 +203,7 @@ def _refresh_pagination_controls(ui: "Ui", tbl_bdy: str, table_xpath: str, fallb
     idle wait added no stability beyond tbody visible + page-change polling.
     """
     ui.wait_visible(tbl_bdy)
-    next_xp = pagination_next_xpath(table_xpath, fallback_next)
+    next_xp = _resolve_pagination_next_xpath(ui, table_xpath, fallback_next)
     _wait_for_pagination(ui, next_xp, timeout_ms=4000)
     _table_debug(f"pagination refreshed next_xp={next_xp!r} dom={_tbody_row_stats(ui, tbl_bdy)}")
     return next_xp
@@ -749,8 +785,8 @@ def read_table_data(
     tbl_bdy = resolve_table_body_xpath(app_key, tbl_main)
     ui.wait_visible(tbl_bdy)
     fallback_next = next_xpath
-    next_xpath = pagination_next_xpath(tbl_main, fallback_next)
-    prev_xpath = pagination_prev_xpath(tbl_main, fallback_next)
+    next_xpath = _resolve_pagination_next_xpath(ui, tbl_main, fallback_next)
+    prev_xpath = _resolve_pagination_prev_xpath(ui, tbl_main, fallback_next)
     action_log.table_setup(tbl_main, tbl_bdy, header_xpath, next_xpath)
     action_log.say(f"This is the value of tbl main : {tbl_main}")
     action_log.say(f"This is the value of table body: {tbl_bdy}")
@@ -804,7 +840,7 @@ def read_table_data(
 
             if counter >= last_page:
                 break
-            next_xpath = pagination_next_xpath(tbl_main, fallback_next)
+            next_xpath = _resolve_pagination_next_xpath(ui, tbl_main, fallback_next)
             if _pagination_next_disabled(ui, next_xpath):
                 break
             action_log.say("Clicked next button")
