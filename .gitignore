@@ -8,6 +8,7 @@ Reports/*
 OutputFiles/
 .env
 
-# INS: TSV trees created at runtime from Program.zip / DataSetsTab.zip (keep the zips in git).
+# INS: extracted TSV trees (commit Programs.zip / DataSetsTab.zip only).
+InputFiles/INS/Programs/
 InputFiles/INS/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]/
 InputFiles/INS/DataSetsTab/

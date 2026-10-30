@@ -3,7 +3,7 @@ Expected tab/stat data from dated TSV snapshots (Katalon Utils.py pattern).
 
 Used when `expected_source: tsv` in Config/environments.yaml:
   - CTDC — node files under InputFiles/CTDC/<STUDY>/YYYY-MM-DD/
-  - INS  — InputFiles/INS/YYYY-MM-DD/*.tsv or bundles like Program.zip (auto-extracted)
+  - INS  — InputFiles/INS/YYYY-MM-DD/*.tsv or bundles like Programs.zip (auto-extracted)
 
 Shared pipeline: find release folders → load TSVs → merge by id (newer wins) → in-memory SQLite → SQL from TC*.xlsx.
 """
@@ -151,8 +151,8 @@ def _zip_member_target(tsv_root: Path, zip_path: Path, member: str) -> Optional[
     """
     Where to write one .tsv from a zip under tsv_root.
 
-    Handles Program.zip (2024-10-29/grant.tsv), YYYY-MM-DD.zip (flat *.tsv), and
-    nested bundles (DataSetsTab/2025-05-18/*.tsv).
+    Handles Programs.zip (Programs/grant.tsv or YYYY-MM-DD/grant.tsv), YYYY-MM-DD.zip
+    (flat *.tsv), and nested bundles (DataSetsTab/2025-05-18/*.tsv).
     """
     if member.startswith("__MACOSX") or member.endswith("/"):
         return None
@@ -171,7 +171,7 @@ def _zip_member_target(tsv_root: Path, zip_path: Path, member: str) -> Optional[
 
 
 def _ensure_ins_zips_extracted(tsv_root: Path) -> None:
-    """INS: extract missing .tsv from any *.zip in InputFiles/INS (Program.zip, etc.)."""
+    """INS: extract missing .tsv from any *.zip in InputFiles/INS (Programs.zip, DataSetsTab.zip, …)."""
     for zip_path in sorted(tsv_root.glob("*.zip")):
         if not zip_path.is_file():
             continue
@@ -289,8 +289,34 @@ def _ins_prepare(tsv_root: Path) -> None:
     _ensure_ins_zips_extracted(tsv_root)
 
 
+def _ins_bundle_release_folders(tsv_root: Path) -> List[Path]:
+    """Top-level dirs (not YYYY-MM-DD) that contain program/project/grant/publication TSVs."""
+    bundles: List[Path] = []
+    for child in tsv_root.iterdir():
+        if not child.is_dir() or child.name.startswith("."):
+            continue
+        if _is_date_folder(child.name):
+            continue
+        for file_path in child.iterdir():
+            if not file_path.is_file():
+                continue
+            if file_path.suffix.lower() not in (".tsv", ".txt"):
+                continue
+            if _ins_node_for_filename(file_path.name) is not None:
+                bundles.append(child)
+                break
+    bundles.sort(key=lambda path: path.name)
+    return bundles
+
+
 def _ins_release_folders(tsv_root: Path) -> List[Path]:
     versions = _date_release_folders(tsv_root)
+    seen = {path.resolve() for path in versions}
+    for bundle in _ins_bundle_release_folders(tsv_root):
+        resolved = bundle.resolve()
+        if resolved not in seen:
+            versions.append(bundle)
+            seen.add(resolved)
     return versions if versions else [tsv_root]
 
 
@@ -298,12 +324,12 @@ def _ins_validate(frames: Dict[str, pd.DataFrame], tsv_root: Path) -> None:
     if all(frames[node].empty for node in INS_NODE_INDEX):
         raise RuntimeError(
             f"No INS TSV node files loaded under {tsv_root}. "
-            "Expected InputFiles/INS/YYYY-MM-DD/*.tsv or Program.zip (auto-extracted)."
+            "Expected InputFiles/INS/YYYY-MM-DD/*.tsv or Programs.zip (auto-extracted)."
         )
     if "cancer_type" not in frames["program"].columns:
         raise RuntimeError(
             f"INS program TSV missing cancer_type column (loaded columns: {list(frames['program'].columns)}). "
-            "Re-extract Program.zip or refresh program.tsv from ins-data."
+            "Re-extract Programs.zip or refresh program.tsv from ins-data."
         )
 
 
@@ -352,7 +378,7 @@ def load_merged_frames(tsv_root: Path, app: AppName) -> Dict[str, pd.DataFrame]:
         if app == "INS":
             raise RuntimeError(
                 f"INS TSV folder not found: {tsv_root}. "
-                "Copy InputFiles/INS/<date>/ or add Program.zip beside TC*.xlsx."
+                "Copy InputFiles/INS/<date>/ or add Programs.zip beside TC*.xlsx."
             )
         raise RuntimeError(
             f"CTDC TSV folder not found: {tsv_root}. "
