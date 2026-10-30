@@ -138,10 +138,12 @@ def test_pagination_xpaths_scope_to_active_table():
     tbl = "//*[@id='participant_tab_table']"
     fallback = "(//button[@aria-label='Next page'])[1]"
     assert pagination_next_xpath(tbl, fallback) == (
-        "(//*[@id='participant_tab_table'])//button[@type='button' and @aria-label='Next page']"
+        "(//*[@id='participant_tab_table'])//button[@type='button' and "
+        "(@aria-label='Next page' or @aria-label='next page' or @title='Next page')]"
     )
     assert pagination_prev_xpath(tbl, fallback) == (
-        "(//*[@id='participant_tab_table'])//button[@type='button' and @aria-label='Previous page']"
+        "(//*[@id='participant_tab_table'])//button[@type='button' and "
+        "(@aria-label='Previous page' or @aria-label='previous page' or @title='Previous page')]"
     )
     assert pagination_next_xpath("", fallback) == fallback
 

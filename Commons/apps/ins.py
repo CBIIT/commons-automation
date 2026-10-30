@@ -2,7 +2,7 @@
 INS (Index of NCI Studies): https://studycatalog.cancer.gov
 
 Programs or Datasets explore: stat bar + result tabs (Programs, Projects, Grants, Publications).
-Expected data: TSV from Program.zip / DataSetsTab.zip (extracted under InputFiles/INS/) + SQL in TC*.xlsx.
+Expected data: TSV from Programs.zip / DataSetsTab.zip (extracted under InputFiles/INS/) + SQL in TC*.xlsx.
 """
 from Commons.apps.base import BaseApp, StatSpec, TabSpec
 
