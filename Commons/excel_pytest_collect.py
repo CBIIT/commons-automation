@@ -28,6 +28,8 @@ def _make_test_fn(case_path: Path, app_fixture: str):
     test_fn = pytest.mark.regression(test_fn)
     if case_path.name.startswith("TC01_"):
         test_fn = pytest.mark.smoke(test_fn)
+    if "static" in case_path.parts:
+        test_fn = pytest.mark.static(test_fn)
     return test_fn
 
 

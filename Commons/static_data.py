@@ -10,7 +10,7 @@ from urllib.parse import urlparse
 
 import openpyxl
 
-from Commons import excel_writer
+from Commons import action_log, excel_writer
 from Commons.object_repository import LocatorNotFound
 from Commons.settings import input_dir
 
@@ -98,6 +98,10 @@ def _link_href_for_env(qa_href: str, env: str) -> str:
 # ---------------------------------------------------------------------------
 
 
+def _static_log(sheet_name: str, obj: str, msg: str) -> None:
+    action_log.static_log(f"[Static {sheet_name}] {obj}: {msg}")
+
+
 def verify_static_page(app: "BaseApp", sheet_name: str) -> List[str]:
     """Check one Excel sheet against Static/<sheet_name>/ locators; return failure messages (empty = pass)."""
     path = Path(input_dir(app.NAME)) / app.STATIC_DATA_EXCEL
@@ -106,6 +110,9 @@ def verify_static_page(app: "BaseApp", sheet_name: str) -> List[str]:
         raise KeyError(f"Sheet '{sheet_name}' not in {path.name}. Sheets: {wb.sheetnames}")
     rows = list(wb[sheet_name].iter_rows(values_only=True))[1:]
     wb.close()
+
+    objects = [str(r[0]).strip() for r in rows if r and r[0]]
+    action_log.static_log(f"[Static] Verifying sheet {sheet_name!r} ({len(objects)} object(s))")
 
     problems: List[str] = []
     out_rows: List[list] = []
@@ -122,6 +129,12 @@ def verify_static_page(app: "BaseApp", sheet_name: str) -> List[str]:
             el.wait_for(state="visible", timeout=10000)
             actual = _normalize_text(el.inner_text())
             text_ok = actual == expected_text
+            status = "PASS" if text_ok else "FAIL"
+            _static_log(
+                sheet_name,
+                obj,
+                f"text {status} — actual={actual!r} expected={expected_text!r}",
+            )
             if not text_ok:
                 problems.append(f"{obj}: text is '{actual}', expected '{expected_text}'")
             url_ok = True
@@ -129,12 +142,20 @@ def verify_static_page(app: "BaseApp", sheet_name: str) -> List[str]:
                 want = _link_href_for_env(expected_url, app.settings.env)
                 got = el.get_attribute("href") or ""
                 url_ok = _hrefs_match(got, want)
+                status = "PASS" if url_ok else "FAIL"
+                _static_log(
+                    sheet_name,
+                    obj,
+                    f"link {status} — actual={got!r} expected={want!r}",
+                )
                 if not url_ok:
                     problems.append(f"{obj}: link is '{got}', expected '{want}'")
             ok = text_ok and url_ok
         except LocatorNotFound as e:
+            _static_log(sheet_name, obj, f"FAIL — {e}")
             problems.append(f"{obj}: {e}")
         except Exception as e:
+            _static_log(sheet_name, obj, f"FAIL — element not found or not visible ({type(e).__name__})")
             problems.append(f"{obj}: element not found or not visible ({type(e).__name__})")
         out_rows.append([obj, expected_text, expected_url, str(ok).lower()])
 

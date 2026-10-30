@@ -14,6 +14,9 @@ Memgraph Cypher (always shown when a query runs unless disabled):
 
 Browser open/close and navigation (always shown during tests unless disabled):
   COMMONS_BROWSER_LOG=1  default on; set 0 to hide "[Browser] …" lines
+
+Static page checks (actual vs expected text/links):
+  COMMONS_STATIC_LOG=1   default on; set 0 to hide "[Static …]" lines
 """
 from __future__ import annotations
 
@@ -151,6 +154,30 @@ def browser_log(msg: str) -> None:
         return
     with pytest_table_output_live():
         print(_live_console_line(f"[Browser] {msg}"), flush=True)
+
+
+_static_log: Optional[bool] = None
+
+
+def static_log_enabled() -> bool:
+    """Print static page verify lines (actual vs expected); on by default."""
+    global _static_log
+    if _static_log is None:
+        raw = os.environ.get("COMMONS_STATIC_LOG", "1").strip().lower()
+        _static_log = raw not in ("0", "false", "no", "off")
+    return _static_log
+
+
+def set_static_log(on: bool) -> None:
+    global _static_log
+    _static_log = on
+
+
+def static_log(msg: str) -> None:
+    if not static_log_enabled():
+        return
+    with pytest_table_output_live():
+        print(_live_console_line(msg), flush=True)
 
 
 _db_queries: Optional[bool] = None

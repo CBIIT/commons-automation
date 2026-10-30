@@ -6,7 +6,7 @@ Supported apps: **GC**, **C3DC**, **ICDC**, **CTDC**, **INS**, **Bento**, **CCDI
 
 ## How it works
 
-Two kinds of Excel file: **test case** workbooks under `Testcases/<APP>/studies/…/TC*.xlsx` (Steps: actions only) and **query** workbooks under `InputFiles/<APP>/TC*.xlsx` (Cypher/SQL for stat bar and tabs). **GC**, **CTDC**, **C3DC**, **ICDC**, and **Bento** explore studies use test-case Excel when `framework.test_case_source: excel`; other apps still use Python tests that call the adapter directly.
+Two kinds of Excel file: **test case** workbooks under `Testcases/<APP>/…/TC*.xlsx` (Steps: actions only) and **query** workbooks under `InputFiles/<APP>/TC*.xlsx` (Cypher/SQL for stat bar and tabs). **GC**, **CTDC**, **C3DC**, **ICDC**, **Bento**, and **INS Programs** use test-case Excel when `framework.test_case_source: excel`; INS DataSets/static and other edge cases may stay Python.
 
 ```
                          ┌──────────────────────┐
@@ -71,15 +71,15 @@ Use app fixtures from `conftest.py` (`gc`, `c3dc`, `ctdc`, `ins`, …). Markers 
 |------|----------|
 | URLs, DB hosts, TSV roots | `Config/environments.yaml` |
 | Secrets | `.env` (`MEMGRAPH_PASSWORD_<APP>`, …) |
-| Excel vs Python test steps | `Config/environments.yaml` → `framework.test_case_source` (`excel` collects `TC*.xlsx` under `Testcases/<APP>/studies/…`) |
+| Excel vs Python test steps | `Config/environments.yaml` → `framework.test_case_source` (`excel` collects `TC*.xlsx` under each app’s case folders, e.g. `studies/` or `INS/Programs/…`) |
 | Tab on/off, row limit | `Config/tab_setting.yaml` |
 | Locators | `ObjectRepository/<APP>/` |
 | Query / expected data (Cypher or SQL) | `InputFiles/<APP>/TC*.xlsx` (`TabQuery`, `StatQuery`) |
-| Excel step definitions (GC / CTDC / C3DC / ICDC / Bento) | `Testcases/<APP>/…/TC*.xlsx` (`studies/` or `arm-*/`); per-app: `Commons/excel_testcase/apps/`; convert: `Tools/convert_study_tests_to_excel.py <APP_KEY>` |
+| Excel step definitions | `Testcases/<APP>/…/TC*.xlsx`; per-app: `Commons/excel_testcase/apps/`; convert: `Tools/convert_study_tests_to_excel.py <APP_KEY>` |
 | Portal-specific behavior | `Commons/apps/<app>.py`, `Commons/table_reader.py` |
 | Tests | `Testcases/<APP>/` (Python and/or testcase Excel) |
 
-Per-app layout: `Commons/apps/<app>.py`, `Testcases/<APP>/`, `InputFiles/<APP>/`, `ObjectRepository/<APP>/`. **GC, CTDC, C3DC, ICDC, and Bento** use `TC*.xlsx` when `framework.test_case_source: excel` (see `Commons/excel_testcase/README.md` to add INS/…). Maintainer scripts: **`Tools/README.md`** (not used at pytest runtime).
+Per-app layout: `Commons/apps/<app>.py`, `Testcases/<APP>/`, `InputFiles/<APP>/`, `ObjectRepository/<APP>/`. Explore cases use `TC*.xlsx` when `framework.test_case_source: excel` (see `Commons/excel_testcase/README.md`). Maintainer scripts: **`Tools/README.md`** (not used at pytest runtime).
 
 ## Expected data
 
@@ -106,7 +106,7 @@ def test_example(c3dc):
     c3dc.assert_no_failures()
 ```
 
-**GC / CTDC / C3DC / ICDC / Bento (Excel testcase)** — row 2 points at `InputFiles/<APP>/…`; following rows are Action/Page/Params/Filter (`open_data`, `open_explore`, `open_cases`, `set_age_range`, filters, `verify_tab`, …). Pytest applies the app marker, `regression`, and `smoke` (for `TC01_*`) at collection time—no `.py` per case.
+**Excel testcase** — row 2 points at `InputFiles/<APP>/…`; following rows are Action/Page/Params/Filter (`open_programs`, `open_data`, `select_filter`, `verify_tab`, …). Pytest applies the app marker, `regression`, and `smoke` (for `TC01_*`) at collection time—no `.py` per case.
 
 `verify_tab` runs all enabled tabs in the app unless you call it per tab. Empty tabs `(0)` are skipped. Failures are collected until `assert_no_failures()` (screenshot under `Reports/screenshots/`; compare workbooks under `OutputFiles/<APP>/<env>/`).
 

@@ -41,6 +41,8 @@ def parse_adapter_calls(
     fixture_name: str,
     method_to_step: dict[str, callable],
     module_consts: Dict[str, str] | None = None,
+    require_query_file: bool = True,
+    default_query_file: str = "",
 ) -> Tuple[str, List[StepRow]]:
     query_name = ""
     steps: List[StepRow] = []
@@ -75,7 +77,12 @@ def parse_adapter_calls(
             else:
                 steps.extend(step)
     if not query_name:
-        raise ValueError(f"No {fixture_name}.load_query_file(...) found")
+        if not require_query_file and default_query_file:
+            query_name = default_query_file
+        elif require_query_file:
+            raise ValueError(f"No {fixture_name}.load_query_file(...) found")
+        else:
+            raise ValueError(f"No query workbook for {test_fn.name}")
     if not steps or steps[-1][0] != "assert_no_failures":
         raise ValueError("Expected assert_no_failures at end")
     return query_name, steps

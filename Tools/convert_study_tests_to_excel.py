@@ -39,8 +39,8 @@ def convert_app(app_key: str, *, delete_py: bool = True) -> tuple[int, int, list
     for py_path in py_files:
         try:
             query_file, steps = parse_test_file(py_path, profile.parse_test_function)
-            stem = Path(query_file).stem
-            xlsx_path = py_path.parent / f"{stem}.xlsx"
+            case_stem = py_path.stem.removeprefix("test_")
+            xlsx_path = py_path.parent / f"{case_stem}.xlsx"
             input_rel = profile.query_workbook_row2(query_file)
             write_excel_case(
                 xlsx_path,

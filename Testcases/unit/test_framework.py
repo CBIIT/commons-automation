@@ -980,6 +980,226 @@ def test_ctdc_cmb_excel_testcase_steps_sheet():
     assert calls[-1] == ("done",)
 
 
+def test_ccdi_static_excel_testcase_steps_sheet():
+    from Commons.excel_test_runner import run_testcase_excel
+
+    path = Path(__file__).resolve().parents[1] / "CCDI/static/TC01_CCDI_StaticData.xlsx"
+    assert path.is_file(), path
+    calls = []
+
+    class Stub:
+        def load_query_file(self, name):
+            calls.append(("load", name))
+
+        def accept_banner(self):
+            calls.append(("banner",))
+
+        def verify_static_data(self, sheet):
+            calls.append(("static", sheet))
+
+        def click(self, key):
+            calls.append(("click", key))
+
+        def assert_no_failures(self):
+            calls.append(("done",))
+
+    run_testcase_excel(Stub(), path)
+    assert not any(c[0] == "load" for c in calls)
+    assert calls == [
+        ("banner",),
+        ("static", "HomePage"),
+        ("click", "Navbar/About-Btn"),
+        ("click", "Navbar/About-AboutCCDI-Btn"),
+        ("static", "AboutCCDIPage"),
+        ("click", "Navbar/About-Btn"),
+        ("click", "Navbar/About-CCDITerms-Btn"),
+        ("static", "AboutPoliciesPage"),
+        ("done",),
+    ]
+
+
+def test_ctdc_static_excel_testcase_steps_sheet():
+    from Commons.excel_test_runner import run_testcase_excel
+
+    path = Path(__file__).resolve().parents[1] / "CTDC/static/TC01_CTDC_StaticData.xlsx"
+    assert path.is_file(), path
+    calls = []
+
+    class Stub:
+        def load_query_file(self, name):
+            calls.append(("load", name))
+
+        def accept_banner(self):
+            calls.append(("banner",))
+
+        def verify_static_data(self, sheet):
+            calls.append(("static", sheet))
+
+        def click(self, key):
+            calls.append(("click", key))
+
+        def assert_no_failures(self):
+            calls.append(("done",))
+
+    run_testcase_excel(Stub(), path)
+    assert not any(c[0] == "load" for c in calls)
+    static_sheets = [c[1] for c in calls if c[0] == "static"]
+    assert static_sheets == [
+        "HomePage",
+        "DataCloudPage",
+        "DataHarmonizationPage",
+        "DataTermsPage",
+        "DataSubmissionPage",
+        "ResourcesGraphQLPage",
+        "ResourcesInfoPage",
+        "AboutPurposePage",
+        "AboutContactPage",
+        "RequestAccessPage",
+    ]
+    assert calls[0] == ("banner",)
+    assert calls[-1] == ("done",)
+    assert ("click", "NavBar/RequestAccess-Btn") in calls
+    assert ("click", "RequestAccess_page/AccessDatasetsDropdown") in calls
+
+
+def test_gc_static_excel_testcase_steps_sheet():
+    from Commons.excel_test_runner import run_testcase_excel
+
+    path = Path(__file__).resolve().parents[1] / "GC/static/TC01_GC_StaticData.xlsx"
+    assert path.is_file(), path
+    calls = []
+
+    class Stub:
+        def load_query_file(self, name):
+            calls.append(("load", name))
+
+        def accept_banner(self):
+            calls.append(("banner",))
+
+        def verify_static_data(self, sheet):
+            calls.append(("static", sheet))
+
+        def click(self, key):
+            calls.append(("click", key))
+
+        def assert_no_failures(self):
+            calls.append(("done",))
+
+    run_testcase_excel(Stub(), path)
+    assert not any(c[0] == "load" for c in calls)
+    assert calls == [
+        ("banner",),
+        ("static", "HomePage"),
+        ("click", "NavBar/About_DropDown"),
+        ("click", "NavBar/About_AboutCDS-Btn"),
+        ("static", "AboutCDSPage"),
+        ("click", "NavBar/About_DropDown"),
+        ("click", "NavBar/About_DataModel-Btn"),
+        ("static", "AboutDataModelPage"),
+        ("done",),
+    ]
+
+
+def test_gc_study_listing_excel_testcase_steps_sheet():
+    from Commons.excel_test_runner import run_testcase_excel
+
+    path = Path(__file__).resolve().parents[1] / "GC/study_listing/TC01_GC_StudyListing.xlsx"
+    assert path.is_file(), path
+    calls = []
+
+    class Stub:
+        def load_query_file(self, name):
+            calls.append(("load", name))
+
+        def accept_banner(self):
+            calls.append(("banner",))
+
+        def open_studies_listing(self):
+            calls.append(("listing_open",))
+
+        def verify_studies_listing(self):
+            calls.append(("listing_verify",))
+
+        def assert_no_failures(self):
+            calls.append(("done",))
+
+    run_testcase_excel(Stub(), path)
+    assert calls == [
+        ("load", "TC01_GC_StudyListing.xlsx"),
+        ("banner",),
+        ("listing_open",),
+        ("listing_verify",),
+        ("done",),
+    ]
+
+
+def test_c3dc_study_listing_excel_testcase_steps_sheet():
+    from Commons.excel_test_runner import run_testcase_excel
+
+    path = Path(__file__).resolve().parents[1] / "C3DC/study_listing/TC01_C3DC_StudyListing.xlsx"
+    assert path.is_file(), path
+    calls = []
+
+    class Stub:
+        def load_query_file(self, name):
+            calls.append(("load", name))
+
+        def accept_banner(self):
+            calls.append(("banner",))
+
+        def open_studies_listing(self):
+            calls.append(("listing_open",))
+
+        def verify_studies_listing(self):
+            calls.append(("listing_verify",))
+
+        def assert_no_failures(self):
+            calls.append(("done",))
+
+    run_testcase_excel(Stub(), path)
+    assert calls == [
+        ("load", "TC01_C3DC_StudyListing.xlsx"),
+        ("banner",),
+        ("listing_open",),
+        ("listing_verify",),
+        ("done",),
+    ]
+
+
+def test_c3dc_static_excel_testcase_steps_sheet():
+    from Commons.excel_test_runner import run_testcase_excel
+
+    path = Path(__file__).resolve().parents[1] / "C3DC/static/TC01_C3DC_StaticData.xlsx"
+    assert path.is_file(), path
+    calls = []
+
+    class Stub:
+        def load_query_file(self, name):
+            calls.append(("load", name))
+
+        def accept_banner(self):
+            calls.append(("banner",))
+
+        def verify_static_data(self, sheet):
+            calls.append(("static", sheet))
+
+        def goto(self, path):
+            calls.append(("goto", path))
+
+        def assert_no_failures(self):
+            calls.append(("done",))
+
+    run_testcase_excel(Stub(), path)
+    assert not any(c[0] == "load" for c in calls)
+    assert calls == [
+        ("banner",),
+        ("static", "HomePage"),
+        ("goto", "about"),
+        ("static", "AboutPage"),
+        ("done",),
+    ]
+
+
 def test_c3dc_phs000463_excel_testcase_steps_sheet():
     from Commons.excel_test_runner import run_testcase_excel
 
@@ -1021,6 +1241,117 @@ def test_c3dc_phs000463_excel_testcase_steps_sheet():
     assert ("filter", "Study/dbGaP_Accession", "phs000463") in calls
     assert ("filter", "Demographics/SexAtBirth", "Female") in calls
     assert ("tab", "Samples") in calls
+    assert calls[-1] == ("done",)
+
+
+def test_ins_datasets_cedcd_excel_testcase_steps_sheet():
+    from Commons.excel_test_runner import run_testcase_excel
+
+    path = (
+        Path(__file__).resolve().parents[1]
+        / "INS/DataSets/TC01_INS_DataSets_Repository-CEDCD.xlsx"
+    )
+    assert path.is_file(), path
+    calls = []
+
+    class Stub:
+        def load_query_file(self, name):
+            calls.append(("load", name))
+
+        def accept_banner(self):
+            calls.append(("banner",))
+
+        def open_datasets(self):
+            calls.append(("datasets",))
+
+        def select_filter(self, group, value):
+            calls.append(("filter", group, value))
+
+        def verify_datasets_tab(self):
+            calls.append(("verify_ds",))
+
+        def assert_no_failures(self):
+            calls.append(("done",))
+
+    run_testcase_excel(Stub(), path)
+    assert calls[0] == ("load", "TC01_INS_DataSets_Repository-CEDCD.xlsx")
+    assert ("filter", "DataSets/Repository", "CEDCD") in calls
+    assert ("verify_ds",) in calls
+    assert calls[-1] == ("done",)
+
+
+def test_ins_static_excel_testcase_steps_sheet():
+    from Commons.excel_test_runner import run_testcase_excel
+
+    path = Path(__file__).resolve().parents[1] / "INS/static/TC01_INS_StaticData.xlsx"
+    assert path.is_file(), path
+    calls = []
+
+    class Stub:
+        def load_query_file(self, name):
+            calls.append(("load", name))
+
+        def accept_banner(self):
+            calls.append(("banner",))
+
+        def verify_static_data(self, sheet):
+            calls.append(("static", sheet))
+
+        def click(self, key):
+            calls.append(("click", key))
+
+        def assert_no_failures(self):
+            calls.append(("done",))
+
+    run_testcase_excel(Stub(), path)
+    assert not any(c[0] == "load" for c in calls), "INS_StaticData must not call load_query_file"
+    assert calls[0] == ("banner",)
+    assert ("static", "V_HomePage") in calls
+    assert ("click", "Navbar/About-Btn") in calls
+    assert ("click", "Navbar/About-INS-Btn") in calls
+    assert ("static", "V_AboutInsPage") in calls
+    assert calls[-1] == ("done",)
+
+
+def test_ins_bladder_excel_testcase_steps_sheet():
+    from Commons.excel_test_runner import run_testcase_excel
+
+    path = (
+        Path(__file__).resolve().parents[1]
+        / "INS/Programs/CancerType/TC01_INS_CancerType-BladderCancer.xlsx"
+    )
+    assert path.is_file(), path
+    calls = []
+
+    class Stub:
+        TABS = {"Programs": None, "Projects": None, "Grants": None, "Publications": None}
+
+        def load_query_file(self, name):
+            calls.append(("load", name))
+
+        def accept_banner(self):
+            calls.append(("banner",))
+
+        def open_programs(self):
+            calls.append(("programs",))
+
+        def select_filter(self, group, value):
+            calls.append(("filter", group, value))
+
+        def read_statbar(self):
+            calls.append(("stat",))
+
+        def verify_tab(self, tab):
+            calls.append(("tab", tab))
+
+        def assert_no_failures(self):
+            calls.append(("done",))
+
+    run_testcase_excel(Stub(), path)
+    assert calls[0] == ("load", "TC01_INS_CancerType-BladderCancer.xlsx")
+    assert ("programs",) in calls
+    assert ("filter", "CancerType/CancerType", "BladderCancer") in calls
+    assert ("tab", "Publications") in calls
     assert calls[-1] == ("done",)
 
 

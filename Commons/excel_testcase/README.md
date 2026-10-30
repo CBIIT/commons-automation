@@ -1,6 +1,6 @@
 # Excel-driven test cases
 
-One **ExcelCaseProfile** per app. Pytest runs `TC*.xlsx` under `Testcases/<APP>/studies/` when `framework.test_case_source: excel`.
+One **ExcelCaseProfile** per app. Pytest runs `TC*.xlsx` under each profile’s `case_subdirs` (e.g. `studies/`, `INS/Programs/CancerType/`) when `framework.test_case_source: excel`.
 
 ## Add a new app (INS, C3DC, …)
 

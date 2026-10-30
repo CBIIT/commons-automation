@@ -91,6 +91,18 @@ def common_handlers() -> Dict[str, Handler]:
     def assert_no_failures(app, _p, _a, _b, _excel):
         app.assert_no_failures()
 
+    def goto(app, _page, params, _flt, _excel):
+        path = (params or _page or "").strip()
+        if not path:
+            raise ValueError("goto step needs path in Params")
+        app.goto(path)
+
+    def verify_static_data(app, _page, params, _flt, _excel):
+        sheet = (params or _page or "").strip()
+        if not sheet:
+            raise ValueError("verify_static_data step needs sheet name in Params")
+        app.verify_static_data(sheet)
+
     def load_query_file(app, _page, params, _flt, _excel):
         from pathlib import Path
 
@@ -126,6 +138,8 @@ def common_handlers() -> Dict[str, Handler]:
         "verify_all_tabs": verify_all_tabs,
         "assert_no_failures": assert_no_failures,
         "assert_results": assert_no_failures,
+        "goto": goto,
+        "verify_static_data": verify_static_data,
         "load_query_file": load_query_file,
         "click_and_wait": click_and_wait,
         "js_click_and_wait": js_click,

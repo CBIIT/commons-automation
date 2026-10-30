@@ -69,7 +69,10 @@ def run_testcase_excel(app: "BaseApp", excel_path: Path) -> None:
 
     input_excel = _input_excel_from_config(rows[1])
     if input_excel:
-        app.load_query_file(Path(input_excel.replace("\\", "/")).name)
+        input_name = Path(input_excel.replace("\\", "/")).name
+        # Static page workbooks (*_StaticData.xlsx) are not TabQuery TC*.xlsx files.
+        if not input_name.endswith("_StaticData.xlsx"):
+            app.load_query_file(input_name)
 
     for row in rows[2:]:
         if not row or len(row) <= _COL_ACTION or not row[_COL_ACTION]:
