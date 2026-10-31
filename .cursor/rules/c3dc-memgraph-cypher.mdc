@@ -23,6 +23,17 @@ TC04 demonstrates: `treatment_radiation` anchor + `WITH DISTINCT p, s` on **all*
 
 Also use skill `.cursor/skills/c3dc-memgraph-cypher-assistant/` for model/index references and `scripts/query_memgraph.py` to validate counts before committing xlsx changes.
 
+## Fixing UI vs DB mismatches (pytest compare)
+
+After a failing `verify_tab` / stat bar run, **open the output workbooks** (written under `OutputFiles/<APP>/<ENV>/`, e.g. `OutputFiles/C3DC/QA/`):
+
+| File | Sheets |
+|------|--------|
+| `<TC>_…xlsx_UI.xlsx` | `StatOutput`, `UI_Participants`, `UI_Studies`, `UI_Diagnosis`, … |
+| `<TC>_…xlsx_DB.xlsx` | `StatOutput`, `DB_Participants`, `DB_Studies`, `DB_Diagnosis`, … |
+
+Diff the **same sheet pair** row-for-row and column-by-column (headers in row 1). That pinpoints which Cypher column to fix—do not guess from the pytest summary alone. Re-run pytest after xlsx query edits to refresh `_UI` / `_DB`.
+
 ## Input workbook (`TC*_C3DC_*.xlsx`)
 
 Single sheet: columns `TabName`, `TabQuery`, `StatQuery`, `TsvExcel`.
@@ -69,15 +80,25 @@ Diagnosis filters: anchor `(d:diagnosis)-[:of_diagnosis]->(p:participant)-…->(
 
 **Reference — phs000720 (all TC01–TC09):** `InputFiles/C3DC/TC*_C3DC_phs000720_*.xlsx` StatQueries follow the pattern above. Explore stat bar **Files** = cohort-linked files (sample + participant edges). **Studies tab** **Number of Files** / **File Type (Top 5)** = whole study via `(s)<-[*..6]-(fl)`; cohort row via filter-specific `MATCH … WITH DISTINCT s` (not `EXISTS`). **Diagnosis Anatomic Site (Top 5):** `ORDER BY site_n DESC, site DESC` (tie-break when counts match). Do not add `//` comments in xlsx Cypher.
 
+**Reference — phs002430 (TC01–TC07):** **Study-first** StatQuery; diagnosis filters anchor **`(d)-[:of_diagnosis]->(p)`** (no `EXISTS`). **Large cohorts:** avoid **`CALL { UNWIND ps … UNION … }`** (Memgraph QA hangs). Use **`UNWIND cohort_p AS p`**, per-`p` **`collect`** for direct + cell_line + pdx samples, then **`UNWIND CASE WHEN size(sms)=0 THEN [null] ELSE sms END`** for file GUIDs; flatten **`sample_id`** / **`dcf_indexd_guid`** at the end—no `(p)-[*..4]-(file)`.
+
+**Reference — phs002431 (C3DC TC01–TC13):** Stat bar **Files** = study-first + cohort **`CALL { … dcf_indexd_guid … }`** (not `0 AS files`). **Studies tab File Type (Top 5):** `ORDER BY type_n DESC, file_type DESC` (cram before crai at equal counts); drop **`tbi`** from the displayed list; **`Read More`** when `size(file_type_all) > 5`. **Survival tab (longitudinal FU):** Explore does not return every `_fu_*` suffix (e.g. TC01 Male shows 13 rows with suffixes `1, 78, 94, 99, 101, 109, 141, 144, 150, 198, 207, 214, 258` — not `>= 94`). Diff `UI_Survival` vs `DB_Survival` and use `fu_n IN [...]` from the export when a range filter still pulls `_fu_102` etc. Carry **`s`** through `WITH`; `ORDER BY p.participant_id, fu_n ASC`.
+
+**Reference — phs002371 (TC01–TC13):** Stat bar **Files** uses the cohort **`CALL { … dcf_indexd_guid … }`** pattern (sample `of_*_file` + participant clinical/generic/radiology edges)—not **`0 AS files`**. Study-first `MATCH (s:study) WHERE s.dbgap_accession = 'phs002371'` then cohort filter + `WITH DISTINCT p, s`.
+
+**Reference — phs001437 (Maris / TC01–TC09):** StatQuery adds **derived samples** (direct + cell_line + pdx UNION in a `CALL`) before counts. Stat bar **Files** = `OPTIONAL MATCH (p)-[*..4]-(file)` on cohort participants inside the file `CALL` (Maris files are not always on `of_*_file` sample edges). **Studies tab** keeps study-wide sample totals via `(s)<-[*..2]-(pcp)<-[:of_sample]-(sm)` + cell_line/pdx branch; **File Type (Top 5):** drop `crai` and `cram` from the displayed list (Explore omits them at equal counts); **`ORDER BY type_n DESC, file_type DESC`** for tie-break among remaining types (e.g. `tar` before `pdf` at 284). Append **`Read More`** when **`size(file_type_all) > 5`** (before crai/cram exclusion), not when `size(file_type_filtered) > 5` — the UI still shows Read More if hidden types remain after the top-5 slice. **Diagnosis tab:** UNION participant + sample/cell_line/pdx diagnosis paths; **`ORDER BY p.participant_id, d.diagnosis_id`**; TC01 cohort filter `Maris_*` plus `P0057` → **`d.diagnosis_id = 'P0057_ASPS-KY_diagnosis'`** (not `_pdx_samp_diagnosis` from the UNION). **TC09 Chemotherapy:** Explore omits sample-level **`ALL-115_diagnosis`** and participant-level **`P0007_ALL-105_diagnosis`** while keeping **`ALL-105_pdx_samp_diagnosis`** and **`P0007_ALL-115_diagnosis`** — diff `OutputFiles/.../UI_Diagnosis` vs `DB_Diagnosis` when UNION returns duplicate Maris diagnosis ids for one participant.
+
 ## Cohort-first pattern (default)
 
 1. **Anchor** the active filter (treatment, survival, sample, etc.) and reach `(p:participant)` + `(s:study)` with `s.dbgap_accession = '<phs>'`.
 2. **`WITH DISTINCT p, s`** when the anchor can repeat per participant.
 3. **Second `MATCH`** for tab data (diagnosis, sample, treatment_response, …).
 
-### Treatment type (e.g. Radiation)
+### Treatment type (e.g. Radiation, Immunotherapy)
 
 **Do not** use four `OR EXISTS { … treatment_chemotherapy … treatment_other }` on a study-wide `MATCH (p:participant)` — very slow.
+
+**Explore facet vs node property:** UI **Treatment Type** uses `treatment_type` on radiation/surgery/other nodes, but on **chemotherapy** rows the index maps **`chemotherapy_type`** (e.g. `Immunotherapy`, `Hormone Therapy`) — not top-level `treatment_type` (usually `Chemotherapy`). Cohort filter: `'Immunotherapy' IN coalesce(t.chemotherapy_type, [])` on `(t:treatment_chemotherapy)`; Treatment tab display should stringify `chemotherapy_type` for the Type column.
 
 **Do** start from radiation rows (verify on Memgraph that UI cohort matches; for Radiation, `treatment_radiation` alone is usually enough):
 
