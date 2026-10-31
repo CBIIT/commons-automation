@@ -7,7 +7,7 @@ apps:
     # Expected data = Cypher in the input Excel, run against Memgraph (Katalon: ReadExcel.Memgraph).
     expected_source: memgraph
     urls:
-      qa:    https://clinicalcommons-qa.ccdi.cancer.gov/
+      qa:    https://clinicalcommons-stage.ccdi.cancer.gov/
       stage: https://clinicalcommons-stage.ccdi.cancer.gov/
       prod:  https://clinicalcommons.ccdi.cancer.gov/
     memgraph:

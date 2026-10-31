@@ -32,17 +32,42 @@ Single sheet: columns `TabName`, `TabQuery`, `StatQuery`, `TsvExcel`.
 | `ParticipantsTab` | First row often holds **StatQuery** in column C |
 | `StudiesTab` … `FilesTab` | Tab Cypher only (column B) |
 
-**Stat bar (QA):** study + samples from graph; **Files = 0** when Explore shows 0 files (file totals live on Studies tab):
+**Stat bar — fast pattern (use for cohorts that show a Files count on Explore):**
+
+1. **Study-first** — `MATCH (s:study) WHERE s.dbgap_accession = '<phs>'` then reach the cohort (do not scan all participants before narrowing the study).
+2. **Cohort anchor** — filter entity (`p`, `d`, `sv`, `t`, …) with `WITH DISTINCT p, s`; **never** `EXISTS { … }` on a study-wide participant scan in StatQuery.
+3. **Count studies / participants / samples** with one `OPTIONAL MATCH (sm:sample)-[:of_sample]->(p)`, then `collect(DISTINCT p) AS cohort_participants`.
+4. **Files in a `CALL` subquery** — unwind `cohort_participants` only inside the subquery; count **distinct `dcf_indexd_guid`** via sample + participant file edges. Do **not** `collect(DISTINCT f)` full file nodes in the outer query (QA latency).
 
 ```cypher
+MATCH (s:study)
+WHERE s.dbgap_accession = 'phs000720'
+MATCH (p:participant)-[:of_participant]->(:consent_group)-[:of_consent_group]->(s)
+WHERE p.sex_at_birth = 'Male'
+WITH DISTINCT p, s
 OPTIONAL MATCH (sm:sample)-[:of_sample]->(p)
-RETURN count(DISTINCT s) AS studies,
-       count(DISTINCT p) AS participants,
-       count(DISTINCT sm) AS samples,
-       0 AS files
+WITH count(DISTINCT s) AS studies,
+     count(DISTINCT p) AS participants,
+     count(DISTINCT sm) AS samples,
+     collect(DISTINCT p) AS cohort_participants
+CALL {
+  WITH cohort_participants
+  UNWIND cohort_participants AS p
+  OPTIONAL MATCH (sm:sample)-[:of_sample]->(p)
+  OPTIONAL MATCH (f)-[:of_sequencing_file|of_clinical_measure_file|of_cytogenomic_file|of_generic_file|of_methylation_array_file|of_pathology_file|of_radiology_file]->(sm)
+  OPTIONAL MATCH (fp)-[:of_clinical_measure_file|of_generic_file|of_radiology_file]->(p)
+  WITH collect(DISTINCT f.dcf_indexd_guid) + collect(DISTINCT fp.dcf_indexd_guid) AS guids
+  UNWIND guids AS guid
+  RETURN count(DISTINCT guid) AS files
+}
+RETURN studies, participants, samples, files
 ```
 
-Comment in StatQuery: `// Explore stat bar Files is 0 on QA for this cohort; Studies tab validates file totals.`
+Diagnosis filters: anchor `(d:diagnosis)-[:of_diagnosis]->(p:participant)-…->(s)` in the **first** `MATCH`, not `EXISTS` on `(p)`.
+
+**Stat bar Files = 0** (e.g. phs002827 Radiation on QA): same study-first + cohort anchor + optional samples; `RETURN …, 0 AS files` — no file `CALL`. Whole-study file totals belong on the **Studies** tab, not the stat bar.
+
+**Reference — phs000720 (all TC01–TC09):** `InputFiles/C3DC/TC*_C3DC_phs000720_*.xlsx` StatQueries follow the pattern above. Explore stat bar **Files** = cohort-linked files (sample + participant edges). **Studies tab** **Number of Files** / **File Type (Top 5)** = whole study via `(s)<-[*..6]-(fl)`; cohort row via filter-specific `MATCH … WITH DISTINCT s` (not `EXISTS`). **Diagnosis Anatomic Site (Top 5):** `ORDER BY site_n DESC, site DESC` (tie-break when counts match). Do not add `//` comments in xlsx Cypher.
 
 ## Cohort-first pattern (default)
 
@@ -81,8 +106,10 @@ Apply the **same cohort predicate** on all tabs in the workbook (including `Trea
 
 ## Studies tab
 
-- Study row exists when cohort EXISTS matches (e.g. radiation participants).
-- **Number of Participants / Samples / Files** on Studies tab = **whole study** totals (310 / 1143 / …), not filtered cohort — keep existing StudiesTab template behavior.
+- Study row when the filtered cohort matches: prefer **cohort-first** `MATCH (filter…)->(p)…->(s:study) WHERE s.dbgap_accession = '<phs>'` + `WITH DISTINCT s`, not `MATCH (s:study) WHERE EXISTS { … }`.
+- **Number of Participants / Samples** on Studies tab = **whole study** totals for that study row (not filtered cohort counts).
+- **Number of Files / File Type (Top 5)** on Studies tab = **whole study** (`OPTIONAL MATCH (s)<-[*..6]-(fl)` …), even when Explore filters narrow participants — differs from stat bar Files on phs000720-style cohorts.
+- **Diagnosis Anatomic Site (Top 5):** when `site_n` ties, use **`ORDER BY site_n DESC, site DESC`** so row order matches Explore (e.g. pelvic complex before orbital cavity at 28).
 - **Diagnosis (Top 5):** count **diagnosis records** — `count(d) AS diagnosis_n`, **not** `count(DISTINCT dp)` (UI shows record counts, e.g. Osteosarcoma (154)).
 - Prefer TC01-style `(s)<-[*..6]-(dg:diagnosis)` + `count(dg)` when aligning with an existing phs002827 Studies query.
 

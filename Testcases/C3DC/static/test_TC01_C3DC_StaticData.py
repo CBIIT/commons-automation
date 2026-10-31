@@ -5,6 +5,7 @@ import pytest
 
 @pytest.mark.c3dc
 @pytest.mark.static
+@pytest.mark.regression
 def test_TC01_C3DC_StaticData(c3dc):
     c3dc.accept_banner()
     c3dc.verify_static_data("HomePage")
