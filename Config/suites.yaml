@@ -1,0 +1,108 @@
+# Excel testcase suite membership (paths relative to Testcases/<APP>/).
+# Glob patterns: pathlib PurePosixPath.match ( * and ** ).
+# Suite order per app: quickrun → smoke → regression → datarelease (C3DC only).
+#
+# Run examples:
+#   pytest -m "gc and quickrun" --env qa
+#   pytest -m "c3dc and smoke" --env qa
+#   pytest -m "ctdc and quickrun" --env qa
+#   pytest -m "bento and smoke" --env qa
+#   pytest -m "icdc and quickrun" --env qa
+#   pytest -m "c3dc and datarelease" --env qa
+#
+# Apps not listed here keep legacy markers: all cases regression; TC01_* also smoke.
+
+# ---------------------------------------------------------------------------
+# GC — General Commons
+# ---------------------------------------------------------------------------
+GC:
+  quickrun:
+    - "studies/phs002430/TC01_*.xlsx"
+    - "studies/phs000720/TC02_*.xlsx"
+  smoke:
+    - "studies/phs000720/TC02_GC_phs000720_Sex_Male.xlsx"
+    - "studies/phs000720/TC03_GC_phs000720_FileType_TIFF.xlsx"
+    - "studies/phs000720/TC06_GC_phs000720_PrimDiag_NotApplicable.xlsx"
+    - "studies/phs001524/TC02_GC_phs001524_SampleTumorStatus-NSD_SampleType-Blood.xlsx"
+    - "studies/phs001713/TC05_GC_phs001713_LibrarySource-Genomic_LibraryLayout-PairedEnd.xlsx"
+    - "studies/phs002430/TC06_GC_phs002430_RefGenAsbly-NSD_PrimDiag-Acutemyloidleukemia.xlsx"
+  regression:
+    - "studies/**/TC*.xlsx"
+    - "static/TC*.xlsx"
+    - "study_listing/TC*.xlsx"
+
+# ---------------------------------------------------------------------------
+# C3DC — Childhood Cancer Clinical Data Commons
+# ---------------------------------------------------------------------------
+C3DC:
+  quickrun:
+    - "studies/phs000463/TC01_*.xlsx"
+    - "studies/phs000466/TC02_*.xlsx"
+  smoke:
+    - "study_listing/TC01_C3DC_StudyListing.xlsx"
+    - "studies/phs000463/TC01_C3DC_phs000463_SexAtBirth-Female.xlsx"
+    - "studies/phs000463/TC02_C3DC_phs000463_Race-Asian.xlsx"
+    - "studies/phs000466/TC02_C3DC_phs000466_Race-BlackAfriAmerican.xlsx"
+    - "studies/phs000466/TC06_C3DC_phs000466_DiagnClasfSystem-ICD-O-3.xlsx"
+    - "studies/phs000470/TC10_C3DC_phs000470_CauseOfDeath-DueToThisDisease.xlsx"
+    - "studies/phs002827/TC06_C3DC_phs002827_TumorSpatialExtent-Metastatic.xlsx"
+    - "studies/phs002827/TC07_C3DC_phs002827_Response-CompleteRemission.xlsx"
+    - "studies/phs004490/TC03_C3DC_phs004490_SampleSite-ChestWall.xlsx"
+    - "studies/phs004490/TC04_C3DC_phs004490_TrtType-Chemo.xlsx"
+  regression:
+    - "studies/**/TC*.xlsx"
+    - "static/TC*.xlsx"
+    - "study_listing/TC*.xlsx"
+  datarelease:
+    - "studies/phs002827/TC*.xlsx"
+    - "studies/phs003162/TC*.xlsx"
+    - "studies/phs004232/TC*.xlsx"
+    - "studies/phs004490/TC*.xlsx"
+
+# ---------------------------------------------------------------------------
+# CTDC — Clinical Trials Data Commons
+# ---------------------------------------------------------------------------
+CTDC:
+  quickrun:
+    - "studies/AHEP0731/TC01_CTDC_AHEP0731_FileFormat-DICOM.xlsx"
+    - "studies/CMB/TC01_CTDC_CMB_AnatomCollecSite-AbdomWall.xlsx"
+  smoke:
+    - "studies/AHEP0731/TC01_CTDC_AHEP0731_FileFormat-DICOM.xlsx"
+    - "studies/AHEP0731/TC01_CTDC_AHEP0731_FileType-RadiologyImaging.xlsx"
+    - "studies/CMB/TC01_CTDC_CMB_AnatomCollecSite-AbdomWall.xlsx"
+    - "studies/CMB/TC01_CTDC_CMB_Sex-Male.xlsx"
+    - "studies/CMB/TC01_CTDC_CMB_Diagnosis-ColorctlCarcin.xlsx"
+  regression:
+    - "studies/**/TC*.xlsx"
+    - "static/TC*.xlsx"
+
+# ---------------------------------------------------------------------------
+# BENTO — TAILORx Explore (bento-tools.org)
+# ---------------------------------------------------------------------------
+BENTO:
+  quickrun:
+    - "arm-a/TC01_Bento_arm-a_Diagnosis-Adenocarcinoma.xlsx"
+    - "arm-b/TC11_Bento_arm-b_TissueType-Tumor.xlsx"
+  smoke:
+    - "arm-a/TC01_Bento_arm-a_Diagnosis-Adenocarcinoma.xlsx"
+    - "arm-a/TC02_Bento_arm-a_RecurrScore-00-05.xlsx"
+    - "arm-b/TC01_Bento_arm-b_Diagnosis-Comedocarcinoma.xlsx"
+    - "arm-b/TC11_Bento_arm-b_TissueType-Tumor.xlsx"
+    - "arm-c/TC01_Bento_arm-c_Diagnosis-NotReported.xlsx"
+    - "arm-c/TC02_Bento_arm-c_RecurrScore-16-20.xlsx"
+    - "arm-d/TC01_Bento_arm-d_Diagnosis-TubularCarcinoma.xlsx"
+    - "arm-d/TC02_Bento_arm-d_RecurrScore-26-30.xlsx"
+  regression:
+    - "arm-*/TC*.xlsx"
+
+# ---------------------------------------------------------------------------
+# ICDC — Integrated Canine Data Commons
+# ---------------------------------------------------------------------------
+ICDC:
+  quickrun:
+    - "studies/COTC007B/TC03_ICDC_COTC007B_Breed-BerMountDog.xlsx"
+    - "studies/COTC007B/TC04_ICDC_COTC007B_Diagnosis-Lymphoma.xlsx"
+  smoke:
+    - "studies/COTC021/TC*.xlsx"
+  regression:
+    - "studies/**/TC*.xlsx"

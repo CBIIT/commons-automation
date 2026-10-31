@@ -2,12 +2,11 @@
 #   MEMGRAPH_PASSWORD_C3DC=...     # required for C3DC tests (cluster host under apps.C3DC.memgraph)
 # Optional overrides: MEMGRAPH_ENDPOINT_C3DC, MEMGRAPH_USERNAME_C3DC_QA, etc. (see Commons/settings.py)
 
-# test_case_source: excel = TC*.xlsx under Testcases/<APP>/studies/… (see Testcases/test_excel_cases.py)
-# python = classic test_*.py steps. Override: TEST_CASE_SOURCE in .env
-framework:
-  test_case_source: excel
-
 apps:
+
+  # ---------------------------------------------------------------------------
+  # C3DC — Childhood Cancer Clinical Data Commons
+  # ---------------------------------------------------------------------------
   C3DC:
     # Expected data = Cypher in the input Excel, run against Memgraph (Katalon: ReadExcel.Memgraph).
     expected_source: memgraph
@@ -16,7 +15,6 @@ apps:
       stage: https://clinicalcommons-stage.ccdi.cancer.gov/
       prod:  https://clinicalcommons.ccdi.cancer.gov/
     memgraph:
-      # Override host/user: MEMGRAPH_ENDPOINT_C3DC, MEMGRAPH_USERNAME_C3DC, etc.
       dev:
         endpoint: bolt://gen-dev-cdk-nlb-ecd70c3cab6cb63f.elb.us-east-1.amazonaws.com:7687
         username: memgraph
@@ -24,8 +22,10 @@ apps:
         endpoint: bolt://ccdi-dcc-qa-99d933a8c11c2ea3.elb.us-east-1.amazonaws.com:7687 #bolt://localhost:7687 
         username: memgraph #user
 
+  # ---------------------------------------------------------------------------
+  # CCDI — CCDI Hub (hub pages; Explore opens C3DC)
+  # ---------------------------------------------------------------------------
   CCDI:
-    # Hub pages only. Explore (/explore) opens C3DC Explore Participants.
     expected_source: neo4j
     urls:
       qa:    https://ccdi-qa.cancer.gov/
@@ -39,10 +39,10 @@ apps:
         endpoint: bolt://neo4j.ccdi-qa.cancer.gov:7687
         username: neo4j
 
+  # ---------------------------------------------------------------------------
+  # CTDC — Clinical Trials Data Commons
+  # ---------------------------------------------------------------------------
   CTDC:
-    # Expected data = SQL in the input Excel, run against dated TSV/TXT node files
-    # (Katalon PythonFiles/CTDC). No Bolt password. Flip back later:
-    #   expected_source: memgraph  (update TabQuery in InputFiles/CTDC/*.xlsx)
     expected_source: tsv
     tsv_root: InputFiles/CTDC/tsv   # tsv/<STUDY>/YYYY-MM-DD/; override: CTDC_TSV_ROOT
     urls:
@@ -54,30 +54,33 @@ apps:
     #     endpoint: bolt://crdc-c-nlbC3-PnIdn9bEEnH4-90d8fb37076e1f8b.elb.us-east-1.amazonaws.com:7687
     #     username: admin
 
+  # ---------------------------------------------------------------------------
+  # ICDC — Integrated Canine Data Commons
+  # ---------------------------------------------------------------------------
   ICDC:
-    # Expected data = Cypher in input Excel, run against Neo4j (not Memgraph).
     expected_source: neo4j
     urls:
       qa:    https://caninecommons-qa.cancer.gov/#/
       stage: https://caninecommons-stage.cancer.gov/#/
       prod:  https://caninecommons.cancer.gov/#/
     neo4j:
-      # Hosts match Katalon Profiles/ICDC_*.glbl (G_server). Override: NEO4J_ENDPOINT_ICDC_<ENV>
       qa:
         endpoint: bolt://ncidb-q600-c.nci.nih.gov:7687
         username: neo4j
       stage:
         endpoint: bolt://ncias-s2261-c.nci.nih.gov:7687
         username: neo4j
+
+  # ---------------------------------------------------------------------------
+  # BENTO — TAILORx Explore (bento-tools.org)
+  # ---------------------------------------------------------------------------
   Bento:
-    # Expected data = Cypher in the input Excel, run against Neo4j (port Katalon SQL → Cypher).
     expected_source: neo4j
     urls:
       qa:    https://bento-tools.org/
       stage: https://bento-tools.org/
       prod:  https://bento-tools.org/
     neo4j:
-      # Fill bolt host when ready; override: NEO4J_ENDPOINT_BENTO, NEO4J_PASSWORD_BENTO
       qa:
         endpoint: bolt://neo4j-qa.bento-tools.org:7687
         username: neo4j
@@ -88,8 +91,10 @@ apps:
         endpoint: bolt://localhost:7687
         username: neo4j
 
+  # ---------------------------------------------------------------------------
+  # INS — Index of NCI Studies (Study Catalog)
+  # ---------------------------------------------------------------------------
   INS:
-    # Expected data = SQL in InputFiles/INS/TC*.xlsx against program/project/grant/publication TSVs.
     expected_source: tsv
     tsv_root: InputFiles/INS
     urls:
@@ -97,8 +102,10 @@ apps:
       stage: https://studycatalog-stage.cancer.gov/
       prod:  https://studycatalog.cancer.gov/
 
+  # ---------------------------------------------------------------------------
+  # GC — General Commons
+  # ---------------------------------------------------------------------------
   GC:
-    # Expected data = Cypher in the input Excel, run against Memgraph.
     expected_source: memgraph
     urls:
       qa:    https://general-qa.datacommons.cancer.gov/
@@ -111,10 +118,21 @@ apps:
         username: memgraph
       qa2:
         endpoint: bolt://gen-qa2-cdk-nlb-a4d830d9cb17f0ac.elb.us-east-1.amazonaws.com:7687
-        username: memgraph  
+        username: memgraph
 
+# ---------------------------------------------------------------------------
+# Browser (Playwright)
+# ---------------------------------------------------------------------------
 browser:
   name: chromium          # chromium | firefox | webkit   (override: BROWSER or --browser)
   headless: true          # override: HEADLESS=false, HEADED=true, or pytest --headed
   viewport: {width: 1920, height: 1080}
   timeout_ms: 30000
+
+# ---------------------------------------------------------------------------
+# Framework
+# ---------------------------------------------------------------------------
+# test_case_source: excel = TC*.xlsx under Testcases/<APP>/… (Commons/excel_pytest_collect.py)
+# python = classic test_*.py steps. Override: TEST_CASE_SOURCE in .env
+framework:
+  test_case_source: excel

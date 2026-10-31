@@ -73,6 +73,7 @@ Use app fixtures from `conftest.py` (`gc`, `c3dc`, `ctdc`, `ins`, …). Markers 
 | Secrets | `.env` (`MEMGRAPH_PASSWORD_<APP>`, …) |
 | Excel vs Python test steps | `Config/environments.yaml` → `framework.test_case_source` (`excel` collects `TC*.xlsx` under each app’s case folders, e.g. `studies/` or `INS/Programs/…`) |
 | Tab on/off, row limit | `Config/tab_setting.yaml` |
+| Smoke / sanity / quickrun / regression / datarelease (Excel) | `Config/suites.yaml` (GC, C3DC; other apps: legacy TC01 smoke) |
 | Locators | `ObjectRepository/<APP>/` |
 | Query / expected data (Cypher or SQL) | `InputFiles/<APP>/TC*.xlsx` (`TabQuery`, `StatQuery`) |
 | Excel step definitions | `Testcases/<APP>/…/TC*.xlsx` (Steps sheet); per-app runner: `Commons/excel_testcase/apps/` |
@@ -106,7 +107,7 @@ def test_example(c3dc):
     c3dc.assert_no_failures()
 ```
 
-**Excel testcase** — row 2 points at `InputFiles/<APP>/…`; following rows are Action/Page/Params/Filter (`open_programs`, `open_data`, `select_filter`, `verify_tab`, …). Pytest applies the app marker, `regression`, and `smoke` (for `TC01_*`) at collection time—no `.py` per case.
+**Excel testcase** — row 2 points at `InputFiles/<APP>/…`; following rows are Action/Page/Params/Filter. Suite markers come from **`Config/suites.yaml`** (GC, C3DC) or legacy rules (other apps: all `regression`, `TC01_*` also `smoke`). Run e.g. `pytest -m "gc and quickrun" --env qa`.
 
 `verify_tab` runs all enabled tabs in the app unless you call it per tab. Empty tabs `(0)` are skipped. Failures are collected until `assert_no_failures()` (screenshot under `Reports/screenshots/`; compare workbooks under `OutputFiles/<APP>/<env>/`).
 

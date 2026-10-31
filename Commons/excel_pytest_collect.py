@@ -12,6 +12,7 @@ import pytest
 from Commons.excel_testcase.runner import run_testcase_excel
 from Commons.excel_testcase.registry import fixture_for_case_path, profile_for_case_path
 from Commons.settings import get_test_case_source
+from Commons.suite_config import suite_markers_for_excel_case
 
 # ---------------------------------------------------------------------------
 # Test function factory (fixture + markers)
@@ -25,9 +26,16 @@ def _make_test_fn(case_path: Path, app_fixture: str):
 
     test_fn.__name__ = case_path.stem
     test_fn = getattr(pytest.mark, app_fixture)(test_fn)
-    test_fn = pytest.mark.regression(test_fn)
-    if case_path.name.startswith("TC01_"):
-        test_fn = pytest.mark.smoke(test_fn)
+
+    yaml_suites = suite_markers_for_excel_case(case_path)
+    if yaml_suites is not None:
+        for name in sorted(yaml_suites):
+            test_fn = getattr(pytest.mark, name)(test_fn)
+    else:
+        test_fn = pytest.mark.regression(test_fn)
+        if case_path.name.startswith("TC01_"):
+            test_fn = pytest.mark.smoke(test_fn)
+
     if "static" in case_path.parts:
         test_fn = pytest.mark.static(test_fn)
     return test_fn

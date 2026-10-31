@@ -893,6 +893,63 @@ def test_get_test_case_source_env_excel(monkeypatch):
     assert get_test_case_source() == "excel"
 
 
+def test_suite_yaml_gc_quickrun_matches_phs002430_tc01():
+    from Commons.suite_config import clear_suite_config_cache, suite_markers_for_excel_case
+
+    clear_suite_config_cache()
+    case = (
+        Path(__file__).resolve().parents[1]
+        / "GC/studies/phs002430/TC01_GC_phs002430_Sex-Female.xlsx"
+    )
+    if not case.is_file():
+        case = next((Path(__file__).resolve().parents[1] / "GC/studies/phs002430").glob("TC01_*.xlsx"))
+    assert case.is_file(), "need a GC phs002430 TC01 xlsx"
+    markers = suite_markers_for_excel_case(case)
+    assert markers is not None
+    assert "quickrun" in markers
+    assert "regression" in markers
+
+
+def test_suite_yaml_gc_tc02_not_in_quickrun():
+    from Commons.suite_config import clear_suite_config_cache, suite_markers_for_excel_case
+
+    clear_suite_config_cache()
+    case = (
+        Path(__file__).resolve().parents[1]
+        / "GC/studies/phs002430/TC02_GC_phs002430_Sex-Male.xlsx"
+    )
+    if not case.is_file():
+        pytest.skip("TC02 phs002430 not present")
+    markers = suite_markers_for_excel_case(case)
+    assert markers is not None
+    assert "regression" in markers
+    assert "quickrun" not in markers
+
+
+def test_suite_yaml_ins_returns_none_legacy():
+    from Commons.suite_config import clear_suite_config_cache, suite_markers_for_excel_case
+
+    clear_suite_config_cache()
+    case = (
+        Path(__file__).resolve().parents[1]
+        / "INS/static/TC01_INS_StaticData.xlsx"
+    )
+    assert case.is_file(), case
+    assert suite_markers_for_excel_case(case) is None
+
+
+def test_suite_yaml_c3dc_datarelease_study():
+    from Commons.suite_config import clear_suite_config_cache, suite_markers_for_excel_case
+
+    clear_suite_config_cache()
+    root = Path(__file__).resolve().parents[1] / "C3DC/studies/phs002827"
+    case = next(root.glob("TC*.xlsx"), None)
+    assert case is not None
+    markers = suite_markers_for_excel_case(case)
+    assert markers is not None
+    assert "datarelease" in markers
+
+
 def test_phs000720_excel_testcase_steps_sheet():
     from Commons.excel_test_runner import run_testcase_excel
 

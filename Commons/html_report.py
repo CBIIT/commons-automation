@@ -40,7 +40,7 @@ SCREENSHOT_DIR = REPORTS_DIR / "screenshots"
 
 _FLAG_KEYS = ("HTML_REPORT", "HTML_Report", "html_report")
 _APP_MARKERS = frozenset({"gc", "c3dc", "ccdi", "icdc", "ctdc"})
-_SUITE_MARKERS = frozenset({"smoke", "regression", "quickrun", "static"})
+_SUITE_MARKERS = frozenset({"smoke", "sanity", "regression", "quickrun", "static", "datarelease"})
 
 _stash_key = pytest.StashKey["HtmlReportSession"]()
 _item_map_key = pytest.StashKey[dict]()
