@@ -88,12 +88,23 @@ class INS(BaseApp):
         ui_table.rows.sort(key=lambda row: [str(c).strip() if c is not None else "" for c in row])
         expected.rows.sort(key=lambda row: [str(c).strip() if c is not None else "" for c in row])
         base = self.output_dir / self.query_file.name
-        excel_writer.write_sheet(
-            base.with_name(base.name + "_UI.xlsx"), "UI_Datasets", ui_table.header, ui_table.rows
-        )
-        excel_writer.write_sheet(
-            base.with_name(base.name + "_DB.xlsx"), "DB_Datasets", expected.header, expected.rows
-        )
         action_log.compare_step("UI_Datasets", "DB_Datasets")
         cmp = compare_tables(ui_table.rows, expected.rows, ui_table.header, expected.header)
+        ui_cols = len(ui_table.header) or max((len(r) for r in ui_table.rows), default=0)
+        exp_cols = len(expected.header) or max((len(r) for r in expected.rows), default=0)
+        ui_hi, db_hi = excel_writer.highlight_sets_from_comparison(cmp, ui_cols, exp_cols)
+        excel_writer.write_sheet(
+            base.with_name(base.name + "_UI.xlsx"),
+            "UI_Datasets",
+            ui_table.header,
+            ui_table.rows,
+            highlight_cells=ui_hi,
+        )
+        excel_writer.write_sheet(
+            base.with_name(base.name + "_DB.xlsx"),
+            "DB_Datasets",
+            expected.header,
+            expected.rows,
+            highlight_cells=db_hi,
+        )
         self._record("Datasets", cmp, ui_count=len(ui_table.rows), exp_count=len(expected.rows))

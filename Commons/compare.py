@@ -16,7 +16,7 @@ import os
 import re
 import sys
 from dataclasses import dataclass, field
-from typing import List, Sequence
+from typing import List, Sequence, Tuple
 
 from Commons import action_log
 
@@ -148,6 +148,11 @@ class Comparison:
     problems: List[str] = field(default_factory=list)
     ui_only: List[Sequence[str]] = field(default_factory=list)
     expected_only: List[Sequence[str]] = field(default_factory=list)
+    # 0-based data row/column indices (after sort); same coords on UI and DB sheets for value mismatches
+    mismatch_cells: List[Tuple[int, int]] = field(default_factory=list)
+    # Row indices present on only one side (after sort); highlight full row on that workbook only
+    ui_extra_rows: List[int] = field(default_factory=list)
+    expected_extra_rows: List[int] = field(default_factory=list)
 
     def summary(self, limit: int = 5) -> str:
         if self.passed:
@@ -180,6 +185,9 @@ def compare_tables(
     problems: List[str] = []
     ui_only: List[Sequence[str]] = []
     expected_only: List[Sequence[str]] = []
+    mismatch_cells: List[Tuple[int, int]] = []
+    ui_extra_rows: List[int] = []
+    expected_extra_rows: List[int] = []
 
     with action_log.pytest_table_output_live():
         _compare_live("============== Verification of the data ==============")
@@ -196,11 +204,13 @@ def compare_tables(
 
             if idx >= len(ui):
                 expected_only.append(exp[idx])
+                expected_extra_rows.append(idx)
                 if "DATA MISMATCH" not in problems:
                     problems.append("DATA MISMATCH")
                 continue
             if idx >= len(exp):
                 ui_only.append(ui[idx])
+                ui_extra_rows.append(idx)
                 if "DATA MISMATCH" not in problems:
                     problems.append("DATA MISMATCH")
                 continue
@@ -224,8 +234,18 @@ def compare_tables(
                         f"UI header ({list(ui_header)}), DB header ({list(expected_header)})",
                         err=True,
                     )
+                for c in range(max(len(ui_row), len(exp_row))):
+                    mismatch_cells.append((idx, c))
                 return Comparison(
-                    False, len(ui_rows), len(expected_rows), problems, ui_only, expected_only
+                    False,
+                    len(ui_rows),
+                    len(expected_rows),
+                    problems,
+                    ui_only,
+                    expected_only,
+                    mismatch_cells,
+                    ui_extra_rows,
+                    expected_extra_rows,
                 )
 
             for col in range(len(exp_row)):
@@ -251,6 +271,7 @@ def compare_tables(
                         f"Content matches for Row: {ui_row_num} Col: {col} {_MATCH}"
                     )
                 else:
+                    mismatch_cells.append((idx, col))
                     if "DATA MISMATCH" not in problems:
                         problems.append("DATA MISMATCH")
                     _compare_live("*********** DATA MISMATCH ***********", err=True)
@@ -260,7 +281,17 @@ def compare_tables(
                         err=True,
                     )
 
-    return Comparison(not problems, len(ui_rows), len(expected_rows), problems, ui_only, expected_only)
+    return Comparison(
+        not problems,
+        len(ui_rows),
+        len(expected_rows),
+        problems,
+        ui_only,
+        expected_only,
+        mismatch_cells,
+        ui_extra_rows,
+        expected_extra_rows,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -268,21 +299,37 @@ def compare_tables(
 # ---------------------------------------------------------------------------
 
 
-def compare_counts(ui_counts: dict, expected_counts: dict) -> Comparison:
+def compare_counts(
+    ui_counts: dict,
+    expected_counts: dict,
+    *,
+    key_order: Sequence[str] = (),
+) -> Comparison:
     """Stat bar: {'Participants': '12', ...} both sides. Commas are ignored."""
     problems = []
+    mismatch_cells: List[Tuple[int, int]] = []
+    keys = list(key_order) if key_order else list(ui_counts.keys())
     with action_log.pytest_table_output_live():
-        for name, ui_val in ui_counts.items():
+        for col, name in enumerate(keys):
+            ui_val = ui_counts.get(name)
             exp_val = expected_counts.get(name)
             if exp_val is None:
                 problems.append(f"Stat bar '{name}': no expected value")
                 _compare_live(f"Stat bar '{name}': no expected value", err=True)
+                mismatch_cells.append((0, col))
                 continue
             if str(ui_val).replace(",", "").strip() != str(exp_val).replace(",", "").strip():
                 problems.append(f"Stat bar '{name}' mismatch: UI={ui_val} expected={exp_val}")
                 _compare_live(
                     f"Stat bar '{name}' mismatch: UI={ui_val} expected={exp_val}", err=True
                 )
+                mismatch_cells.append((0, col))
             else:
                 _compare_live(f"Stat bar '{name}' matches: {ui_val} {_MATCH}")
-    return Comparison(not problems, len(ui_counts), len(expected_counts), problems)
+    return Comparison(
+        not problems,
+        len(ui_counts),
+        len(expected_counts),
+        problems,
+        mismatch_cells=mismatch_cells,
+    )

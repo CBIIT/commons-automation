@@ -84,6 +84,7 @@ def test_compare_tables_reports_differences():
     r = compare_tables([["1", "a"], ["2", "b"]], [["1", "a"], ["2", "DIFF"]])
     assert not r.passed
     assert "DATA MISMATCH" in r.summary()
+    assert (1, 1) in r.mismatch_cells
 
 
 def test_compare_tables_row_count_mismatch_fails_even_if_expected_is_empty():
@@ -177,7 +178,29 @@ def test_compare_tables_column_count_mismatch():
 
 def test_compare_counts_ignores_commas():
     assert compare_counts({"Participants": "1,234"}, {"Participants": "1234"}).passed
-    assert not compare_counts({"Participants": "12"}, {"Participants": "13"}).passed
+    r = compare_counts({"Participants": "12"}, {"Participants": "13"}, key_order=["Participants"])
+    assert not r.passed
+    assert r.mismatch_cells == [(0, 0)]
+
+
+def test_write_sheet_highlights_mismatch_cells(tmp_path):
+    from Commons import excel_writer
+
+    path = tmp_path / "out.xlsx"
+    excel_writer.write_sheet(
+        path,
+        "Tab",
+        ["A", "B"],
+        [["1", "ok"], ["2", "bad"]],
+        highlight_cells={(1, 1)},
+    )
+    import openpyxl
+
+    ws = openpyxl.load_workbook(path)["Tab"]
+    ok_cell = ws.cell(row=2, column=2).fill.start_color.rgb
+    bad_cell = ws.cell(row=3, column=2).fill.start_color.rgb
+    assert bad_cell.endswith(excel_writer.MISMATCH_FILL_COLOR)
+    assert ok_cell != bad_cell
 
 
 def test_expected_stat_dict_maps_memgraph_headers():
