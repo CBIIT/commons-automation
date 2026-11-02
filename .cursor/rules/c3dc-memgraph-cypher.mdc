@@ -23,6 +23,17 @@ TC04 demonstrates: `treatment_radiation` anchor + `WITH DISTINCT p, s` on **all*
 
 Also use skill `.cursor/skills/c3dc-memgraph-cypher-assistant/` for model/index references and `scripts/query_memgraph.py` to validate counts before committing xlsx changes.
 
+## Fixing UI vs DB mismatches (pytest compare)
+
+After a failing `verify_tab` / stat bar run, **open the output workbooks** (written under `OutputFiles/<APP>/<ENV>/`, e.g. `OutputFiles/C3DC/QA/`):
+
+| File | Sheets |
+|------|--------|
+| `<TC>_…xlsx_UI.xlsx` | `StatOutput`, `UI_Participants`, `UI_Studies`, `UI_Diagnosis`, … |
+| `<TC>_…xlsx_DB.xlsx` | `StatOutput`, `DB_Participants`, `DB_Studies`, `DB_Diagnosis`, … |
+
+Diff the **same sheet pair** row-for-row and column-by-column (headers in row 1). That pinpoints which Cypher column to fix—do not guess from the pytest summary alone. Re-run pytest after xlsx query edits to refresh `_UI` / `_DB`.
+
 ## Input workbook (`TC*_C3DC_*.xlsx`)
 
 Single sheet: columns `TabName`, `TabQuery`, `StatQuery`, `TsvExcel`.
@@ -32,17 +43,56 @@ Single sheet: columns `TabName`, `TabQuery`, `StatQuery`, `TsvExcel`.
 | `ParticipantsTab` | First row often holds **StatQuery** in column C |
 | `StudiesTab` … `FilesTab` | Tab Cypher only (column B) |
 
-**Stat bar (QA):** study + samples from graph; **Files = 0** when Explore shows 0 files (file totals live on Studies tab):
+**Stat bar — fast pattern (use for cohorts that show a Files count on Explore):**
+
+1. **Study-first** — `MATCH (s:study) WHERE s.dbgap_accession = '<phs>'` then reach the cohort (do not scan all participants before narrowing the study).
+2. **Cohort anchor** — filter entity (`p`, `d`, `sv`, `t`, …) with `WITH DISTINCT p, s`; **never** `EXISTS { … }` on a study-wide participant scan in StatQuery.
+3. **Count studies / participants / samples** with one `OPTIONAL MATCH (sm:sample)-[:of_sample]->(p)`, then `collect(DISTINCT p) AS cohort_participants`.
+4. **Files in a `CALL` subquery** — unwind `cohort_participants` only inside the subquery; count **distinct `dcf_indexd_guid`** via sample + participant file edges. Do **not** `collect(DISTINCT f)` full file nodes in the outer query (QA latency).
 
 ```cypher
+MATCH (s:study)
+WHERE s.dbgap_accession = 'phs000720'
+MATCH (p:participant)-[:of_participant]->(:consent_group)-[:of_consent_group]->(s)
+WHERE p.sex_at_birth = 'Male'
+WITH DISTINCT p, s
 OPTIONAL MATCH (sm:sample)-[:of_sample]->(p)
-RETURN count(DISTINCT s) AS studies,
-       count(DISTINCT p) AS participants,
-       count(DISTINCT sm) AS samples,
-       0 AS files
+WITH count(DISTINCT s) AS studies,
+     count(DISTINCT p) AS participants,
+     count(DISTINCT sm) AS samples,
+     collect(DISTINCT p) AS cohort_participants
+CALL {
+  WITH cohort_participants
+  UNWIND cohort_participants AS p
+  OPTIONAL MATCH (sm:sample)-[:of_sample]->(p)
+  OPTIONAL MATCH (f)-[:of_sequencing_file|of_clinical_measure_file|of_cytogenomic_file|of_generic_file|of_methylation_array_file|of_pathology_file|of_radiology_file]->(sm)
+  OPTIONAL MATCH (fp)-[:of_clinical_measure_file|of_generic_file|of_radiology_file]->(p)
+  WITH collect(DISTINCT f.dcf_indexd_guid) + collect(DISTINCT fp.dcf_indexd_guid) AS guids
+  UNWIND guids AS guid
+  RETURN count(DISTINCT guid) AS files
+}
+RETURN studies, participants, samples, files
 ```
 
-Comment in StatQuery: `// Explore stat bar Files is 0 on QA for this cohort; Studies tab validates file totals.`
+Diagnosis filters: anchor `(d:diagnosis)-[:of_diagnosis]->(p:participant)-…->(s)` in the **first** `MATCH`, not `EXISTS` on `(p)`.
+
+**Stat bar Files = 0** (e.g. phs002827 Radiation on QA): same study-first + cohort anchor + optional samples; `RETURN …, 0 AS files` — no file `CALL`. Whole-study file totals belong on the **Studies** tab, not the stat bar.
+
+**Reference — phs000720 (all TC01–TC09):** `InputFiles/C3DC/TC*_C3DC_phs000720_*.xlsx` StatQueries follow the pattern above. Explore stat bar **Files** = cohort-linked files (sample + participant edges). **Studies tab** **Number of Files** / **File Type (Top 5)** = whole study via `(s)<-[*..6]-(fl)`; cohort row via filter-specific `MATCH … WITH DISTINCT s` (not `EXISTS`). **Diagnosis Anatomic Site (Top 5):** `ORDER BY site_n DESC, site DESC` (tie-break when counts match). Do not add `//` comments in xlsx Cypher.
+
+**Reference — phs002430 (TC01–TC07):** **Study-first** StatQuery; diagnosis filters anchor **`(d)-[:of_diagnosis]->(p)`** (no `EXISTS`). **Large cohorts:** avoid **`CALL { UNWIND ps … UNION … }`** (Memgraph QA hangs). Use **`UNWIND cohort_p AS p`**, per-`p` **`collect`** for direct + cell_line + pdx samples, then **`UNWIND CASE WHEN size(sms)=0 THEN [null] ELSE sms END`** for file GUIDs; flatten **`sample_id`** / **`dcf_indexd_guid`** at the end—no `(p)-[*..4]-(file)`.
+
+**Reference — phs002431 (C3DC TC01–TC13):** Stat bar **Files** = study-first + cohort **`CALL { … dcf_indexd_guid … }`** (not `0 AS files`). **Studies tab File Type (Top 5):** `ORDER BY type_n DESC, file_type DESC` (cram before crai at equal counts); drop **`tbi`** from the displayed list; **`Read More`** when `size(file_type_all) > 5`. **Survival tab (longitudinal FU):** Explore does not return every `_fu_*` suffix (e.g. TC01 Male shows 13 rows with suffixes `1, 78, 94, 99, 101, 109, 141, 144, 150, 198, 207, 214, 258` — not `>= 94`). Diff `UI_Survival` vs `DB_Survival` and use `fu_n IN [...]` from the export when a range filter still pulls `_fu_102` etc. Carry **`s`** through `WITH`; `ORDER BY p.participant_id, fu_n ASC`.
+
+**Reference — phs002371 (TC01–TC13):** Stat bar **Files** uses the cohort **`CALL { … dcf_indexd_guid … }`** pattern (sample `of_*_file` + participant clinical/generic/radiology edges)—not **`0 AS files`**. Study-first `MATCH (s:study) WHERE s.dbgap_accession = 'phs002371'` then cohort filter + `WITH DISTINCT p, s`.
+
+**Reference — phs002504 TC12 Resp Category Unknown Diagnosis:** Same **`CALL { participant d UNION sample d }`** on **`response_category = Unknown`** cohort; **`ORDER BY p.participant_id, d.diagnosis_id`** so the first **13** rows are one diagnosis per participant (e.g. **`UPN1744` → `HM2662.dx`** before **`UPN1744_diag`**).
+
+**Reference — phs002504 TC11 Stable Disease Diagnosis:** **`CALL { participant d UNION sample d }`** on **`treatment_response`** cohort; **`ORDER BY p.participant_id, d.diagnosis_id`**. Explore first **13** rows omit **`UPN3154` / `HM5710.dx34`** (sample dx) while keeping **`HM5723.dx35`** and **`UPN3154.dx11`** — add **`WHERE NOT (p.participant_id = 'UPN3154' AND d.diagnosis_id = 'HM5710.dx34')`** after the `CALL` to match QA UI export.
+
+**Reference — phs002504 (TC01–TC12):** Cohort-first anchors (diagnosis, treatment, response, demographics). **Diagnosis tab (Race White / AmerInd):** Explore unions **participant-linked** `(d)-[:of_diagnosis]->(p)` and **sample-linked** `(d)-[:of_diagnosis]->(sm)-[:of_sample]->(p)` (HM* `diagnosis_id`s); wrap in **`CALL { … UNION … }`** then **`ORDER BY p.participant_id, d.diagnosis_id`** (TC02) or **`ORDER BY d.diagnosis_id`** when one participant (TC03). Stat bar **Files**: after `WITH DISTINCT p, s` + sample optional, **`collect` study/participant/sample nodes** then **`UNWIND` sample list → file GUIDs**, then **`UNWIND` participants → participant file GUIDs**—do **not** use nested **`CALL { UNWIND cohort_participants … collect … }`** (QA hangs on ~220-participant JMML cohort; ~30s vs many minutes). Same **`dcf_indexd_guid`** edges as phs000720. **Studies tab:** `(s)<-[*..6]-(diagnosis)`, `count(dg)` for Diagnosis Top 5; anatomic site **`UNWIND` + `count(site_raw)`**, **`ORDER BY site_n DESC, site DESC`**; dedupe grant IDs with **`reduce`**.
+
+**Reference — phs001437 (Maris / TC01–TC09):** StatQuery adds **derived samples** (direct + cell_line + pdx UNION in a `CALL`) before counts. Stat bar **Files** = `OPTIONAL MATCH (p)-[*..4]-(file)` on cohort participants inside the file `CALL` (Maris files are not always on `of_*_file` sample edges). **Studies tab** keeps study-wide sample totals via `(s)<-[*..2]-(pcp)<-[:of_sample]-(sm)` + cell_line/pdx branch; **File Type (Top 5):** drop `crai` and `cram` from the displayed list (Explore omits them at equal counts); **`ORDER BY type_n DESC, file_type DESC`** for tie-break among remaining types (e.g. `tar` before `pdf` at 284). Append **`Read More`** when **`size(file_type_all) > 5`** (before crai/cram exclusion), not when `size(file_type_filtered) > 5` — the UI still shows Read More if hidden types remain after the top-5 slice. **Diagnosis tab:** UNION participant + sample/cell_line/pdx diagnosis paths; **`ORDER BY p.participant_id, d.diagnosis_id`**; TC01 cohort filter `Maris_*` plus `P0057` → **`d.diagnosis_id = 'P0057_ASPS-KY_diagnosis'`** (not `_pdx_samp_diagnosis` from the UNION). **TC09 Chemotherapy:** Explore omits sample-level **`ALL-115_diagnosis`** and participant-level **`P0007_ALL-105_diagnosis`** while keeping **`ALL-105_pdx_samp_diagnosis`** and **`P0007_ALL-115_diagnosis`** — diff `OutputFiles/.../UI_Diagnosis` vs `DB_Diagnosis` when UNION returns duplicate Maris diagnosis ids for one participant.
 
 ## Cohort-first pattern (default)
 
@@ -50,9 +100,15 @@ Comment in StatQuery: `// Explore stat bar Files is 0 on QA for this cohort; Stu
 2. **`WITH DISTINCT p, s`** when the anchor can repeat per participant.
 3. **Second `MATCH`** for tab data (diagnosis, sample, treatment_response, …).
 
-### Treatment type (e.g. Radiation)
+### Treatment type (e.g. Radiation, Immunotherapy)
 
 **Do not** use four `OR EXISTS { … treatment_chemotherapy … treatment_other }` on a study-wide `MATCH (p:participant)` — very slow.
+
+**Explore facet vs node property:** UI **Treatment Type** uses `treatment_type` on radiation/surgery/other nodes, but on **chemotherapy** rows the index maps **`chemotherapy_type`** (e.g. `Chemotherapy`, `Immunotherapy`, `Hormone Therapy`) — not top-level `treatment_type` on the node. Cohort filter: `'Immunotherapy' IN coalesce(t.chemotherapy_type, [])` on `(t:treatment_chemotherapy)`; Treatment tab display should stringify `chemotherapy_type` for the Type column.
+
+**phs002504 TC09 Chemotherapy Diagnosis tab:** Same **`CALL { participant `d` UNION sample `d` }`** pattern as Race filters when UI shows **`HM*.dx`** ids; **`ORDER BY p.participant_id, d.diagnosis_id`** for the first **13** rows. Entity tabs (**Treatment Responses, Survival, Samples, Genetic Analysis**): **`WITH DISTINCT p, s` from chemo anchor first**, then **`MATCH (tr|sv|sm|g)…->(p)`** — never **`MATCH (tr)…` before cohort `WITH`** (unbound `tr`).
+
+**phs002504 TC09 Chemotherapy stat bar quirk (QA):** Explore participant/sample counts follow **`chemotherapy_type`**, but **Files (148)** matches file GUID rollup on participants with **`'Chemotherapy' IN coalesce(t.treatment_type, [])`** (9-participant file set). StatQuery: cohort counts via **`chemotherapy_type`**, then a second **`MATCH (t2:treatment_chemotherapy)`** with **`t2.treatment_type`** for the file **`UNWIND`** cohort only.
 
 **Do** start from radiation rows (verify on Memgraph that UI cohort matches; for Radiation, `treatment_radiation` alone is usually enough):
 
@@ -81,8 +137,10 @@ Apply the **same cohort predicate** on all tabs in the workbook (including `Trea
 
 ## Studies tab
 
-- Study row exists when cohort EXISTS matches (e.g. radiation participants).
-- **Number of Participants / Samples / Files** on Studies tab = **whole study** totals (310 / 1143 / …), not filtered cohort — keep existing StudiesTab template behavior.
+- Study row when the filtered cohort matches: prefer **cohort-first** `MATCH (filter…)->(p)…->(s:study) WHERE s.dbgap_accession = '<phs>'` + `WITH DISTINCT s`, not `MATCH (s:study) WHERE EXISTS { … }`.
+- **Number of Participants / Samples** on Studies tab = **whole study** totals for that study row (not filtered cohort counts).
+- **Number of Files / File Type (Top 5)** on Studies tab = **whole study** (`OPTIONAL MATCH (s)<-[*..6]-(fl)` …), even when Explore filters narrow participants — differs from stat bar Files on phs000720-style cohorts.
+- **Diagnosis Anatomic Site (Top 5):** when `site_n` ties, use **`ORDER BY site_n DESC, site DESC`** so row order matches Explore (e.g. pelvic complex before orbital cavity at 28).
 - **Diagnosis (Top 5):** count **diagnosis records** — `count(d) AS diagnosis_n`, **not** `count(DISTINCT dp)` (UI shows record counts, e.g. Osteosarcoma (154)).
 - Prefer TC01-style `(s)<-[*..6]-(dg:diagnosis)` + `count(dg)` when aligning with an existing phs002827 Studies query.
 
