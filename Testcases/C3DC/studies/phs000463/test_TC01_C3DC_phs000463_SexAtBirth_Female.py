@@ -8,6 +8,7 @@ import pytest
 
 @pytest.mark.c3dc
 @pytest.mark.regression
+@pytest.mark.smoke
 @pytest.mark.quickrun
 def test_TC01_C3DC_phs000463_SexAtBirth_Female(c3dc):
     c3dc.load_query_file("TC01_C3DC_phs000463_SexAtBirth-Female.xlsx")

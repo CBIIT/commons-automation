@@ -7,6 +7,7 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
+@pytest.mark.smoke
 def test_TC06_GC_phs000720_PrimDiag_NotApplicable(gc):
     gc.load_query_file("TC06_GC_phs000720_PrimDiag_NotApplicable.xlsx")
     gc.accept_banner()

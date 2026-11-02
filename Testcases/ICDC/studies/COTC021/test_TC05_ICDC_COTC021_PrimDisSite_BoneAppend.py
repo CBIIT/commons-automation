@@ -7,6 +7,7 @@ _INPUT = "TC05_ICDC_COTC021_PrimDisSite-BoneAppend.xlsx"
 
 @pytest.mark.icdc
 @pytest.mark.regression
+@pytest.mark.smoke
 def test_TC05_ICDC_COTC021_PrimDisSite_BoneAppend(icdc):
     icdc.load_query_file(_INPUT)
     icdc.accept_banner()

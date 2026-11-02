@@ -4,6 +4,7 @@ import pytest
 
 
 @pytest.mark.ins
+@pytest.mark.quickrun
 @pytest.mark.regression
 def test_TC01_INS_CancerType_BladderCancer(ins):
     ins.load_query_file("TC01_INS_CancerType-BladderCancer.xlsx")

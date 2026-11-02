@@ -4,6 +4,7 @@ import pytest
 
 
 @pytest.mark.ins
+@pytest.mark.quickrun
 @pytest.mark.regression
 def test_TC01_INS_SpecialTopic_CancerMoonshot(ins):
     ins.load_query_file("TC01_INS_SpecialTopic-CancerMoonshot.xlsx")

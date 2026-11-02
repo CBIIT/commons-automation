@@ -7,6 +7,7 @@ import pytest
 
 @pytest.mark.c3dc
 @pytest.mark.regression
+@pytest.mark.smoke
 def test_TC02_C3DC_phs000466_Race_BlackAfriAmerican(c3dc):
     c3dc.load_query_file("TC02_C3DC_phs000466_Race-BlackAfriAmerican.xlsx")
     c3dc.accept_banner()

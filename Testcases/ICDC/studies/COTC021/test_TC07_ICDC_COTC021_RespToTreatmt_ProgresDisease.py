@@ -7,6 +7,7 @@ _INPUT = "TC07_ICDC_COTC021_RespToTreatmt-ProgresDisease.xlsx"
 
 @pytest.mark.icdc
 @pytest.mark.regression
+@pytest.mark.smoke
 def test_TC07_ICDC_COTC021_RespToTreatmt_ProgresDisease(icdc):
     icdc.load_query_file(_INPUT)
     icdc.accept_banner()
