@@ -1,4 +1,4 @@
-from Commons.apps.base import BaseApp
+from Commons.base_app import BaseApp
 from Commons.apps.bento import Bento
 from Commons.apps.c3dc import C3DC
 from Commons.apps.ccdi import CCDI

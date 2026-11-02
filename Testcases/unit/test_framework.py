@@ -46,7 +46,10 @@ def test_cells_match_rules():
     assert cells_match("Age 12", "Age 12")            # raw equal wins even though stripping would change it
     assert cells_match("Blood", "BLOOD")              # CTDC UI title-case vs TSV
     assert cells_match("Not reported", "Not Reported")
+    assert cells_match("5", "5.0")
+    assert cells_match("0.74", "0.740")
     assert not cells_match("a", "b")
+    assert not cells_match("5", "5.01")
 
 
 def test_static_text_and_href_normalize():
@@ -180,7 +183,7 @@ def test_compare_counts_ignores_commas():
 def test_expected_stat_dict_maps_memgraph_headers():
     from types import SimpleNamespace
 
-    from Commons.apps.base import BaseApp, StatSpec
+    from Commons.base_app import BaseApp, StatSpec
     from Commons.db_source import Table
 
     class App(BaseApp):
@@ -279,12 +282,13 @@ def test_ctdc_expected_source_is_tsv_without_bolt_password():
     assert settings.tab_execution.get("Study Files") is True
     from Commons.apps.ctdc import CTDC
     from Commons.db_source import create_expected_data_source
-    from Commons.tsv_source import TsvSource
+    from Commons.tsv_source import TsvSourceBackend
+    from Commons.apps.ctdc.tsv_source import CtdcTsvSource
 
     assert CTDC.TABS["Study Files"].stat == "Studies"
 
     src = create_expected_data_source(settings)
-    assert isinstance(src, TsvSource)
+    assert isinstance(src, (TsvSourceBackend, CtdcTsvSource))
     src.close()
 
 
@@ -778,6 +782,24 @@ def test_ctdc_cmb_filetype_vcf_includes_study_level_zip():
         "A zipped file of all the variant call files for the CMB study",
         "phs002192",
     ]]
+
+
+def test_ins_datasets_tsv_sql_cedcd_repository():
+    """DataSetsTab.zip → df_cedcd; TC01 DatasetsTab SQL runs without Programs TSV."""
+    from Commons.settings import ROOT
+    from Commons.tsv_source import TsvSource, load_ins_dataset_frames
+
+    root = ROOT / "InputFiles" / "INS"
+    frames = load_ins_dataset_frames(root)
+    assert not frames["cedcd_datasets"].empty
+    qf = read_query_file("INS", "TC01_INS_DataSets_Repository-CEDCD.xlsx")
+    src = TsvSource(str(root), app="INS")
+    try:
+        tab = src.fetch_ins_datasets_table(qf)
+    finally:
+        src.close()
+    assert tab.header == ["Title", "Source ID", "Primary Disease", "Sample Count"]
+    assert len(tab.rows) >= 1
 
 
 def test_ctdc_cmb_nivolumab_is_exact_therapy_string():

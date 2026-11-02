@@ -87,6 +87,16 @@ class BaseApp:
         self.output_dir = OUTPUT_ROOT / settings.app / settings.env.upper()
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
+    def connected_source(self) -> ExpectedDataSource:
+        """Underlying expected-data backend (unwraps pytest ``LazySource``)."""
+        src = self.source
+        if src is None:
+            raise RuntimeError("No expected data source configured")
+        get_inner = getattr(src, "get_connected_source", None)
+        if callable(get_inner):
+            return get_inner()
+        return src
+
     # ---------------------------------------------------------------------------
     # Session: open site, banner, input workbook
     # ---------------------------------------------------------------------------

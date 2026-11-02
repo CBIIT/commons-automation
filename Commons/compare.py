@@ -84,6 +84,17 @@ def strip_cpi_badge(value: str) -> str:
     return out.strip()
 
 
+def _numeric_strings_match(a: str, b: str) -> bool:
+    """UI and TSV/SQL may format the same number differently (e.g. 5 vs 5.0)."""
+    a, b = a.strip(), b.strip()
+    if not a or not b:
+        return False
+    try:
+        return float(a) == float(b)
+    except ValueError:
+        return False
+
+
 def _icdc_opensearch_array(ui: str, expected: str) -> bool:
     """ICDC Explore tables show some Neo4j scalars as one-element JSON arrays in the UI."""
     m = re.match(r'^\["(.*)"\]$', ui.strip())
@@ -104,6 +115,7 @@ def cells_match(ui: str, expected: str) -> bool:
         or normalize_list(clean).lower() == normalize_list(expected).lower()
         or _icdc_opensearch_array(ui, expected)
         or _icdc_opensearch_array(clean, expected)
+        or _numeric_strings_match(clean, expected)
     )
 
 

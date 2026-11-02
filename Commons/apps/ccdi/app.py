@@ -4,7 +4,7 @@ CCDI Hub: https://ccdi.cancer.gov
 Hub-only tests (home, about, policies). Navbar Explore opens C3DC Explore Participants —
 there is no CCDI-specific Explore or result tabs.
 """
-from Commons.apps.base import BaseApp, StatSpec
+from Commons.base_app import BaseApp, StatSpec
 
 # ---------------------------------------------------------------------------
 # App adapter (static pages + handoff to C3DC Explore)

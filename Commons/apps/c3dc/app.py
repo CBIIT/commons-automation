@@ -1,7 +1,7 @@
 """
 C3DC (Clinical Commons Data Commons): https://clinicalcommons.ccdi.cancer.gov
 
-Explore Participants: stat bar + result tabs (incl. More menu). Studies catalog: c3dc_studies.py.
+Explore Participants: stat bar + result tabs (incl. More menu). Studies catalog: studies.py.
 Expected data: Memgraph Cypher in InputFiles/C3DC/TC*.xlsx.
 """
 import re
@@ -9,7 +9,7 @@ import time
 from typing import Dict, List, Optional
 
 from Commons import action_log
-from Commons.apps.base import BaseApp, StatSpec, TabSpec
+from Commons.base_app import BaseApp, StatSpec, TabSpec
 from Commons.table_reader import resolve_table_body_xpath
 
 # ---------------------------------------------------------------------------
@@ -324,16 +324,16 @@ class C3DC(BaseApp):
         """Fallback if BaseApp.open_tab is used — same as Katalon selectTab + More menu."""
         self.open_tab(spec.name)
 
-    # --- Studies catalog (/studies — see c3dc_studies.py) ---
+    # --- Studies catalog (/studies — see studies.py) ---
 
     def open_studies_listing(self):
         """Open the /studies catalog (not Explore Participants → Studies)."""
-        from Commons.apps.c3dc_studies import open_studies_listing
+        from Commons.apps.c3dc.studies import open_studies_listing
 
         open_studies_listing(self)
 
     def verify_studies_listing(self):
         """Compare /studies catalog rows to StudiesListingTab Cypher. Does not call verify_tab."""
-        from Commons.apps.c3dc_studies import verify_studies_listing
+        from Commons.apps.c3dc.studies import verify_studies_listing
 
         verify_studies_listing(self)
