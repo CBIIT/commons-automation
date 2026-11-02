@@ -5,7 +5,6 @@ import pytest
 
 @pytest.mark.c3dc
 @pytest.mark.regression
-@pytest.mark.smoke
 @pytest.mark.datarelease
 def test_TC06_C3DC_phs002827_TumorSpatialExtent_Metastatic(c3dc):
     c3dc.load_query_file("TC06_C3DC_phs002827_TumorSpatialExtent-Metastatic.xlsx")

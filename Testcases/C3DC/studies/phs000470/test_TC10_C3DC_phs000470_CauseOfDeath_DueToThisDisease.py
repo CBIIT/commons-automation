@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.c3dc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC10_C3DC_phs000470_CauseOfDeath_DueToThisDisease(c3dc):
     c3dc.load_query_file("TC10_C3DC_phs000470_CauseOfDeath-DueToThisDisease.xlsx")
     c3dc.accept_banner()

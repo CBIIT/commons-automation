@@ -7,6 +7,7 @@ import pytest
 
 @pytest.mark.c3dc
 @pytest.mark.regression
+@pytest.mark.smoke
 def test_TC05_C3DC_phs000463_DiseasePhase_InitialDiag(c3dc):
     c3dc.load_query_file("TC05_C3DC_phs000463_DiseasePhase-InitialDiag.xlsx")
     c3dc.accept_banner()
