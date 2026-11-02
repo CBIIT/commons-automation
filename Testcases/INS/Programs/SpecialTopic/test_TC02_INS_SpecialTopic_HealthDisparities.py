@@ -5,6 +5,7 @@ import pytest
 
 @pytest.mark.ins
 @pytest.mark.regression
+@pytest.mark.smoke
 def test_TC02_INS_SpecialTopic_HealthDisparities(ins):
     ins.load_query_file("TC02_INS_SpecialTopic-HealthDisparities.xlsx")
     ins.accept_banner()

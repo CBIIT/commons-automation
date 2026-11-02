@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC02_GC_phs001905_Sex_Unknown_ExpStr_TargetedSeq_FileTyp_CRAM(gc):
     gc.load_query_file("TC02_GC_phs001905_Sex_Unknown_ExpStr-TargetedSeq_FileTyp-CRAM.xlsx")
     gc.accept_banner()

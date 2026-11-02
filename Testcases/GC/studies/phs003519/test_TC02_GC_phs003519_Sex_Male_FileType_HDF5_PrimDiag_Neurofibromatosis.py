@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC02_GC_phs003519_Sex_Male_FileType_HDF5_PrimDiag_Neurofibromatosis(gc):
     gc.load_query_file("TC02_GC_phs003519_Sex-Male_FileType-HDF5_PrimDiag_Neurofibromatosis.xlsx")
     gc.accept_banner()

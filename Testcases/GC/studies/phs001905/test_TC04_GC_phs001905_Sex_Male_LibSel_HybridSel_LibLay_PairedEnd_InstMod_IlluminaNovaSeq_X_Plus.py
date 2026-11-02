@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC04_GC_phs001905_Sex_Male_LibSel_HybridSel_LibLay_PairedEnd_InstMod_IlluminaNovaSeq_X_Plus(gc):
     gc.load_query_file("TC04_GC_phs001905_Sex_Male_LibSel-HybridSel_LibLay-PairedEnd_InstMod-IlluminaNovaSeq X Plus.xlsx")
     gc.accept_banner()

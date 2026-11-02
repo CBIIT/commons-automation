@@ -5,6 +5,7 @@ import pytest
 
 @pytest.mark.ins
 @pytest.mark.regression
+@pytest.mark.smoke
 def test_TC03_INS_CancerType_BreastCancer(ins):
     ins.load_query_file("TC03_INS_CancerType-BreastCancer.xlsx")
     ins.accept_banner()

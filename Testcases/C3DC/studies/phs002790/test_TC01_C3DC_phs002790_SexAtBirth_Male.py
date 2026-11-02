@@ -6,7 +6,6 @@ import pytest
 
 
 @pytest.mark.c3dc
-@pytest.mark.smoke
 def test_TC01_C3DC_phs002790_SexAtBirth_Male(c3dc):
     c3dc.load_query_file("TC01_C3DC_phs002790_SexAtBirth-Male.xlsx")
     c3dc.accept_banner()

@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC02_GC_phs003155_SampleTumorStatus_Tumor_SampleType_Metastatic(gc):
     gc.load_query_file("TC02_GC_phs003155_SampleTumorStatus-Tumor_SampleType-Metastatic.xlsx")
     gc.accept_banner()

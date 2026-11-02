@@ -6,6 +6,7 @@ import pytest
 @pytest.mark.ins
 @pytest.mark.quickrun
 @pytest.mark.regression
+@pytest.mark.smoke
 def test_TC01_INS_SpecialTopic_CancerMoonshot(ins):
     ins.load_query_file("TC01_INS_SpecialTopic-CancerMoonshot.xlsx")
     ins.accept_banner()

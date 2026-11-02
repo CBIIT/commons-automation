@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC01_GC_phs001905_SmpTumSta_NSD_SmpType_Tissue_LibStr_TargetedCapture(gc):
     gc.load_query_file("TC01_GC_phs001905_SmpTumSta-NSD_SmpType-Tissue_LibStr_TargetedCapture.xlsx")
     gc.accept_banner()

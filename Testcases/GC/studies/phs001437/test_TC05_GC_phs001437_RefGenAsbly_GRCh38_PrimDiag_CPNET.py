@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC05_GC_phs001437_RefGenAsbly_GRCh38_PrimDiag_CPNET(gc):
     gc.load_query_file("TC05_GC_phs001437_RefGenAsbly-GRCh38_PrimDiag-CPNET.xlsx")
     gc.accept_banner()

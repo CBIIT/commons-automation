@@ -5,6 +5,7 @@ import pytest
 
 @pytest.mark.ins
 @pytest.mark.regression
+@pytest.mark.smoke
 def test_TC01_INS_DataSets_Repository_CEDCD(ins):
     ins.load_query_file("TC01_INS_DataSets_Repository-CEDCD.xlsx")
     ins.accept_banner()

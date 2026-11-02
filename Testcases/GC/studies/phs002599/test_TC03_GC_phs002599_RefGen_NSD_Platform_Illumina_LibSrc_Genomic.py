@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC03_GC_phs002599_RefGen_NSD_Platform_Illumina_LibSrc_Genomic(gc):
     gc.load_query_file("TC03_GC_phs002599_RefGen_NSD_Platform-Illumina_LibSrc-Genomic.xlsx")
     gc.accept_banner()
