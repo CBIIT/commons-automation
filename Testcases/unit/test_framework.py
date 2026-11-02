@@ -784,6 +784,20 @@ def test_ctdc_cmb_filetype_vcf_includes_study_level_zip():
     ]]
 
 
+def test_ins_datasets_zip_target_flat_bundle_like_programs(tmp_path):
+    """DataSetsTab.zip → DataSetsTab/*.tsv (same layout as Programs.zip → Programs/*.tsv)."""
+    from Commons.apps.ins.tsv_source import _zip_member_target
+
+    target = _zip_member_target(
+        tmp_path,
+        tmp_path / "DataSetsTab.zip",
+        "DataSetsTab/2025-05-18/dbgap_datasets.tsv",
+    )
+    assert target == tmp_path / "DataSetsTab" / "dbgap_datasets.tsv"
+    programs = _zip_member_target(tmp_path, tmp_path / "Programs.zip", "Programs/grant.tsv")
+    assert programs == tmp_path / "Programs" / "grant.tsv"
+
+
 def test_ins_datasets_tsv_sql_cedcd_repository():
     """DataSetsTab.zip → df_cedcd; TC01 DatasetsTab SQL runs without Programs TSV."""
     from Commons.settings import ROOT

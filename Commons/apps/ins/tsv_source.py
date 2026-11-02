@@ -90,16 +90,32 @@ def ins_dataset_node_for_filename(file_name: str) -> Optional[str]:
     return None
 
 
+def _folder_has_dataset_tsvs(folder: Path) -> bool:
+    for file_path in folder.iterdir():
+        if not file_path.is_file():
+            continue
+        if file_path.suffix.lower() not in (".tsv", ".txt"):
+            continue
+        if ins_dataset_node_for_filename(file_path.name) is not None:
+            return True
+    return False
+
+
 def ins_dataset_release_folders(tsv_root: Path) -> List[Path]:
-    """Dated folders under DataSetsTab/ (from DataSetsTab.zip)."""
+    """Flat TSVs under DataSetsTab/ (same bundle pattern as Programs/)."""
     bundle = tsv_root / "DataSetsTab"
-    if not bundle.is_dir():
-        return []
-    versions = date_release_folders(bundle)
-    if versions:
-        return versions
-    if any(bundle.glob("*.tsv")):
-        return [bundle]
+    if bundle.is_dir():
+        if _folder_has_dataset_tsvs(bundle):
+            return [bundle]
+        for child in sorted(bundle.iterdir()):
+            if not child.is_dir() or child.name.startswith("."):
+                continue
+            if _folder_has_dataset_tsvs(child):
+                return [child]
+    # Legacy: dataset TSVs under INS/YYYY-MM-DD/ from an older zip extractor.
+    for version in date_release_folders(tsv_root):
+        if version.parent == tsv_root and _folder_has_dataset_tsvs(version):
+            return [version]
     return []
 
 
@@ -110,11 +126,15 @@ def _zip_member_target(tsv_root: Path, zip_path: Path, member: str) -> Optional[
     if not parts or not parts[-1].lower().endswith(".tsv"):
         return None
     file_name = parts[-1]
-    for part in parts[:-1]:
-        if is_date_folder(part):
-            return tsv_root / part / file_name
+    bundle_name = zip_path.stem
+    # Programs.zip → Programs/*.tsv; DataSetsTab.zip → DataSetsTab/*.tsv (ignore date subfolders in zip).
+    if parts[0] == bundle_name:
+        return tsv_root / bundle_name / file_name
     if DATE_ZIP_PATTERN.match(zip_path.name):
-        return tsv_root / zip_path.stem / file_name
+        return tsv_root / bundle_name / file_name
+    for i, part in enumerate(parts[:-1]):
+        if is_date_folder(part):
+            return tsv_root.joinpath(*parts[: i + 1], file_name)
     if len(parts) >= 2:
         return tsv_root.joinpath(*parts)
     return None
@@ -227,8 +247,8 @@ def load_ins_dataset_frames(tsv_root: Path) -> Dict[str, pd.DataFrame]:
     versions = ins_dataset_release_folders(tsv_root)
     if not versions:
         raise RuntimeError(
-            f"No INS dataset TSV releases under {tsv_root / 'DataSetsTab'}. "
-            "Extract DataSetsTab.zip (YYYY-MM-DD/*.tsv)."
+            f"No INS dataset TSV files under {tsv_root / 'DataSetsTab'}. "
+            "Extract DataSetsTab.zip (flat *.tsv like Programs.zip)."
         )
     frames = merge_all_tsv_versions(
         tsv_root,
