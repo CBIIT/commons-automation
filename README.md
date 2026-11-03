@@ -6,9 +6,17 @@ Supported apps: **GC**, **C3DC**, **ICDC**, **CTDC**, **INS**, **Bento**, **CCDI
 
 ## How it works
 
+With `framework.test_case_source: excel` in `Config/environments.yaml`, pytest collects **`TC*.xlsx`** under `Testcases/<APP>/`. Each workbook’s **Steps** sheet drives the run (`Commons/excel_testcase/`); row 2 points at the matching query workbook in **`InputFiles/<APP>/`**. Suite membership (`quickrun`, `smoke`, `regression`, …) comes from **`Config/suites.yaml`**. Override with `TEST_CASE_SOURCE=python` to use legacy `test_*.py` where those files still exist.
+
 ```
                          ┌──────────────────────┐
                          │  pytest + conftest   │
+                         └──────────┬───────────┘
+                                    │
+                         ┌──────────▼───────────┐
+                         │  Excel testcase layer│
+                         │  Testcases/TC*.xlsx  │
+                         │  Steps → runner      │
                          └──────────┬───────────┘
                                     │
                          ┌──────────▼───────────┐
