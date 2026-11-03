@@ -55,7 +55,7 @@ cp .env.example .env   # Memgraph/Neo4j passwords; optional ENV, HEADLESS, HTML_
 ```bash
 pytest -m unit                          # no browser
 pytest -m "c3dc and regression" --env qa
-pytest --headed Testcases/C3DC/studies/phs000463/test_TC01_C3DC_phs000463_SexAtBirth_Female.py
+pytest --headed Testcases/C3DC/studies/phs000463/TC01_C3DC_phs000463_SexAtBirth-Female.xlsx --env qa
 ```
 
 Use app fixtures from `conftest.py` (`gc`, `c3dc`, `ctdc`, `ins`, …). Markers in `pytest.ini`: `smoke`, `regression`, `static`, `datarelease` (C3DC release batch), etc. CLI: `--env`, `--headed`, `--browser`, `--trace-actions`.
@@ -86,18 +86,22 @@ CTDC node TSVs live under `InputFiles/CTDC/<STUDY>/YYYY-MM-DD/`. INS keeps `Prog
 
 ## Test shape
 
-```python
-@pytest.mark.c3dc
-@pytest.mark.regression
-def test_example(c3dc):
-    c3dc.load_query_file("TC01_C3DC_….xlsx")
-    c3dc.accept_banner()
-    c3dc.open_explore()
-    c3dc.select_filter("Demographics/SexAtBirth", "Female")
-    c3dc.read_statbar()
-    c3dc.verify_tab("Participants")
-    c3dc.assert_no_failures()
-```
+Each case is a **`TC*.xlsx`** under `Testcases/<APP>/` (for example `Testcases/C3DC/studies/phs000463/TC01_C3DC_phs000463_SexAtBirth-Female.xlsx`). Pytest collects it when `framework.test_case_source` is **`excel`**; **`Config/suites.yaml`** assigns markers such as `smoke` and `regression`.
+
+The **Steps** sheet is the test script. **Row 2** (`Input Excel`) must point at the query workbook in `InputFiles/<APP>/` (Cypher/SQL tabs). Following rows are adapter actions (`Action`, `Page`, `Params`, `Filter`):
+
+| Input Excel | Action | Page | Params | Filter |
+|-------------|--------|------|--------|--------|
+| `InputFiles/C3DC/TC01_C3DC_phs000463_SexAtBirth-Female.xlsx` | | | | |
+| | `accept_banner` | | | |
+| | `open_explore` | | | |
+| | `select_filter` | Study/dbGaP_Accession | | phs000463 |
+| | `select_filter` | Demographics/SexAtBirth | | Female |
+| | `read_statbar` | | | |
+| | `verify_tab` | | Participants | |
+| | `assert_no_failures` | | | |
+
+Run one file: `pytest Testcases/C3DC/studies/phs000463/TC01_C3DC_phs000463_SexAtBirth-Female.xlsx --env qa`
 
 `verify_tab` runs all enabled tabs in the app unless you call it per tab. Empty tabs `(0)` are skipped. Failures are collected until `assert_no_failures()` (screenshot under `Reports/screenshots/`; compare workbooks under `OutputFiles/<APP>/<env>/`).
 
