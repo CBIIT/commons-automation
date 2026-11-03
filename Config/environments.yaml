@@ -147,6 +147,14 @@ apps:
         username: memgraph  
 
 # ---------------------------------------------------------------------------
+# Test authoring (pytest collection)
+# ---------------------------------------------------------------------------
+# test_case_source: excel → TC*.xlsx under Testcases/<APP>/… (Commons/excel_pytest_collect.py)
+# Override: TEST_CASE_SOURCE=excel | python
+framework:
+  test_case_source: excel
+
+# ---------------------------------------------------------------------------
 # Playwright browser (pytest session)
 # ---------------------------------------------------------------------------
 browser:
