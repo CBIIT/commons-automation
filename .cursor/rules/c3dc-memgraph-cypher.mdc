@@ -76,7 +76,7 @@ RETURN studies, participants, samples, files
 
 Diagnosis filters: anchor `(d:diagnosis)-[:of_diagnosis]->(p:participant)-…->(s)` in the **first** `MATCH`, not `EXISTS` on `(p)`.
 
-**phs002827 (data-release):** Explore stat bar **Files** = cohort **`dcf_indexd_guid`** rollup (direct `of_*_file` on cohort samples + participant clinical/generic/radiology edges)—not **`0 AS files`**. Use **`Tools/patch_phs002827_stat_files.py`**; sample-facet TCs reuse the phs003162 sample-`CALL` file pattern. Studies tab **Number of Files** stays study-wide via `(s)<-[*..6]-(fl)` unless QA export shows cohort-scoped totals.
+**phs002827 (data-release):** Explore stat bar **Files** = cohort **`dcf_indexd_guid`** rollup (direct `of_*_file` on cohort samples + participant clinical/generic/radiology edges)—not **`0 AS files`**. Edit **`InputFiles/C3DC/TC*_phs002827_*.xlsx`** StatQuery; sample-facet TCs reuse the phs003162 sample-`CALL` file pattern. Studies tab **Number of Files** stays study-wide via `(s)<-[*..6]-(fl)` unless QA export shows cohort-scoped totals.
 
 **Reference — phs000720 (all TC01–TC09):** `InputFiles/C3DC/TC*_C3DC_phs000720_*.xlsx` StatQueries follow the pattern above. Explore stat bar **Files** = cohort-linked files (sample + participant edges). **Studies tab** **Number of Files** / **File Type (Top 5)** = whole study via `(s)<-[*..6]-(fl)`; cohort row via filter-specific `MATCH … WITH DISTINCT s` (not `EXISTS`). **Diagnosis Anatomic Site (Top 5):** `ORDER BY site_n DESC, site DESC` (tie-break when counts match). Do not add `//` comments in xlsx Cypher.
 
