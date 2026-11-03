@@ -1,4 +1,4 @@
-"""Bento arm-* facet matrix (TC01–TC14 × arms A–D). Used by Tools/generate_bento_arm_tests.py and Tools/cypher/bento_cypher.py."""
+"""Bento arm-* facet matrix (TC01–TC14 × arms A–D). Reference for Testcases/BENTO and InputFiles/BENTO naming."""
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -237,5 +237,5 @@ BENTO_FACET_SPECS: tuple[BentoFacetSpec, ...] = (
     ),
 )
 
-# Back-compat alias for docs/tools
+# Back-compat alias for docs
 ARM_SECONDARY_FILTERS = BENTO_FACET_SPECS

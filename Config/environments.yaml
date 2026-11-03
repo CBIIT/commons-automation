@@ -55,7 +55,7 @@ apps:
     # Expected data = SQL in the input Excel, run against dated TSV/TXT node files
     # (Katalon PythonFiles/CTDC). No Bolt password. Flip back later:
     #   expected_source: memgraph
-    #   python Tools/convert_ctdc_sql_to_cypher.py
+    #   (edit InputFiles/CTDC query workbooks if switching to memgraph Cypher)
     expected_source: tsv
     tsv_root: InputFiles/CTDC   # <STUDY>/YYYY-MM-DD/; override: CTDC_TSV_ROOT
     urls:
