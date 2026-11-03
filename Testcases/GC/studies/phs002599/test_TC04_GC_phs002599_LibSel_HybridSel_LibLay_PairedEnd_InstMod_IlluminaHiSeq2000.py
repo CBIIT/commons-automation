@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC04_GC_phs002599_LibSel_HybridSel_LibLay_PairedEnd_InstMod_IlluminaHiSeq2000(gc):
     gc.load_query_file("TC04_GC_phs002599_LibSel-HybridSel_LibLay-PairedEnd_InstMod-IlluminaHiSeq2000.xlsx")
     gc.accept_banner()

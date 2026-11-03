@@ -7,6 +7,7 @@ import pytest
 
 @pytest.mark.c3dc
 @pytest.mark.regression
+@pytest.mark.smoke
 def test_TC04_C3DC_phs000463_DiagnBasis_Clinical(c3dc):
     c3dc.load_query_file("TC04_C3DC_phs000463_DiagnBasis-Clinical.xlsx")
     c3dc.accept_banner()

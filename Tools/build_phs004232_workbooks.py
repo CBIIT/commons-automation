@@ -11,11 +11,24 @@ ROOT = Path(__file__).resolve().parents[1]
 IN = ROOT / "InputFiles" / "C3DC"
 PHS = "phs004232"
 
-STAT_UNION_FROM_PARTICIPANTS = """
-MATCH (p:participant)-[:of_participant]->(:consent_group)-[:of_consent_group]->(s:study)
-WHERE s.dbgap_accession = '{phs}'
-  AND {cohort_predicate}
-WITH collect(DISTINCT s) AS study_nodes, collect(DISTINCT p) AS part_nodes
+STAT_FILE_ROLLUP = """
+WITH size(study_nodes) AS studies,
+     size(part_nodes) AS participants,
+     {samples_expr} AS samples,
+     part_nodes,
+     [sm IN sample_nodes WHERE sm IS NOT NULL] AS sms
+UNWIND CASE WHEN size(sms) = 0 THEN [null] ELSE sms END AS sm
+OPTIONAL MATCH (f)-[:of_sequencing_file|of_clinical_measure_file|of_cytogenomic_file|of_generic_file|of_methylation_array_file|of_pathology_file|of_radiology_file]->(sm)
+WITH studies, participants, samples, part_nodes, collect(DISTINCT f.dcf_indexd_guid) AS s_guids
+UNWIND part_nodes AS p
+OPTIONAL MATCH (fp)-[:of_clinical_measure_file|of_generic_file|of_radiology_file]->(p)
+WITH studies, participants, samples, s_guids, collect(DISTINCT fp.dcf_indexd_guid) AS p_guids
+WITH studies, participants, samples, [g IN s_guids + p_guids WHERE g IS NOT NULL] AS guids
+UNWIND CASE WHEN size(guids) = 0 THEN [null] ELSE guids END AS guid
+RETURN studies, participants, samples, count(DISTINCT guid) AS files
+""".strip()
+
+STAT_SAMPLE_CALL = """
 CALL {{
   WITH part_nodes
   UNWIND part_nodes AS p
@@ -33,16 +46,41 @@ CALL {{
   MATCH (parent:sample)-[:of_sample]->(p)
   MATCH (sm:sample)-[:of_sample]->(:pdx)-[:of_pdx]->(parent)
   RETURN sm
-}}
-WITH study_nodes, part_nodes, collect(DISTINCT sm) AS sample_nodes
-RETURN size(study_nodes) AS studies,
-       size(part_nodes) AS participants,
-       size(sample_nodes) AS samples,
-       0 AS files
-// Explore stat bar Files is 0 on QA for this cohort; Studies tab validates file totals.
-""".strip()
+}}"""
 
-STAT_SAMPLE_TUMOR = """
+STAT_UNION_FROM_PARTICIPANTS = (
+    """
+MATCH (p:participant)-[:of_participant]->(:consent_group)-[:of_consent_group]->(s:study)
+WHERE s.dbgap_accession = '{phs}'
+  AND {cohort_predicate}
+WITH collect(DISTINCT s) AS study_nodes, collect(DISTINCT p) AS part_nodes
+"""
+    + STAT_SAMPLE_CALL
+    + """
+WITH study_nodes, part_nodes, collect(DISTINCT sm) AS sample_nodes
+"""
+    + STAT_FILE_ROLLUP.format(samples_expr="size(sample_nodes)")
+).strip()
+
+STAT_STUDY_PHASE = (
+    f"""
+MATCH (p:participant)-[:of_participant]->(:consent_group)-[:of_consent_group]->(s:study)
+WHERE s.dbgap_accession = '{PHS}'
+  AND s.study_phase = 'Completed'
+WITH collect(DISTINCT s) AS study_nodes, collect(DISTINCT p) AS part_nodes
+"""
+    + STAT_SAMPLE_CALL
+    + """
+WITH study_nodes, part_nodes, collect(DISTINCT sm) AS sample_nodes
+UNWIND study_nodes AS s
+OPTIONAL MATCH (ss:study_status)-[:of_study_status]->(s)
+WITH study_nodes, part_nodes, sample_nodes, max(ss.number_of_samples) AS sample_count
+"""
+    + STAT_FILE_ROLLUP.format(samples_expr="coalesce(sample_count, 0)")
+).strip()
+
+STAT_SAMPLE_TUMOR = (
+    """
 CALL {{
   MATCH (sm:sample)-[:of_sample]->(p:participant)-[:of_participant]->(:consent_group)-[:of_consent_group]->(s:study)
   WHERE s.dbgap_accession = '{phs}' AND sm.sample_tumor_status = 'Not Reported'
@@ -58,13 +96,10 @@ CALL {{
   MATCH (sm:sample)-[:of_sample]->(:pdx)-[:of_pdx]->(parent)
   RETURN sm, p, s
 }}
-WITH DISTINCT s, p, sm
-RETURN count(DISTINCT s) AS studies,
-       count(DISTINCT p) AS participants,
-       count(DISTINCT sm) AS samples,
-       0 AS files
-// Explore stat bar Files is 0 on QA for this cohort; Studies tab validates file totals.
-""".strip()
+WITH collect(DISTINCT s) AS study_nodes, collect(DISTINCT p) AS part_nodes, collect(DISTINCT sm) AS sample_nodes
+"""
+    + STAT_FILE_ROLLUP.format(samples_expr="size(sample_nodes)")
+).strip()
 
 
 def clone_and_replace(src: str, dst: str, replacements: list[tuple[str, str]]) -> None:
@@ -100,8 +135,9 @@ def main() -> None:
     clone_and_replace(
         "TC01_C3DC_phs003162_StudyPhase-Completed.xlsx",
         "TC01_C3DC_phs004232_StudyPhase-Completed.xlsx",
-        [("phs003162", PHS), ("2 AS files", "0 AS files")],
+        [("phs003162", PHS)],
     )
+    set_stat("TC01_C3DC_phs004232_StudyPhase-Completed.xlsx", STAT_STUDY_PHASE)
 
     # TC02 — Diagnosis Anatomic Site bone element
     clone_and_replace(

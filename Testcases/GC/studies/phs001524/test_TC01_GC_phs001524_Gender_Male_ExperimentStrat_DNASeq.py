@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC01_GC_phs001524_Gender_Male_ExperimentStrat_DNASeq(gc):
     gc.load_query_file("TC01_GC_phs001524_Gender-Male_ExperimentStrat-DNASeq.xlsx")
     gc.accept_banner()

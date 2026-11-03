@@ -6,7 +6,7 @@ Generate pytest test files from the Katalon test-case scripts and suites.
 For every Katalon test case  Test Cases/<APP>_TestCases/<...>/<TC name>  it writes
     Testcases/<app>/<...>/test_<TC_name>.py
 
-  * The steps are translated one-to-one into calls on the app object (see Commons/apps/base.py).
+  * The steps are translated one-to-one into calls on the app object (see Commons/base_app.py).
   * Markers come from the Katalon suites: a test that is in C3DC_Smoke gets @pytest.mark.smoke, one
     in C3DC_Regression / _part1 / _part2 ... gets @pytest.mark.regression, QuickRun -> quickrun.
   * A script with steps this generator does not understand is still written, but marked skip and

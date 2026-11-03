@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC01_GC_phs001437_Sex_Unknown_ExperimentalStrategy_RNASeq(gc):
     gc.load_query_file("TC01_GC_phs001437_Sex-Unknown_ExperimentalStrategy-RNASeq.xlsx")
     gc.accept_banner()

@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC05_GC_phs001787_LibrLayout_PairedEnd_LibrSelct_HybrdSelct_Platform_Illumina(gc):
     gc.load_query_file("TC05_GC_phs001787_LibrLayout-PairedEnd_LibrSelct-HybrdSelct_Platform-Illumina.xlsx")
     gc.accept_banner()

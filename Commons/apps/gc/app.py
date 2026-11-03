@@ -1,10 +1,10 @@
 """
 GC (General Commons): https://datacommons.cancer.gov
 
-Data explore: stat bar + result tabs (Participants, Samples, Files). Studies catalog: gc_studies.py.
+Data explore: stat bar + result tabs (Participants, Samples, Files). Studies catalog: studies.py.
 Expected data: Memgraph Cypher in InputFiles/GC/TC*.xlsx.
 """
-from Commons.apps.base import BaseApp, StatSpec, TabSpec
+from Commons.base_app import BaseApp, StatSpec, TabSpec
 
 # ---------------------------------------------------------------------------
 # Tab wiring (workbook TabQuery keys ↔ Data_page locators)
@@ -59,12 +59,12 @@ class GC(BaseApp):
 
     def open_studies_listing(self):
         """Open the /#/studies catalog (not Data explore)."""
-        from Commons.apps.gc_studies import open_studies_listing
+        from Commons.apps.gc.studies import open_studies_listing
 
         open_studies_listing(self)
 
     def verify_studies_listing(self):
         """Compare /#/studies catalog rows to StudiesListingTab Cypher. Does not call verify_tab."""
-        from Commons.apps.gc_studies import verify_studies_listing
+        from Commons.apps.gc.studies import verify_studies_listing
 
         verify_studies_listing(self)

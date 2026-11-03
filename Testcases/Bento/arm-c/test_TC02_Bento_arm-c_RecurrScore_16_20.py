@@ -5,6 +5,7 @@ import pytest
 
 @pytest.mark.bento
 @pytest.mark.regression
+@pytest.mark.smoke
 def test_TC02_Bento_arm_c_RecurrScore_16_20(bento):
     bento.load_query_file("TC02_Bento_arm-c_RecurrScore-16-20.xlsx")
     bento.accept_banner()

@@ -8,6 +8,7 @@ import pytest
 
 @pytest.mark.ctdc
 @pytest.mark.regression
+@pytest.mark.smoke
 def test_TC01_CTDC_CMB_Diagnosis_ColorctlCarcin(ctdc):
     ctdc.load_query_file("TC01_CTDC_CMB_Diagnosis-ColorctlCarcin.xlsx")
     ctdc.accept_banner()

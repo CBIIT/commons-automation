@@ -7,6 +7,7 @@ _INPUT = "TC03_ICDC_COTC021_Breed-AfghanHound.xlsx"
 
 @pytest.mark.icdc
 @pytest.mark.regression
+@pytest.mark.smoke
 def test_TC03_ICDC_COTC021_Breed_AfghanHound(icdc):
     icdc.load_query_file(_INPUT)
     icdc.accept_banner()

@@ -7,6 +7,7 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
+@pytest.mark.smoke
 def test_TC04_GC_phs000720_SampleTumorStatus_Tumor(gc):
     gc.load_query_file("TC04_GC_phs000720_SampleTumorStatus_Tumor.xlsx")
     gc.accept_banner()

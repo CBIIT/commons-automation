@@ -7,6 +7,7 @@ _INPUT = "TC04_ICDC_COTC021_Diagnosis-Osteosacroma.xlsx"
 
 @pytest.mark.icdc
 @pytest.mark.regression
+@pytest.mark.smoke
 def test_TC04_ICDC_COTC021_Diagnosis_Osteosacroma(icdc):
     icdc.load_query_file(_INPUT)
     icdc.accept_banner()

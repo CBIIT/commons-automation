@@ -7,8 +7,8 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.quickrun
 @pytest.mark.smoke
+@pytest.mark.quickrun
 def test_TC01_GC_phs000720_SmpTumSta_Tumor_SampleType_Analyte(gc):
     gc.load_query_file("TC01_GC_phs000720_SmpTumSta-Tumor_SampleType_Analyte.xlsx")
     gc.accept_banner()

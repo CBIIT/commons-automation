@@ -4,7 +4,7 @@ BENTO (TAILORx demo portal): https://bento-tools.org
 Explore Cases view with stat bar (Programs … Files) and result tabs Cases / Samples / Files.
 Expected data: Neo4j Cypher in InputFiles/BENTO/TC*.xlsx. Arm + facet matrix: Tools/bento_arm_filters.py.
 """
-from Commons.apps.base import BaseApp, StatSpec, TabSpec
+from Commons.base_app import BaseApp, StatSpec, TabSpec
 
 # ---------------------------------------------------------------------------
 # Tab wiring (workbook TabQuery keys ↔ UI locators)

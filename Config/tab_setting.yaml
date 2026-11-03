@@ -11,9 +11,15 @@
 #
 # Shell override for row limit only: TAB_ROW_LIMIT or TAB_ROW_LIMIT_<APP>
 
+# ---------------------------------------------------------------------------
+# Defaults (all apps unless overridden below)
+# ---------------------------------------------------------------------------
 default_tab_row_limit: 100
 default_pagination_max_pages: 50
 
+# ---------------------------------------------------------------------------
+# Per-app tab row limits, pagination caps, and enabled result tabs
+# ---------------------------------------------------------------------------
 apps:
 
   # -------------------------------------------------------------------------
@@ -102,4 +108,4 @@ apps:
       Programs: true
       Projects: true
       Grants: true
-      Publications: false
+      Publications: true

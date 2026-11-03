@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC02_GC_phs001713_SampleTumorStatus_Normal_SampleType_DNA(gc):
     gc.load_query_file("TC02_GC_phs001713_SampleTumorStatus-Normal_SampleType-DNA.xlsx")
     gc.accept_banner()

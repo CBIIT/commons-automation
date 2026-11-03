@@ -4,7 +4,10 @@ INS (Index of NCI Studies): https://studycatalog.cancer.gov
 Programs or Datasets explore: stat bar + result tabs (Programs, Projects, Grants, Publications).
 Expected data: TSV from Programs.zip / DataSetsTab.zip (extracted under InputFiles/INS/) + SQL in TC*.xlsx.
 """
-from Commons.apps.base import BaseApp, StatSpec, TabSpec
+from Commons import action_log, excel_writer
+from Commons.base_app import BaseApp, StatSpec, TabSpec
+from Commons.compare import compare_tables
+from Commons.apps.ins.tsv_source import InsTsvSource, read_ins_datasets_page_table
 
 # ---------------------------------------------------------------------------
 # Tab wiring (workbook TabQuery keys ↔ ResultTabs locators)
@@ -71,3 +74,37 @@ class INS(BaseApp):
     def open_datasets(self):
         """Open Datasets explore via navbar (Katalon: INS/Navbar/Datasets-Btn)."""
         self.click("Navbar/Datasets-Btn", ui_message="INS Datasets page opened successfully.")
+
+    def verify_datasets(self):
+        """Katalon verifyUiAgainstTsvForInsDatasetsTab: card grid vs DatasetsTab SQL + DataSetsTab TSV."""
+        if self.query_file is None:
+            raise RuntimeError("Call load_query_file() first")
+        action_log.ui_action("Reading INS Datasets cards from UI.")
+        ui_table = read_ins_datasets_page_table(self.ui, self.repo)
+        source = self.connected_source()
+        if not isinstance(source, InsTsvSource):
+            raise RuntimeError("INS Datasets compare requires expected_source: tsv")
+        expected = source.fetch_ins_datasets_table(self.query_file)
+        ui_table.rows.sort(key=lambda row: [str(c).strip() if c is not None else "" for c in row])
+        expected.rows.sort(key=lambda row: [str(c).strip() if c is not None else "" for c in row])
+        base = self.output_dir / self.query_file.name
+        action_log.compare_step("UI_Datasets", "DB_Datasets")
+        cmp = compare_tables(ui_table.rows, expected.rows, ui_table.header, expected.header)
+        ui_cols = len(ui_table.header) or max((len(r) for r in ui_table.rows), default=0)
+        exp_cols = len(expected.header) or max((len(r) for r in expected.rows), default=0)
+        ui_hi, db_hi = excel_writer.highlight_sets_from_comparison(cmp, ui_cols, exp_cols)
+        excel_writer.write_sheet(
+            base.with_name(base.name + "_UI.xlsx"),
+            "UI_Datasets",
+            ui_table.header,
+            ui_table.rows,
+            highlight_cells=ui_hi,
+        )
+        excel_writer.write_sheet(
+            base.with_name(base.name + "_DB.xlsx"),
+            "DB_Datasets",
+            expected.header,
+            expected.rows,
+            highlight_cells=db_hi,
+        )
+        self._record("Datasets", cmp, ui_count=len(ui_table.rows), exp_count=len(expected.rows))

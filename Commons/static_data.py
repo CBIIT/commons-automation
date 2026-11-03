@@ -15,7 +15,7 @@ from Commons.object_repository import LocatorNotFound
 from Commons.settings import input_dir
 
 if TYPE_CHECKING:
-    from Commons.apps.base import BaseApp
+    from Commons.base_app import BaseApp
 
 
 # ---------------------------------------------------------------------------

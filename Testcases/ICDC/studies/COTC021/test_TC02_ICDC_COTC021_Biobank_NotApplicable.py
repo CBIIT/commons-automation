@@ -6,8 +6,9 @@ _INPUT = "TC02_ICDC_COTC021_Biobank-NotApplicable.xlsx"
 
 
 @pytest.mark.icdc
-@pytest.mark.quickrun
 @pytest.mark.regression
+@pytest.mark.smoke
+@pytest.mark.quickrun
 def test_TC02_ICDC_COTC021_Biobank_NotApplicable(icdc):
     icdc.load_query_file(_INPUT)
     icdc.accept_banner()

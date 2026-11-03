@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC05_GC_phs001554_LibraryStrategy_WGS_LibrarySource_Genomic(gc):
     gc.load_query_file("TC05_GC_phs001554_LibraryStrategy-WGS_LibrarySource-Genomic.xlsx")
     gc.accept_banner()

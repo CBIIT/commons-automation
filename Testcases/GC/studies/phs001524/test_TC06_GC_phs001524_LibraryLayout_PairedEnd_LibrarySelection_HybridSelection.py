@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC06_GC_phs001524_LibraryLayout_PairedEnd_LibrarySelection_HybridSelection(gc):
     gc.load_query_file("TC06_GC_phs001524_LibraryLayout-PairedEnd_LibrarySelection-HybridSelection.xlsx")
     gc.accept_banner()

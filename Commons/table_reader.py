@@ -18,7 +18,7 @@ from Commons import action_log
 from Commons.db_source import Table
 
 if TYPE_CHECKING:
-    from Commons.apps.base import TabSpec
+    from Commons.base_app import TabSpec
     from Commons.browser_actions import Ui
 
 

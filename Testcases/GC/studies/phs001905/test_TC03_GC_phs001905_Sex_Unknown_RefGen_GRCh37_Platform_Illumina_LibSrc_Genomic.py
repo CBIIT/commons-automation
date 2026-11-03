@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC03_GC_phs001905_Sex_Unknown_RefGen_GRCh37_Platform_Illumina_LibSrc_Genomic(gc):
     gc.load_query_file("TC03_GC_phs001905_Sex_Unknown_RefGen_GRCh37_Platform-Illumina_LibSrc-Genomic.xlsx")
     gc.accept_banner()

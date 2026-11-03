@@ -4,7 +4,7 @@ ICDC (Integrated Canine Data Commons): https://caninecommons-qa.cancer.gov
 Cases explore: stat bar + result tabs (Cases, Samples, Case Files, Study Files).
 Expected data: Neo4j Cypher in InputFiles/ICDC/TC*.xlsx.
 """
-from Commons.apps.base import BaseApp, StatSpec, TabSpec
+from Commons.base_app import BaseApp, StatSpec, TabSpec
 
 # ---------------------------------------------------------------------------
 # Tab wiring (workbook TabQuery keys ↔ Canine result tab locators)

@@ -5,6 +5,7 @@ import pytest
 
 @pytest.mark.ctdc
 @pytest.mark.regression
+@pytest.mark.smoke
 def test_TC01_CTDC_AHEP0731_FileType_RadiologyImaging(ctdc):
     ctdc.load_query_file("TC01_CTDC_AHEP0731_FileType-RadiologyImaging.xlsx")
     ctdc.accept_banner()

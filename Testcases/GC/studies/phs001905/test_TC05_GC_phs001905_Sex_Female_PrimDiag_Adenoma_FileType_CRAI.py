@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC05_GC_phs001905_Sex_Female_PrimDiag_Adenoma_FileType_CRAI(gc):
     gc.load_query_file("TC05_GC_phs001905_Sex-Female_PrimDiag_Adenoma_FileType-CRAI.xlsx")
     gc.accept_banner()

@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC05_GC_phs001713_LibrarySource_Genomic_LibraryLayout_PairedEnd(gc):
     gc.load_query_file("TC05_GC_phs001713_LibrarySource-Genomic_LibraryLayout-PairedEnd.xlsx")
     gc.accept_banner()

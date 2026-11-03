@@ -7,6 +7,7 @@ import pytest
 
 @pytest.mark.c3dc
 @pytest.mark.regression
+@pytest.mark.smoke
 def test_TC07_C3DC_phs000463_FirstEvent_Relapse(c3dc):
     c3dc.load_query_file("TC07_C3DC_phs000463_FirstEvent-Relapse.xlsx")
     c3dc.accept_banner()

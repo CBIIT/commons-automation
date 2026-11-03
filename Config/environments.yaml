@@ -2,23 +2,36 @@
 #   MEMGRAPH_PASSWORD_C3DC=...     # required for C3DC tests (cluster host under apps.C3DC.memgraph)
 # Optional overrides: MEMGRAPH_ENDPOINT_C3DC, MEMGRAPH_USERNAME_C3DC_QA, etc. (see Commons/settings.py)
 
+# ---------------------------------------------------------------------------
+# Per-application URLs and expected-data backends
+# ---------------------------------------------------------------------------
 apps:
+
+  # -------------------------------------------------------------------------
+  # C3DC — Clinical Commons Explore (Memgraph)
+  # Portal: clinicalcommons*.ccdi.cancer.gov
+  # -------------------------------------------------------------------------
   C3DC:
     # Expected data = Cypher in the input Excel, run against Memgraph (Katalon: ReadExcel.Memgraph).
     expected_source: memgraph
     urls:
-      qa:    https://clinicalcommons-stage.ccdi.cancer.gov/
+      dev:   https://clinicalcommons-dev.ccdi.cancer.gov/
+      qa:    https://clinicalcommons-qa.ccdi.cancer.gov/
       stage: https://clinicalcommons-stage.ccdi.cancer.gov/
       prod:  https://clinicalcommons.ccdi.cancer.gov/
     memgraph:
       # Override host/user: MEMGRAPH_ENDPOINT_C3DC, MEMGRAPH_USERNAME_C3DC, etc.
       dev:
-        endpoint: bolt://gen-dev-cdk-nlb-ecd70c3cab6cb63f.elb.us-east-1.amazonaws.com:7687
+        endpoint: bolt://ccdi-dcc-qa-99d933a8c11c2ea3.elb.us-east-1.amazonaws.com:7687 #bolt://gen-dev-cdk-nlb-ecd70c3cab6cb63f.elb.us-east-1.amazonaws.com:7687
         username: memgraph
       qa:
         endpoint: bolt://ccdi-dcc-qa-99d933a8c11c2ea3.elb.us-east-1.amazonaws.com:7687 #bolt://localhost:7687 
         username: memgraph #user
 
+  # -------------------------------------------------------------------------
+  # CCDI Hub — static pages; Explore opens C3DC (Neo4j)
+  # Portal: ccdi*.cancer.gov
+  # -------------------------------------------------------------------------
   CCDI:
     # Hub pages only. Explore (/explore) opens C3DC Explore Participants.
     expected_source: neo4j
@@ -34,6 +47,10 @@ apps:
         endpoint: bolt://neo4j.ccdi-qa.cancer.gov:7687
         username: neo4j
 
+  # -------------------------------------------------------------------------
+  # CTDC — Clinical Trials Data Commons (TSV + SQL expected data)
+  # Portal: clinical*.datacommons.cancer.gov
+  # -------------------------------------------------------------------------
   CTDC:
     # Expected data = SQL in the input Excel, run against dated TSV/TXT node files
     # (Katalon PythonFiles/CTDC). No Bolt password. Flip back later:
@@ -50,6 +67,10 @@ apps:
     #     endpoint: bolt://crdc-c-nlbC3-PnIdn9bEEnH4-90d8fb37076e1f8b.elb.us-east-1.amazonaws.com:7687
     #     username: admin
 
+  # -------------------------------------------------------------------------
+  # ICDC — Integrated Canine Data Commons (Neo4j)
+  # Portal: caninecommons*.cancer.gov
+  # -------------------------------------------------------------------------
   ICDC:
     # Expected data = Cypher in input Excel, run against Neo4j (not Memgraph).
     expected_source: neo4j
@@ -65,6 +86,11 @@ apps:
       stage:
         endpoint: bolt://ncias-s2261-c.nci.nih.gov:7687
         username: neo4j
+
+  # -------------------------------------------------------------------------
+  # Bento — TAILORx demo Explore (Neo4j)
+  # Portal: bento-tools.org
+  # -------------------------------------------------------------------------
   Bento:
     # Expected data = Cypher in the input Excel, run against Neo4j (port Katalon SQL → Cypher).
     expected_source: neo4j
@@ -84,6 +110,10 @@ apps:
         endpoint: bolt://localhost:7687
         username: neo4j
 
+  # -------------------------------------------------------------------------
+  # INS — Index of NCI Studies (TSV + SQL expected data)
+  # Portal: studycatalog*.cancer.gov
+  # -------------------------------------------------------------------------
   INS:
     # Expected data = SQL in InputFiles/INS/TC*.xlsx against program/project/grant/publication TSVs.
     # Programs.zip → YYYY-MM-DD/*.tsv on first load; refresh from ins-data when counts drift (esp. Publications).
@@ -96,6 +126,10 @@ apps:
       stage: https://studycatalog-stage.cancer.gov/
       prod:  https://studycatalog.cancer.gov/
 
+  # -------------------------------------------------------------------------
+  # GC — General Commons (Memgraph)
+  # Portal: general-*.datacommons.cancer.gov / datacommons.cancer.gov
+  # -------------------------------------------------------------------------
   GC:
     # Expected data = Cypher in the input Excel, run against Memgraph.
     expected_source: memgraph
@@ -112,6 +146,9 @@ apps:
         endpoint: bolt://gen-qa2-cdk-nlb-a4d830d9cb17f0ac.elb.us-east-1.amazonaws.com:7687
         username: memgraph  
 
+# ---------------------------------------------------------------------------
+# Playwright browser (pytest session)
+# ---------------------------------------------------------------------------
 browser:
   name: chromium          # chromium | firefox | webkit   (override: BROWSER or --browser)
   headless: true          # override: HEADLESS=false, HEADED=true, or pytest --headed

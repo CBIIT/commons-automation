@@ -5,6 +5,7 @@ import pytest
 
 @pytest.mark.bento
 @pytest.mark.regression
+@pytest.mark.smoke
 def test_TC01_Bento_arm_b_Diagnosis_Comedocarcinoma(bento):
     bento.load_query_file("TC01_Bento_arm-b_Diagnosis-Comedocarcinoma.xlsx")
     bento.accept_banner()

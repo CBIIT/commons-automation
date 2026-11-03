@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC02_GC_phs002250_Sex_Male_ExpStr_WGS_FileTyp_CRAM(gc):
     gc.load_query_file("TC02_GC_phs002250_Sex_Male_ExpStr-WGS_FileTyp-CRAM.xlsx")
     gc.accept_banner()
