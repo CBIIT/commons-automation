@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC02_GC_phs002366_Sex_Female_ExpStr_WXS_FileTyp_FASTQ(gc):
     gc.load_query_file("TC02_GC_phs002366_Sex_Female_ExpStr-WXS_FileTyp-FASTQ.xlsx")
     gc.accept_banner()

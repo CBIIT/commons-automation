@@ -28,7 +28,7 @@ from typing import List, Optional, Sequence
 
 import pytest
 
-from Commons.apps.base import BaseApp
+from Commons.base_app import BaseApp
 from Commons.settings import ROOT
 
 # ---------------------------------------------------------------------------

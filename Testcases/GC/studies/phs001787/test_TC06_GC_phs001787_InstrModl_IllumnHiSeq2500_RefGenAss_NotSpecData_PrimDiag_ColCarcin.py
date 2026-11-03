@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC06_GC_phs001787_InstrModl_IllumnHiSeq2500_RefGenAss_NotSpecData_PrimDiag_ColCarcin(gc):
     gc.load_query_file("TC06_GC_phs001787_InstrModl-IllumnHiSeq2500_RefGenAss-NotSpecData_PrimDiag-ColCarcin.xlsx")
     gc.accept_banner()

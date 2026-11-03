@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC02_GC_phs001819_SampleTumorStatus_NSD_SampleType_BloodDerivedNormal(gc):
     gc.load_query_file("TC02_GC_phs001819_SampleTumorStatus-NSD_SampleType-BloodDerivedNormal.xlsx")
     gc.accept_banner()

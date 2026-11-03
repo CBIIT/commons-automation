@@ -5,6 +5,7 @@ import pytest
 
 @pytest.mark.bento
 @pytest.mark.regression
+@pytest.mark.smoke
 def test_TC11_Bento_arm_b_TissueType_Tumor(bento):
     bento.load_query_file("TC11_Bento_arm-b_TissueType-Tumor.xlsx")
     bento.accept_banner()

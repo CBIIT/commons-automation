@@ -87,6 +87,16 @@ class BaseApp:
         self.output_dir = OUTPUT_ROOT / settings.app / settings.env.upper()
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
+    def connected_source(self) -> ExpectedDataSource:
+        """Underlying expected-data backend (unwraps pytest ``LazySource``)."""
+        src = self.source
+        if src is None:
+            raise RuntimeError("No expected data source configured")
+        get_inner = getattr(src, "get_connected_source", None)
+        if callable(get_inner):
+            return get_inner()
+        return src
+
     # ---------------------------------------------------------------------------
     # Session: open site, banner, input workbook
     # ---------------------------------------------------------------------------
@@ -375,20 +385,33 @@ class BaseApp:
         ui_row = [self.stats.get(s.name, "") for s in self.STATS]
         exp_row = [str(exp.get(s.name, "")) for s in self.STATS]
         base = self.output_dir / self.query_file.name
-        excel_writer.write_sheet(
-            base.with_name(base.name + "_UI.xlsx"), self.STAT_UI_SHEET, header, [ui_row]
-        )
-        excel_writer.write_sheet(
-            base.with_name(base.name + "_DB.xlsx"), self.STAT_DB_SHEET, header, [exp_row]
-        )
-        action_log.compare_step(self.STAT_UI_SHEET, self.STAT_DB_SHEET)
         cmp_header = [h for h in header if h not in omit]
         cmp_ui = [[v for h, v in zip(header, ui_row) if h not in omit]]
         cmp_exp = [[v for h, v in zip(header, exp_row) if h not in omit]]
+        action_log.compare_step(self.STAT_UI_SHEET, self.STAT_DB_SHEET)
         cmp_table = compare_tables(cmp_ui, cmp_exp, cmp_header, cmp_header)
         ui_counts = {k: v for k, v in self.stats.items() if k not in omit}
         exp_counts = {k: v for k, v in exp.items() if k not in omit}
-        cmp_counts = compare_counts(ui_counts, exp_counts)
+        cmp_counts = compare_counts(ui_counts, exp_counts, key_order=cmp_header)
+        stat_hi = excel_writer.map_highlight_columns(
+            set(cmp_table.mismatch_cells) | set(cmp_counts.mismatch_cells),
+            cmp_header,
+            header,
+        )
+        excel_writer.write_sheet(
+            base.with_name(base.name + "_UI.xlsx"),
+            self.STAT_UI_SHEET,
+            header,
+            [ui_row],
+            highlight_cells=stat_hi,
+        )
+        excel_writer.write_sheet(
+            base.with_name(base.name + "_DB.xlsx"),
+            self.STAT_DB_SHEET,
+            header,
+            [exp_row],
+            highlight_cells=stat_hi,
+        )
         cmp = Comparison(
             cmp_table.passed and cmp_counts.passed,
             1,
@@ -479,10 +502,25 @@ class BaseApp:
         ui_table.rows.sort(key=lambda row: [str(c).strip() if c is not None else "" for c in row])
         expected.rows.sort(key=lambda row: [str(c).strip() if c is not None else "" for c in row])
         base = self.output_dir / self.query_file.name
-        excel_writer.write_sheet(base.with_name(base.name + "_UI.xlsx"), spec.ui_sheet, ui_table.header, ui_table.rows)
-        excel_writer.write_sheet(base.with_name(base.name + "_DB.xlsx"), spec.db_sheet, expected.header, expected.rows)
         action_log.compare_step(spec.ui_sheet, spec.db_sheet)
         cmp = compare_tables(ui_table.rows, expected.rows, ui_table.header, expected.header)
+        ui_cols = len(ui_table.header) or max((len(r) for r in ui_table.rows), default=0)
+        exp_cols = len(expected.header) or max((len(r) for r in expected.rows), default=0)
+        ui_hi, db_hi = excel_writer.highlight_sets_from_comparison(cmp, ui_cols, exp_cols)
+        excel_writer.write_sheet(
+            base.with_name(base.name + "_UI.xlsx"),
+            spec.ui_sheet,
+            ui_table.header,
+            ui_table.rows,
+            highlight_cells=ui_hi,
+        )
+        excel_writer.write_sheet(
+            base.with_name(base.name + "_DB.xlsx"),
+            spec.db_sheet,
+            expected.header,
+            expected.rows,
+            highlight_cells=db_hi,
+        )
         self._record(spec.name, cmp, ui_count=len(ui_table.rows), exp_count=len(expected.rows))
 
     # ---------------------------------------------------------------------------

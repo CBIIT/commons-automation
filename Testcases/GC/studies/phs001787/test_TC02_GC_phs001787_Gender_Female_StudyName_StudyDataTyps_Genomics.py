@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC02_GC_phs001787_Gender_Female_StudyName_StudyDataTyps_Genomics(gc):
     gc.load_query_file("TC02_GC_phs001787_Gender-Female_StudyName_StudyDataTyps-Genomics.xlsx")
     gc.accept_banner()

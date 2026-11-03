@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC01_GC_phs002250_SmpTumSta_Normal_SmpType_Blood_LibStr_NSD(gc):
     gc.load_query_file("TC01_GC_phs002250_SmpTumSta-Normal_SmpType-Blood_LibStr_NSD.xlsx")
     gc.accept_banner()

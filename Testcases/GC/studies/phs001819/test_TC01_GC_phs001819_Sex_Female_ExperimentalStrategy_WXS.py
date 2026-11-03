@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC01_GC_phs001819_Sex_Female_ExperimentalStrategy_WXS(gc):
     gc.load_query_file("TC01_GC_phs001819_Sex-Female_ExperimentalStrategy-WXS.xlsx")
     gc.accept_banner()

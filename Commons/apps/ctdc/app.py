@@ -4,7 +4,7 @@ CTDC (Clinical Trials Data Commons): https://clinical-qa.datacommons.cancer.gov
 Explore: stat bar + result tabs (Participants, Biospecimens, Files, Study Files).
 Expected data: TSV snapshots under InputFiles/CTDC/<STUDY>/YYYY-MM-DD/ + SQL in TC*.xlsx.
 """
-from Commons.apps.base import BaseApp, StatSpec, TabSpec
+from Commons.base_app import BaseApp, StatSpec, TabSpec
 
 # ---------------------------------------------------------------------------
 # Tab wiring (workbook TabQuery keys ↔ ResultTabs locators)

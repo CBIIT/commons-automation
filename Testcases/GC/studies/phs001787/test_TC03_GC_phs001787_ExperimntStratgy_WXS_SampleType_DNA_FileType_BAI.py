@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC03_GC_phs001787_ExperimntStratgy_WXS_SampleType_DNA_FileType_BAI(gc):
     gc.load_query_file("TC03_GC_phs001787_ExperimntStratgy-WXS_SampleType-DNA_FileType-BAI.xlsx")
     gc.accept_banner()

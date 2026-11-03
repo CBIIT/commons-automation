@@ -5,6 +5,7 @@ import pytest
 
 @pytest.mark.bento
 @pytest.mark.regression
+@pytest.mark.smoke
 def test_TC01_Bento_arm_c_Diagnosis_NotReported(bento):
     bento.load_query_file("TC01_Bento_arm-c_Diagnosis-NotReported.xlsx")
     bento.accept_banner()

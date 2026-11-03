@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC04_GC_phs001554_RefGenAsbly_GRCh37_PrimDiag_ColoCarc(gc):
     gc.load_query_file("TC04_GC_phs001554_RefGenAsbly-GRCh37_PrimDiag_ColoCarc.xlsx")
     gc.accept_banner()

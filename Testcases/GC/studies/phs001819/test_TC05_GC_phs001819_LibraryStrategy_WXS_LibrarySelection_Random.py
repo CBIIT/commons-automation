@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC05_GC_phs001819_LibraryStrategy_WXS_LibrarySelection_Random(gc):
     gc.load_query_file("TC05_GC_phs001819_LibraryStrategy-WXS_LibrarySelection-Random.xlsx")
     gc.accept_banner()

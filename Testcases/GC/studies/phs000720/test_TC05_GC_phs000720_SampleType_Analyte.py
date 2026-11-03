@@ -7,6 +7,7 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
+@pytest.mark.smoke
 def test_TC05_GC_phs000720_SampleType_Analyte(gc):
     gc.load_query_file("TC05_GC_phs000720_SampleType_Analyte.xlsx")
     gc.accept_banner()

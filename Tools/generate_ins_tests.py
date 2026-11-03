@@ -104,7 +104,9 @@ def _test_body(info: dict) -> str:
     if info["filter_call"]:
         lines.append(f"    {info['filter_call']}")
     if info["nav"] == "datasets":
-        return "    pytest.skip('INS Datasets TSV compare not migrated yet')"
+        lines.append("    ins.verify_datasets()")
+        lines.append("    ins.assert_no_failures()")
+        return "\n".join(lines)
     lines.append("    ins.read_statbar()")
     for tab in info["tabs"]:
         lines.append(f'    ins.verify_tab("{tab}")')
@@ -136,15 +138,13 @@ def main() -> None:
         out_dir.mkdir(parents=True, exist_ok=True)
         out_file = out_dir / f"{func}.py"
         body = _test_body(info)
-        skip_datasets = info.get("nav") == "datasets"
-        skip_deco = "\n@pytest.mark.skip(reason='INS Datasets TSV compare not migrated yet')" if skip_datasets else ""
         content = f'''"""Migrated from Katalon {script.relative_to(KATALON_SCRIPTS.parent)}."""
 
 import pytest
 
 
 @pytest.mark.ins
-@pytest.mark.regression{skip_deco}
+@pytest.mark.regression
 def {func}(ins):
 {body}
 '''

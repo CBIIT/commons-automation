@@ -11,15 +11,28 @@ ROOT = Path(__file__).resolve().parents[1]
 IN = ROOT / "InputFiles" / "C3DC"
 PHS = "phs004490"
 
-STAT_TAIL = (
-    "WITH DISTINCT p, s\n"
-    "// Explore stat bar Files is 0 on QA for this cohort; Studies tab validates file totals.\n"
+STAT_FILE_TAIL = (
     "OPTIONAL MATCH (sm:sample)-[:of_sample]->(p)\n"
-    "RETURN count(DISTINCT s) AS studies,\n"
-    "       count(DISTINCT p) AS participants,\n"
-    "       count(DISTINCT sm) AS samples,\n"
-    "       0 AS files"
+    "WITH collect(DISTINCT s) AS study_nodes,\n"
+    "     collect(DISTINCT p) AS part_nodes,\n"
+    "     collect(DISTINCT sm) AS sample_nodes\n"
+    "WITH size(study_nodes) AS studies,\n"
+    "     size(part_nodes) AS participants,\n"
+    "     size([sm IN sample_nodes WHERE sm IS NOT NULL]) AS samples,\n"
+    "     part_nodes,\n"
+    "     [sm IN sample_nodes WHERE sm IS NOT NULL] AS sms\n"
+    "UNWIND CASE WHEN size(sms) = 0 THEN [null] ELSE sms END AS sm\n"
+    "OPTIONAL MATCH (f)-[:of_sequencing_file|of_clinical_measure_file|of_cytogenomic_file|of_generic_file|of_methylation_array_file|of_pathology_file|of_radiology_file]->(sm)\n"
+    "WITH studies, participants, samples, part_nodes, collect(DISTINCT f.dcf_indexd_guid) AS s_guids\n"
+    "UNWIND part_nodes AS p\n"
+    "OPTIONAL MATCH (fp)-[:of_clinical_measure_file|of_generic_file|of_radiology_file]->(p)\n"
+    "WITH studies, participants, samples, s_guids, collect(DISTINCT fp.dcf_indexd_guid) AS p_guids\n"
+    "WITH studies, participants, samples, [g IN s_guids + p_guids WHERE g IS NOT NULL] AS guids\n"
+    "UNWIND CASE WHEN size(guids) = 0 THEN [null] ELSE guids END AS guid\n"
+    "RETURN studies, participants, samples, count(DISTINCT guid) AS files"
 )
+
+STAT_TAIL = "WITH DISTINCT p, s\n" + STAT_FILE_TAIL
 
 STAT_DIAG = (
     f"MATCH (d:diagnosis)-[:of_diagnosis]->(p:participant)-[:of_participant]->(:consent_group)-[:of_consent_group]->(s:study)\n"
@@ -36,12 +49,8 @@ STAT_SEX = (
 STAT_SAMPLE_SITE = (
     f"MATCH (sm:sample)-[:of_sample]->(p:participant)-[:of_participant]->(:consent_group)-[:of_consent_group]->(s:study)\n"
     f"WHERE s.dbgap_accession = '{PHS}' AND 'chest wall' IN coalesce(sm.anatomic_site, [])\n"
-    "WITH DISTINCT p, s, sm\n"
-    "RETURN count(DISTINCT s) AS studies,\n"
-    "       count(DISTINCT p) AS participants,\n"
-    "       count(DISTINCT sm) AS samples,\n"
-    "       0 AS files\n"
-    "// Explore stat bar Files is 0 on QA for this cohort; Studies tab validates file totals."
+    "WITH DISTINCT p, s\n"
+    + STAT_FILE_TAIL
 )
 
 STAT_CHEMO = (

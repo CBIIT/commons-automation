@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC05_GC_phs003155_LibraryStrategy_NSD_LibrarySelection_NSD(gc):
     gc.load_query_file("TC05_GC_phs003155_LibraryStrategy-NSD_LibrarySelection-NSD.xlsx")
     gc.accept_banner()

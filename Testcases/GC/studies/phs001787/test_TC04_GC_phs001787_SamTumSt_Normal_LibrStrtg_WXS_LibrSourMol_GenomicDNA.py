@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC04_GC_phs001787_SamTumSt_Normal_LibrStrtg_WXS_LibrSourMol_GenomicDNA(gc):
     gc.load_query_file("TC04_GC_phs001787_SamTumSt-Normal_LibrStrtg-WXS_LibrSourMol-GenomicDNA.xlsx")
     gc.accept_banner()

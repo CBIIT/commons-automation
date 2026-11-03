@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC03_GC_phs001819_Platform_Illumina_InstrumentModel_HiSeq2000(gc):
     gc.load_query_file("TC03_GC_phs001819_Platform-Illumina_InstrumentModel-HiSeq2000.xlsx")
     gc.accept_banner()

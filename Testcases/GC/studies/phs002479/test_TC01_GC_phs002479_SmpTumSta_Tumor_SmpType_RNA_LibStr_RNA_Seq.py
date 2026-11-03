@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC01_GC_phs002479_SmpTumSta_Tumor_SmpType_RNA_LibStr_RNA_Seq(gc):
     gc.load_query_file("TC01_GC_phs002479_SmpTumSta-Tumor_SmpType-RNA_LibStr_RNA-Seq.xlsx")
     gc.accept_banner()

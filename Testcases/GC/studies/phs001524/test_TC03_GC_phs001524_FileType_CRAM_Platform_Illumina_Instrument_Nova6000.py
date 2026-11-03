@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC03_GC_phs001524_FileType_CRAM_Platform_Illumina_Instrument_Nova6000(gc):
     gc.load_query_file("TC03_GC_phs001524_FileType-CRAM_Platform-Illumina_Instrument-Nova6000.xlsx")
     gc.accept_banner()

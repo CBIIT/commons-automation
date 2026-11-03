@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC01_GC_phs002293_SmpTumSta_Normal_SmpType_DNA_LibStr_WGS(gc):
     gc.load_query_file("TC01_GC_phs002293_SmpTumSta-Normal_SmpType-DNA_LibStr_WGS.xlsx")
     gc.accept_banner()

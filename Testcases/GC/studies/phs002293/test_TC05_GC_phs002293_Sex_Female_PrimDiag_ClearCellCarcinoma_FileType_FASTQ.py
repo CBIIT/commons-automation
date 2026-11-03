@@ -7,7 +7,6 @@ import pytest
 
 @pytest.mark.gc
 @pytest.mark.regression
-@pytest.mark.smoke
 def test_TC05_GC_phs002293_Sex_Female_PrimDiag_ClearCellCarcinoma_FileType_FASTQ(gc):
     gc.load_query_file("TC05_GC_phs002293_Sex-Female_PrimDiag_ClearCellCarcinoma_FileType-FASTQ.xlsx")
     gc.accept_banner()

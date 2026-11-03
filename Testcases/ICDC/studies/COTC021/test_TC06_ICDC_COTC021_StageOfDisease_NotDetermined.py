@@ -7,6 +7,7 @@ _INPUT = "TC06_ICDC_COTC021_StageOfDisease-NotDetermined.xlsx"
 
 @pytest.mark.icdc
 @pytest.mark.regression
+@pytest.mark.smoke
 def test_TC06_ICDC_COTC021_StageOfDisease_NotDetermined(icdc):
     icdc.load_query_file(_INPUT)
     icdc.accept_banner()
