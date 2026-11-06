@@ -14,6 +14,14 @@
 #
 # Apps not listed here keep legacy markers: all cases regression; TC01_* also smoke.
 
+# CCDI functional controls are run explicitly by folder/file. Preserve the
+# existing static smoke/regression selection without external-site checks.
+CCDI:
+  smoke:
+    - "static/TC01_*.xlsx"
+  regression:
+    - "static/TC*.xlsx"
+
 # ---------------------------------------------------------------------------
 # GC — General Commons
 # ---------------------------------------------------------------------------

@@ -1,0 +1,15 @@
+# Resources dropdown on Home; labels and hrefs are expected in ResourcesPage.
+# Positions keep selectors independent of the text/URL being verified.
+page: Static/ResourcesPage
+elements:
+  CBioPortalLink: (//*[@role='banner']//a[@class='dropdownItem'])[1]
+  DataFederationLink: (//*[@role='banner']//a[@class='dropdownItem'])[2]
+  ParticipantIndexLink: (//*[@role='banner']//a[@class='dropdownItem'])[3]
+  RareCancerStudyLink: (//*[@role='banner']//a[@class='dropdownItem'])[4]
+  C3DCLink: (//*[@role='banner']//a[@class='dropdownItem'])[5]
+  DataCatalogLink: (//*[@role='banner']//a[@class='dropdownItem'])[6]
+  MCILink: (//*[@role='banner']//a[@class='dropdownItem'])[7]
+  NCCRExplorerLink: (//*[@role='banner']//a[@class='dropdownItem'])[8]
+  NCCRDataPlatformLink: (//*[@role='banner']//a[@class='dropdownItem'])[9]
+  MolecularTargetListsLink: (//*[@role='banner']//a[@class='dropdownItem'])[10]
+  ToolsLink: (//*[@role='banner']//a[@class='dropdownItem'])[11]

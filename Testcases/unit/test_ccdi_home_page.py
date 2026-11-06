@@ -1,4 +1,4 @@
-"""Home testcase scope and failure handling without a browser or database."""
+"""CCDI static testcase scope and failure handling without a browser or database."""
 from pathlib import Path
 from unittest.mock import Mock
 
@@ -12,13 +12,33 @@ pytestmark = pytest.mark.unit
 ROOT = Path(__file__).resolve().parents[2]
 
 
-def test_home_excel_checks_only_home_and_asserts_results():
-    app = Mock(spec=CCDI)
-    run_testcase_excel(app, ROOT / "Testcases/CCDI/static/TC01_CCDI_Verify_HomePage.xlsx")
-    assert app.method_calls == [
+@pytest.mark.parametrize("filename,steps", [
+    ("TC01_CCDI_Verify_HomePage_Data.xlsx", [
+        ("accept_banner", (), {}),
+        ("click", ("Navbar/Home-Btn",), {}),
         ("verify_home_page", (), {}),
+        ("verify_home_controls", (), {}),
         ("assert_no_failures", (), {}),
-    ]
+    ]),
+    ("TC02_CCDI_Verify_AboutPage_Data.xlsx", [
+        ("accept_banner", (), {}),
+        ("click", ("Navbar/About-Btn",), {}),
+        ("click", ("Navbar/About-AboutCCDI-Btn",), {}),
+        ("verify_about_page_data", (), {}),
+        ("assert_no_failures", (), {}),
+    ]),
+    ("TC03_CCDI_Verify_ResourcesPage_Data.xlsx", [
+        ("accept_banner", (), {}),
+        ("click", ("Navbar/Home-Btn",), {}),
+        ("click", ("Navbar/Resources-Btn",), {}),
+        ("verify_static_data", ("ResourcesPage",), {}),
+        ("assert_no_failures", (), {}),
+    ]),
+])
+def test_page_excel_executes_the_visible_steps_in_order(filename, steps):
+    app = Mock(spec=CCDI)
+    run_testcase_excel(app, ROOT / "Testcases/CCDI/static" / filename)
+    assert app.method_calls == steps
 
 
 def test_home_controls_record_all_failures_and_continue():
@@ -36,7 +56,7 @@ def test_home_controls_record_all_failures_and_continue():
     app.ui = Mock()
     app.ui.loc.side_effect = [Mock(first=missing), Mock(first=readonly), Mock(first=enabled)]
 
-    app._verify_home_controls()
+    app.verify_home_controls()
 
     assert len(app.failures) == 2
     assert "HeaderSearchInput" in app.failures[0]
