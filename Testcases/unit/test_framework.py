@@ -635,7 +635,7 @@ def test_ccdi_has_hub_locators_and_no_explore():
     assert repo.xpath("Static/HomePage/BannerTitle")
     assert repo.xpath("Statbar/Studies_Cnt")
     assert CCDI.TABS == {}
-    assert CCDI.STATIC_DATA_EXCEL == "TC01_CCDI_StaticData.xlsx"
+    assert CCDI.STATIC_DATA_EXCEL == "CCDI_StaticData.xlsx"
     try:
         repo.xpath("ExplorePage/Participants_ResultsTab")
         raise AssertionError("CCDI should not import ExplorePage locators")

@@ -16,10 +16,11 @@ CCDI_EXCEL_ACTIONS = [
     "accept_banner",
     "click",
     "verify_static_data",
+    "verify_home_page",
     "assert_no_failures",
 ]
 
-CCDI_STATIC_DATA_FILE = "TC01_CCDI_StaticData.xlsx"
+CCDI_STATIC_DATA_FILE = "CCDI_StaticData.xlsx"
 
 CCDI_CASE_SUBDIRS = ("static",)
 
@@ -47,6 +48,7 @@ def _ccdi_method_to_step() -> dict:
         "assert_no_failures": lambda _a: ("assert_no_failures", "", "", ""),
         "click": _click,
         "verify_static_data": _static,
+        "verify_home_page": lambda _a: ("verify_home_page", "", "", ""),
     }
 
 
@@ -81,6 +83,9 @@ register_profile(
         excel_actions=CCDI_EXCEL_ACTIONS,
         parse_test_function=_parse_ccdi_test_function,
         case_subdirs=CCDI_CASE_SUBDIRS,
-        extra_handlers={"click": _click_step},
+        extra_handlers={
+            "click": _click_step,
+            "verify_home_page": lambda app, _p, _a, _f, _e: app.verify_home_page(),
+        },
     )
 )
