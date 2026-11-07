@@ -24,6 +24,17 @@ CCDI_EXCEL_ACTIONS = [
     "verify_carousel_link",
     "verify_home_control_action",
     "write_home_control_results",
+    "load_publications_source",
+    "select_publication_category",
+    "verify_publications_category",
+    "verify_publications_partition",
+    "search_publications",
+    "submit_publications_search",
+    "clear_publications_search",
+    "verify_publications_search",
+    "verify_publications_reset",
+    "verify_empty_publications_search",
+    "write_publication_results",
     "assert_no_failures",
 ]
 
@@ -55,7 +66,10 @@ def _ccdi_method_to_step() -> dict:
         page, obj = key.rsplit("/", 1)
         return (action, page, obj, str_arg(args[1]) if len(args) > 1 else "")
 
-    return {
+    def _publication(action, args):
+        return (action, "Publications", str_arg(args[0]) if args else "", str_arg(args[1]) if len(args) > 1 else "")
+
+    methods = {
         "accept_banner": lambda _a: ("accept_banner", "", "", ""),
         "assert_no_failures": lambda _a: ("assert_no_failures", "", "", ""),
         "click": _click,
@@ -68,6 +82,9 @@ def _ccdi_method_to_step() -> dict:
         "verify_home_control_action": lambda a: _control("verify_home_control_action", a),
         "write_home_control_results": lambda _a: ("write_home_control_results", "", "", ""),
     }
+    for action in ("load_publications_source", "select_publication_category", "verify_publications_category", "verify_publications_partition", "search_publications", "submit_publications_search", "clear_publications_search", "verify_publications_search", "verify_publications_reset", "verify_empty_publications_search", "write_publication_results"):
+        methods[action] = lambda args, action=action: _publication(action, args)
+    return methods
 
 
 def _parse_ccdi_test_function(test_fn: ast.FunctionDef, module_consts: dict) -> tuple[str, List[StepRow]]:
@@ -110,6 +127,17 @@ register_profile(
             "verify_carousel_link": lambda app, p, a, f, _e: app.verify_carousel_link(repo_key(p, a), f),
             "verify_home_control_action": lambda app, p, a, f, _e: app.verify_home_control_action(repo_key(p, a), f),
             "write_home_control_results": lambda app, _p, _a, _f, _e: app.write_home_control_results(),
+            "load_publications_source": lambda app, _p, a, _f, _e: app.load_publications_source(a),
+            "select_publication_category": lambda app, _p, a, _f, _e: app.select_publication_category(a),
+            "verify_publications_category": lambda app, _p, a, _f, _e: app.verify_publications_category(a),
+            "verify_publications_partition": lambda app, _p, _a, _f, _e: app.verify_publications_partition(),
+            "search_publications": lambda app, _p, a, _f, _e: app.search_publications(a),
+            "submit_publications_search": lambda app, _p, _a, _f, _e: app.submit_publications_search(),
+            "clear_publications_search": lambda app, _p, _a, _f, _e: app.clear_publications_search(),
+            "verify_publications_search": lambda app, _p, a, f, _e: app.verify_publications_search(a, f),
+            "verify_publications_reset": lambda app, _p, _a, _f, _e: app.verify_publications_reset(),
+            "verify_empty_publications_search": lambda app, _p, _a, _f, _e: app.verify_empty_publications_search(),
+            "write_publication_results": lambda app, _p, _a, _f, _e: app.write_publication_results(),
         },
     )
 )

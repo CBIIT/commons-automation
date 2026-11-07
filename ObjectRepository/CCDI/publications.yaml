@@ -1,0 +1,10 @@
+page: Publications
+elements:
+  SearchInput: //input[@placeholder='Search Publications']
+  SearchButton: //input[@placeholder='Search Publications']/following-sibling::div[@class='searchButton']
+  ClearSearch: //input[@placeholder='Search Publications']/following-sibling::div[@class='deleteIcon']/img
+  ResultsCount: //span[@class='totalNum']
+  AllTab: //div[contains(@class,'tabListItem')][span[normalize-space()='All']]
+  PrimaryTab: //div[contains(@class,'tabListItem')][span[normalize-space()='Primary']]
+  SecondaryTab: //div[contains(@class,'tabListItem')][span[normalize-space()='Secondary']]
+  AbstractsTab: //div[contains(@class,'tabListItem')][span[normalize-space()='Abstracts']]
