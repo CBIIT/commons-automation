@@ -10,7 +10,7 @@ from urllib.parse import urlparse
 
 import openpyxl
 
-from Commons import excel_writer
+from Commons import action_log, excel_writer
 from Commons.object_repository import LocatorNotFound
 from Commons.settings import input_dir
 
@@ -115,6 +115,9 @@ def verify_static_page(app: "BaseApp", sheet_name: str) -> List[str]:
         obj = str(row[0]).strip()
         expected_text = _normalize_text(str(row[1]) if len(row) > 1 and row[1] is not None else "")
         expected_url = str(row[2]).strip() if len(row) > 2 and row[2] else ""
+        actual = None
+        got = None
+        want = _link_href_for_env(expected_url, app.settings.env) if "Link" in obj else None
         ok = False
         try:
             xp = app.repo.xpath(f"Static/{sheet_name}/{obj}")
@@ -126,7 +129,6 @@ def verify_static_page(app: "BaseApp", sheet_name: str) -> List[str]:
                 problems.append(f"{obj}: text is '{actual}', expected '{expected_text}'")
             url_ok = True
             if "Link" in obj:
-                want = _link_href_for_env(expected_url, app.settings.env)
                 got = el.get_attribute("href") or ""
                 url_ok = _hrefs_match(got, want)
                 if not url_ok:
@@ -136,6 +138,16 @@ def verify_static_page(app: "BaseApp", sheet_name: str) -> List[str]:
             problems.append(f"{obj}: {e}")
         except Exception as e:
             problems.append(f"{obj}: element not found or not visible ({type(e).__name__})")
+
+        # Show each comparison live, including passing checks under pytest capture.
+        with action_log.pytest_table_output_live():
+            print(f"[Static] {sheet_name}/{obj}", flush=True)
+            print(f"  Expected text: {expected_text}", flush=True)
+            print(f"  Actual text:   {actual if actual is not None else '<not available>'}", flush=True)
+            if want is not None:
+                print(f"  Expected URL:  {want}", flush=True)
+                print(f"  Actual URL:    {got if got is not None else '<not available>'}", flush=True)
+            print(f"  Result: {'PASSED' if ok else 'FAILED'}", flush=True)
         out_rows.append([obj, expected_text, expected_url, str(ok).lower()])
 
     excel_writer.write_sheet(
