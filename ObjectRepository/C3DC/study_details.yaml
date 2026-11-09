@@ -1,0 +1,10 @@
+# /studies/<accession>. Labels avoid generated jss class numbers.
+page: StudyDetails
+elements:
+  Accession: //div[normalize-space(text())='dbGaP Accession']/following-sibling::div[1]
+  Name: //div[normalize-space(text())='STUDY NAME']/following-sibling::div[1]
+  Description: //div[normalize-space(text())='Study Description']/following-sibling::div[1]
+  Participants: //div[normalize-space(text())='Participants Count']/following-sibling::div[1]
+  Samples: //div[normalize-space(text())='Samples Count']/following-sibling::div[1]
+  Files: //div[normalize-space(text())='Files Count']/following-sibling::div[1]
+  ManifestLink: //a[text()[normalize-space()='Study Manifest']]

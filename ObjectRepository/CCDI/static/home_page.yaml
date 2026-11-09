@@ -1,6 +1,38 @@
 # Converted from Katalon Object Repository/CCDI/Static/HomePage
 page: Static/HomePage
 elements:
+  # Home-only controls are checked for visibility and enabled/editable state.
+  HeaderSearchInput: //input[@id='search_desktop']
+  FooterEmailInput: //input[@id='email_desktop']
+  FooterSignUpButton: //input[@id='email_desktop']/ancestor::form//button
+  MigrationTitle: //p[@class='integrationBannerTitle']
+  MigrationDescription: //p[@class='integrationBannerDetail']
+  MigrationExploreLink: //a[@class='integrationBannerAction']
+  AboutHubLink: //a[normalize-space()='ABOUT CCDI HUB']
+  AboutCCDILink: //a[normalize-space()='ABOUT CCDI']
+  StatsTitle: //h2[@class='statGlance']
+  CatalogedDatasetsCount: (//h5[@class='statNum']/div[1])[1]
+  MCIParticipantsCount: (//h5[@class='statNum']/div[1])[2]
+  ReportedCasesCount: (//h5[@class='statNum']/div[1])[3]
+  LatestUpdatesTitle: //h2[normalize-space()='Latest Updates']
+  # The news strip duplicates end cards for its animation. Positions 2–4 are the three displayed cards.
+  LatestReleaseLink: //div[@class='latestUpdatesList']/div[@class='latestUpdatesListItem'][position() >= 2 and position() <= 4]/a[@class='latestUpdatesListTitleContainer' and @href='/news#hub_release_10282026']
+  LatestReleaseDescription: //div[@class='latestUpdatesList']/div[@class='latestUpdatesListItem'][position() >= 2 and position() <= 4]/a[@class='latestUpdatesListTitleContainer' and @href='/news#hub_release_10282026']/following-sibling::div[@class='latestUpdatesListContent']/span
+  PreviousReleaseLink: //div[@class='latestUpdatesList']/div[@class='latestUpdatesListItem'][position() >= 2 and position() <= 4]/a[@class='latestUpdatesListTitleContainer' and @href='/news#hub_release_10062026']
+  PreviousReleaseDescription: //div[@class='latestUpdatesList']/div[@class='latestUpdatesListItem'][position() >= 2 and position() <= 4]/a[@class='latestUpdatesListTitleContainer' and @href='/news#hub_release_10062026']/following-sibling::div[@class='latestUpdatesListContent']/span
+  DashboardUpdateLink: //div[@class='latestUpdatesList']/div[@class='latestUpdatesListItem'][position() >= 2 and position() <= 4]/a[@class='latestUpdatesListTitleContainer' and @href='/news#c3dc_09102026']
+  DashboardUpdateDescription: //div[@class='latestUpdatesList']/div[@class='latestUpdatesListItem'][position() >= 2 and position() <= 4]/a[@class='latestUpdatesListTitleContainer' and @href='/news#c3dc_09102026']/following-sibling::div[@class='latestUpdatesListContent']/span
+  SpotlightCBioPortalLink: //a[@id='cBioPortal']
+  SpotlightEcDNALink: //a[@id='ecDNA']
+  SpotlightRareCancerLink: //a[@id='CCDIRareCancerInitiative']
+  SpotlightPMTLLink: //a[@id='PediatricMolecularTargetLists']
+  FooterReleaseNotesLink: //footer//a[normalize-space()='Release Notes']
+  FooterSignUpTitle: //footer//h4[normalize-space()='Sign up for email updates']
+  FooterEmailLabel: //label[@for='email_desktop']
+  FooterEmailLink: //a[normalize-space()='NCIChildhoodCancerDataInitiative@mail.nih.gov']
+  FooterHHSLink: //a[normalize-space()='U.S. Department of Health and Human Services']
+  FooterNIHLink: //a[normalize-space()='National Institutes of Health']
+  FooterUSAGovLink: //a[normalize-space()='USA.gov']
   BannerDescription: //div[@class='introTextTitle2']
   BannerTitle: //h1[@class='introTextTitle1']
   DisclaimerText: //div[@class='statsNoteIcon']/following-sibling::div

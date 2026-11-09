@@ -1,4 +1,4 @@
-"""CCDI Hub — Excel testcase profile (static pages under Testcases/CCDI/static/)."""
+"""CCDI Hub Excel profile: separate static and functional testcase folders."""
 
 from __future__ import annotations
 
@@ -6,6 +6,7 @@ import ast
 from typing import TYPE_CHECKING, List
 
 from Commons.excel_testcase._step_parse import parse_adapter_calls, str_arg
+from Commons.excel_testcase._common_steps import repo_key
 from Commons.excel_testcase.profile import ExcelCaseProfile, StepRow
 from Commons.excel_testcase.registry import register_profile
 
@@ -16,12 +17,30 @@ CCDI_EXCEL_ACTIONS = [
     "accept_banner",
     "click",
     "verify_static_data",
+    "verify_home_page",
+    "verify_home_controls",
+    "verify_about_page_data",
+    "verify_link_navigation",
+    "verify_carousel_link",
+    "verify_home_control_action",
+    "write_home_control_results",
+    "load_publications_source",
+    "select_publication_category",
+    "verify_publications_category",
+    "verify_publications_partition",
+    "search_publications",
+    "submit_publications_search",
+    "clear_publications_search",
+    "verify_publications_search",
+    "verify_publications_reset",
+    "verify_empty_publications_search",
+    "write_publication_results",
     "assert_no_failures",
 ]
 
-CCDI_STATIC_DATA_FILE = "TC01_CCDI_StaticData.xlsx"
+CCDI_STATIC_DATA_FILE = "CCDI_StaticData.xlsx"
 
-CCDI_CASE_SUBDIRS = ("static",)
+CCDI_CASE_SUBDIRS = ("static", "functional")
 
 
 def _click_step(app: "BaseApp", page: str, params: str, _flt, _excel) -> None:
@@ -42,12 +61,30 @@ def _ccdi_method_to_step() -> dict:
     def _static(args: list[ast.AST]) -> StepRow:
         return ("verify_static_data", "", str_arg(args[0]), "")
 
-    return {
+    def _control(action, args):
+        key = str_arg(args[0])
+        page, obj = key.rsplit("/", 1)
+        return (action, page, obj, str_arg(args[1]) if len(args) > 1 else "")
+
+    def _publication(action, args):
+        return (action, "Publications", str_arg(args[0]) if args else "", str_arg(args[1]) if len(args) > 1 else "")
+
+    methods = {
         "accept_banner": lambda _a: ("accept_banner", "", "", ""),
         "assert_no_failures": lambda _a: ("assert_no_failures", "", "", ""),
         "click": _click,
         "verify_static_data": _static,
+        "verify_home_page": lambda _a: ("verify_home_page", "", "", ""),
+        "verify_home_controls": lambda _a: ("verify_home_controls", "", "", ""),
+        "verify_about_page_data": lambda _a: ("verify_about_page_data", "", "", ""),
+        "verify_link_navigation": lambda a: _control("verify_link_navigation", a),
+        "verify_carousel_link": lambda a: _control("verify_carousel_link", a),
+        "verify_home_control_action": lambda a: _control("verify_home_control_action", a),
+        "write_home_control_results": lambda _a: ("write_home_control_results", "", "", ""),
     }
+    for action in ("load_publications_source", "select_publication_category", "verify_publications_category", "verify_publications_partition", "search_publications", "submit_publications_search", "clear_publications_search", "verify_publications_search", "verify_publications_reset", "verify_empty_publications_search", "write_publication_results"):
+        methods[action] = lambda args, action=action: _publication(action, args)
+    return methods
 
 
 def _parse_ccdi_test_function(test_fn: ast.FunctionDef, module_consts: dict) -> tuple[str, List[StepRow]]:
@@ -81,6 +118,26 @@ register_profile(
         excel_actions=CCDI_EXCEL_ACTIONS,
         parse_test_function=_parse_ccdi_test_function,
         case_subdirs=CCDI_CASE_SUBDIRS,
-        extra_handlers={"click": _click_step},
+        extra_handlers={
+            "click": _click_step,
+            "verify_home_page": lambda app, _p, _a, _f, _e: app.verify_home_page(),
+            "verify_home_controls": lambda app, _p, _a, _f, _e: app.verify_home_controls(),
+            "verify_about_page_data": lambda app, _p, _a, _f, _e: app.verify_about_page_data(),
+            "verify_link_navigation": lambda app, p, a, f, _e: app.verify_link_navigation(repo_key(p, a), f),
+            "verify_carousel_link": lambda app, p, a, f, _e: app.verify_carousel_link(repo_key(p, a), f),
+            "verify_home_control_action": lambda app, p, a, f, _e: app.verify_home_control_action(repo_key(p, a), f),
+            "write_home_control_results": lambda app, _p, _a, _f, _e: app.write_home_control_results(),
+            "load_publications_source": lambda app, _p, a, _f, _e: app.load_publications_source(a),
+            "select_publication_category": lambda app, _p, a, _f, _e: app.select_publication_category(a),
+            "verify_publications_category": lambda app, _p, a, _f, _e: app.verify_publications_category(a),
+            "verify_publications_partition": lambda app, _p, _a, _f, _e: app.verify_publications_partition(),
+            "search_publications": lambda app, _p, a, _f, _e: app.search_publications(a),
+            "submit_publications_search": lambda app, _p, _a, _f, _e: app.submit_publications_search(),
+            "clear_publications_search": lambda app, _p, _a, _f, _e: app.clear_publications_search(),
+            "verify_publications_search": lambda app, _p, a, f, _e: app.verify_publications_search(a, f),
+            "verify_publications_reset": lambda app, _p, _a, _f, _e: app.verify_publications_reset(),
+            "verify_empty_publications_search": lambda app, _p, _a, _f, _e: app.verify_empty_publications_search(),
+            "write_publication_results": lambda app, _p, _a, _f, _e: app.write_publication_results(),
+        },
     )
 )

@@ -3,7 +3,10 @@
 page: Navbar
 elements:
   WarningBan_Continue_Btn: //span[contains(text(),"Continue")]
+  Home-Btn: //a[@href='/home']
+  Resources-Btn: //div[@role='button' and .='Resources']
   About-AboutCCDI-Btn: //a[contains(@class,'dropdownSectionItem') and .='About CCDI Hub']
   About-Btn: //div[@role='button' and .='About']
+  About-Publications-Btn: //a[contains(@class,'dropdownSectionItem') and normalize-space()='CCDI-Supported Publications']
   About-CCDITerms-Btn: //a[contains(@class,'dropdownSectionItem') and .='CCDI Data Usage Policies & Terms']
   Explore_Menu: (//a[@href="/explore"])[1]

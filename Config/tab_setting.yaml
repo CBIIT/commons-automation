@@ -27,7 +27,7 @@ apps:
   # Portal: clinicalcommons*.ccdi.cancer.gov
   # -------------------------------------------------------------------------
   C3DC:
-    tab_row_limit: 13
+    tab_row_limit: 50
     pagination_max_pages: 25
     tabs:
       Participants: true          # People in the study
@@ -52,7 +52,7 @@ apps:
   # Portal: general-*.datacommons.cancer.gov / datacommons.cancer.gov
   # -------------------------------------------------------------------------
   GC:
-    tab_row_limit: 13
+    tab_row_limit: 15
     pagination_max_pages: 25
     tabs:
       Participants: true   # People / subjects
