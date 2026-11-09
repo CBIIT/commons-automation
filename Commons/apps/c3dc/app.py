@@ -337,3 +337,21 @@ class C3DC(BaseApp):
         from Commons.apps.c3dc.studies import verify_studies_listing
 
         verify_studies_listing(self)
+
+    def open_study_details(self, accession: str):
+        """Click an accession in the catalog; preserve its row for comparison."""
+        from Commons.apps.c3dc.study_details import open_study_details
+
+        open_study_details(self, accession)
+
+    def begin_study_details_report(self, report_name: str = "StudyDetails_AllStudies"):
+        """Start a fresh consolidated report for this study-details testcase."""
+        from Commons.apps.c3dc.study_details import begin_study_details_report
+
+        begin_study_details_report(self, report_name)
+
+    def verify_study_details(self, accession: str):
+        """Check study accession, name, description, counts and manifest download."""
+        from Commons.apps.c3dc.study_details import verify_study_details
+
+        verify_study_details(self, accession)
