@@ -92,10 +92,10 @@ apps:
         endpoint: bolt://ncidb-q600-c.nci.nih.gov:7687
         username: neo4j
       stage:
-        endpoint: bolt://ncias-s2261-c.nci.nih.gov:7687
+        endpoint: bolt://ncidb-q600-c.nci.nih.gov:7687
         username: neo4j
       prod:
-        endpoint: bolt://neo4j.ccdi-qa.cancer.gov:7687
+        endpoint: bolt://ncidb-q600-c.nci.nih.gov:7687
         username: neo4j
 
   # -------------------------------------------------------------------------
