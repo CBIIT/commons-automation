@@ -1,0 +1,13 @@
+# Cohort controls shared by Explore Participants and the Cohort Analyzer modal.
+# Text, roles and icon labels avoid generated React class names.
+page: Cohort
+elements:
+  CreateNew: //div[normalize-space(.)='CREATE NEW COHORT' and not(*)]
+  AllParticipants: //li[normalize-space(.)='All Participants']
+  ViewAll: //button[starts-with(normalize-space(.),'VIEW ALL COHORTS(')]
+  Dialog: //h1[.//span[normalize-space(.)='View of All Cohorts']]/parent::div
+  Items: .//*[@role='option' and starts-with(@id,'cohort-item-')]
+  SelectedItem: .//*[@role='option' and @aria-selected='true']
+  ParticipantCount: .//span[starts-with(normalize-space(.),'PARTICIPANTS IDs (')]
+  ParticipantRows: .//img[@alt='delete participant icon']/parent::div/parent::div
+  Close: .//h1//img[@alt='close icon']
