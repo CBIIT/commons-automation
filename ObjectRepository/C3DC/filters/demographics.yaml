@@ -9,6 +9,7 @@ groups:
       Unknown: //*[@id="checkbox_Race_Unknown"]
       White: //*[@id="checkbox_Race_White"]
       AmerIndAlaskan: //*[@id="checkbox_Race_American Indian or Alaska Native"]
+      American Indian or Alaska Native: //*[@id="checkbox_Race_American Indian or Alaska Native"]
       BlkAfricAmer: //*[@id="checkbox_Race_Black or African American"]
       HispOrLatino: //*[@id="checkbox_Race_Hispanic or Latino"]
       MidEastOrNorthAfrican: //*[@id="checkbox_Race_Middle Eastern or North African"]

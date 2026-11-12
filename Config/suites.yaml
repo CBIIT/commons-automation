@@ -63,6 +63,7 @@ C3DC:
     - "studies/**/TC*.xlsx"
     - "static/TC*.xlsx"
     - "study_listing/TC*.xlsx"
+    - "cohorts/TC*.xlsx"
   datarelease:
     - "studies/phs002827/TC*.xlsx"
     - "studies/phs003162/TC*.xlsx"

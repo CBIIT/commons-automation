@@ -27,6 +27,12 @@ apps:
       qa:
         endpoint: bolt://ccdi-dcc-qa-99d933a8c11c2ea3.elb.us-east-1.amazonaws.com:7687 #bolt://localhost:7687 
         username: memgraph #user
+      stage:
+        endpoint: bolt://ccdi-dcc-qa-99d933a8c11c2ea3.elb.us-east-1.amazonaws.com:7687 
+        username: memgraph 
+      prod:
+        endpoint: bolt://ccdi-dcc-qa-99d933a8c11c2ea3.elb.us-east-1.amazonaws.com:7687 
+        username: memgraph 
 
   # -------------------------------------------------------------------------
   # CCDI Hub — static pages; Explore opens C3DC (Neo4j)
@@ -44,6 +50,9 @@ apps:
         endpoint: bolt://neo4j.ccdi-qa.cancer.gov:7687
         username: neo4j
       stage:
+        endpoint: bolt://neo4j.ccdi-qa.cancer.gov:7687
+        username: neo4j
+      prod:
         endpoint: bolt://neo4j.ccdi-qa.cancer.gov:7687
         username: neo4j
 
@@ -85,6 +94,9 @@ apps:
         username: neo4j
       stage:
         endpoint: bolt://ncias-s2261-c.nci.nih.gov:7687
+        username: neo4j
+      prod:
+        endpoint: bolt://neo4j.ccdi-qa.cancer.gov:7687
         username: neo4j
 
   # -------------------------------------------------------------------------
@@ -137,7 +149,7 @@ apps:
       qa:    https://general-qa.datacommons.cancer.gov/
       qa2:   https://general-qa2.datacommons.cancer.gov/
       stage: https://general-stage.datacommons.cancer.gov/
-      prod:  https://datacommons.cancer.gov/
+      prod:  https://general.datacommons.cancer.gov/#/
     memgraph:
       qa:
         endpoint: bolt://gen-dev-cdk-nlb-ecd70c3cab6cb63f.elb.us-east-1.amazonaws.com:7687
@@ -145,7 +157,13 @@ apps:
       qa2:
         endpoint: bolt://gen-qa2-cdk-nlb-a4d830d9cb17f0ac.elb.us-east-1.amazonaws.com:7687
         username: memgraph  
-
+      stage:
+        endpoint: bolt://gen-qa2-cdk-nlb-a4d830d9cb17f0ac.elb.us-east-1.amazonaws.com:7687
+        username: memgraph
+      prod:
+        endpoint: bolt://gen-dev-cdk-nlb-ecd70c3cab6cb63f.elb.us-east-1.amazonaws.com:7687
+        username: memgraph
+  
 # ---------------------------------------------------------------------------
 # Test authoring (pytest collection)
 # ---------------------------------------------------------------------------

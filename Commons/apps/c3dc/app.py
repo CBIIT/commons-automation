@@ -355,3 +355,17 @@ class C3DC(BaseApp):
         from Commons.apps.c3dc.study_details import verify_study_details
 
         verify_study_details(self, accession)
+
+    # --- Cohorts (shared popup helpers live in cohort.py) ---
+
+    def create_cohort_from_all_participants(self):
+        """Create a cohort containing every participant in the current filtered results."""
+        from Commons.apps.c3dc.cohort import create_cohort_from_all_participants
+
+        create_cohort_from_all_participants(self)
+
+    def verify_cohort_created(self):
+        """Check the new cohort's popup, count and complete participant membership."""
+        from Commons.apps.c3dc.cohort import verify_cohort_created
+
+        return verify_cohort_created(self)
