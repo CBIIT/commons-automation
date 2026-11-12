@@ -1,6 +1,19 @@
-# Secrets (Memgraph passwords) are NOT stored here. Put them in a gitignored `.env` or the shell:
-#   MEMGRAPH_PASSWORD_C3DC=...     # required for C3DC tests (cluster host under apps.C3DC.memgraph)
-# Optional overrides: MEMGRAPH_ENDPOINT_C3DC, MEMGRAPH_USERNAME_C3DC_QA, etc. (see Commons/settings.py)
+# ---------------------------------------------------------------------------
+# Test authoring (pytest collection)
+# ---------------------------------------------------------------------------
+framework:
+  test_case_source: excel
+  environment: qa
+  html_report: false
+
+# ---------------------------------------------------------------------------
+# Playwright browser (pytest session)
+# ---------------------------------------------------------------------------
+browser:
+  name: chromium          # chromium | firefox | webkit   (override: BROWSER or --browser)
+  headless: true          # override: HEADLESS=false, HEADED=true, or pytest --headed
+  viewport: {width: 1920, height: 1080}
+  timeout_ms: 30000
 
 # ---------------------------------------------------------------------------
 # Per-application URLs and expected-data backends
@@ -9,7 +22,6 @@ apps:
 
   # -------------------------------------------------------------------------
   # C3DC — Clinical Commons Explore (Memgraph)
-  # Portal: clinicalcommons*.ccdi.cancer.gov
   # -------------------------------------------------------------------------
   C3DC:
     # Expected data = Cypher in the input Excel, run against Memgraph (Katalon: ReadExcel.Memgraph).
@@ -22,7 +34,7 @@ apps:
     memgraph:
       # Override host/user: MEMGRAPH_ENDPOINT_C3DC, MEMGRAPH_USERNAME_C3DC, etc.
       dev:
-        endpoint: bolt://ccdi-dcc-qa-99d933a8c11c2ea3.elb.us-east-1.amazonaws.com:7687 #bolt://gen-dev-cdk-nlb-ecd70c3cab6cb63f.elb.us-east-1.amazonaws.com:7687
+        endpoint: bolt://gen-dev-cdk-nlb-ecd70c3cab6cb63f.elb.us-east-1.amazonaws.com:7687
         username: memgraph
       qa:
         endpoint: bolt://ccdi-dcc-qa-99d933a8c11c2ea3.elb.us-east-1.amazonaws.com:7687 #bolt://localhost:7687 
@@ -36,10 +48,8 @@ apps:
 
   # -------------------------------------------------------------------------
   # CCDI Hub — static pages; Explore opens C3DC (Neo4j)
-  # Portal: ccdi*.cancer.gov
   # -------------------------------------------------------------------------
   CCDI:
-    # Hub pages only. Explore (/explore) opens C3DC Explore Participants.
     expected_source: neo4j
     urls:
       qa:    https://ccdi-qa.cancer.gov/
@@ -58,37 +68,26 @@ apps:
 
   # -------------------------------------------------------------------------
   # CTDC — Clinical Trials Data Commons (TSV + SQL expected data)
-  # Portal: clinical*.datacommons.cancer.gov
   # -------------------------------------------------------------------------
   CTDC:
-    # Expected data = SQL in the input Excel, run against dated TSV/TXT node files
-    # (Katalon PythonFiles/CTDC). No Bolt password. Flip back later:
-    #   expected_source: memgraph
-    #   (edit InputFiles/CTDC query workbooks if switching to memgraph Cypher)
     expected_source: tsv
-    tsv_root: InputFiles/CTDC   # <STUDY>/YYYY-MM-DD/; override: CTDC_TSV_ROOT
+    tsv_root: InputFiles/CTDC
     urls:
       qa:    https://clinical-qa.datacommons.cancer.gov/#/
       stage: https://clinical-stage.datacommons.cancer.gov/#/
       prod:  https://clinical.datacommons.cancer.gov/#/
-    # memgraph:   # unused while expected_source is tsv
-    #   qa:
-    #     endpoint: bolt://crdc-c-nlbC3-PnIdn9bEEnH4-90d8fb37076e1f8b.elb.us-east-1.amazonaws.com:7687
-    #     username: admin
 
   # -------------------------------------------------------------------------
   # ICDC — Integrated Canine Data Commons (Neo4j)
-  # Portal: caninecommons*.cancer.gov
   # -------------------------------------------------------------------------
   ICDC:
-    # Expected data = Cypher in input Excel, run against Neo4j (not Memgraph).
     expected_source: neo4j
     urls:
       qa:    https://caninecommons-qa.cancer.gov/#/
       stage: https://caninecommons-stage.cancer.gov/#/
       prod:  https://caninecommons.cancer.gov/#/
+
     neo4j:
-      # Hosts match Katalon Profiles/ICDC_*.glbl (G_server). Override: NEO4J_ENDPOINT_ICDC_<ENV>
       qa:
         endpoint: bolt://ncidb-q600-c.nci.nih.gov:7687
         username: neo4j
@@ -101,17 +100,14 @@ apps:
 
   # -------------------------------------------------------------------------
   # Bento — TAILORx demo Explore (Neo4j)
-  # Portal: bento-tools.org
   # -------------------------------------------------------------------------
   Bento:
-    # Expected data = Cypher in the input Excel, run against Neo4j (port Katalon SQL → Cypher).
     expected_source: neo4j
     urls:
       qa:    https://bento-tools.org/
       stage: https://bento-tools.org/
       prod:  https://bento-tools.org/
     neo4j:
-      # Fill bolt host when ready; override: NEO4J_ENDPOINT_BENTO, NEO4J_PASSWORD_BENTO
       qa:
         endpoint: bolt://neo4j-qa.bento-tools.org:7687
         username: neo4j
@@ -124,15 +120,12 @@ apps:
 
   # -------------------------------------------------------------------------
   # INS — Index of NCI Studies (TSV + SQL expected data)
-  # Portal: studycatalog*.cancer.gov
   # -------------------------------------------------------------------------
   INS:
-    # Expected data = SQL in InputFiles/INS/TC*.xlsx against program/project/grant/publication TSVs.
-    # Programs.zip → YYYY-MM-DD/*.tsv on first load; refresh from ins-data when counts drift (esp. Publications).
     expected_source: tsv
     tsv_root: InputFiles/INS
     stat_bar_omit:
-      - Publications   # snapshot lags QA/prod publication ingest; remove after publication.tsv refresh
+      - Publications 
     urls:
       qa:    https://studycatalog-qa.cancer.gov/
       stage: https://studycatalog-stage.cancer.gov/
@@ -140,10 +133,8 @@ apps:
 
   # -------------------------------------------------------------------------
   # GC — General Commons (Memgraph)
-  # Portal: general-*.datacommons.cancer.gov / datacommons.cancer.gov
   # -------------------------------------------------------------------------
   GC:
-    # Expected data = Cypher in the input Excel, run against Memgraph.
     expected_source: memgraph
     urls:
       qa:    https://general-qa.datacommons.cancer.gov/
@@ -163,20 +154,6 @@ apps:
       prod:
         endpoint: bolt://gen-dev-cdk-nlb-ecd70c3cab6cb63f.elb.us-east-1.amazonaws.com:7687
         username: memgraph
-  
-# ---------------------------------------------------------------------------
-# Test authoring (pytest collection)
-# ---------------------------------------------------------------------------
-# test_case_source: excel → TC*.xlsx under Testcases/<APP>/… (Commons/excel_pytest_collect.py)
-# Override: TEST_CASE_SOURCE=excel | python
-framework:
-  test_case_source: excel
-
-# ---------------------------------------------------------------------------
-# Playwright browser (pytest session)
-# ---------------------------------------------------------------------------
-browser:
-  name: chromium          # chromium | firefox | webkit   (override: BROWSER or --browser)
-  headless: true          # override: HEADLESS=false, HEADED=true, or pytest --headed
-  viewport: {width: 1920, height: 1080}
-  timeout_ms: 30000
+# Secrets (Memgraph passwords) are NOT stored here. Put them in a gitignored `.env` or the shell:
+# C3DC_DB_PASSWORD_QA=...  # required for C3DC QA tests (cluster host under apps.C3DC.memgraph)
+# Optional overrides: MEMGRAPH_ENDPOINT_C3DC, MEMGRAPH_USERNAME_C3DC_QA, etc. (see Commons/settings.py)

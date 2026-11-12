@@ -281,19 +281,19 @@ def test_environment_urls():
         get_app_url("GC", "nonexistent-env")
 
 
-def test_memgraph_password_is_never_read_from_config(monkeypatch):
+def test_database_password_uses_app_and_environment_variable(monkeypatch):
     for key in list(os.environ):
-        if key.startswith("MEMGRAPH_PASSWORD"):
+        if "_DB_PASSWORD" in key:
             monkeypatch.delenv(key, raising=False)
     for app in ("C3DC", "GC"):
         assert get_db_settings(app, "qa").expected_source == "memgraph"
         assert get_db_settings(app, "qa").password == ""
-    monkeypatch.setenv("MEMGRAPH_PASSWORD", "legacy-shared")
-    assert get_app_settings("GC", "qa").memgraph_password == ""
-    monkeypatch.setenv("MEMGRAPH_PASSWORD_GC", "gc-only")
-    monkeypatch.setenv("MEMGRAPH_PASSWORD_C3DC", "c3dc-only")
-    assert get_app_settings("GC", "qa").memgraph_password == "gc-only"
-    assert get_app_settings("C3DC", "qa").memgraph_password == "c3dc-only"
+    monkeypatch.setenv("GC_DB_PASSWORD", "gc-default")
+    monkeypatch.setenv("GC_DB_PASSWORD_QA", "gc-qa")
+    monkeypatch.setenv("C3DC_DB_PASSWORD_QA", "c3dc-qa")
+    assert get_app_settings("GC", "qa").memgraph_password == "gc-qa"
+    assert get_app_settings("GC", "stage").memgraph_password == "gc-default"
+    assert get_app_settings("C3DC", "qa").memgraph_password == "c3dc-qa"
 
 
 def test_ctdc_expected_source_is_tsv_without_bolt_password():
@@ -414,7 +414,7 @@ def test_parse_result_tab_count_from_tab_labels():
     assert parse_result_tab_count("Diagnosis") is None
 
 
-def test_browser_and_env_from_dotenv_style_vars(monkeypatch):
+def test_browser_and_env_use_yaml_defaults_with_optional_env_overrides(monkeypatch):
     monkeypatch.delenv("BROWSER", raising=False)
     monkeypatch.delenv("HEADLESS", raising=False)
     monkeypatch.delenv("HEADED", raising=False)
@@ -498,13 +498,16 @@ def test_html_report_suite_slug_and_duration():
     assert format_duration_hms(101.8) == "0h 1m 41.8s"
 
 
-def test_html_report_enabled_reads_html_report_env(monkeypatch):
+def test_html_report_enabled_uses_yaml_default_with_optional_env_override(monkeypatch):
     from Commons import html_report
 
     monkeypatch.delenv("HTML_REPORT", raising=False)
     monkeypatch.delenv("HTML_Report", raising=False)
     monkeypatch.delenv("html_report", raising=False)
+    assert html_report.html_report_enabled() is True
+    monkeypatch.setenv("HTML_REPORT", "false")
     assert html_report.html_report_enabled() is False
+    monkeypatch.delenv("HTML_REPORT")
     monkeypatch.setenv("HTML_Report", "true")
     assert html_report.html_report_enabled() is True
 
