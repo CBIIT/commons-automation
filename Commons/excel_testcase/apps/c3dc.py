@@ -19,6 +19,8 @@ C3DC_EXCEL_ACTIONS = [
     "open_study_details",
     "begin_study_details_report",
     "verify_study_details",
+    "create_cohort_from_all_participants",
+    "verify_cohort_created",
     "select_filter",
     "read_statbar",
     "verify_tab",
@@ -35,6 +37,7 @@ C3DC_CASE_SUBDIRS = (
     "studies",
     "study_listing",
     "study_details",
+    "cohorts",
     "static",
 )
 
@@ -68,6 +71,8 @@ def _c3dc_method_to_step() -> dict:
         "open_study_details": lambda a: ("open_study_details", "StudyDetails", str_arg(a[0]), ""),
         "begin_study_details_report": lambda a: ("begin_study_details_report", "StudyDetails", str_arg(a[0]) if a else "", ""),
         "verify_study_details": lambda a: ("verify_study_details", "StudyDetails", str_arg(a[0]), ""),
+        "create_cohort_from_all_participants": lambda _a: ("create_cohort_from_all_participants", "Cohort", "", ""),
+        "verify_cohort_created": lambda _a: ("verify_cohort_created", "Cohort", "", ""),
         "read_statbar": lambda _a: ("read_statbar", "", "", ""),
         "assert_no_failures": lambda _a: ("assert_no_failures", "", "", ""),
         "select_filter": _filter,
@@ -114,6 +119,8 @@ register_profile(
             "open_study_details": lambda app, _p, accession, _f, _e: app.open_study_details(accession),
             "begin_study_details_report": lambda app, _p, name, _f, _e: app.begin_study_details_report(name) if name else app.begin_study_details_report(),
             "verify_study_details": lambda app, _p, accession, _f, _e: app.verify_study_details(accession),
+            "create_cohort_from_all_participants": lambda app, _p, _a, _f, _e: app.create_cohort_from_all_participants(),
+            "verify_cohort_created": lambda app, _p, _a, _f, _e: app.verify_cohort_created(),
         },
     )
 )
