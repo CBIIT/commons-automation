@@ -1,8 +1,8 @@
 # commons-automation
 
-Playwright + pytest UI regression for NCI Data Commons portals. Each test applies Explore filters, reads stat bar and result tables from the UI, and compares them to expected data from **Memgraph/Neo4j (Cypher)** or **TSV + SQL (CTDC, INS)**.
+Playwright + pytest UI regression for NCI Data Commons portals. Each test applies Explore filters, reads stat bar and result tables from the UI, and compares them to expected data from **Memgraph/Neo4j (Cypher)** or **TSV + SQL (CTDC, INS, PSDC)**.
 
-Supported apps: **GC**, **C3DC**, **ICDC**, **CTDC**, **INS**, **Bento**, **CCDI** (Hub → C3DC Explore).
+Supported apps: **GC**, **C3DC**, **ICDC**, **CTDC**, **PSDC**, **INS**, **Bento**, **CCDI** (Hub → C3DC Explore).
 
 ## How it works
 
@@ -80,7 +80,7 @@ Per-app layout: `Commons/apps/<app>.py`, `Testcases/<APP>/`, `InputFiles/<APP>/`
 |-----|--------|----------|--------------|
 | GC, C3DC | Memgraph | Cypher | `<APP>_DB_PASSWORD_<ENV>` |
 | ICDC, Bento | Neo4j | Cypher | `<APP>_DB_PASSWORD_<ENV>` |
-| CTDC, INS | TSV snapshots + in-memory SQL | SQL | none |
+| CTDC, INS, PSDC | TSV snapshots + in-memory SQL | SQL | none |
 
 CTDC node TSVs live under `InputFiles/CTDC/<STUDY>/YYYY-MM-DD/`. INS keeps `Programs.zip` / `DataSetsTab.zip` in git; the first test run extracts `InputFiles/INS/Programs/` (node TSVs) and dated folders under `InputFiles/INS/` or `DataSetsTab/` (gitignored—do not commit). When publication counts drift, refresh the zips from [ins-data](https://github.com/CBIIT/ins-data) and remove `stat_bar_omit` for Publications in `Config/environments.yaml`.
 

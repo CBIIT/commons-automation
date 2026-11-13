@@ -1,0 +1,7 @@
+page: ResultTabs
+elements:
+  Studies-Tab: //button[@role='tab' and starts-with(normalize-space(.), 'Studies(')]
+  Studies-Tbl: //table[thead//th[contains(@class,'study_short_name')]]
+  Studies-TblHdr: //table[thead//th[contains(@class,'study_short_name')]]/thead
+  All_Tabs_Next-Btn: //button[@aria-label='Next page']
+  All_Tabs_Previous-Btn: //button[@aria-label='Previous page']

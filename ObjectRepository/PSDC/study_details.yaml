@@ -1,0 +1,12 @@
+page: StudyDetails
+elements:
+  Overview-Tab: //button[@role='tab' and normalize-space(.)='Overview']
+  CancerTypes-Tab: //button[@role='tab' and normalize-space(.)='Cancer Types']
+  Demographics-Tab: //button[@role='tab' and normalize-space(.)='Demographics']
+  DataCollected-Tab: //button[@role='tab' and normalize-space(.)='Data Collected']
+  CountriesAndStates-Tab: //button[@role='tab' and normalize-space(.)='Countries and States']
+  Publications-Tab: //button[@role='tab' and normalize-space(.)='Publications']
+  StudyFiles-Tab: //button[@role='tab' and normalize-space(.)='Study Files']
+  StudyFiles-Tbl: //*[@id='study_files_tab_table']//table
+  StudyFiles-TblHdr: //*[@id='study_files_tab_table']//thead
+  Personnel-Tbl: //*[@id='studyPersonnel_table']//table

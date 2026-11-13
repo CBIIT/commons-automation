@@ -153,6 +153,14 @@ def gc(page, env, browser_settings, _repos):
 
 
 @pytest.fixture
+def psdc(page, env, browser_settings, _repos):
+    """PSDC, using study TSV snapshots for expected results."""
+    app, source = _make_app("PSDC", page, env, browser_settings, _repos)
+    yield app
+    source.close()
+
+
+@pytest.fixture
 def ctdc(page, env, browser_settings, _repos):
     """CTDC (Clinical Trials Data Commons), already opened at the environment's URL."""
     app, source = _make_app("CTDC", page, env, browser_settings, _repos)

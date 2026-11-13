@@ -1,0 +1,8 @@
+page: Statbar
+elements:
+  DataVolume-Count: //*[@id='statsbar_count_1']
+  Studies-Count: //*[@id='statsbar_count_2']
+  Participants-Count: //*[@id='statsbar_count_3']
+  CancerTypes-Count: //*[@id='statsbar_count_4']
+  DataCategories-Count: //*[@id='statsbar_count_5']
+  StudyFiles-Count: //*[@id='statsbar_count_6']

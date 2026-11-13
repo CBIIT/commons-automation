@@ -78,6 +78,19 @@ apps:
       prod:  https://clinical.datacommons.cancer.gov/#/
 
   # -------------------------------------------------------------------------
+  # PSDC — Population Science Data Commons (TSV + SQL expected data)
+  # -------------------------------------------------------------------------
+  PSDC:
+    expected_source: tsv
+    tsv_root: InputFiles/PSDC
+    urls:
+      dev: https://populationsciences-dev.datacommons.cancer.gov/#/
+      qa: https://populationsciences-qa.datacommons.cancer.gov/#/
+      stage: https://populationsciences-stage.datacommons.cancer.gov/#/
+      prod: https://populationsciences.datacommons.cancer.gov/#/
+
+
+  # -------------------------------------------------------------------------
   # ICDC — Integrated Canine Data Commons (Neo4j)
   # -------------------------------------------------------------------------
   ICDC:

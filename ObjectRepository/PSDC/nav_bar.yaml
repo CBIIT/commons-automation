@@ -1,0 +1,5 @@
+page: NavBar
+elements:
+  Home-Btn: //a[@href='#/' and normalize-space(.)='Home']
+  Explore-Btn: //a[@href='#/explore' and normalize-space(.)='Explore']
+  About-Tab: //*[@id='navbar-dropdown-about' and @role='button']
