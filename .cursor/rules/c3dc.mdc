@@ -1,12 +1,119 @@
 ---
-description: Fast C3DC Memgraph Cypher for InputFiles TC*.xlsx and Explore tab alignment
-globs: InputFiles/C3DC/**/*.xlsx,Testcases/C3DC/**/*.py
+description: Complete C3DC architecture filters workbooks and optimized Memgraph query guidance
+globs: Commons/apps/c3dc/**/*.py,ObjectRepository/C3DC/**/*.yaml,InputFiles/C3DC/**/*,Testcases/C3DC/**/*
 alwaysApply: false
 ---
 
+# C3DC
+
+- Adapter: `Commons/apps/c3dc/app.py`; fixture `c3dc`; backend Memgraph.
+- Use the shared object-repository, expected-data, and Excel rules together with
+  the C3DC-specific guidance below. All C3DC-specific rules live in this file.
+- Treat adapter `TABS`, `STATS`, and registered Excel profile as the current
+  authority. Internal keys such as `GeneticAnalysis` and `TreatmentResp` differ
+  from displayed labels. Configured enablement can omit some result tabs.
+- Keep Explore, the Studies catalog (`studies.py`), study details
+  (`study_details.py`), and cohort operations (`cohort.py`) in their own flows.
+  Study-detail counts/manifest checks do not use an invented Explore tab.
+
+## Filter details
+
+- `Study/dbGaP_Accession` takes an accession such as `phs002827`.
+  Other examples: `Treatment/TreatmentType` -> `Radiation`,
+  `Samples/TumorSpatialExtent` -> `Metastatic`.
+- Preserve the existing short checkbox tokens; do not substitute a UI label for
+  a YAML map key. Verify actual keys in `ObjectRepository/C3DC/filters/`.
+- Checkbox IDs often contain the full facet label and value, including spaces.
+  Dropdown IDs must match the live sub-panel; do not infer legacy labels.
+- Facet labels can repeat in result tabs. The existing Samples category uses a
+  second matching Samples label; keep such scoping only when verified on the UI.
+- Example object-repository shape: `filters/treatment.yaml` and
+  `filters/demographics.yaml`. Static locators belong under `static/`.
+
+Use `InputFiles/C3DC/TC04_C3DC_phs002827_TrtmntType-Radiation.xlsx` and its paired
+Excel testcase as a structural reference. Revalidate data and performance;
+historical counts and study-specific workarounds are not universal requirements.
+
+## Memgraph query authoring
+
+Read `expected-data.mdc` for shared optimization and validation requirements.
+The following sections add C3DC graph details.
+
+### References and schema
+
+- Read `.cursor/skills/c3dc-memgraph-cypher-assistant/SKILL.md` for its current
+  query workflow and model/index references. Resolve connection settings through
+  the framework/environment; do not copy sample credentials.
+- Model references live under
+  `.cursor/skills/c3dc-memgraph-cypher-assistant/references/model/` and index
+  references under its `references/backend-index-query/` directory. Confirm that
+  the target environment supports the properties and query features being used.
+- Structural reference pair:
+  `InputFiles/C3DC/TC04_C3DC_phs002827_TrtmntType-Radiation.xlsx` and
+  `Testcases/C3DC/studies/phs002827/TC04_C3DC_phs002827_TrtmntType-Radiation.xlsx`.
+  Revalidate its actual data and plan instead of copying historical totals.
+- Earlier investigations are retained in the archived section at the end of
+  this file. Counts, row lists, special exclusions, and workarounds there are
+  historical observations, not required query predicates.
+
+### Cohort and performance
+
+- C3DC studies use `s.dbgap_accession`. Verify graph relationship direction:
+  a participant commonly reaches study through `of_participant` and
+  `of_consent_group`. Do not import another portal's dbGaP property spelling.
+- Choose a selective study/property or filter-node anchor from EXPLAIN and real
+  selectivity. A treatment/diagnosis/survival MATCH followed by `WITH DISTINCT p, s`
+  often avoids repeated EXISTS checks over every participant in a large study.
+- Apply the verified cohort prefix consistently across StatQuery and all tab
+  queries, including every UNION branch. Carry only needed bound variables.
+- Deduplicate the cohort before expanding independent samples, files, diagnoses,
+  therapies, or survival records. Pre-aggregate independent branches to prevent
+  path multiplication; do not collect entire graphs simply to obtain counts.
+- Prefer the known typed, directed paths over generic variable-length searches.
+  Derived cell_line/pdx samples and participant-level files need their verified
+  paths; do not omit them for speed or assume direct-sample-only data everywhere.
+- Inspect nested/correlated CALL plans carefully. A selective UNION or one cohort
+  expansion may outperform one correlated aggregation per participant. Measure
+  on the target engine; neither CALL nor UNION is automatically an optimization.
+
+### UI semantics that queries must preserve
+
+- Cohort stat totals and whole-study Studies-grid totals can have different
+  scopes. Establish the actual contract for each column before writing queries.
+- Count the correct file identity, commonly `dcf_indexd_guid` on verified file
+  nodes. Include supported sample/participant associations. Never insert
+  `0 AS files`, a remembered total, or UI-selected IDs as a performance shortcut.
+- Treatment Type is not a universal property mapping. For chemotherapy nodes,
+  verify whether the facet maps to `chemotherapy_type` versus `treatment_type`.
+- An entity facet can restrict its own tab to matching entities while other tabs
+  show records for matching participants. Verify this for diagnosis, response,
+  and sample filters instead of listing every entity from the cohort blindly.
+- Distinguish diagnosis-record counts from distinct-participant counts in Top 5
+  summaries. Confirm top-N ordering, tie-breakers, derived records, and Read More
+  behavior using the current UI/backend contract and source data.
+- Preserve deterministic tab sort order before the configured LIMIT. Do not use
+  remembered follow-up suffix lists or exclude specific records solely to match
+  a captured UI page. Investigate the underlying sorting/filtering rule instead.
+- Keep workbook Cypher compatible with the existing parser/driver and supported
+  Memgraph version; do not introduce unsupported syntax or inline `//` comments.
+
+Validate changed queries with EXPLAIN, independent counts/identities, and timed
+execution on representative data before the end-to-end comparison. Report plan
+or timing checks as pending if the source is unavailable; never claim optimized
+performance from a first-page LIMIT or from a historical example alone.
+
+## Archived investigation notes
+
+The quoted material below preserves earlier investigations for reference only.
+It is not active authoring guidance. Revalidate every observation against current
+source data, UI semantics, and the active query requirements above. Do not copy
+historical counts, row-ID allowlists, or record exclusions to force a pass.
+References and naming inside the quotation may describe earlier framework versions.
+
+````text
 # C3DC Explore — Memgraph Cypher (InputFiles xlsx)
 
-Use when adding or fixing **C3DC** query workbooks: `InputFiles/C3DC/TC*.xlsx` and `Testcases/C3DC/**`. For **filter locators** and `select_filter()` keys, see **`c3dc-object-repository.mdc`**.
+Use when adding or fixing **C3DC** query workbooks: `InputFiles/C3DC/TC*.xlsx` and `Testcases/C3DC/**`. For **filter locators** and `select_filter()` keys, see **`c3dc.mdc`**.
 
 Prefer **cohort-first** Cypher (anchor the filter, then expand). Avoid participant-wide scans with nested `EXISTS` — they can take minutes on QA Memgraph.
 
@@ -15,7 +122,7 @@ Prefer **cohort-first** Cypher (anchor the filter, then expand). Avoid participa
 | Artifact | Path |
 |----------|------|
 | Input workbook | `InputFiles/C3DC/TC04_C3DC_phs002827_TrtmntType-Radiation.xlsx` |
-| Pytest | `Testcases/C3DC/studies/phs002827/test_TC04_C3DC_phs002827_TrtmntType_Radiation.py` |
+| Pytest | `Testcases/C3DC/studies/phs002827/TC04_C3DC_phs002827_TrtmntType-Radiation.xlsx` |
 | UI filters | `Study/dbGaP_Accession` → `phs002827`; `Treatment/TreatmentType` → `Radiation` |
 | QA stat bar | 1 study / **18** participants / **67** samples / **0** files |
 
@@ -121,7 +228,7 @@ WITH DISTINCT p, s
 
 Re-use the same `WITH DISTINCT p, s` prefix on **every** tab query (Diagnosis, Treatment Responses, Survival, Samples, Genetic Analysis), not only Participants.
 
-**StatQuery:** same anchor + `WITH DISTINCT p, s` + optional samples + `0 AS files`.
+**StatQuery:** reuse the cohort anchor and calculate file counts from the verified file relationships; do not substitute a constant zero.
 
 ### Other filters (same idea)
 
@@ -155,20 +262,21 @@ Apply the **same cohort predicate** on all tabs in the workbook (including `Trea
 ```python
 c3dc.load_query_file("TC##_C3DC_<phs>_….xlsx")
 c3dc.select_filter("Study/dbGaP_Accession", "<phs>")
-c3dc.select_filter("<Group>", "<CheckboxKey>")  # keys: c3dc-object-repository.mdc
+c3dc.select_filter("<Group>", "<CheckboxKey>")  # keys: c3dc.mdc
 c3dc.read_statbar()
 c3dc.verify_tab("Participants")
 # …
 ```
 
-Naming: `Testcases/C3DC/studies/<phs>/test_TC##_C3DC_<phs>_….py`.
+Naming: preserve the Excel testcase convention under `Testcases/C3DC/studies/<phs>/`.
 
 ## Reference testcase (TC04) — do not regress
 
 When unsure how to structure queries, open and mirror **TC04**:
 
 - **Workbook:** `InputFiles/C3DC/TC04_C3DC_phs002827_TrtmntType-Radiation.xlsx` — every `TabQuery` shares the same cohort prefix after the anchor.
-- **Test:** `test_TC04_C3DC_phs002827_TrtmntType_Radiation.py` — `load_query_file`, two `select_filter` calls, `read_statbar`, standard `verify_tab` list.
+- **Test:** `Testcases/C3DC/studies/phs002827/TC04_C3DC_phs002827_TrtmntType-Radiation.xlsx` — `load_query_file`, two `select_filter` calls, `read_statbar`, standard `verify_tab` list.
 - **Avoid:** four-way `OR EXISTS` treatment filters on study-wide participants; nested `EXISTS` on Diagnosis/TreatmentResp after a wide first `MATCH`; `count(DISTINCT dp)` for Studies Top 5; Ewing/other filters left in tabs copied from TC01.
 
 **Secondary reference (survival anchor):** `TC02_C3DC_phs002827_FirstEvent-Relapse.xlsx` — same cohort-first idea with `(sv:survival)` + `first_event = 'Relapse'`.
+````

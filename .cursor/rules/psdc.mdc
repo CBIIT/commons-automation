@@ -1,0 +1,39 @@
+---
+description: PSDC study exploration TSV SQL and paired workbook naming
+globs: Commons/apps/psdc/**/*.py,ObjectRepository/PSDC/**/*.yaml,InputFiles/PSDC/**/*,Testcases/PSDC/**/*
+alwaysApply: false
+---
+
+# PSDC / Population Science Data Commons
+
+- Adapter: `Commons/apps/psdc/app.py`; fixture `psdc`; backend TSV + SQLite SQL.
+  The independent loader is `Commons/apps/psdc/tsv_source.py`, not CTDC's schema.
+- Explore has a Studies comparison tab (`StudiesTab`) with 11 retained columns.
+  Participant facets filter study discovery; do not assume they make displayed
+  participant totals equal the number of matching individual participants.
+- Numeric comparison stats are Studies, Participants, Cancer Types, Data
+  Categories, and Study Files. Data Volume has a locator but is excluded from
+  numeric comparisons because the supplied manifests lack file sizes.
+- Read `ObjectRepository/PSDC/README.md` for table scoping and stat positions:
+  Data Volume is position 1; Studies starts at position 2.
+- Use `Studies/Study` -> `PBCS` and `Studies/StudyDesign` -> `Case-Control Study`
+  for the initial reference case. Other group/value keys come from the YAML.
+- Use `TC##_PSDC_Study_<Study>_<Filter>-<Value>.xlsx` for testcase and input
+  basenames; title-case study tokens such as `Pbcs`, with the exact user-requested
+  spelling. Keep application study identifiers such as `PBCS` uppercase in SQL,
+  filter values, and source folders. Append `_UI`/`_DB` to output basenames.
+- Current reference pair:
+  `Testcases/PSDC/studies/PBCS/TC01_PSDC_Study_Pbcs_StudyDesign-CaseControl.xlsx`
+  and `InputFiles/PSDC/TC01_PSDC_Study_Pbcs_StudyDesign-CaseControl.xlsx`.
+- Releases use `InputFiles/PSDC/<STUDY>/YYYY-MM-DD/`. Child record identities
+  include study + record key. ZIP archives are not automatically loaded: they
+  may contain superseded exports. Follow `InputFiles/PSDC/README.md`, preserve
+  source manifests, and keep extracted study folders ignored by Git.
+- For the PBCS source, enrollment age is stored in days and displayed in years.
+  The current display taxonomy excludes Sexual Orientation and Gender Identity;
+  derive its category denominator from eligible source categories, not a fixed
+  displayed total. Revalidate these mappings when source/model versions change.
+- `open_study()` opens details with seven navigation tabs; they are not seven
+  Explore comparison tabs. Detail functionality belongs in PSDC-specific helpers.
+- Follow `expected-data.mdc` for optimized SQL and evidence. Do not copy UI
+  counts into expected values or add missing file metadata from UI observations.

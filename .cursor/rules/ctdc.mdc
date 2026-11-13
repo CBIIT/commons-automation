@@ -1,0 +1,30 @@
+---
+description: CTDC Clinical Trials TSV SQL adapter studies and file associations
+globs: Commons/apps/ctdc/**/*.py,ObjectRepository/CTDC/**/*.yaml,InputFiles/CTDC/**/*,Testcases/CTDC/**/*
+alwaysApply: false
+---
+
+# CTDC
+
+- Adapter: `Commons/apps/ctdc/app.py`; fixture `ctdc`; expected data is TSV +
+  SQLite SQL, not Memgraph. Loader: `Commons/apps/ctdc/tsv_source.py`.
+- Use `open_explore()` and `select_study()`. The study filter group is
+  `Studies/Study`, with current tokens defined in `filters/studies.yaml`.
+- Explore comparisons: Participants, Biospecimens, Files, Study Files. Keep
+  their separate `TabSpec.input_tab` keys and output sheets.
+- Source releases use `InputFiles/CTDC/<STUDY>/YYYY-MM-DD/`, merged oldest to
+  newest by the loader. Its `CTDC_NODE_INDEX`/`CTDC_NODE_TABLE` maps are the schema
+  authority; the specimen node is exposed to SQL as `df_biospecimen`.
+- Child TSV headers contain relationship keys such as
+  `"study.study_short_name"` and `"participant.participant_id"`. Quote dotted
+  identifiers in SQL; join the actual relationship columns, not coincident IDs.
+- Keep participant/biospecimen-associated files separate from study-level files.
+  Follow source association keys and the current StudyFilesTab contract; do not
+  infer association solely from file extensions or drop ZIP collections.
+- Verify which clinical filters select a participant cohort and which also
+  restrict displayed entity rows. Apply the same intended cohort to each query.
+- `expected-data.mdc` owns SQL performance requirements: narrow first and
+  pre-aggregate independent branches before joining; inspect the SQLite plan.
+- References: `ObjectRepository/CTDC/README.md`, the adapter/loader, and an
+  existing CMB or AHEP0731 testcase/input pair for the same facet. Do not treat
+  an existing failing comparison as the expected behavior without investigation.

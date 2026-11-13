@@ -1,0 +1,63 @@
+---
+description: Excel testcase and input workbook structure naming formatting and verification
+globs: Testcases/**/*.xlsx,InputFiles/**/*.xlsx,Commons/excel_testcase/**/*.py,Commons/excel_pytest_collect.py,Commons/query_reader.py
+alwaysApply: false
+---
+
+# Excel testcase and input workbooks
+
+Read `Commons/excel_testcase/README.md`, the target app's registered profile, and
+a current nearby testcase/input pair. Preserve the parser's actual contract.
+
+## Testcase workbook
+
+- New cases use the registered app's Excel workflow. Do not create a parallel
+  Python test merely to bypass Excel collection or action dispatch.
+- Use the `Steps` sheet with columns `Input Excel`, `Action`, `Page`, `Params`,
+  `Filter`. Row 2 identifies the input workbook; executable steps start at row 3.
+- Use supported profile/shared actions. Filter group/value tokens must resolve
+  through the target app's object repository. Use actual callable method names.
+- Put cases in that profile's `case_subdirs`; preserve existing app-specific
+  folder layouts. Add the case to the intended suite where needed.
+- End comparison cases with the framework's failure assertion so earlier
+  mismatches cannot be silently discarded.
+- Static checks use the existing static workbook/profile contract; do not force
+  them into TabQuery format or require a query workbook for every functional case.
+
+## Query input workbook
+
+- Store queries in `InputFiles/<APP>/`. Follow the neighboring workbook's first
+  sheet headers: `TabName`, `TabQuery`, `StatQuery`, and its supported output-name
+  columns. `Commons/query_reader.py` is the authority on accepted aliases.
+- Match `TabName` to the adapter's `TabSpec.input_tab`. Match selected column
+  aliases/order to the columns retained by the app's table reader.
+- Supply the stat query for numeric comparisons, with aliases matching the app's
+  stat names. Respect `Config/tab_setting.yaml`: deterministic sort before the
+  tab row limit, and no pagination/row limit on total stat counts.
+- Follow `expected-data.mdc` for every SQL/Cypher query; do not embed UI-captured
+  expected counts, selected row IDs, or unrelated copied filters.
+
+## Naming and formatting
+
+- Preserve established naming per application; do not enforce PSDC naming across
+  other projects. For a new paired case, use the same testcase/input basename
+  unless that app has a documented exception. Follow the latest user-specified
+  filename and capitalization exactly.
+- On a rename, update the actual input filename, `Steps!A2`, stored UI/DB output
+  filenames, and direct documentation/suite references. Keep study/filter IDs in
+  SQL and steps unchanged unless the requested cohort itself changes.
+- Handle case-only filesystem renames safely; never delete the destination via
+  an old path that refers to the same file on a case-insensitive filesystem.
+- Keep cell gridlines visible in created/updated testcase and input sheets.
+  Preserve unrelated styles, column widths, sheets, dropdowns, and freeze panes.
+- Retain identifiers as text, including leading zeros. Store SQL/Cypher as text
+  with readable formatting. Do not add presentation sheets or merge parser cells.
+
+## Verification
+
+- Reopen saved workbooks; verify contents, names, gridlines, and validations.
+  Resolve input paths, tab query names, actions, and repository keys.
+- Check pytest collection/suite membership when adding a case. Run the actual
+  case when its environment and expected data are available.
+- For failures, inspect the matching UI/expected output sheets and exact records.
+  Separate data drift, scraper defects, query defects, and UI readiness issues.

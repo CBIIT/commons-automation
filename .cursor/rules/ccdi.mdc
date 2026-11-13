@@ -1,0 +1,24 @@
+---
+description: CCDI Hub static functional and publications workflows with C3DC handoff
+globs: Commons/apps/ccdi/**/*.py,ObjectRepository/CCDI/**/*.yaml,InputFiles/CCDI/**/*,Testcases/CCDI/**/*
+alwaysApply: false
+---
+
+# CCDI Hub
+
+- Adapter: `Commons/apps/ccdi/app.py`; fixture `ccdi`. This is the Hub, not C3DC.
+  It has no native Explore comparison tabs (`TABS` is empty).
+- `open_explore()` hands off to C3DC Explore Participants. Validate the handoff
+  with the existing functional workflow; do not invent CCDI Explore tables or
+  reuse Hub stat-bar selectors against the destination portal.
+- Home, About, and Publications behavior belongs in the existing app helper
+  modules. Reuse their methods and registered Excel actions for static/functional
+  tests rather than adding hardcoded browser sequences to generic runners.
+- Preserve separate `static` and `functional` case scopes and suite membership.
+  Functional controls must not invoke every static content check incidentally.
+- Static expected text/links and publications sources use their existing input
+  workbook contracts; do not convert them to graph TabQuery sheets unnecessarily.
+- Configuration has a Neo4j backend for checks that actually use it. Static UI
+  tests should retain lazy source initialization and not require a DB connection.
+- If the task crosses into C3DC query validation, read `c3dc.mdc` and
+  `expected-data.mdc` for that part of the task.

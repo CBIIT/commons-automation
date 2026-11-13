@@ -1,0 +1,34 @@
+---
+description: INS Programs Datasets TSV SQL filters and atomic card collection
+globs: Commons/apps/ins/**/*.py,ObjectRepository/INS/**/*.yaml,InputFiles/INS/**/*,Testcases/INS/**/*
+alwaysApply: false
+---
+
+# INS / Index of NCI Studies
+
+- Adapter: `Commons/apps/ins/app.py`; fixture `ins`; backend TSV + SQLite SQL.
+  Loader and Datasets card reader: `Commons/apps/ins/tsv_source.py`.
+- Programs exploration and Datasets exploration are different UI/read paths.
+  `open_programs()` uses standard Programs, Projects, Grants, Publications tab
+  comparisons. `open_datasets()` uses `verify_datasets()` and the card reader.
+- Existing Excel action `verify_datasets_tab` deliberately dispatches to
+  `app.verify_datasets()`. Do not call a nonexistent app method by the action name.
+- Program filters: `Programs/cancertype.yaml` defines `CancerType/CancerType`;
+  `Programs/specialtopic.yaml` defines `SpecialTopic/SpecialTopic`. Preserve
+  existing checkbox tokens such as `BladderCancer` and `HIVAIDS`.
+- Datasets repository group: `DataSets/Repository` -> `CEDCD`, `GEO`, `dbGaP`.
+  It currently exists in both `data_sets.yaml` and `DataSets/repository.yaml`.
+  Keep their explicit checkbox definitions aligned until deliberately consolidated.
+- Navigation/results locators: `navbar.yaml`, `statbar.yaml`, `result_tabs.yaml`,
+  `data_sets.yaml`. Static checks use the existing `static/v_*.yaml` pages.
+- Keep Datasets card collection atomic per page: range, page size, complete card
+  fields, and stable IDs must describe the same rendered page. Preserve duplicate
+  detection and page JSON diagnostics; do not hide scraper defects by deduplicating
+  results or replacing the reader with independent per-field reads.
+- INS `read_statbar()` has an explicit app-specific wait. Do not move it into
+  shared BaseApp behavior when changing this portal.
+- Source archives include `Programs.zip` and `DataSetsTab.zip`; follow the INS
+  extractor's supported paths. Their extracted folders remain ignored by Git.
+- Read `stat_bar_omit` from configuration. Do not add omissions to hide failures;
+  explain existing source limitations and revalidate before changing coverage.
+- Queries must follow `expected-data.mdc`, including SQLite plan/timing checks.

@@ -1,0 +1,26 @@
+---
+description: GC General Commons Memgraph adapter data exploration and study catalog
+globs: Commons/apps/gc/**/*.py,ObjectRepository/GC/**/*.yaml,InputFiles/GC/**/*,Testcases/GC/**/*
+alwaysApply: false
+---
+
+# GC / General Commons
+
+- Adapter: `Commons/apps/gc/app.py`; fixture `gc`; backend Memgraph. Do not
+  transplant C3DC relationships or identifier properties into the GC model.
+- Memgraph schema/workflow reference:
+  `.cursor/skills/gc-memgraph-cypher-assistant/SKILL.md` and its model references.
+  Use the configured connection, not a README's sample credentials or endpoint.
+  Follow `expected-data.mdc` for plan, correctness, and timing validation.
+- `open_data()` opens Data explore: Participants, Samples, and Files. Stats also
+  include Studies. Read adapter specs before choosing workbook TabName keys.
+- `open_studies_listing()` / `verify_studies_listing()` use
+  `Commons/apps/gc/studies.py`; the Studies catalog is a separate flow, not a
+  fourth Data explore result tab. Its query key is `StudiesListingTab`.
+- Existing filters use group names such as `DemographicsFacet/Sex`,
+  `DiagnosisFacet/PrimaryDiagnosis`, and `FilesFacet/FileType`. Resolve actual
+  study/facet keys from `ObjectRepository/GC/`, not another portal's YAML.
+- Some long facets use a search input and shared scrolling helpers. Keep those
+  repository definitions and existing first-child table extraction behavior.
+- Preserve the established GC workbook/folder naming, including existing
+  `excel-driven` inputs; do not apply PSDC filename capitalization here.

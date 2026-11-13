@@ -1,0 +1,54 @@
+---
+description: Shared YAML object repository and locator conventions for every portal
+globs: ObjectRepository/**/*.yaml,Commons/object_repository.py,Commons/apps/**/*.py,Testcases/**/*.xlsx,Testcases/**/*.py
+alwaysApply: false
+---
+
+# Object repository conventions
+
+Read `Commons/object_repository.py` and the target app's existing YAML. Keep
+locators under `ObjectRepository/<APP>/`; reuse repository keys in app methods
+and testcase steps instead of embedding selectors in testcase workbooks.
+
+## YAML structure
+
+`page` prefixes entries under `elements`. Filter group names under `groups` are
+already complete keys: they are not prefixed with `page`.
+
+```yaml
+page: DataSets
+elements:
+  RowsPerPage-Dd: //*[@class='dropdown']/button
+groups:
+  DataSets/Repository:
+    checkboxes:
+      CEDCD: //*[@value='CEDCD']
+      GEO: //*[@value='GEO']
+      dbGaP: //*[@value='dbGaP']
+```
+
+- Define each checkbox explicitly under `checkboxes`, one value and locator per
+  line. Do not introduce `checkbox_template` or compact `values` lists.
+- The group key is the first `select_filter(group, value)` argument; the checkbox
+  map key is the second. Preserve each app's established tokens and capitalization.
+- Define each element/group in one canonical YAML location. The loader reads all
+  YAML recursively; duplicate keys can silently overwrite earlier definitions.
+  If compatibility requires an existing duplicate, keep definitions aligned and
+  document it; do not add new duplicates or remove existing ones as unrelated work.
+- Use `facet`, `dropdown`/`dropdowns`, and `search` only when the observed control
+  requires them. Follow the loaded `FilterGroup` contract; do not invent fields.
+
+## Selector quality and validation
+
+- Inspect the actual target environment when adding or repairing locators.
+  Prefer stable IDs, test IDs, roles, labels, or meaningful link destinations.
+- Avoid generated CSS class suffixes, exact whole-class matches, and long
+  absolute/positional XPaths when a stable scoped selector is available.
+- Scope repeated labels to the correct panel/table. Check visibility and match
+  count; do not use `.first` to mask an accidentally ambiguous selector.
+- Resolve dropdown options by their value/text rather than their list position.
+- Respect lazy rendering and collapsed facets; use the shared filter-opening
+  methods rather than duplicating accordion or scrolling logic.
+- Parse changed YAML and resolve affected keys through `ObjectRepository`.
+  Exercise changed selectors on the UI when available. Report if live validation
+  could not be completed; a syntactically valid XPath is not a verified locator.
