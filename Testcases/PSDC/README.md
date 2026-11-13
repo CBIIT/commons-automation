@@ -54,7 +54,12 @@ python3 -m pytest -m "psdc and smoke" --env qa
 UI/expected workbooks are written to `OutputFiles/PSDC/QA/`. Row limits and
 pagination caps live in `Config/tab_setting.yaml`.
 
-The first case is `studies/PBCS/TC01_PSDC_Study_PBCS_StudyDesign-CaseControl.xlsx`.
+Use `TC##_PSDC_Study_<Study>_<Filter>-<Value>.xlsx` for testcase and input
+workbook names, with a title-case study token such as `Pbcs`. Both workbooks
+share the same basename; output workbooks append `_UI` and `_DB`. Keep actual
+study IDs in filters and SQL uppercase, such as `PBCS`.
+
+The first case is `studies/PBCS/TC01_PSDC_Study_Pbcs_StudyDesign-CaseControl.xlsx`.
 It selects PBCS and Case-Control Study, checks the five numeric stat counts, and
 compares all 11 Studies grid columns to SQL over the supplied PBCS snapshot.
 The snapshot's `source_manifest.json` records the archive members and encodings.

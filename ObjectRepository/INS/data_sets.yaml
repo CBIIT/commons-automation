@@ -12,5 +12,7 @@ elements:
   sourceID: //a[starts-with(@href, 'https://cedcd') or starts-with(@href, 'https://www.ncbi.nlm')]
 groups:
   DataSets/Repository:
-    checkbox_template: //*[@value='{value}']
-    values: [CEDCD, GEO, dbGaP]
+    checkboxes:
+      CEDCD: //*[@value='CEDCD']
+      GEO: //*[@value='GEO']
+      dbGaP: //*[@value='dbGaP']
