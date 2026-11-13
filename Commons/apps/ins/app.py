@@ -77,6 +77,11 @@ class INS(BaseApp):
         """Open Datasets explore via navbar (Katalon: INS/Navbar/Datasets-Btn)."""
         self.click("Navbar/Datasets-Btn", ui_message="INS Datasets page opened successfully.")
 
+    def read_statbar(self):
+        # Give INS one extra second to refresh counts before reading the stat bar.
+        self.page.wait_for_timeout(1000)
+        return super().read_statbar()
+
     def verify_datasets(self):
         """Katalon verifyUiAgainstTsvForInsDatasetsTab: card grid vs DatasetsTab SQL + DataSetsTab TSV."""
         if self.query_file is None:
