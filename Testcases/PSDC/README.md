@@ -67,5 +67,50 @@ Enrollment age is converted from days to years. The category denominator follows
 PSDC's display taxonomy, which excludes Sexual Orientation and Gender Identity;
 the query counts the remaining source categories rather than hardcoding 70.
 
-Only QA is configured; add verified environment URLs before running against
-another environment.
+Additional PBCS cases select the study and one checkbox from the open screenshot
+facets. Each has a matching input workbook with the same basename:
+
+| Case | Filter group | Checkbox |
+|---|---|---|
+| TC02 | Studies/CancerTypes | breast |
+| TC03 | Studies/CancerTypes | Not Applicable |
+| TC04 | Studies/Countries | Poland |
+| TC05 | Studies/BiospecimenCollection | Yes |
+| TC06 | Participants/Race | white |
+| TC07 | Participants/Ethnicity | not hispanic or latino |
+| TC08 | Participants/Sex | female |
+
+These filters select eligible studies. Their SQL keeps whole-study summary
+counts and all Studies columns; it does not restrict those summaries to just
+the individual participants matching the selected facet. Breast maps to the
+source's `UBERON:0000310`; missing primary sites form Not Applicable. Each query
+includes its own filter predicate, without retaining the TC01 Study Design
+predicate. Age-range coverage is not included.
+
+The new queries materialize the eligible-study selection once and aggregate
+child tables independently to avoid join multiplication. They use SQLite's
+`AS MATERIALIZED` syntax, which requires SQLite 3.35 or later. Counts and rows
+still come from the TSVs, including all 11 displayed Studies columns.
+
+Run this PBCS set on QA. Before using another environment, verify its URL and
+that the expected TSV release matches its data.
+
+## Unfiltered all-study comparison
+
+`studies/All/TC01_PSDC_Study_All_StatbarAndTable.xlsx` opens Explore without
+selecting any filters. Its matching input workbook compares the five numeric
+stat counts and all 11 Studies columns for every loaded study, ordered by study
+acronym. The prepared source snapshot contains NLST, PBCS, and PLCO.
+
+Global cancer-type and collected-category counts are distinct across studies;
+they are not the sums of per-study counts. Participants and files use their
+study-scoped records. Data Volume retains the existing limitation documented in
+`InputFiles/PSDC/README.md`: the loading manifests do not contain file sizes.
+
+Prepare all three study snapshots, not only PBCS, before running this case:
+
+```bash
+python3 -m pytest Testcases/PSDC/studies/All --env qa
+```
+
+The existing suite patterns include this TC01 case in smoke and regression.

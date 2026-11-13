@@ -28,6 +28,24 @@ superseded manifests. Select the authoritative versions before placing them in a
 dated folder. Do not put earlier and final exports of the same records in one
 release; overlapping records produce an error.
 
+The prepared `2026-11-13` folders record a snapshot preparation date, not an
+asserted source release date. Their `source_manifest.json` files record selected
+archive members, original encodings, checksums, and excluded earlier versions:
+
+- **NLST:** the participant file named `non-case controls (46802) plus lung
+  cancer cases (2058)`, its loading-template files, and its 17-row study-file
+  manifest.
+- **PBCS:** its loading-template files and one-row study-file manifest.
+- **PLCO:** `PLCO_participant_data_20260305_final_151383_records.txt`, its
+  loading-template files, and the current first/second study-file manifests
+  containing 8 and 24 files. The earlier 153,786-participant export and all
+  `Superseded or Deprecated` / `Superseded or Depracated` manifests are excluded.
+  The two current file parts are stored as `file_part_1.tsv` and `file_part_2.tsv`.
+
+The unfiltered all-study testcase needs all three prepared folders. Extracted
+study folders remain ignored by Git; keep the original ZIP archives and input
+workbooks. Source text is retained and decoded to UTF-8 where necessary.
+
 | Node | SQL table | Record key |
 |---|---|---|
 | study | df_study | study_short_name |
