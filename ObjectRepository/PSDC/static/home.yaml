@@ -1,0 +1,33 @@
+page: Static/HomePage
+elements:
+  BannerTagline: //h1/preceding-sibling::div[1]
+  BannerTitle: //h1
+  BannerDescription: //h1/following-sibling::div[1]
+  ExploreStudiesLink: //h1/parent::div//a[@href='#/explore']
+  AboutTitle: //*[@id='tile1_title']
+  AboutDescription: //*[@id='tile1_description']
+  AboutReadMoreLink: //*[@id='tile1_button']/a
+  AccessDataTitle: //*[@id='tile2_title']
+  AccessDataDescription: //*[@id='tile2_description']
+  AccessDataReadMoreLink: //*[@id='tile2_button']/a
+  AnalyzeDataTitle: //*[@id='tile3_title']
+  AnalyzeDataDescription: //*[@id='tile3_description']
+  AnalyzeDataReadMoreLink: //*[@id='tile3_button']/a
+  SubmitDataTitle: //*[@id='tile4_title']
+  SubmitDataDescription: //*[@id='tile4_description']
+  SubmissionPortalLink: //*[@id='tile4_description']/a
+  MoreInformationTitle: (//div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//div[@class='footItemTitle'])[1]
+  SystemInfoTitle: (//div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//div[@class='footItemTitle'])[2]
+  PoliciesTitle: (//div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//div[@class='footItemTitle'])[3]
+  HelpDeskLink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@class='footItemLink' and @href='#/support']
+  AboutPSDCLink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@class='footItemLink' and @href='#/about']
+  CRDCLink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@class='footItemLink' and @href='https://datacommons.cancer.gov']
+  ReleaseNotesLink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@class='footItemLink' and @href='https://github.com/CBIIT/crdc-popsci-starter-kit/releases']
+  AccessibilityLink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@class='footItemLink' and @href='https://www.cancer.gov/policies/accessibility']
+  FOIALink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@class='footItemLink' and @href='https://www.cancer.gov/policies/foia']
+  PrivacySecurityLink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@class='footItemLink' and @href='https://www.cancer.gov/policies/privacy-security']
+  DisclaimersLink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@class='footItemLink' and @href='https://www.cancer.gov/policies/disclaimer']
+  VulnerabilityDisclosureLink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@class='footItemLink' and @href='https://www.hhs.gov/vulnerability-disclosure-policy/index.html']
+  EmailUpdatesTitle: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//form[@id='signup']//div[@class='signUpTitle']
+  EmailAddressLabel: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//form[@id='signup']//div[@class='enterTitle']
+  SignUpButton: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//form[@id='signup']//button[@type='submit']

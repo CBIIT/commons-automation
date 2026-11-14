@@ -7,7 +7,7 @@ from Commons.base_app import BaseApp, StatSpec, TabSpec
 class PSDC(BaseApp):
     NAME = "PSDC"
     BANNER_KEYS = ["Home/WarningBan_Continue_Btn"]
-    STATIC_DATA_EXCEL = "TC01_PSDC_StaticData.xlsx"
+    STATIC_DATA_EXCEL = "PSDC_StaticData.xlsx"
 
     STATS = [
         StatSpec("Studies", "Statbar/Studies-Count"),

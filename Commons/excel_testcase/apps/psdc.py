@@ -1,5 +1,6 @@
 """PSDC Excel steps use the same shared handlers as CTDC."""
 from Commons.excel_testcase._step_parse import parse_adapter_calls, str_arg
+from Commons.excel_testcase._common_steps import repo_key
 from Commons.excel_testcase.profile import ExcelCaseProfile
 from Commons.excel_testcase.registry import register_profile
 
@@ -19,7 +20,7 @@ def _parse_test_function(test_fn, module_consts):
     return parse_adapter_calls(
         test_fn, fixture_name="psdc", module_consts=module_consts,
         method_to_step=methods, require_query_file=False,
-        default_query_file="TC01_PSDC_StaticData.xlsx",
+        default_query_file="PSDC_StaticData.xlsx",
     )
 
 
@@ -28,6 +29,14 @@ def _open_study(app, page, params, flt, _excel):
     if not study:
         raise ValueError("open_study step needs a study acronym in Params")
     app.open_study(study)
+
+
+def _click_step(app, page, params, _flt, _excel):
+    """Resolve the workbook's navigation key through PSDC's object repository."""
+    key = repo_key(page, params)
+    if not key:
+        raise ValueError("click step needs ObjectRepository key in Page/Params")
+    app.click(key)
 
 
 register_profile(
@@ -43,6 +52,6 @@ register_profile(
             "open_study", "assert_no_failures",
         ],
         case_subdirs=("studies", "static"),
-        extra_handlers={"open_study": _open_study},
+        extra_handlers={"open_study": _open_study, "click": _click_step},
     )
 )

@@ -54,6 +54,42 @@ python3 -m pytest -m "psdc and smoke" --env qa
 UI/expected workbooks are written to `OutputFiles/PSDC/QA/`. Row limits and
 pagination caps live in `Config/tab_setting.yaml`.
 
+## Home page content
+
+`static/TC01_PSDC_Verify_home_page_content.xlsx` checks the home page after
+dismissing the warning banner. The `HomePage` sheet in
+`InputFiles/PSDC/PSDC_StaticData.xlsx` contains 31 checks for the welcome banner,
+four content panels, Explore/Read More/submission links, footer headings and
+links, and email-signup labels. Link destinations are verified without opening
+external sites or submitting the form. Release version numbers are not static
+copy and are not included. Expected copy and locators were inspected on QA on
+2026-11-13. The existing PSDC regression glob includes this testcase.
+
+```bash
+python3 -m pytest Testcases/PSDC/static/TC01_PSDC_Verify_home_page_content.xlsx --env qa -q
+```
+
+## About menu content
+
+`static/TC02_PSDC_Verify_about_tab_content.xlsx` opens About, Access Data,
+Analyze Data, and Support through the About menu. It verifies all four headings,
+nine body paragraphs, and three link labels/URLs using `verify_static_data`,
+then asserts that no checks failed. External links are checked without opening
+them or launching an email client.
+
+The expected copy was reviewed against QA and the supplied screenshots on
+2026-11-13. It lives in `InputFiles/PSDC/PSDC_StaticData.xlsx`, with one
+sheet per page, following the existing shared static-workbook contract. This
+static input intentionally uses the adapter's `STATIC_DATA_EXCEL` name rather
+than the study-query naming pattern. Locators live under
+`ObjectRepository/PSDC/static/`; menu locators are scoped to the desktop header
+because PSDC also renders hidden mobile controls with duplicate IDs.
+The testcase is included by the existing PSDC regression `static/TC*.xlsx` glob.
+
+```bash
+python3 -m pytest Testcases/PSDC/static/TC02_PSDC_Verify_about_tab_content.xlsx --env qa -q
+```
+
 Use `TC##_PSDC_Study_<Study>_<Filter>-<Value>.xlsx` for testcase and input
 workbook names, with a title-case study token such as `Pbcs`. Both workbooks
 share the same basename; output workbooks append `_UI` and `_DB`. Keep actual
@@ -94,6 +130,59 @@ still come from the TSVs, including all 11 displayed Studies columns.
 
 Run this PBCS set on QA. Before using another environment, verify its URL and
 that the expected TSV release matches its data.
+
+## NLST checkbox filters
+
+`studies/NLST/` contains one testcase per checkbox facet, each with a matching
+`InputFiles/PSDC/` workbook using the same basename and title-case `Nlst` token.
+Every case selects NLST and exactly one additional filter:
+
+| Case | Filter group | Checkbox |
+|---|---|---|
+| TC01 | Studies/StudyDesign | Clinical Trial |
+| TC02 | Studies/CancerTypes | lung |
+| TC03 | Studies/Countries | United States of America |
+| TC04 | Studies/BiospecimenCollection | Yes |
+| TC05 | Participants/Race | american indian or alaska native |
+| TC06 | Participants/Ethnicity | hispanic or latino |
+| TC07 | Participants/Sex | male |
+
+Each case compares the five numeric stat counts and all 11 Studies columns to
+NLST's TSV data, using the same whole-study discovery semantics described above.
+The lung predicate maps to source value `UBERON:0002048`. No age or other slider
+interactions are included. All seven cases belong to regression; TC01 also
+belongs to smoke through the existing suite patterns.
+
+```bash
+python3 -m pytest Testcases/PSDC/studies/NLST --env qa
+```
+
+## PLCO checkbox filters
+
+`studies/PLCO/` contains one testcase per checkbox facet. Each selects PLCO and
+one additional filter, with a matching input workbook and title-case `Plco`
+filename token:
+
+| Case | Filter group | Checkbox |
+|---|---|---|
+| TC01 | Studies/StudyDesign | Cohort Study - Prospective |
+| TC02 | Studies/CancerTypes | prostate gland |
+| TC03 | Studies/Countries | United States of America |
+| TC04 | Studies/BiospecimenCollection | Yes |
+| TC05 | Participants/Race | asian |
+| TC06 | Participants/Ethnicity | not hispanic or latino |
+| TC07 | Participants/Sex | female |
+
+The prostate-gland source predicate uses `UBERON:0002367`. The queries select
+eligible studies and retain PLCO's complete study summaries, rather than
+counting only participants matching the selected facet. All seven cases compare
+the five numeric stat counts and all 11 Studies columns against TSV data. No
+slider interactions are included. TC01 is in smoke and regression; the other
+six cases are in regression through the existing suite patterns.
+
+```bash
+python3 -m pytest Testcases/PSDC/studies/PLCO --env qa
+```
 
 ## Unfiltered all-study comparison
 

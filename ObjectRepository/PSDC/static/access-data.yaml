@@ -1,0 +1,7 @@
+page: Static/AccessDataPage
+elements:
+  BannerTitle: //h1
+  Paragraph1: //main//span/div[1]
+  Paragraph2: //main//span/div[2]
+  Paragraph3: //main//span/div[3]
+  dbGaPLink: //main//a[@title='dbGaP']

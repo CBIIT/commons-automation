@@ -1,0 +1,5 @@
+page: Static/SupportPage
+elements:
+  BannerTitle: //h1
+  Paragraph1: //main//span/div[1]
+  ContactLink: //main//a[@title='NCICRDC@mail.nih.gov']
