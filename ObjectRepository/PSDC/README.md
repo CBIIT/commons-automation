@@ -9,6 +9,9 @@ Inspected on QA at https://populationsciences-qa.datacommons.cancer.gov/#/.
 - `Filters/Studies`, `Filters/Participants`: checkbox IDs observed on QA.
   Numeric/range filters need dedicated interaction support before use.
 - `StudyDetails`: seven detail navigation tabs, study-file and personnel tables.
+- `HomeControls`: header logo, Cart, Back to Top, and lower-footer contact,
+  social and agency links. Functional checks reuse existing NavBar and
+  Static/HomePage keys for the remaining controls. GraphQL is an About-menu link.
 - `Static/AboutPage`, `Static/AccessDataPage`, `Static/AnalyzeDataPage`,
   `Static/SupportPage`: headings, body paragraphs, and outbound links.
   About-menu IDs are scoped to the desktop wrapper to exclude hidden mobile

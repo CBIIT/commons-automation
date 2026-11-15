@@ -4,7 +4,7 @@
 framework:
   test_case_source: excel
   environment: qa
-  html_report: false
+  html_report: true
 
 # ---------------------------------------------------------------------------
 # Playwright browser (pytest session)

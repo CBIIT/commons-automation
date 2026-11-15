@@ -10,13 +10,17 @@ def _parse_test_function(test_fn, module_consts):
     methods = {
         name: (lambda _args, action=name: (action, "", "", ""))
         for name in ("accept_banner", "open_explore", "read_statbar",
-                     "verify_all_tabs", "assert_no_failures")
+                     "verify_all_tabs", "assert_no_failures", "write_home_control_results")
     }
     for name in ("select_study", "open_study", "verify_tab", "click", "verify_static_data"):
         methods[name] = lambda args, action=name: (action, "", str_arg(args[0]), "")
     methods["select_filter"] = lambda args: (
         "select_filter", str_arg(args[0]), "", str_arg(args[1]),
     )
+    for name in ("verify_home_link", "verify_home_control"):
+        methods[name] = lambda args, action=name: (
+            action, "", str_arg(args[0]), str_arg(args[1]) if len(args) > 1 else "",
+        )
     return parse_adapter_calls(
         test_fn, fixture_name="psdc", module_consts=module_consts,
         method_to_step=methods, require_query_file=False,
@@ -50,8 +54,14 @@ register_profile(
             "accept_banner", "click", "open_explore", "select_study", "select_filter",
             "read_statbar", "verify_tab", "verify_all_tabs", "verify_static_data",
             "open_study", "assert_no_failures",
+            "verify_home_link", "verify_home_control", "write_home_control_results",
         ],
-        case_subdirs=("studies", "static"),
-        extra_handlers={"open_study": _open_study, "click": _click_step},
+        case_subdirs=("studies", "static", "functional"),
+        extra_handlers={
+            "open_study": _open_study, "click": _click_step,
+            "verify_home_link": lambda app, p, a, f, _e: app.verify_home_link(repo_key(p, a), f),
+            "verify_home_control": lambda app, p, a, f, _e: app.verify_home_control(repo_key(p, a), f),
+            "write_home_control_results": lambda app, _p, _a, _f, _e: app.write_home_control_results(),
+        },
     )
 )

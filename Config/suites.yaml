@@ -92,8 +92,10 @@ CTDC:
 # ---------------------------------------------------------------------------
 PSDC:
   smoke:
+    - "functional/TC01_*.xlsx"
     - "studies/**/TC01_*.xlsx"
   regression:
+    - "functional/TC*.xlsx"
     - "studies/**/TC*.xlsx"
     - "static/TC*.xlsx"
 

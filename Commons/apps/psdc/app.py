@@ -2,9 +2,10 @@
 from urllib.parse import quote
 
 from Commons.base_app import BaseApp, StatSpec, TabSpec
+from Commons.apps.psdc.homepage import HomePageControls
 
 
-class PSDC(BaseApp):
+class PSDC(HomePageControls, BaseApp):
     NAME = "PSDC"
     BANNER_KEYS = ["Home/WarningBan_Continue_Btn"]
     STATIC_DATA_EXCEL = "PSDC_StaticData.xlsx"

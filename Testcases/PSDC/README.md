@@ -54,6 +54,33 @@ python3 -m pytest -m "psdc and smoke" --env qa
 UI/expected workbooks are written to `OutputFiles/PSDC/QA/`. Row limits and
 pagination caps live in `Config/tab_setting.yaml`.
 
+## Home page controls
+
+`functional/TC01_PSDC_Verify_HomePage_Controls.xlsx` is a functional check of the
+desktop Home page. It contains 39 control checks: header logo and navigation,
+About menu open/close and each menu destination (including GraphQL), Cart,
+Explore Studies, the content-panel links, footer policy/resource/contact/social
+links, and Back to Top. The email signup section is excluded.
+
+Each control is an explicit Excel row. Expected destinations are stored in
+Filter; no query input workbook or TSV data is required. Internal links are
+clicked and checked for the destination URL and removal of the Home content.
+External web links are clicked and checked for the browser's document navigation
+request to the expected URL; third-party page content and availability are
+outside this control test. Telephone and contact-email links are checked for
+their protocol href and enabled state without launching external applications.
+The signup form and external feedback forms are not submitted.
+
+PSDC-specific reusable helpers live in `Commons/apps/psdc/homepage.py`.
+Per-control evidence is written to
+`OutputFiles/PSDC/QA/Output_TC01_PSDC_Verify_HomePage_Controls.xlsx` before the
+final failure assertion. One failed control does not skip the remaining checks.
+Both cases in `Testcases/PSDC/functional/` are included in smoke and regression.
+
+```bash
+python3 -m pytest Testcases/PSDC/functional/TC01_PSDC_Verify_HomePage_Controls.xlsx --env qa -q
+```
+
 ## Home page content
 
 `static/TC01_PSDC_Verify_home_page_content.xlsx` checks the home page after
@@ -186,7 +213,7 @@ python3 -m pytest Testcases/PSDC/studies/PLCO --env qa
 
 ## Unfiltered all-study comparison
 
-`studies/All/TC01_PSDC_Study_All_StatbarAndTable.xlsx` opens Explore without
+`functional/TC01_PSDC_Study_All_StatbarAndTable.xlsx` opens Explore without
 selecting any filters. Its matching input workbook compares the five numeric
 stat counts and all 11 Studies columns for every loaded study, ordered by study
 acronym. The prepared source snapshot contains NLST, PBCS, and PLCO.
@@ -199,7 +226,7 @@ study-scoped records. Data Volume retains the existing limitation documented in
 Prepare all three study snapshots, not only PBCS, before running this case:
 
 ```bash
-python3 -m pytest Testcases/PSDC/studies/All --env qa
+python3 -m pytest Testcases/PSDC/functional --env qa
 ```
 
 The existing suite patterns include this TC01 case in smoke and regression.
