@@ -4,6 +4,12 @@ page: Cohort
 elements:
   CreateNew: //div[normalize-space(.)='CREATE NEW COHORT' and not(*)]
   AllParticipants: //li[normalize-space(.)='All Participants']
+  AddExisting: //div[normalize-space(.)='ADD PARTICIPANTS TO EXISTING COHORT' and not(*)]
+  AddExistingMenu: //li[contains(@class,'existing-cohort-item')]/parent::ul
+  ExistingCohortOptions: .//li[contains(@class,'existing-cohort-item')]
+  ExistingCohortCheckbox: .//img[starts-with(@alt,'checkbox ')]
+  AddAllParticipants: .//li[normalize-space(.)='All Participants']
+  AddSelectedParticipants: .//li[normalize-space(.)='Selected Participants']
   SelectedParticipants: //li[normalize-space(.)='Selected Participants' and contains(@class,'new-cohort-item')]
   # Relative to Participants-Tbl. The table has linked top and bottom pagers;
   # deliberately use the top pager, without navigating any extra pages.

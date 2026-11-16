@@ -391,6 +391,35 @@ class C3DC(BaseApp):
         return verify_cohort_created(self)
 
     # -----------------------------------------------------------------------
+    # Adding participants to an existing cohort
+    # -----------------------------------------------------------------------
+
+    def remember_cohort_for_addition(self):
+        """Capture the current cohort before changing the participant filters."""
+        from Commons.apps.c3dc.cohort import remember_cohort_for_addition
+        remember_cohort_for_addition(self)
+
+    def replace_cohort_filter(self, group, previous_value, replacement_value):
+        """Replace a filter while preserving the current cohort."""
+        from Commons.apps.c3dc.cohort import replace_cohort_filter
+        replace_cohort_filter(self, group, previous_value, replacement_value)
+
+    def add_all_participants_to_existing_cohort(self):
+        """Choose the existing cohort and add all currently filtered participants."""
+        from Commons.apps.c3dc.cohort import add_all_participants_to_existing_cohort
+        add_all_participants_to_existing_cohort(self)
+
+    def add_selected_participants_to_existing_cohort(self):
+        """Add only the checked participant page to the remembered cohort."""
+        from Commons.apps.c3dc.cohort import add_selected_participants_to_existing_cohort
+        add_selected_participants_to_existing_cohort(self)
+
+    def verify_participants_added_to_cohort(self, report_name='cohort_addition'):
+        """Verify persisted membership and count against the union of both sets."""
+        from Commons.apps.c3dc.cohort import verify_participants_added_to_cohort
+        verify_participants_added_to_cohort(self, report_name)
+
+    # -----------------------------------------------------------------------
     # Cohort popup navigation
     # -----------------------------------------------------------------------
 
@@ -431,6 +460,11 @@ class C3DC(BaseApp):
         """Select a visible results page and remember its participant/study IDs."""
         from Commons.apps.c3dc.cohort import select_participant_page
         select_participant_page(self, page_number)
+
+    def select_next_participant_page_only(self):
+        """Clear the previous page's selection and select the next page only."""
+        from Commons.apps.c3dc.cohort import select_next_participant_page_only
+        select_next_participant_page_only(self)
 
     def create_cohort_from_selected_participants(self):
         """Create a cohort from the participants selected across results pages."""
@@ -519,3 +553,22 @@ class C3DC(BaseApp):
         """Verify saved metadata and unchanged membership after a page reload."""
         from Commons.apps.c3dc.cohort import verify_cohort_details_saved
         return verify_cohort_details_saved(self)
+
+    # -----------------------------------------------------------------------
+    # Cohort Analyzer (cohort_analyzer.py)
+    # -----------------------------------------------------------------------
+
+    def open_cohort_analyzer(self):
+        """Open the analyzer through its navigation link."""
+        from Commons.apps.c3dc.cohort_analyzer import open_cohort_analyzer
+        open_cohort_analyzer(self)
+
+    def add_example_cohorts(self):
+        """Create the three example cohorts with a single button click."""
+        from Commons.apps.c3dc.cohort_analyzer import add_example_cohorts
+        add_example_cohorts(self)
+
+    def verify_example_cohorts_created(self, expected_names):
+        """Verify the example names, participant counts and selected states."""
+        from Commons.apps.c3dc.cohort_analyzer import verify_example_cohorts_created
+        verify_example_cohorts_created(self, expected_names)

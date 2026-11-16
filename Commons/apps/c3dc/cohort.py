@@ -73,6 +73,15 @@ class CohortMetadata:
     path: Path
 
 
+@dataclass(frozen=True)
+class CohortAddition:
+    """Existing cohort and filtered IDs used to verify an addition independently."""
+
+    source: CohortDetails
+    incoming: tuple[tuple[str, str], ...]
+    item_ids: tuple[str, ...]
+
+
 # ---------------------------------------------------------------------------
 # Shared popup navigation and cohort details
 # ---------------------------------------------------------------------------
@@ -269,8 +278,8 @@ def _visible_participant_rows(container):
     return participants
 
 
-def select_participant_page(app, page_number):
-    """Select a whole page, accumulating exact IDs across consecutive pages from 1."""
+def select_participant_page(app, page_number, replace_selection=False):
+    """Select a whole page, optionally replacing the previous page's selection."""
     if page_number < 1:
         raise ValueError("Participant page numbers start at 1")
     container = app.ui.visible(app.repo.xpath("ResultTabs/Participants-Tbl"))
@@ -280,7 +289,14 @@ def select_participant_page(app, page_number):
         app._cohort_selected_pages = {}
     else:
         pages = getattr(app, "_cohort_selected_pages", {})
-        assert set(pages) == set(range(1, page_number)), 'Select participant pages consecutively from page 1'
+        if replace_selection:
+            assert len(pages) == 1 and max(pages) == page_number - 1, 'Select one current page before replacing its selection with the next page'
+            assert _visible_participant_rows(container) == pages[max(pages)], 'Current participant page differs from the selection being replaced'
+            container.locator(f"xpath={app.repo.xpath('Cohort/PageCheckbox')}").uncheck()
+            for checkbox in container.locator(f"xpath={app.repo.xpath('Cohort/RowCheckboxes')}").all():
+                expect(checkbox).not_to_be_checked()
+        else:
+            assert set(pages) == set(range(1, page_number)), 'Select participant pages consecutively from page 1'
         before = _visible_participant_rows(container)[0][0]
         headers = [h.strip() for h in container.locator('thead th').all_inner_texts()]
         first_id = container.locator(f"tbody tr:first-child td:nth-child({headers.index('Participant ID') + 1})")
@@ -294,8 +310,19 @@ def select_participant_page(app, page_number):
     expect(checkboxes).to_have_count(len(participants))
     for checkbox in checkboxes.all():
         expect(checkbox).to_be_checked()
-    app._cohort_selected_pages[page_number] = participants
+    if replace_selection:
+        app._cohort_selected_pages = {page_number: participants}
+    else:
+        app._cohort_selected_pages[page_number] = participants
     action_log.ui_action(f"Selected all {len(participants)} participants on page {page_number}.")
+
+
+def select_next_participant_page_only(app):
+    """Clear the current page's selection and select only the next page."""
+    pages = getattr(app, '_cohort_selected_pages', {})
+    if len(pages) != 1:
+        raise AssertionError('Select exactly one participant page before selecting only the next page')
+    select_participant_page(app, max(pages) + 1, replace_selection=True)
 
 
 def create_cohort_from_selected_participants(app):
@@ -338,6 +365,163 @@ def verify_cohort_created(app):
     if all(checks.values()):
         action_log.ui_action(f"Cohort {details.name!r} created with the expected {details.participant_count} participants.")
     return details
+
+
+# ---------------------------------------------------------------------------
+# Adding participants to an existing cohort
+# ---------------------------------------------------------------------------
+
+def remember_cohort_for_addition(app):
+    """Keep the original cohort and list IDs before changing the Explore filters."""
+    app._cohort_addition = None
+    dialog = cohort_dialog(app)
+    source = read_selected_cohort(app)
+    assert len(set(source.participants)) == len(source.participants) == source.participant_count, "Source cohort membership is incomplete or contains duplicates"
+    item_ids = tuple(dialog.locator(f"xpath={app.repo.xpath('Cohort/Items')}").evaluate_all('items => items.map(item => item.id)'))
+    app._cohort_addition = CohortAddition(source, (), item_ids)
+    action_log.ui_action(f"Remembered existing cohort {source.name!r}: {source.participant_count} participants.")
+
+
+def replace_cohort_filter(app, group, previous_value, replacement_value):
+    """Replace a selected filter without toggling an already-open sidebar closed."""
+    if previous_value == replacement_value:
+        raise ValueError('The replacement filter must differ from the original')
+    facet = app.repo.filter_group(group)
+    for value, was_selected in ((previous_value, True), (replacement_value, False)):
+        checkbox_xpath = facet.checkbox_xpath(value)
+        target = facet.search or checkbox_xpath
+        if not app.ui.is_visible(target):
+            app._prepare_filter_panel(facet, checkbox_xpath)
+        if facet.search:
+            app.ui.fill(facet.search, app._search_text(checkbox_xpath, value), repo_key=f'{group}/search')
+        checkbox = app.ui.visible(checkbox_xpath)
+        if was_selected:
+            expect(checkbox).to_be_checked()
+        else:
+            expect(checkbox).not_to_be_checked()
+        app.ui.click(checkbox_xpath, repo_key=f'{group}/{value}')
+        if was_selected:
+            expect(checkbox).not_to_be_checked()
+        else:
+            expect(checkbox).to_be_checked()
+        app.ui.wait_idle()
+    app._wait_explore_results_ready()
+    action_log.ui_action(f'Replaced {group} filter {previous_value!r} with {replacement_value!r}.')
+
+
+def add_all_participants_to_existing_cohort(app):
+    """Select the remembered cohort, then add every currently filtered participant."""
+    baseline = getattr(app, '_cohort_addition', None)
+    if baseline is None:
+        raise AssertionError('Remember an existing cohort before adding participants')
+    # Reuse the full table reader to obtain independent expected IDs, not just a
+    # stat count. This is verification data; the add action itself uses All Participants.
+    incoming = read_filtered_participants(app)
+    _add_participants_to_existing_cohort(app, incoming, 'Cohort/AddAllParticipants')
+
+
+def add_selected_participants_to_existing_cohort(app):
+    """Add the currently checked page, using its actual IDs as the expected set."""
+    if getattr(app, '_cohort_addition', None) is None:
+        raise AssertionError('Remember an existing cohort before adding participants')
+    pages = getattr(app, '_cohort_selected_pages', {})
+    assert len(pages) == 1, 'Select only the participant page intended for this addition'
+    container = app.ui.visible(app.repo.xpath('ResultTabs/Participants-Tbl'))
+    incoming = _visible_participant_rows(container)
+    assert incoming == next(iter(pages.values())), 'Current participant rows differ from the remembered selected page'
+    checkboxes = container.locator(f"xpath={app.repo.xpath('Cohort/RowCheckboxes')}")
+    expect(checkboxes).to_have_count(len(incoming))
+    for checkbox in checkboxes.all():
+        expect(checkbox).to_be_checked()
+    _add_participants_to_existing_cohort(app, incoming, 'Cohort/AddSelectedParticipants')
+
+
+def _add_participants_to_existing_cohort(app, incoming, option_key):
+    """Shared existing-cohort target selection and add operation for both modes."""
+    baseline = app._cohort_addition
+    app._cohort_addition = None
+    if not set(incoming) - set(baseline.source.participants):
+        raise AssertionError('The incoming set must contain at least one new participant')
+    app.ui.click(app.repo.xpath('Cohort/AddExisting'), repo_key='Cohort/AddExisting')
+    menu = app.page.locator(app.repo.xpath('Cohort/AddExistingMenu'))
+    expect(menu).to_be_visible(timeout=app.ui.timeout_ms)
+    options = menu.locator(f"xpath={app.repo.xpath('Cohort/ExistingCohortOptions')}")
+    option = options.filter(has=app.page.get_by_alt_text(f'checkbox {baseline.source.name}', exact=True))
+    expect(option).to_have_count(1)
+    checkbox = option.locator(f"xpath={app.repo.xpath('Cohort/ExistingCohortCheckbox')}")
+    # Clear any other selected targets before choosing this specific cohort.
+    for candidate in options.all():
+        image = candidate.locator(f"xpath={app.repo.xpath('Cohort/ExistingCohortCheckbox')}")
+        if re.search(r'/tickIcon\.', image.get_attribute('src') or ''):
+            image.click()
+    checkbox.click()
+    expect(checkbox).to_have_attribute('src', re.compile(r'/tickIcon\.'))
+    add_option = menu.locator(f"xpath={app.repo.xpath(option_key)}")
+    assert _selected_option_is_enabled(add_option), f'{option_key} must be enabled after choosing the existing cohort'
+    add_option.click()
+    expect(menu).not_to_be_visible()
+    app.ui.wait_idle()
+    app._cohort_addition = CohortAddition(baseline.source, incoming, baseline.item_ids)
+    dialog = open_cohorts(app)
+    select_cohort(app, baseline.source.name)
+    expected_count = len(set(baseline.source.participants) | set(incoming))
+    expect(dialog.locator(f"xpath={app.repo.xpath('Cohort/ParticipantCount')}")).to_have_text(
+        re.compile(rf'PARTICIPANTS IDs\s*\({expected_count}\)'), timeout=app.ui.timeout_ms,
+    )
+    action_log.ui_action(f'Added {len(incoming)} participants via {option_key} to {baseline.source.name!r}; expected unique total {expected_count}.')
+
+
+def _cohort_addition_checks(addition, actual, item_ids):
+    """Compare the full union so overlaps cannot inflate the expected count."""
+    expected = set(addition.source.participants) | set(addition.incoming)
+    return {
+        'same cohort name': actual.name == addition.source.name,
+        'description unchanged': actual.description == addition.source.description,
+        'cohort list unchanged': len(item_ids) == len(addition.item_ids) and set(item_ids) == set(addition.item_ids),
+        'new participants present': bool(set(addition.incoming) - set(addition.source.participants)),
+        'participant count': actual.participant_count == len(expected),
+        'unique participant rows': len(set(actual.participants)) == len(actual.participants) == actual.participant_count,
+        'complete participant and study IDs': set(actual.participants) == expected,
+    }
+
+
+def verify_participants_added_to_cohort(app, report_name='cohort_addition'):
+    """Reload and verify the same cohort retains the complete union of both sets."""
+    addition = getattr(app, '_cohort_addition', None)
+    if addition is None or not addition.incoming:
+        raise AssertionError('Add participants to the existing cohort before verifying the update')
+    close_cohorts(app)
+    app.page.reload(wait_until='domcontentloaded')
+    app.ui.wait_idle()
+    for key in app.BANNER_KEYS:
+        if app.page.locator(app.repo.xpath(key)).is_visible():
+            app.accept_banner()
+            break
+    dialog = open_cohorts(app)
+    select_cohort(app, addition.source.name)
+    actual = read_selected_cohort(app)
+    item_ids = tuple(dialog.locator(f"xpath={app.repo.xpath('Cohort/Items')}").evaluate_all('items => items.map(item => item.id)'))
+    checks = _cohort_addition_checks(addition, actual, item_ids)
+    expected_ids = set(addition.source.participants) | set(addition.incoming)
+    actual_ids = set(actual.participants)
+    evidence = {
+        'cohort': addition.source.name, 'original_participant_count': addition.source.participant_count,
+        'incoming_participant_count': len(addition.incoming),
+        'expected_unique_participant_count': len(expected_ids), 'actual_participant_count': actual.participant_count,
+        'checks_after_reload': checks, 'original_participant_study_ids': sorted(addition.source.participants),
+        'incoming_participant_study_ids': sorted(addition.incoming), 'expected_participant_study_ids': sorted(expected_ids),
+        'actual_participant_study_ids': sorted(actual_ids), 'missing_ids': sorted(expected_ids - actual_ids),
+        'unexpected_ids': sorted(actual_ids - expected_ids),
+    }
+    output = app.output_dir / f'{Path(report_name).stem}.verification.json'
+    output.write_text(json.dumps(evidence, indent=2), encoding='utf-8')
+    for check, passed in checks.items():
+        if passed:
+            app.results.append({'check': f'Cohort addition {check}', 'status': 'PASSED', 'detail': str(output)})
+        else:
+            app._fail(f'Cohort addition {check} failed after reload: expected {len(expected_ids)} participants, actual {actual.participant_count}; missing={sorted(expected_ids - actual_ids)}, unexpected={sorted(actual_ids - expected_ids)}')
+    if all(checks.values()):
+        action_log.ui_action(f'Existing cohort {actual.name!r}: {addition.source.participant_count} original participants, {len(addition.incoming)} incoming, {actual.participant_count} total; all participant/study IDs persisted after reload.')
 
 
 # ---------------------------------------------------------------------------

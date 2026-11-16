@@ -94,6 +94,28 @@ the check verifies the visible popup rather than relying on those attributes.
 Hover checks also require the View All cohort count to stay unchanged. No remove
 or duplicate action is clicked, and no database or input workbook is required.
 
+`TC10_C3DC_Verify_AddToExistingCohort_AllParticipants.xlsx` creates a cohort from
+Diagnosis > Abdominal fibromatosis and remembers its full membership. It closes
+the popup, replaces that diagnosis with Adenocarcinoma, and reads the new filtered
+participant/study IDs using the existing full-table reader. Add Participants to
+Existing Cohort selects the remembered cohort and chooses All Participants.
+Verification reloads the page and requires the same cohort name, description,
+and cohort list, with a unique membership equal to the union of both sets.
+Overlaps count once; original participants must remain and all new participants
+must be present. Counts are read dynamically. Comparison evidence is saved to
+`OutputFiles/C3DC/<ENV>/TC10_C3DC_Verify_AddToExistingCohort_AllParticipants.verification.json`.
+The filter replacement helper avoids toggling an already-open sidebar closed.
+
+`TC11_C3DC_Verify_AddToExistingCohort_SelectedParticipants.xlsx` opens unfiltered
+Explore Participants, selects page 1, and creates a cohort using Selected
+Participants. It remembers that cohort, closes the popup, clears page 1's checked
+rows, moves to page 2, and selects that page only. Add Participants to Existing
+Cohort selects the original cohort and chooses Selected Participants. Verification
+reloads and compares the exact union of page 1 and page 2 IDs, count, cohort name,
+description and unchanged cohort list. Page sizes and counts are read dynamically.
+TC02 still accumulates both selected pages; TC11 explicitly replaces the selection.
+TC10 and TC11 share target selection, addition and persisted membership checks.
+
 TC03 leaves the copy selected; TC04 selects the original for its final unchanged-data check.
 Popup helpers are reusable from Cohort
 Analyzer. No case needs a query workbook or database connection, and TC03

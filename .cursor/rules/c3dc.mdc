@@ -15,6 +15,9 @@ alwaysApply: false
 - Keep Explore, the Studies catalog (`studies.py`), study details
   (`study_details.py`), and cohort operations (`cohort.py`) in their own flows.
   Study-detail counts/manifest checks do not use an invented Explore tab.
+- Cohort Analyzer functions live in `Commons/apps/c3dc/cohort_analyzer.py`, with
+  `ObjectRepository/C3DC/cohort_analyzer.yaml` locators and Excel cases under
+  `Testcases/C3DC/cohort_analyzer/`. Keep app.py wrappers thin.
 
 ## Filter details
 

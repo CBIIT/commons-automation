@@ -1,0 +1,9 @@
+page: CohortAnalyzer
+elements:
+  Navigation: //a[@href='/cohortAnalyzer']
+  AddExamples: //button[normalize-space(.)='Add Example Cohorts']
+  Selector: //span[normalize-space(.)='Cohort Selector']/parent::div
+  # Each cohort has a single checkbox image; its displayed name is duplicated for overflow tooltips.
+  Items: //button[normalize-space(.)='Add Example Cohorts']/parent::div/parent::div/parent::div//img[starts-with(@alt,'checkbox ')]
+  # Relative to a cohort's checkbox image. Read only the first display label.
+  ItemLabel: ./parent::div/following-sibling::span/span/span[1]
