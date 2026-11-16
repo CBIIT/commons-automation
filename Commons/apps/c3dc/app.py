@@ -44,7 +44,9 @@ class C3DC(BaseApp):
         super().__init__(*args, **kwargs)
         self._active_study_accession: Optional[str] = None
 
-    # --- Tab names (UI labels vs TABS keys; Katalon selectTab) ---
+    # -----------------------------------------------------------------------
+    # Tab names (UI labels vs TABS keys; Katalon selectTab)
+    # -----------------------------------------------------------------------
 
     TAB_SELECT_LABELS: Dict[str, List[str]] = {
         "GeneticAnalysis": ["Genetic Analyses", "Genetic Analysis"],
@@ -85,7 +87,9 @@ class C3DC(BaseApp):
 }
 """
 
-    # --- Stat bar and result tabs ---
+    # -----------------------------------------------------------------------
+    # Stat bar and result tabs
+    # -----------------------------------------------------------------------
 
     STATS = [
         StatSpec("Studies", "Statbar/Studies-Count"),
@@ -113,7 +117,9 @@ class C3DC(BaseApp):
                                 "UI_Samples", "DB_Samples"),
     }
 
-    # --- Explore navigation ---
+    # -----------------------------------------------------------------------
+    # Explore navigation
+    # -----------------------------------------------------------------------
 
     def open_explore(self):
         """Open Explore Participants via navbar (Katalon: clickTab Explore-Tab)."""
@@ -129,7 +135,9 @@ class C3DC(BaseApp):
             self._active_study_accession = value
         self._wait_explore_results_ready()
 
-    # --- Sync UI after filters (stat bar + participant grid) ---
+    # -----------------------------------------------------------------------
+    # Sync UI after filters (stat bar + participant grid)
+    # -----------------------------------------------------------------------
 
     def _wait_explore_results_ready(self):
         self.page.locator("#statsbar_count_1").first.wait_for(state="visible", timeout=self.ui.timeout_ms)
@@ -178,7 +186,9 @@ class C3DC(BaseApp):
             "(study filter may not have applied)."
         )
 
-    # --- Tab label matching (bar + More menu) ---
+    # -----------------------------------------------------------------------
+    # Tab label matching (bar + More menu)
+    # -----------------------------------------------------------------------
 
     @staticmethod
     def _normalize_tab_label(raw: str) -> str:
@@ -235,7 +245,9 @@ class C3DC(BaseApp):
                     return True
         return False
 
-    # --- verify_tab / selectTab / open_tab ---
+    # -----------------------------------------------------------------------
+    # verify_tab / selectTab / open_tab
+    # -----------------------------------------------------------------------
 
     def verify_tab(self, name: str):
         name = self.TAB_VERIFY_ALIASES.get(name, name)
@@ -324,7 +336,9 @@ class C3DC(BaseApp):
         """Fallback if BaseApp.open_tab is used — same as Katalon selectTab + More menu."""
         self.open_tab(spec.name)
 
-    # --- Studies catalog (/studies — see studies.py) ---
+    # -----------------------------------------------------------------------
+    # Studies catalog (/studies — see studies.py)
+    # -----------------------------------------------------------------------
 
     def open_studies_listing(self):
         """Open the /studies catalog (not Explore Participants → Studies)."""
@@ -337,6 +351,10 @@ class C3DC(BaseApp):
         from Commons.apps.c3dc.studies import verify_studies_listing
 
         verify_studies_listing(self)
+
+    # -----------------------------------------------------------------------
+    # Study details and reports (study_details.py)
+    # -----------------------------------------------------------------------
 
     def open_study_details(self, accession: str):
         """Click an accession in the catalog; preserve its row for comparison."""
@@ -356,7 +374,9 @@ class C3DC(BaseApp):
 
         verify_study_details(self, accession)
 
-    # --- Cohorts (shared popup helpers live in cohort.py) ---
+    # -----------------------------------------------------------------------
+    # Cohorts (shared popup helpers live in cohort.py)
+    # -----------------------------------------------------------------------
 
     def create_cohort_from_all_participants(self):
         """Create a cohort containing every participant in the current filtered results."""
@@ -365,7 +385,137 @@ class C3DC(BaseApp):
         create_cohort_from_all_participants(self)
 
     def verify_cohort_created(self):
-        """Check the new cohort's popup, count and complete participant membership."""
+        """Check the new cohort's popup, participant count, unique rows and study."""
         from Commons.apps.c3dc.cohort import verify_cohort_created
 
         return verify_cohort_created(self)
+
+    # -----------------------------------------------------------------------
+    # Cohort popup navigation
+    # -----------------------------------------------------------------------
+
+    def open_cohorts(self):
+        """Open View All Cohorts using the page control."""
+        from Commons.apps.c3dc.cohort import open_cohorts
+        return open_cohorts(self)
+
+    def close_cohorts(self):
+        """Close the cohort popup without editing its contents."""
+        from Commons.apps.c3dc.cohort import close_cohorts
+        close_cohorts(self)
+
+    # -----------------------------------------------------------------------
+    # Cohort duplication
+    # -----------------------------------------------------------------------
+
+    def duplicate_selected_cohort(self):
+        """Duplicate the currently selected cohort in the management popup."""
+        from Commons.apps.c3dc.cohort import duplicate_selected_cohort
+        duplicate_selected_cohort(self)
+
+    def verify_duplicate_cohort_created(self):
+        """Verify the copy's data and ensure the source cohort is unchanged."""
+        from Commons.apps.c3dc.cohort import verify_duplicate_cohort_created
+        return verify_duplicate_cohort_created(self)
+
+    # -----------------------------------------------------------------------
+    # Participant selection and selected-participant cohorts
+    # -----------------------------------------------------------------------
+
+    def verify_selected_participants_option(self, state):
+        """Check the Create New Cohort menu before and after participant selection."""
+        from Commons.apps.c3dc.cohort import verify_selected_participants_option
+        verify_selected_participants_option(self, state)
+
+    def select_participant_page(self, page_number):
+        """Select a visible results page and remember its participant/study IDs."""
+        from Commons.apps.c3dc.cohort import select_participant_page
+        select_participant_page(self, page_number)
+
+    def create_cohort_from_selected_participants(self):
+        """Create a cohort from the participants selected across results pages."""
+        from Commons.apps.c3dc.cohort import create_cohort_from_selected_participants
+        create_cohort_from_selected_participants(self)
+
+    # -----------------------------------------------------------------------
+    # Repeated duplication and cohort creation limit
+    # -----------------------------------------------------------------------
+
+    def duplicate_cohort_repeatedly(self, count):
+        """Duplicate and verify the selected cohort a requested number of times."""
+        from Commons.apps.c3dc.cohort import duplicate_cohort_repeatedly
+        duplicate_cohort_repeatedly(self, count)
+
+    def verify_duplicate_cohort_limit(self):
+        """Verify the 20-cohort boundary and disabled Duplicate controls."""
+        from Commons.apps.c3dc.cohort import verify_duplicate_cohort_limit
+        verify_duplicate_cohort_limit(self)
+
+    # -----------------------------------------------------------------------
+    # Cohort name and description editing
+    # -----------------------------------------------------------------------
+
+    def update_cohort_details(self, name, description):
+        """Edit the selected cohort's name and description without saving yet."""
+        from Commons.apps.c3dc.cohort import update_cohort_details
+        update_cohort_details(self, name, description)
+
+    # -----------------------------------------------------------------------
+    # Cohort removal confirmations and deletion
+    # -----------------------------------------------------------------------
+
+    def verify_cohort_removal_confirmation(self, target, expected_message):
+        """Verify the warning, cancellation, and confirmed cohort deletion."""
+        from Commons.apps.c3dc.cohort import verify_cohort_removal_confirmation
+        verify_cohort_removal_confirmation(self, target, expected_message)
+
+    # -----------------------------------------------------------------------
+    # Manifest CSV download and verification
+    # -----------------------------------------------------------------------
+
+    def download_cohort_manifest(self, report_name="cohort_manifest"):
+        """Save the selected cohort's CSV in this environment's output folder."""
+        from Commons.apps.c3dc.cohort import download_cohort_manifest
+        return download_cohort_manifest(self, report_name)
+
+    def verify_cohort_manifest(self):
+        """Compare unique participant/study IDs in the saved CSV with the cohort."""
+        from Commons.apps.c3dc.cohort import verify_cohort_manifest
+        verify_cohort_manifest(self)
+
+    # -----------------------------------------------------------------------
+    # Metadata JSON download and verification
+    # -----------------------------------------------------------------------
+
+    def download_cohort_metadata(self, report_name="cohort_metadata"):
+        """Save the selected cohort's Metadata JSON in the output folder."""
+        from Commons.apps.c3dc.cohort import download_cohort_metadata
+        return download_cohort_metadata(self, report_name)
+
+    def verify_cohort_metadata(self):
+        """Validate the downloaded JSON hierarchy and selected cohort membership."""
+        from Commons.apps.c3dc.cohort import verify_cohort_metadata
+        verify_cohort_metadata(self)
+
+    # -----------------------------------------------------------------------
+    # Cohort control tooltips
+    # -----------------------------------------------------------------------
+
+    def verify_cohort_tooltip(self, control, expected_text):
+        """Hover a cohort control and verify the expected tooltip copy."""
+        from Commons.apps.c3dc.cohort import verify_cohort_tooltip
+        verify_cohort_tooltip(self, control, expected_text)
+
+    # -----------------------------------------------------------------------
+    # Save and verify persisted cohort changes
+    # -----------------------------------------------------------------------
+
+    def save_cohort_changes(self):
+        """Click Save Changes for the current cohort metadata edit."""
+        from Commons.apps.c3dc.cohort import save_cohort_changes
+        save_cohort_changes(self)
+
+    def verify_cohort_details_saved(self):
+        """Verify saved metadata and unchanged membership after a page reload."""
+        from Commons.apps.c3dc.cohort import verify_cohort_details_saved
+        return verify_cohort_details_saved(self)
