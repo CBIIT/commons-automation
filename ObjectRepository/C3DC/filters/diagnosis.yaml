@@ -44,6 +44,8 @@ groups:
     dropdown: //*[@id='Diagnosis' and @role='button']
     search: //input[contains(@placeholder,'sarcoma') or contains(@placeholder,'Sarcoma')]
     checkboxes:
+      AbdominalFibromatosis: '//*[@id="checkbox_Diagnosis_Abdominal fibromatosis"]'
+      Adenocarcinoma: '//*[@id="checkbox_Diagnosis_Adenocarcinoma"]'
       8000-0-Neoplasm,benign: '//*[@id="checkbox_Diagnosis Classification_8000/0 :
         Neoplasm, benign"]'
       8000-1-Neoplasm,uncertainwhether,benign: '//*[@id="checkbox_Diagnosis Classification_8000/1

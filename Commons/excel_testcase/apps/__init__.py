@@ -7,3 +7,4 @@ from Commons.excel_testcase.apps import ctdc as _ctdc  # noqa: F401
 from Commons.excel_testcase.apps import gc as _gc  # noqa: F401
 from Commons.excel_testcase.apps import icdc as _icdc  # noqa: F401
 from Commons.excel_testcase.apps import ins as _ins  # noqa: F401
+from Commons.excel_testcase.apps import psdc as _psdc  # noqa: F401

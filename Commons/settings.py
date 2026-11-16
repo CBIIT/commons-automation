@@ -1,7 +1,7 @@
 """
 Loads test config: URLs and DB hosts from Config/environments.yaml; passwords from .env only.
 
-Tests usually call get_app_settings(app, env) (pytest --env or ENV, default qa).
+Tests usually call get_app_settings(app, env) (pytest --env, ENV override, or YAML default).
 See "Public settings API" below for get_browser_settings, get_app_url, and get_db_settings.
 """
 import os
@@ -105,24 +105,16 @@ class AppSettings:
 
 
 # ---------------------------------------------------------------------------
-# Bolt env var names (document in .env; used in db_source error messages)
+# Database password env var names (documented in .env.example)
 # ---------------------------------------------------------------------------
 
 
-def memgraph_password_env_keys(app: str, env: str) -> tuple[str, str]:
-    """Env var names to set Memgraph password for this app (per-cluster; no shared password)."""
+def db_password_env_keys(app: str, env: str) -> tuple[str, str]:
+    """Return per-environment and per-app password variable names."""
     app_u, env_u = app.upper(), env.upper()
     return (
-        f"MEMGRAPH_PASSWORD_{app_u}_{env_u}",
-        f"MEMGRAPH_PASSWORD_{app_u}",
-    )
-
-
-def neo4j_password_env_keys(app: str, env: str) -> tuple[str, str]:
-    app_u, env_u = app.upper(), env.upper()
-    return (
-        f"NEO4J_PASSWORD_{app_u}_{env_u}",
-        f"NEO4J_PASSWORD_{app_u}",
+        f"{app_u}_DB_PASSWORD_{env_u}",
+        f"{app_u}_DB_PASSWORD",
     )
 
 
@@ -135,7 +127,7 @@ def _neo4j_env(app: str, env: str, field: str, yaml_value: str = "") -> str:
     """Resolve Neo4j bolt endpoint / username (env overrides, then YAML).
 
     Falls back to MEMGRAPH_* env names so existing ICDC `.env` entries keep working.
-    Passwords use `_expected_db_password` (NEO4J_PASSWORD_* first).
+    Passwords use the shared `{APP}_DB_PASSWORD_{ENV}` convention.
     """
     app_u, env_u = app.upper(), env.upper()
     field_u = field.upper()
@@ -172,31 +164,18 @@ def _neo4j_yaml_for_env(app_cfg: dict, env: str) -> dict:
     return per_env
 
 
-def _expected_db_password(app: str, env: str, expected_source: str) -> str:
-    """Password for Memgraph or Neo4j bolt (env only)."""
-    if expected_source == "neo4j":
-        app_u, env_u = app.upper(), env.upper()
-        for key in (
-            f"NEO4J_PASSWORD_{app_u}_{env_u}",
-            f"NEO4J_PASSWORD_{app_u}",
-            f"MEMGRAPH_PASSWORD_{app_u}_{env_u}",
-            f"MEMGRAPH_PASSWORD_{app_u}",
-        ):
-            val = os.environ.get(key)
-            if val:
-                return val
-        return ""
-    return _memgraph_env(app, env, "password", "")
+def _expected_db_password(app: str, env: str) -> str:
+    """Read a Memgraph or Neo4j password from environment variables only."""
+    per_env, per_app = db_password_env_keys(app, env)
+    return os.environ.get(per_env) or os.environ.get(per_app) or ""
 
 
 def _memgraph_env(app: str, env: str, field: str, yaml_value: str = "") -> str:
-    """Resolve Memgraph endpoint / username / password for one app and environment.
-    Password (each app has its own Memgraph cluster):
-      1. MEMGRAPH_PASSWORD_{APP}_{ENV}   e.g. MEMGRAPH_PASSWORD_C3DC_QA
-      2. MEMGRAPH_PASSWORD_{APP}         e.g. MEMGRAPH_PASSWORD_C3DC_QA2
+    """Resolve a Memgraph endpoint or username for one app and environment.
+
     Endpoint / username also allow a global fallback:
     MEMGRAPH_ENDPOINT, MEMGRAPH_USERNAME (after per-app keys)
-    YAML supplies endpoint/username defaults only; never passwords.
+    YAML supplies endpoint/username defaults. Passwords are resolved separately.
     """
     app_u, env_u = app.upper(), env.upper()
     field_u = field.upper()
@@ -245,9 +224,15 @@ def env_flag(name: str) -> bool | None:
     return str(raw).strip().lower() in ("1", "true", "yes", "on")
 
 
-def resolve_test_env(cli_env: str | None = None) -> str:
-    """pytest --env, then ENV, then default qa."""
-    return (cli_env or os.environ.get("ENV") or DEFAULT_ENV).lower()
+def resolve_test_env(cli_env: str | None = None, cfg: dict | None = None) -> str:
+    """Resolve pytest --env, then ENV override, then the YAML framework default."""
+    if cli_env:
+        return cli_env.lower()
+    if os.environ.get("ENV"):
+        return os.environ["ENV"].lower()
+    cfg = cfg or load_config()
+    framework = cfg.get("framework") or {}
+    return str(framework.get("environment", DEFAULT_ENV)).lower()
 
 
 # ---------------------------------------------------------------------------
@@ -256,7 +241,7 @@ def resolve_test_env(cli_env: str | None = None) -> str:
 
 
 def _normalized_env(env: str | None) -> str:
-    return (env or os.environ.get("ENV") or DEFAULT_ENV).lower()
+    return resolve_test_env(env)
 
 
 def _app_config(app: str, cfg: dict) -> dict:
@@ -328,12 +313,12 @@ def get_db_settings(app: str, env: str | None = None, cfg: dict | None = None) -
         nj = _neo4j_yaml_for_env(a, bolt_env)
         endpoint = _neo4j_env(app, bolt_env, "endpoint", nj.get("endpoint", ""))
         username = _neo4j_env(app, bolt_env, "username", nj.get("username", ""))
-        password = _expected_db_password(app, bolt_env, expected_source)
+        password = _expected_db_password(app, bolt_env)
     else:
         mg = (a.get("memgraph") or {}).get(ui_env, {})
         endpoint = _memgraph_env(app, ui_env, "endpoint", mg.get("endpoint", ""))
         username = _memgraph_env(app, ui_env, "username", mg.get("username", ""))
-        password = _expected_db_password(app, ui_env, expected_source)
+        password = _expected_db_password(app, ui_env)
     return DbSettings(
         expected_source=expected_source,
         endpoint=endpoint,

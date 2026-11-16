@@ -4,6 +4,7 @@ Expected tab/stat data from dated TSV snapshots (Katalon Utils.py pattern).
 Shared load/merge/SQLite pipeline plus app wiring:
   - Commons.apps.ctdc.tsv_source — CTDC node TSVs, CtdcTsvSource
   - Commons.apps.ins.tsv_source  — INS Programs + DataSets, InsTsvSource
+  - Commons.apps.psdc.tsv_source — PSDC study releases, PsdcTsvSource
 
 Use ``TsvSource(app=...)`` for expected_source: tsv, or import app modules directly
 (e.g. ``from Commons.apps.ins.tsv_source import load_ins_dataset_frames``).
@@ -29,7 +30,7 @@ AppName = str
 
 
 class TsvSourceBackend(ExpectedDataSource):
-    """Base type for CTDC/INS TSV expected-data sources (CtdcTsvSource, InsTsvSource)."""
+    """Base type for per-application TSV expected-data sources."""
 
 
 DATE_FOLDER_FMT = "%Y-%m-%d"
@@ -148,7 +149,11 @@ def _node_for_filename(file_name: str) -> Optional[str]:
 
 
 def load_merged_frames(tsv_root: Path, app: AppName = "CTDC") -> Dict[str, pd.DataFrame]:
-    """Load and merge all TSV releases for CTDC or INS Programs nodes."""
+    """Load and merge TSV releases using the selected application's schema."""
+    if app == "PSDC":
+        from Commons.apps.psdc.tsv_source import load_psdc_merged_frames
+
+        return load_psdc_merged_frames(tsv_root)
     if app == "CTDC":
         from Commons.apps.ctdc.tsv_source import load_ctdc_merged_frames
 
@@ -158,19 +163,23 @@ def load_merged_frames(tsv_root: Path, app: AppName = "CTDC") -> Dict[str, pd.Da
 
         return load_ins_program_frames(tsv_root)
     raise ValueError(
-        f"TSV expected data is not configured for app '{app}'. Supported: CTDC, INS."
+        f"TSV expected data is not configured for app '{app}'. Supported: CTDC, INS, PSDC."
     )
 
 
 class TsvSource:
-    """Factory: returns ``CtdcTsvSource`` or ``InsTsvSource`` for ``expected_source: tsv``."""
+    """Factory for CTDC, INS, and PSDC ``expected_source: tsv`` backends."""
 
     def __new__(
         cls,
         tsv_root: str = "",
         app: AppName = "CTDC",
         tab_row_limit: Optional[int] = None,
-    ) -> Union["CtdcTsvSource", "InsTsvSource"]:
+    ) -> Union["CtdcTsvSource", "InsTsvSource", "PsdcTsvSource"]:
+        if app == "PSDC":
+            from Commons.apps.psdc.tsv_source import PsdcTsvSource
+
+            return PsdcTsvSource(tsv_root=tsv_root, tab_row_limit=tab_row_limit)
         if app == "CTDC":
             from Commons.apps.ctdc.tsv_source import CtdcTsvSource
 
@@ -180,7 +189,7 @@ class TsvSource:
 
             return InsTsvSource(tsv_root=tsv_root, tab_row_limit=tab_row_limit)
         raise ValueError(
-            f"TSV expected data is not configured for app '{app}'. Supported: CTDC, INS."
+            f"TSV expected data is not configured for app '{app}'. Supported: CTDC, INS, PSDC."
         )
 
 

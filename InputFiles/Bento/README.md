@@ -10,4 +10,4 @@ Testcase Steps live under `Testcases/BENTO/arm-*/`; edit query workbooks here di
 
 `TabQuery` / `StatQuery` are Neo4j Cypher (`expected_source: neo4j` in `Config/environments.yaml`).
 
-Credentials: `NEO4J_PASSWORD_BENTO`, optional `NEO4J_ENDPOINT_BENTO`, `URL_BENTO_QA` in `.env`.
+Credentials: `BENTO_DB_PASSWORD_<ENV>`, optional `NEO4J_ENDPOINT_BENTO`, `URL_BENTO_QA` in `.env`.

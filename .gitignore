@@ -12,3 +12,6 @@ OutputFiles/
 InputFiles/INS/Programs/
 InputFiles/INS/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]/
 InputFiles/INS/DataSetsTab/
+
+# PSDC: extracted study folders (keep ZIP archives and input workbooks).
+InputFiles/PSDC/*/

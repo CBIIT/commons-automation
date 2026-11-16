@@ -3,9 +3,9 @@ pytest wiring: browser, environment and one ready-to-use fixture per application
 
 Katalon equivalent: the Profile chosen at run time + the browser Katalon opened for you.
 
-    pytest --env qa                    # which environment (qa | stage | prod), default ENV or qa
-    pytest --headed                    # watch the browser (or HEADLESS=false / HEADED=true in .env)
-    pytest --browser firefox           # chromium (default) | firefox | webkit (or BROWSER=firefox)
+    pytest --env qa                    # override the YAML environment
+    pytest --headed                    # override YAML headless mode
+    pytest --browser firefox           # override the YAML browser
     pytest -m "c3dc and smoke"         # a suite
     pytest Testcases/c3dc/studies/phs000466/test_TC01_C3DC_phs000466_SexAtBirth_Male.py   # one case
 """
@@ -34,7 +34,7 @@ SCREENSHOT_DIR = ROOT / "Reports" / "screenshots"
 
 def pytest_addoption(parser):
     g = parser.getgroup("commons-automation")
-    g.addoption("--env", default=None, help="Environment: qa | stage | prod (default: ENV or qa)")
+    g.addoption("--env", default=None, help="Environment: qa | stage | prod (default: Config/environments.yaml)")
     g.addoption("--headed", action="store_true", default=False, help="Show the browser window")
     g.addoption("--browser", default=None, help="chromium | firefox | webkit")
     g.addoption("--slowmo", type=int, default=0, help="Slow every browser action down by N ms")
@@ -148,6 +148,14 @@ def ccdi(page, env, browser_settings, _repos):
 def gc(page, env, browser_settings, _repos):
     """GC (General Commons), already opened at the environment's URL."""
     app, source = _make_app("GC", page, env, browser_settings, _repos)
+    yield app
+    source.close()
+
+
+@pytest.fixture
+def psdc(page, env, browser_settings, _repos):
+    """PSDC, using study TSV snapshots for expected results."""
+    app, source = _make_app("PSDC", page, env, browser_settings, _repos)
     yield app
     source.close()
 

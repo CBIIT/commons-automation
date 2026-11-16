@@ -213,7 +213,7 @@ def _refresh_pagination_controls(ui: "Ui", tbl_bdy: str, table_xpath: str, fallb
 # Supported apps and result-tab record count from the tab bar label
 # ---------------------------------------------------------------------------
 
-TABLE_APPS = frozenset({"GC", "ICDC", "C3DC", "INS", "Bento", "CTDC"})
+TABLE_APPS = frozenset({"GC", "ICDC", "C3DC", "INS", "Bento", "CTDC", "PSDC"})
 
 # Explore result tabs show counts in the label, e.g. "Genetic Analyses (0)".
 RESULT_TAB_SELECTED_XP = "//button[@role='tab' and @aria-selected='true']"
@@ -342,6 +342,10 @@ def read_table_header_data(app_key: str, tbl_main: str, col_header: Sequence[str
             text = _header_at(col_header, c)
             if text != "Access":
                 _keep_header(hdr, c, text)
+
+    elif app_key == "PSDC":
+        # PSDC's study summary table has no selection or access columns.
+        hdr.extend(col_header)
 
     elif app_key == "CTDC":
         for c in range(1, n):
@@ -525,6 +529,10 @@ def read_table_row_data(
                     add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
         else:
             raise RuntimeError("Invalid Tab name! Check Bento table data collection function")
+
+    elif app_key == "PSDC":
+        for j in range(len(col_header)):
+            add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
 
     elif app_key == "CTDC":
         tblcol = g_rowcount_files

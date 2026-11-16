@@ -1,0 +1,4 @@
+page: Home
+elements:
+  WarningBan_Continue_Btn: //button[normalize-space(.)='Continue']
+  ExploreStudies-Btn: //a[@href='#/explore' and contains(., 'EXPLORE STUDIES')]

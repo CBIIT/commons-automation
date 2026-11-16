@@ -1,0 +1,23 @@
+---
+description: Bento TAILORx arm filters Neo4j adapter and existing case layout
+globs: Commons/apps/bento/**/*.py,Commons/bento_arm_filters.py,ObjectRepository/BENTO/**/*.yaml,InputFiles/BENTO/**/*,Testcases/BENTO/**/*
+alwaysApply: false
+---
+
+# Bento / TAILORx
+
+- Adapter class/app key is `Bento`; fixture is `bento`; object repository,
+  testcase, and input folders are named `BENTO`. Preserve this case distinction.
+- Expected data uses Neo4j Cypher. Verify the TAILORx model and relationship
+  directions; do not reuse another portal's participant or file graph blindly.
+- `open_cases()` opens Cases exploration. Tabs are Cases, Samples, Files; stats
+  also include Programs, Arms, and Assays. Read the adapter's exact tab keys.
+- Arm filters use `Filter/Arm` and `select_arm()`. Other examples include
+  `Filter/Diagnosis`, `Filter/TissueType`, and `Filter/FileAssociation`.
+- Read `Commons/bento_arm_filters.py` for the existing arm/facet matrix. Keep
+  cases under `Testcases/BENTO/arm-a/` through `arm-d/`, not a new studies layout.
+- Age is a range interaction implemented by `set_age_range()` and repository
+  `other` inputs; do not treat it as a checkbox or add invented group fields.
+- Preserve Cases/Samples/Files column rules, including selection/Access columns.
+- Follow `expected-data.mdc`: narrow to the intended arm/cohort before expanding
+  samples/files, prevent join fan-out, and validate Neo4j plans and execution time.

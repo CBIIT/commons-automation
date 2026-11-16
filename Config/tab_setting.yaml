@@ -98,6 +98,15 @@ apps:
       "Study Files": true  # Study-level files (no participant / specimen on the TSV row)
 
   # -------------------------------------------------------------------------
+  # PSDC — study summaries on Explore
+  # -------------------------------------------------------------------------
+  PSDC:
+    tab_row_limit: 100
+    pagination_max_pages: 25
+    tabs:
+      Studies: true
+
+  # -------------------------------------------------------------------------
   # INS — Index of NCI Studies (Programs explore)
   # Portal: studycatalog*.cancer.gov
   # -------------------------------------------------------------------------
