@@ -1,16 +1,16 @@
 """
 C3DC (Clinical Commons Data Commons): https://clinicalcommons.ccdi.cancer.gov
 
-Explore Participants: stat bar + result tabs (incl. More menu). Studies catalog: studies.py.
+Explore Participants: four result tabs. Explore Files: Files and Imaging Data.
+Studies catalog: studies.py.
 Expected data: Memgraph Cypher in InputFiles/C3DC/TC*.xlsx.
 """
 import re
-import time
+import json
 from typing import Dict, List, Optional
 
 from Commons import action_log
 from Commons.base_app import BaseApp, StatSpec, TabSpec
-from Commons.table_reader import resolve_table_body_xpath
 
 # ---------------------------------------------------------------------------
 # Tab wiring (workbook TabQuery keys ↔ ResultTabs locators)
@@ -50,42 +50,29 @@ class C3DC(BaseApp):
 
     TAB_SELECT_LABELS: Dict[str, List[str]] = {
         "GeneticAnalysis": ["Genetic Analyses", "Genetic Analysis"],
-        "Treatment": ["Treatments", "Treatment"],
-        "TreatmentResp": ["Treatment Responses", "Treatment Response"],
     }
 
     TAB_VERIFY_ALIASES: Dict[str, str] = {
         "Genetic Analysis": "GeneticAnalysis",
         "Genetic Analyses": "GeneticAnalysis",
-        "Treatments": "Treatment",
-        "Treatment Responses": "TreatmentResp",
-        "Treatment Response": "TreatmentResp",
-        "Treatment Reponses": "TreatmentResp",
+        "Imaging Data": "ImagingData",
     }
 
     STANDARD_VERIFY_TABS: tuple = (
         "Participants",
         "Studies",
-        "Diagnosis",
         "Genetic Analysis",
-        "Treatments",
-        "Treatment Responses",
-        "Survival",
         "Samples",
     )
 
+    EXPLORE_FILE_TABS: tuple = ("Files", "Imaging Data")
+
     RESULT_TAB_BUTTONS_XP = "//button[@role='tab']"
-    MORE_TABS_BTN_XP = (
-        "(//button[@role='tab'])[last()]/following::button"
-        "[contains(@class,'more-button') or contains(normalize-space(.),'More')][1]"
-    )
-    MORE_MENU_ITEM_XP = "//div[contains(@class,'popover-list-item')]"
-    _MORE_MENU_ITEM_TEXT_JS = """
-(el) => {
-  const s = el.querySelector('span[class*="popover-tab-name"]');
-  return (s ? s.textContent : el.textContent) || '';
-}
-"""
+    # Older Excel cases can still request retired tabs; report them as skipped.
+    RETIRED_RESULT_TABS = frozenset({
+        "Diagnosis", "Treatment", "Treatments", "TreatmentResp",
+        "Treatment Responses", "Treatment Response", "Treatment Reponses", "Survival",
+    })
 
     # -----------------------------------------------------------------------
     # Stat bar and result tabs
@@ -103,18 +90,13 @@ class C3DC(BaseApp):
                                 "UI_Studies", "DB_Studies"),
         "Participants":    _tab("Participants", "Participants", "ParticipantsTab", "Participants",
                                 "UI_Participants", "DB_Participants"),
-        "Diagnosis":       _tab("Diagnosis", "Diagnosis", "DiagnosisTab", "Participants",
-                                "UI_Diagnosis", "DB_Diagnosis"),
         "GeneticAnalysis": _tab("GeneticAnalysis", "Genetic Analyses", "GeneticAnalysisTab", "Participants",
                                 "UI_GeneticAnalysis", "DB_GeneticAnalysis"),
-        "Treatment":       _tab("Treatment", "Treatments", "TreatmentTab", "Participants",
-                                "UI_Treatment", "DB_Treatment"),
-        "TreatmentResp":   _tab("TreatmentResp", "Treatment Responses", "TreatmentRespTab", "Participants",
-                                "UI_TreatmentResp", "DB_TreatmentResp"),
-        "Survival":        _tab("Survival", "Survival", "SurvivalTab", "Participants",
-                                "UI_Survival", "DB_Survival"),
         "Samples":         _tab("Samples", "Samples", "SamplesTab", "Participants",
                                 "UI_Samples", "DB_Samples"),
+        "Files": _tab("Files", "Files", "FilesTab", "Files", "UI_Files", "DB_Files"),
+        "ImagingData": _tab("ImagingData", "Imaging Data", "ImagingDataTab", "Files",
+                            "UI_ImagingData", "DB_ImagingData"),
     }
 
     # -----------------------------------------------------------------------
@@ -128,18 +110,45 @@ class C3DC(BaseApp):
         self.click("Navbar/Explore-Tab", ui_message="Explore Participants opened successfully.")
         self._wait_explore_results_ready()
 
+    def open_explore_files(self):
+        """Switch to Explore Files through the navbar, retaining the active filters."""
+        self.click("Navbar/Explore-Files-Tab", ui_message="Explore Files opened successfully.")
+        self._wait_explore_results_ready()
+
     def select_filter(self, group: str, value: str):
         """Apply filters via left-panel facet UI (expand, dropdown, checkbox click)."""
-        super().select_filter(group, value)
+        checkbox = self.repo.filter_group(group).checkbox_xpath(value)
+        match = re.search(r"@id\s*=\s*['\"]checkbox_([^'\"]+)['\"]", checkbox)
+        selected_value = match.group(1).split("_", 1)[-1] if match else value
+
+        def filtered_search(response):
+            if "/v1/graphql" not in response.url:
+                return False
+            try:
+                payload = json.loads(response.request.post_data or "{}")
+            except (ValueError, TypeError):
+                return False
+            values = payload.get("variables", {}).values()
+            return payload.get("operationName") == "search" and any(
+                selected_value == item or isinstance(item, list) and selected_value in item
+                for item in values
+            )
+
+        # The UI debounces filters. Waiting for its search response prevents
+        # stable but outdated stat counts from being compared to the new cohort.
+        with self.page.expect_response(filtered_search, timeout=self.ui.timeout_ms) as search:
+            super().select_filter(group, value)
+        search.value.body()
         if group == "Study/dbGaP_Accession":
             self._active_study_accession = value
         self._wait_explore_results_ready()
 
     # -----------------------------------------------------------------------
-    # Sync UI after filters (stat bar + participant grid)
+    # Filter readiness (table data is read by explicit verification steps)
     # -----------------------------------------------------------------------
 
     def _wait_explore_results_ready(self):
+        """Settle filter/stat updates; explicit verification steps read the table."""
         self.page.locator("#statsbar_count_1").first.wait_for(state="visible", timeout=self.ui.timeout_ms)
         self.ui.stable_text(
             self.repo.xpath("Statbar/Participants-Count"),
@@ -148,46 +157,9 @@ class C3DC(BaseApp):
             label="participants_stat",
         )
         self.ui.wait_idle()
-        self._wait_participant_table_for_study()
-
-    def _wait_participant_table_for_study(self, timeout_s: float = 30.0) -> None:
-        """After filters, the grid can lag the stat bar; require visible rows to match the study filter."""
-        acc = self._active_study_accession
-        if not acc:
-            return
-        tbl = self.repo.xpath("ResultTabs/Participants-Tbl")
-        tbl_bdy = resolve_table_body_xpath("C3DC", tbl)
-        end = time.time() + timeout_s
-        while time.time() < end:
-            ok = self.page.evaluate(
-                """({ bodyXp, acc }) => {
-                  const r = document.evaluate(bodyXp, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
-                  const tb = r.singleNodeValue;
-                  if (!tb) return false;
-                  const rows = tb.querySelectorAll(':scope > tr');
-                  if (!rows.length) return false;
-                  for (const tr of rows) {
-                    const cells = Array.from(tr.querySelectorAll(':scope > td'))
-                      .map(td => (td.innerText || '').replace(/\\s+/g, ' ').trim());
-                    const phs = cells.filter(t => /^phs\\d+$/.test(t));
-                    if (!phs.length) return false;
-                    if (phs.some(t => t !== acc)) return false;
-                  }
-                  return true;
-                }""",
-                {"bodyXp": tbl_bdy, "acc": acc},
-            )
-            if ok:
-                action_log.ui_action(f"Participant table shows study {acc} on all visible rows.")
-                return
-            time.sleep(0.25)
-        raise TimeoutError(
-            f"Participant table did not show only study {acc!r} within {timeout_s}s "
-            "(study filter may not have applied)."
-        )
 
     # -----------------------------------------------------------------------
-    # Tab label matching (bar + More menu)
+    # Tab label matching
     # -----------------------------------------------------------------------
 
     @staticmethod
@@ -208,7 +180,7 @@ class C3DC(BaseApp):
 
     @classmethod
     def _tab_name_candidates(cls, option_text: str) -> List[str]:
-        """UI/search strings for one tab (singular/plural and More-menu labels)."""
+        """UI/search strings for one tab (singular/plural labels)."""
         seen: set = set()
         out: List[str] = []
 
@@ -250,6 +222,11 @@ class C3DC(BaseApp):
     # -----------------------------------------------------------------------
 
     def verify_tab(self, name: str):
+        if name in self.RETIRED_RESULT_TABS:
+            detail = "result tab removed from C3DC Explore"
+            action_log.ui_action(f"Skipped {name} tab ({detail}).")
+            self.results.append({"check": name, "status": "SKIPPED", "detail": detail})
+            return
         name = self.TAB_VERIFY_ALIASES.get(name, name)
         super().verify_tab(name)
 
@@ -258,7 +235,7 @@ class C3DC(BaseApp):
         action_log.say(f"selectTab {option_text!r} timeout={timeout_s}s")
         if not self._select_result_tab(option_text, timeout_s=timeout_s):
             raise RuntimeError(
-                f"Result tab {option_text!r} was not on the tab bar or in the More menu."
+                f"Result tab {option_text!r} was not on the tab bar."
             )
         self.ui.wait_idle()
 
@@ -272,6 +249,13 @@ class C3DC(BaseApp):
     def open_tab(self, name: str):
         """Open a result tab by framework name (uses Katalon selectTab logic)."""
         spec = self.TABS[name]
+        # Keep an explicit column sort when verification reopens the selected tab.
+        selected = self.ui.loc("//button[@role='tab' and @aria-selected='true']")
+        if selected.count():
+            current = selected.first.inner_text()
+            if any(self._tab_label_matches(current, label)
+                   for label in self._tab_select_labels(name, spec)):
+                return
         action_log.say(f"openTab {name!r}")
         for label in self._tab_select_labels(name, spec):
             if self._select_result_tab(label):
@@ -282,14 +266,34 @@ class C3DC(BaseApp):
             f"{self._tab_select_labels(name, spec)!r})."
         )
 
-    @staticmethod
-    def _is_more_tab_button(raw: str, class_name: str = "") -> bool:
-        if "more-button" in (class_name or ""):
-            return True
-        return bool(re.match(r"^:?\s*More\b", (raw or "").strip(), re.I))
+    def sort_result_tab(self, name: str, column_key: str):
+        """Use an explicit ascending UI sort before comparing a limited result page."""
+        name = self.TAB_VERIFY_ALIASES.get(name, name)
+        self.open_tab(name)
+        column = self.repo.xpath(column_key)
+        label = self.ui.loc(column)
+        active = "MuiTableSortLabel-active" in (label.get_attribute("class") or "")
+        ascending = label.locator("xpath=.//*[contains(@class,'iconDirectionAsc')]").count() > 0
+        if not (active and ascending):
+            self.ui.click(column, repo_key=column_key)
+        self.ui.wait_visible(f"{column}//*[contains(@class,'iconDirectionAsc')]")
+        # Sorting is debounced by the UI. Wait for actual ordered rows, not just its arrow.
+        index = label.evaluate("el => el.closest('th').cellIndex")
+        table = self.repo.xpath(self.TABS[name].table)
+        self.page.wait_for_function(
+            """({table, index}) => {
+                const root = document.evaluate(table, document, null,
+                    XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+                const values = Array.from(root?.querySelectorAll('tbody tr') || [])
+                    .map(row => row.cells[index]?.innerText.trim() || '');
+                return values.length > 0 && values.every((value, i) => !i || values[i - 1] <= value);
+            }""",
+            arg={"table": table, "index": index}, timeout=self.ui.timeout_ms,
+        )
+        self.ui.wait_idle()
 
     def _select_result_tab(self, label: str, timeout_s: int = 10) -> bool:
-        """TestRunner.selectTab: visible bar tabs, then More popover (Survival, Samples, …)."""
+        """Select a visible result tab on the current Explore page."""
         ui = self.ui
         tab_xp = self.RESULT_TAB_BUTTONS_XP
         ui.wait_visible(f"({tab_xp})[1]", timeout_ms=int(timeout_s * 1000))
@@ -299,9 +303,6 @@ class C3DC(BaseApp):
             nth = f"({tab_xp})[{i + 1}]"
             loc = ui.loc(nth)
             raw = loc.evaluate("el => el.textContent") or ""
-            cls = loc.evaluate("el => el.className") or ""
-            if self._is_more_tab_button(raw, cls):
-                continue
             if not self._tab_label_matches(raw, label):
                 continue
             ui.scroll_into_view(nth)
@@ -309,32 +310,7 @@ class C3DC(BaseApp):
             action_log.ui_action(f"Result tab opened successfully: {label}.")
             return True
 
-        more_xp = self.MORE_TABS_BTN_XP
-        ui.wait_visible(more_xp, timeout_ms=int(timeout_s * 1000))
-        ui.scroll_into_view(more_xp)
-        self.page.wait_for_timeout(400)
-        ui.js_click(more_xp, repo_key="ResultTabs/More_Tabs-Btn")
-        action_log.ui_action("More tabs menu opened successfully.")
-
-        deadline = time.time() + timeout_s
-        menu_xp = self.MORE_MENU_ITEM_XP
-        while time.time() < deadline:
-            n_items = ui.loc(menu_xp).count()
-            for i in range(n_items):
-                item_xp = f"({menu_xp})[{i + 1}]"
-                raw = ui.loc(item_xp).evaluate(self._MORE_MENU_ITEM_TEXT_JS)
-                if not self._tab_label_matches(raw, label):
-                    continue
-                ui.js_click(item_xp)
-                action_log.ui_action(f"Result tab opened successfully: {label}.")
-                return True
-            self.page.wait_for_timeout(250)
-
         return False
-
-    def _open_from_more_menu(self, spec: TabSpec):
-        """Fallback if BaseApp.open_tab is used — same as Katalon selectTab + More menu."""
-        self.open_tab(spec.name)
 
     # -----------------------------------------------------------------------
     # Studies catalog (/studies — see studies.py)
