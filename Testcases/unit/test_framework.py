@@ -542,7 +542,7 @@ def test_html_report_render_expandable_steps():
 
 def test_read_c3dc_query_file():
     qf = read_query_file("C3DC", "TC01_C3DC_phs000463_SexAtBirth-Female.xlsx")
-    assert set(qf.queries_by_tab) == {"ParticipantsTab", "StudiesTab", "GeneticAnalysisTab", "SamplesTab"}
+    assert set(qf.queries_by_tab) == {"ParticipantsTab", "StudiesTab", "GeneticAnalysisTab", "SamplesTab", "FilesTab", "ImagingDataTab"}
     assert qf.stat_bar_query
     assert "phs000463" in qf.query_for_tab("StudiesTab")  # filter token appears in tab query text
 

@@ -9,6 +9,25 @@ from Commons.base_app import BaseApp
 pytestmark = pytest.mark.unit
 
 
+@pytest.mark.parametrize("visible", [True, False])
+def test_second_study_filter_keeps_visible_study_panel_open(visible, monkeypatch):
+    from Commons.object_repository import FilterGroup
+
+    app = C3DC.__new__(C3DC)
+    app.ui = Mock()
+    app.ui.is_visible.return_value = visible
+    group = FilterGroup(key="Study/StudyPhase", facet="//study", dropdown="//phase")
+    expand = Mock()
+    monkeypatch.setattr(BaseApp, "_expand_group", expand)
+
+    app._expand_group(group, "//checkbox", "//checkbox")
+
+    passed_group = expand.call_args.args[0]
+    assert passed_group.facet == (None if visible else "//study")
+    assert group.facet == "//study"
+    assert expand.call_args.args[1:] == ("//checkbox", "//checkbox")
+
+
 def test_study_and_demographic_filters_do_not_read_or_poll_the_table(monkeypatch):
     app = C3DC.__new__(C3DC)
     app.page, app.ui, app.repo = MagicMock(), Mock(), Mock()
@@ -127,7 +146,8 @@ def test_reopening_selected_result_tab_preserves_explicit_sort():
 
 
 @pytest.mark.parametrize("already_sorted", [False, True])
-def test_sort_result_tab_waits_for_ordered_rows(already_sorted):
+def test_sort_result_tab_waits_for_ordered_rows(already_sorted, monkeypatch):
+    monkeypatch.setattr("Commons.apps.c3dc.app.active_result_tab_record_count", lambda _: 1)
     app = C3DC.__new__(C3DC)
     app.page, app.repo, app.ui = Mock(), Mock(), Mock()
     app.open_tab = Mock()
@@ -142,3 +162,17 @@ def test_sort_result_tab_waits_for_ordered_rows(already_sorted):
     assert app.ui.click.call_count == int(not already_sorted)
     app.page.wait_for_function.assert_called_once()
     assert app.page.wait_for_function.call_args.kwargs["arg"] == {"table": "//table", "index": 1}
+
+
+def test_sort_result_tab_skips_empty_table(monkeypatch):
+    monkeypatch.setattr("Commons.apps.c3dc.app.active_result_tab_record_count", lambda _: 0)
+    app = C3DC.__new__(C3DC)
+    app.page, app.repo, app.ui = Mock(), Mock(), Mock()
+    app.open_tab = Mock()
+
+    app.sort_result_tab("GeneticAnalysis", "ResultTabs/SortByGeneticAnalysisID-Colm")
+
+    app.open_tab.assert_called_once_with("GeneticAnalysis")
+    app.repo.xpath.assert_not_called()
+    app.ui.click.assert_not_called()
+    app.page.wait_for_function.assert_not_called()

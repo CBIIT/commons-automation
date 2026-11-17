@@ -26,3 +26,8 @@ elements:
   ImagingData-Tab: //button[@role='tab' and contains(., 'Imaging')]
   ImagingData-Tbl: //*[@id='imaging_data_tab_table']
   ImagingData-TblHdr: //*[@id='imaging_data_tab_table']//thead
+  FileCellViewAll-Link: .//*[normalize-space(.)='View All >' and not(*)]
+  FileCellValues-Dialog: //*[@role='presentation' and @aria-labelledby='id-list-modal']
+  FileCellValues-Items: //*[@aria-labelledby='id-list-modal']/div[@tabindex='-1']/div[3]/div/div
+  FileCellValues-Count: //*[@aria-labelledby='id-list-modal']/div[@tabindex='-1']/div[2]/div/span[1]
+  FileCellValues-Close: //*[@aria-labelledby='id-list-modal']//button[@aria-label='close']

@@ -14,7 +14,7 @@ groups:
       HispOrLatino: //*[@id="checkbox_Race_Hispanic or Latino"]
       MidEastOrNorthAfrican: //*[@id="checkbox_Race_Middle Eastern or North African"]
       NativeHawaiianPacific: //*[@id="checkbox_Race_Native Hawaiian or other Pacific Islander"]
-      NotAlwdToCollect: //*[@id="checkbox_Race_Not Allowed to Collect"]
+      NotAlwdToCollect: //*[@id="checkbox_Race_Not allowed to collect"]
       NotReported: //*[@id="checkbox_Race_Not Reported"]
   Demographics/SexAtBirth:
     facet: (//*[text()="Demographics"])[1]
@@ -23,4 +23,4 @@ groups:
       Female: //*[@id="checkbox_Sex at Birth_Female"]
       Male: //*[@id="checkbox_Sex at Birth_Male"]
       Unknown: //*[@id="checkbox_Sex at Birth_Unknown"]
-      NotReported: //*[@id="checkbox_Sex At Birth_Not Reported"]
+      NotReported: //*[@id="checkbox_Sex at Birth_Not Reported"]

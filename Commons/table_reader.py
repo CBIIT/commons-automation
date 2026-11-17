@@ -473,9 +473,10 @@ def read_table_row_data(
             for j in range(0, tblcol):
                 add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
         elif tbl_main == "//*[@id='file_tab_table']":
-            # Stacked values are unordered lists, matching query semicolon lists.
+            from Commons.apps.c3dc.table_cells import read_file_cell
+
             for j in range(1, len(col_header)):
-                add(_inner_text(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]").replace("\n", "; "), j)
+                add(read_file_cell(ui, f"{tbl_bdy}/tr[{row_index}]/td[{j + 1}]"), j)
         elif tbl_main == "//*[@id='imaging_data_tab_table']":
             # Viewer links are controls; compare the imaging metadata around them.
             for j in range(len(col_header)):

@@ -7,10 +7,12 @@ Expected data: Memgraph Cypher in InputFiles/C3DC/TC*.xlsx.
 """
 import re
 import json
+from dataclasses import replace
 from typing import Dict, List, Optional
 
 from Commons import action_log
 from Commons.base_app import BaseApp, StatSpec, TabSpec
+from Commons.table_reader import active_result_tab_record_count
 
 # ---------------------------------------------------------------------------
 # Tab wiring (workbook TabQuery keys ↔ ResultTabs locators)
@@ -143,6 +145,15 @@ class C3DC(BaseApp):
             self._active_study_accession = value
         self._wait_explore_results_ready()
 
+    def _expand_group(self, group, until_visible=None, checkbox=None):
+        """Keep the Study panel open when applying another study filter."""
+        if (group.key.startswith("Study/") and group.dropdown
+                and self.ui.is_visible(group.dropdown)):
+            # Sidebar category labels have no expanded state; clicking Study
+            # again would close the panel that already contains this dropdown.
+            group = replace(group, facet=None)
+        return super()._expand_group(group, until_visible, checkbox)
+
     # -----------------------------------------------------------------------
     # Filter readiness (table data is read by explicit verification steps)
     # -----------------------------------------------------------------------
@@ -230,6 +241,29 @@ class C3DC(BaseApp):
         name = self.TAB_VERIFY_ALIASES.get(name, name)
         super().verify_tab(name)
 
+    def prepare_tab_comparison(self, spec, ui_table, expected) -> None:
+        if spec.name == "Studies":
+            from Commons.apps.c3dc.table_cells import resolve_ranked_cells
+
+            resolved = resolve_ranked_cells(ui_table, expected)
+            if resolved:
+                action_log.say(f"Validated {resolved} ranked cells, allowing equal-count ties.")
+        if spec.name == "Files":
+            from Commons.apps.c3dc.table_cells import resolve_file_name_aliases
+            from Commons.compare import normalize_list
+
+            # Shared files can list ages in any order. Canonicalize both lists
+            # before the shared comparator can mistake a trailing age for a CPI badge.
+            for table in (ui_table, expected):
+                if "Age at Collection" in table.header:
+                    column = table.header.index("Age at Collection")
+                    for row in table.rows:
+                        row[column] = normalize_list(row[column])
+
+            resolved = resolve_file_name_aliases(ui_table, expected)
+            if resolved:
+                action_log.say(f"Validated {resolved} shared-file names against database aliases.")
+
     def select_tab(self, option_text: str, timeout_s: int = 10):
         """Katalon: TestRunner.selectTab(optionText, timeout)."""
         action_log.say(f"selectTab {option_text!r} timeout={timeout_s}s")
@@ -270,6 +304,9 @@ class C3DC(BaseApp):
         """Use an explicit ascending UI sort before comparing a limited result page."""
         name = self.TAB_VERIFY_ALIASES.get(name, name)
         self.open_tab(name)
+        if active_result_tab_record_count(self.ui) == 0:
+            action_log.say(f"Skipped sorting {name}: the result tab has no records.")
+            return
         column = self.repo.xpath(column_key)
         label = self.ui.loc(column)
         active = "MuiTableSortLabel-active" in (label.get_attribute("class") or "")
