@@ -1,12 +1,9 @@
-# Converted from Katalon Object Repository/CDS/Static/V_AboutCDSPage
 page: Static/AboutCDSPage
 elements:
-  AboutDescription: //div[.='ABOUT CDS']/parent::span
+  AboutDescription: //div[normalize-space(.)='About GC' and not(*)]/ancestor::span[1]
   BannerTitle: //*[@id = 'about_title']
-  CGCLink: //a[@title='Velsera-CGC']
-  CGCLink2: (//a[@title='Velsera Cancer Genomics Cloud'])[2]
-  CRDCEmailLink: //a[@title='NCICRDC@mail.nih.gov']
-  DBGAPLink: //a[@title='dbGaP']
-  ISBLink: //a[@title='ISB Cancer Genomics Cloud']
-  ImportingFilesLink: //a[@title='Learn more about importing files from CDS Portal to Velsera']
-  VelseraLink: //a[@title='Velsera website']
+  CGCLink: //a[normalize-space(.)='Velsera']
+  CRDCEmailLink: //a[@href='mailto:NCICRDC@mail.nih.gov' and normalize-space(.)='CRDC helpdesk']
+  DBGAPLink: //a[normalize-space(.)='dbGaP']
+  ImportingFilesLink: //a[normalize-space(.)='Learn more about importing files from GC Portal to Velsera']
+  VelseraLink: //a[normalize-space(.)='Velsera website']
