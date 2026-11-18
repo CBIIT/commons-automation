@@ -4,6 +4,8 @@ Playwright + pytest UI regression for NCI Data Commons portals. Each test applie
 
 Supported apps: **GC**, **C3DC**, **ICDC**, **CTDC**, **PSDC**, **INS**, **Bento**, **CCDI** (Hub → C3DC Explore).
 
+New to the project? Start with the [onboarding guide](docs/ONBOARDING.md).
+
 ## How it works
 
 With `framework.test_case_source: excel` in `Config/environments.yaml`, pytest collects **`TC*.xlsx`** under `Testcases/<APP>/`. Each workbook’s **Steps** sheet drives the run (`Commons/excel_testcase/`); row 2 points at the matching query workbook in **`InputFiles/<APP>/`**. Suite membership (`quickrun`, `smoke`, `regression`, …) comes from **`Config/suites.yaml`**. Override with `TEST_CASE_SOURCE=python` to use legacy `test_*.py` where those files still exist.
@@ -69,10 +71,10 @@ Use app fixtures from `conftest.py` (`gc`, `c3dc`, `ctdc`, `ins`, …). Markers 
 | Tab on/off, row limit | `Config/tab_setting.yaml` |
 | Locators | `ObjectRepository/<APP>/` |
 | Queries / stat SQL or Cypher | `InputFiles/<APP>/TC*.xlsx` (`TabQuery`, `StatQuery`) |
-| Portal-specific behavior | `Commons/apps/<app>.py`, `Commons/table_reader.py` |
+| Portal-specific behavior | `Commons/apps/<app>/app.py` and feature helpers; shared table reading in `Commons/table_reader.py` |
 | Tests | `Testcases/<APP>/` |
 
-Per-app layout: `Commons/apps/<app>.py`, `Testcases/<APP>/`, `InputFiles/<APP>/`, `ObjectRepository/<APP>/`.
+Per-app layout: `Commons/apps/<app>/`, `Testcases/<APP>/`, `InputFiles/<APP>/`, `ObjectRepository/<APP>/`.
 
 ## Expected data
 
@@ -103,7 +105,7 @@ The **Steps** sheet is the test script. **Row 2** (`Input Excel`) must point at 
 
 Run one file: `pytest Testcases/C3DC/studies/phs000463/TC01_C3DC_phs000463_SexAtBirth-Female.xlsx --env qa`
 
-`verify_tab` runs all enabled tabs in the app unless you call it per tab. Empty tabs `(0)` are skipped. Failures are collected until `assert_no_failures()` (screenshot under `Reports/screenshots/`; compare workbooks under `OutputFiles/<APP>/<env>/`).
+`verify_tab` checks the tab named in `Params`; `verify_all_tabs` checks the app's standard enabled tabs. Empty tabs `(0)` are skipped. Failures are collected until `assert_no_failures()` (screenshot under `Reports/screenshots/`; compare workbooks under `OutputFiles/<APP>/<ENV>/`).
 
 ## CI
 
