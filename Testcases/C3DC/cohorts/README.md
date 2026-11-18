@@ -130,3 +130,14 @@ Use production while QA is unavailable:
 ```bash
 python3 -m pytest Testcases/C3DC/cohorts --env prod -q
 ```
+
+TC12 creates a cohort from the first participant page, saves its name as
+`AutoTest`, duplicates it, and attempts to save the duplicate under `AutoTest`.
+It verifies the full duplicate-name error and that both cohort entries and the
+selected cohort's membership remain unchanged. No database input is required.
+
+TC13 creates a cohort from the first participant page and verifies full ID and
+partial ID searches, no matching results, and clearing the search. It removes
+one searched participant, saves, reloads, and verifies that the participant stays
+removed, the count decreases by one, and all other members and cohort metadata
+are preserved. Expected membership comes from the original popup snapshot.

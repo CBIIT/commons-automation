@@ -674,3 +674,55 @@ def test_metadata_excel_case_edits_saves_then_verifies_persistence():
         'Participants from study phs002790 with race American Indian or Alaska Native. Updated cohort description.',
     )
     app.load_query_file.assert_not_called()
+
+
+def test_duplicate_name_case_creates_once_then_duplicates_and_checks_rejection():
+    app = Mock(NAME='C3DC', spec=C3DC)
+    run_testcase_excel(app, CASE.with_name('TC12_C3DC_Verify_Duplicate_Cohort_Name.xlsx'))
+    assert [step[0] for step in app.method_calls] == [
+        'accept_banner', 'open_explore', 'select_participant_page',
+        'create_cohort_from_selected_participants', 'verify_cohort_created',
+        'update_cohort_details', 'save_cohort_changes', 'verify_cohort_details_saved',
+        'duplicate_selected_cohort', 'update_cohort_details',
+        'verify_duplicate_cohort_name_rejected', 'assert_no_failures',
+    ]
+    app.select_participant_page.assert_called_once_with(1)
+    assert [step.args for step in app.update_cohort_details.call_args_list] == [('AutoTest', ''), ('AutoTest', '')]
+    app.verify_duplicate_cohort_name_rejected.assert_called_once_with(
+        'Failed to update cohort: Cohort with Name AutoTest already exists, please choose a different name'
+    )
+    app.load_query_file.assert_not_called()
+
+
+def test_duplicate_name_rejection_requires_a_different_cohort_edit():
+    from Commons.apps.c3dc.cohort import verify_duplicate_cohort_name_rejected
+    app = C3DC.__new__(C3DC)
+    with pytest.raises(AssertionError, match='Edit a different cohort'):
+        verify_duplicate_cohort_name_rejected(app, 'error')
+    original = CohortDetails('AutoTest', 2, PARTICIPANTS)
+    app._cohort_edit = CohortEdit(original, 'AutoTest', '', 2)
+    with pytest.raises(AssertionError, match='Edit a different cohort'):
+        verify_duplicate_cohort_name_rejected(app, 'error')
+
+
+def test_participant_search_removal_case_saves_then_verifies_persistence():
+    app = Mock(NAME='C3DC', spec=C3DC)
+    run_testcase_excel(app, CASE.with_name('TC13_C3DC_Verify_Cohort_Participant_Search_Removal.xlsx'))
+    assert [step[0] for step in app.method_calls] == [
+        'accept_banner', 'open_explore', 'select_participant_page',
+        'create_cohort_from_selected_participants', 'verify_cohort_created',
+        'verify_cohort_participant_search', 'remove_cohort_participant',
+        'verify_cohort_participant_removed', 'assert_no_failures',
+    ]
+    app.select_participant_page.assert_called_once_with(1)
+    app.load_query_file.assert_not_called()
+
+
+@pytest.mark.parametrize('action,message', [
+    ('remove_cohort_participant', 'Verify participant search before'),
+    ('verify_cohort_participant_removed', 'Remove and save a participant before'),
+])
+def test_participant_removal_requires_its_ui_baseline(action, message):
+    from Commons.apps.c3dc import cohort
+    with pytest.raises(AssertionError, match=message):
+        getattr(cohort, action)(C3DC.__new__(C3DC))

@@ -27,8 +27,11 @@ elements:
   Description: .//textarea[@name='cohortDescription']
   NameDisplay: .//span[starts-with(normalize-space(.),'PARTICIPANTS IDs (')]/preceding-sibling::div//span[not(*)]
   NameInput: .//input[@name='cohortName']
+  UpdateError: .//*[@role='alert']
   SaveChanges: .//button[normalize-space(.)='Save Changes']
   ParticipantCount: .//span[starts-with(normalize-space(.),'PARTICIPANTS IDs (')]
+  ParticipantSearch: .//input[@aria-label='Search participants by ID']
+  DeleteParticipant: .//img[@alt='delete participant icon']
   ParticipantRows: .//img[@alt='delete participant icon']/parent::div/parent::div
   Close: .//h1//img[@alt='close icon']
   # The red table-header trash removes the cohort; blue row icons remove participants.
