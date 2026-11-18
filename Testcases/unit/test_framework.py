@@ -619,9 +619,17 @@ def test_read_gc_study_listing_query_file():
     assert not qf.stat_bar_query
     cypher = qf.query_for_tab("StudiesListingTab")
     assert cypher.startswith("MATCH (st:study)")
-    assert "`Study`" in cypher
+    # Preserve the current UI column order and source-derived program metadata.
+    columns = [
+        "Study Accession", "Study Version", "Study Name", "Program Name",
+        "Data Types", "Study Access", "Number of Participants", "Number of Files",
+    ]
+    return_clause = cypher.rsplit("RETURN", 1)[1].split("ORDER BY", 1)[0]
+    assert re.findall(r"AS `([^`]+)`", return_clause) == columns
+    assert "[:of_program]" in cypher
+    assert "program.program_name" in cypher
     assert "nodes[0].study_name" not in cypher
-    assert "The Cancer Genome Atlas Glioblastoma Multiforme Collection" in cypher
+    assert "The Cancer Genome Atlas Glioblastoma Multiforme Collection" not in cypher
     assert "ParticipantsTab" not in qf.queries_by_tab
 
 
