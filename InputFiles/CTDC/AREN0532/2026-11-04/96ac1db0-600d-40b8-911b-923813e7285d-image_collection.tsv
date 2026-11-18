@@ -1,0 +1,2 @@
+type	image_collection_record_id	collection_access	collection_access_concept_code	image_collection_name	image_collection_url	image_type_included	image_type_included_concept_code	repository_name	study.study_short_name
+image_collection	AREN0532	Cloud|Download	C183343|C183344	AREN0532	https://doi.org/10.7937/6PJ1-M859	CT|MR|US|RTIMAGE|PT|CR	C17204|C16809|C17230|C60727|C17007|C190521	The Cancer Imaging Archive	AREN0532

@@ -1,0 +1,83 @@
+{
+    "submission ID": "6a85e58a-f7f5-439c-85be-2feb07739e7c",
+    "submission creation date": "2025-08-14 18:00:27",
+    "submission release date": "2026-09-16 16:44:25",
+    "study": {
+        "name": "A Randomized Phase III Comparison of Standard-Dose (60 Gy) Versus High-Dose (74 Gy) Conformal Radiotherapy With Concurrent and Consolidation Carboplatin/Paclitaxel +/- Cetuximab (IND #103444) in Patients With Stage IIIA/IIIB Non-Small Cell Lung Cancer",
+        "abbreviation": "RTOG-0617",
+        "dbGaPID": "phs004191"
+    },
+    "submitter": {
+        "name": "Justin Kirby",
+        "email": "kirbyju@mail.nih.gov",
+        "institution": "Frederick National Laboratory for Cancer Research"
+    },
+    "data concierge": {
+        "name": "Gina Kuffel",
+        "email": "gina.kuffel@nih.gov"
+    },
+    "data model version": "1.20.0",
+    "intention": "New/Update",
+    "submission type": "Metadata and Data Files",
+    "metadata files": {
+        "number of metadata files": 7,
+        "metadata files": [
+            "6a85e58a-f7f5-439c-85be-2feb07739e7c-principal_investigator.tsv",
+            "6a85e58a-f7f5-439c-85be-2feb07739e7c-consent_group.tsv",
+            "6a85e58a-f7f5-439c-85be-2feb07739e7c-image_collection.tsv",
+            "6a85e58a-f7f5-439c-85be-2feb07739e7c-study.tsv",
+            "6a85e58a-f7f5-439c-85be-2feb07739e7c-program.tsv",
+            "6a85e58a-f7f5-439c-85be-2feb07739e7c-participant.tsv",
+            "6a85e58a-f7f5-439c-85be-2feb07739e7c-file.tsv"
+        ],
+        "dcf manifest file path": "dcf_manifest/2026-09-16T164434-6a85e58a-f7f5-439c-85be-2feb07739e7c-indexd.tsv"
+    },
+    "metadata record counts": {
+        "program": {
+            "total": 1,
+            "new": 0,
+            "update": 1,
+            "delete": 0
+        },
+        "image_collection": {
+            "total": 1,
+            "new": 1,
+            "update": 0,
+            "delete": 0
+        },
+        "principal_investigator": {
+            "total": 1,
+            "new": 1,
+            "update": 0,
+            "delete": 0
+        },
+        "study": {
+            "total": 1,
+            "new": 1,
+            "update": 0,
+            "delete": 0
+        },
+        "consent_group": {
+            "total": 1,
+            "new": 1,
+            "update": 0,
+            "delete": 0
+        },
+        "participant": {
+            "total": 490,
+            "new": 490,
+            "update": 0,
+            "delete": 0
+        },
+        "file": {
+            "total": 2116,
+            "new": 2116,
+            "update": 0,
+            "delete": 0
+        }
+    },
+    "data files": {
+        "count": 2116,
+        "total size": "14.22 GB"
+    }
+}

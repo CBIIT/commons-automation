@@ -1,0 +1,2 @@
+type	image_collection_record_id	collection_access	collection_access_concept_code	image_collection_name	image_collection_url	image_type_included	image_type_included_concept_code	repository_name	study.study_short_name
+image_collection	S0819	Cloud|Download	C183343|C183344	S0819	https://doi.org/10.7937/DT39-JS04	CT|PT|MR|OT|NM	C17204|C17007|C16809|C17649|C62667	The Cancer Imaging Archive	S0819

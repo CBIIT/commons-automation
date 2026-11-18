@@ -1,0 +1,2 @@
+type	image_collection_record_id	collection_access	collection_access_concept_code	image_collection_name	image_collection_url	image_type_included	image_type_included_concept_code	repository_name	study.study_short_name
+image_collection	RTOG-0617	Cloud|Download	C183343|C183344	RTOG-0617	https://doi.org/10.7937/TCIA.2018.jze75u7v	CT|RTSTRUCT|RTPLAN|RTDOSE	C17204|C190605|C190595|C190594	The Cancer Imaging Archive	RTOG-0617

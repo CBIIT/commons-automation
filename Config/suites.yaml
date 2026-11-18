@@ -77,6 +77,10 @@ CTDC:
   regression:
     - "studies/**/TC*.xlsx"
     - "static/TC*.xlsx"
+  datarelease:
+    - "studies/AHEP0731/TC*.xlsx"
+    - "studies/**/TC*.xlsx"
+
 
 # ---------------------------------------------------------------------------
 # BENTO — TAILORx Explore (bento-tools.org)

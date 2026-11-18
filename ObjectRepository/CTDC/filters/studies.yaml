@@ -7,3 +7,7 @@ groups:
     checkboxes:
       AHEP0731: //*[@id='checkbox_Study_AHEP0731']
       CMB: //*[@id='checkbox_Study_CMB']
+      AHOD0831: //*[@id='checkbox_Study_AHOD0831']
+      AREN0532: //*[@id='checkbox_Study_AREN0532']
+      RTOG-0617: //*[@id='checkbox_Study_RTOG-0617']
+      S0819: //*[@id='checkbox_Study_S0819']
