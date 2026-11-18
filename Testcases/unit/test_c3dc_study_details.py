@@ -117,23 +117,49 @@ def test_one_study_error_does_not_erase_or_suppress_other_studies(tmp_path):
         app.assert_no_failures()
 
 
-def test_excel_uses_visible_navigation_and_reusable_accession():
-    app = Mock(spec=C3DC)
-    run_testcase_excel(app, ROOT / "Testcases/C3DC/study_details/TC01_C3DC_phs000463_StudyDetails.xlsx")
-    assert app.method_calls[:4] == [call.load_query_file("C3DC_StudyDetails.xlsx"), call.accept_banner(), call.begin_study_details_report(), call.open_studies_listing()]
-    opened = [c.args[0] for c in app.method_calls if c[0] == "open_study_details"]
-    verified = [c.args[0] for c in app.method_calls if c[0] == "verify_study_details"]
-    assert len(opened) == len(set(opened)) == 49
-    assert opened == verified
-    assert opened[0] == "phs000463" and opened[-1] == "phs004490"
-    assert app.assert_no_failures.call_count == 1
-    assert app.method_calls[-1] == call.assert_no_failures()
-    assert app.goto.call_count == 48
+def test_excel_sets_use_visible_navigation_and_cover_all_studies():
+    expected = """
+        phs000463 phs000464 phs000465 phs000466 phs000467 phs000468 phs000469 phs000470 phs000471
+        phs000720 phs001228 phs001327 phs001437 phs001714 phs001738 phs001846 phs001878 phs001987 phs002187
+        phs002276 phs002322 phs002371 phs002430 phs002431 phs002504 phs002517 phs002518 phs002529 phs002599
+        phs002620 phs002677 phs002790 phs002823 phs002827 phs002883 phs003111 phs003160 phs003161 phs003162
+        phs003163 phs003164 phs003215 phs003432 phs003519 phs003975 phs003987 phs004222 phs004232 phs004490
+    """.split()
+    all_opened = []
+    report_names = []
+    for number in range(1, 6):
+        app = Mock(spec=C3DC)
+        path = ROOT / f"Testcases/C3DC/study_details/TC{number:02}_C3DC_Verify_StudyDetails_Set-{number}.xlsx"
+        run_testcase_excel(app, path)
+        report_name = "StudyDetails_Target" if number == 1 else f"StudyDetails_Set-{number}"
+        assert app.method_calls[:4] == [
+            call.load_query_file("C3DC_StudyDetails.xlsx"),
+            call.accept_banner(),
+            call.begin_study_details_report(report_name),
+            call.open_studies_listing(),
+        ]
+        opened = [step.args[0] for step in app.method_calls if step[0] == "open_study_details"]
+        verified = [step.args[0] for step in app.method_calls if step[0] == "verify_study_details"]
+        assert len(opened) == (9 if number == 1 else 10)
+        assert opened == verified
+        # Each study must be opened before its own verification step.
+        study_calls = [step for step in app.method_calls if step[0] in {"open_study_details", "verify_study_details"}]
+        assert study_calls == [step for accession in opened for step in (
+            call.open_study_details(accession), call.verify_study_details(accession)
+        )]
+        assert app.goto.call_count == len(opened) - 1
+        app.assert_no_failures.assert_called_once()
+        assert app.method_calls[-1] == call.assert_no_failures()
+        all_opened.extend(opened)
+        report_names.append(report_name)
+    assert len(all_opened) == len(set(all_opened)) == 49
+    assert all_opened == expected
+    assert len(set(report_names)) == 5
 
 
 def test_target_excel_runs_only_the_nine_target_studies():
     app = Mock(spec=C3DC)
-    run_testcase_excel(app, ROOT / "Testcases/C3DC/study_details/TC01_C3DC_Verify_StudyDetails_Target.xlsx")
+    run_testcase_excel(app, ROOT / "Testcases/C3DC/study_details/TC01_C3DC_Verify_StudyDetails_Set-1.xlsx")
     expected = [f"phs{number:06}" for number in range(463, 472)]
     opened = [step.args[0] for step in app.method_calls if step[0] == "open_study_details"]
     verified = [step.args[0] for step in app.method_calls if step[0] == "verify_study_details"]
