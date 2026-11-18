@@ -1,0 +1,99 @@
+---
+description: Correct and optimized Memgraph Neo4j and TSV SQL expected-data queries
+globs: InputFiles/**/*,Testcases/**/*.xlsx,Testcases/**/*.py,Commons/db_source.py,Commons/tsv_source.py,Commons/query_reader.py,Commons/apps/**/tsv_source.py
+alwaysApply: false
+---
+
+# Expected data and optimized queries
+
+Optimization is required for new or changed queries. A query that returns the
+right first rows but scans the entire database unnecessarily is not complete.
+Correctness and performance must be verified independently.
+
+## Choose the actual backend
+
+Read `Config/environments.yaml`, `Commons/settings.py`, the app adapter, and its
+expected-data source. C3DC/GC use Memgraph, ICDC/Bento use Neo4j, and CTDC/INS/PSDC
+use TSV-backed SQLite under the current configuration. CCDI Hub has no native
+Explore result tabs; follow the specific Hub or C3DC handoff workflow.
+
+- Use the target app's model, relationship directions, identifier keys, indexes,
+  and source release. Never assume another portal's graph/TSV schema is identical.
+- Expected data must come from the configured independent data source. Read the
+  UI/backend display contract to understand formatting and aggregation semantics;
+  do not copy observed results into expected values or filter to displayed IDs.
+- Query only: do not change database data, schema, or indexes as a side effect
+  of authoring or optimizing validation queries.
+
+## Correct cohort and aggregation
+
+- Translate every active UI filter into the correct source predicate. Remove
+  leftover predicates when copying a reference case. Apply the cohort consistently
+  to stat queries, result tabs, and every UNION branch.
+- Establish the output grain before joins: participant, diagnosis, file, study,
+  etc. Distinguish cohort totals from whole-study totals and matching entity rows
+  from all records belonging to matching participants.
+- Prevent row multiplication at its source. Aggregate independent one-to-many
+  branches before joining them. Use DISTINCT for the intended identity, not as a
+  blanket fix for a Cartesian product or as a reason to discard legitimate rows.
+- Preserve missing versus zero values, optional records, compound keys, and
+  study-level versus participant/sample-level file associations.
+- Use explicit projections and aliases for output. Preserve the UI's required
+  units and display rules in the query/source adapter with a documented rationale.
+- Match the UI's real sorting and deterministic tie-breakers before LIMIT. If its
+  tie-break is unknown, verify it; do not choose an arbitrary subset to get a pass.
+
+## Memgraph and Neo4j optimization
+
+- Inspect available model/index references and the engine's supported syntax.
+  Use the project-specific Memgraph skill/references for C3DC or GC.
+- Narrow by selective indexed study/identifier/filter properties as early as the
+  execution plan permits. Compare study-first and filter-first anchors where
+  selectivity differs; justify the choice from the plan rather than a slogan.
+- Prefer explicit labels, relationships, directions, and bounded path lengths.
+  Avoid unbounded/undirected scans and variable-length traversals where a known
+  relationship path suffices.
+- Avoid repeated correlated subqueries or OR/EXISTS checks over a wide cohort
+  when a selective MATCH/UNION and one cohort deduplication is cheaper. EXISTS,
+  CALL, or UNION are not forbidden: choose the verified, faster equivalent.
+- Carry only required variables/properties between stages. Avoid collecting
+  entire node sets or huge lists merely to count them. Keep optional matches and
+  file expansions behind the narrowed cohort and aggregate branches separately.
+- Count the domain's true identity (for example a validated file GUID), not paths
+  to that entity. Never replace a real count with a constant for speed.
+
+## TSV and SQLite optimization
+
+- Reuse the app's merged frames and cached SQLite connection; do not reload
+  archives, rebuild tables, or open a new connection for each row/tab query.
+- Filter the study/cohort before expensive joins. Pre-aggregate independent child
+  tables and join summaries on the full relationship key to avoid join explosions.
+- Use set-based joins/aggregation rather than repeated per-record lookups where
+  the plan shows excessive work. A CTE is organizational, not proof of efficiency:
+  inspect its actual plan, including temporary sorts and repeated scans.
+- Keep row-limit insertion compatible with `apply_tab_row_limit`. Do not truncate
+  source frames or stat queries to make a comparison fast.
+- Use the loader's real schema/column types; normalize or cast only when needed.
+  Retain source provenance and deterministic release-merge semantics.
+- Keep extracted folders ignored where configured, but retain input workbooks,
+  source archives, and reproducible preparation instructions. Do not assume every
+  app automatically extracts ZIPs or accepts the same release layout.
+
+## Required evidence for changed queries
+
+1. Run the stat query and affected tab queries against the configured source.
+   Check counts, stable identities, duplicate/missing rows, ordering, and output
+   columns. Verify totals without the tab LIMIT.
+2. Use `EXPLAIN` for the target graph engine or SQLite `EXPLAIN QUERY PLAN` to
+   examine selective access, expansions/joins, sorts, and avoidable broad scans.
+   Use supported read-only profiling when useful; profiling executes the query.
+3. Measure elapsed execution on representative data. For a rewritten query,
+   compare old/new results and timings on the same environment, cohort, and
+   limits. Avoid repeatedly executing an already known expensive full query;
+   begin with its plan and bounded investigation, then validate the full result.
+4. Run the affected testcase and inspect UI/DB workbooks for mismatches. Explain
+   any deliberate display-rule mapping or remaining limitation.
+
+Do not claim a query is optimized solely because it looks shorter or has LIMIT.
+When the source is unavailable, report plan/timing validation as pending rather
+than claiming correctness, performance, or an end-to-end pass.

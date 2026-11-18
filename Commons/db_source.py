@@ -10,7 +10,7 @@ from typing import List, Optional
 
 from Commons import action_log
 from Commons.query_reader import QueryFile
-from Commons.settings import AppSettings, memgraph_password_env_keys, neo4j_password_env_keys
+from Commons.settings import AppSettings, db_password_env_keys
 from Commons.tab_setting import apply_tab_row_limit
 
 # ---------------------------------------------------------------------------
@@ -110,7 +110,7 @@ class MemgraphSource(ExpectedDataSource):
         if not username:
             missing.append("Memgraph username (Config/environments.yaml or MEMGRAPH_USERNAME_<APP>)")
         if not password:
-            per_env, per_app = memgraph_password_env_keys(app or "APP", env or "qa")
+            per_env, per_app = db_password_env_keys(app or "APP", env or "qa")
             missing.append(f"Memgraph password ({per_env} or {per_app})")
         if missing:
             raise RuntimeError(
@@ -152,10 +152,10 @@ class MemgraphSource(ExpectedDataSource):
         except Exception as exc:
             msg = str(exc)
             if "Unauthenticated" in msg or "Authentication failure" in msg:
-                per_env, per_app = memgraph_password_env_keys(self._app or "APP", self._env or "qa")
+                per_env, per_app = db_password_env_keys(self._app or "APP", self._env or "qa")
                 raise RuntimeError(
                     f"Memgraph rejected login for {self._app or 'app'} ({self.username!r} @ {self.endpoint}). "
-                    f"Set {per_app} or {per_env} to the password for that cluster (not a shared MEMGRAPH_PASSWORD)."
+                    f"Set {per_env} or {per_app} to the password for that cluster."
                 ) from exc
             raise
         table = _records_to_table(records)
@@ -212,13 +212,13 @@ class Neo4jSource(MemgraphSource):
                 "Neo4j username (Config/environments.yaml apps.<APP>.neo4j or NEO4J_USERNAME_<APP>)"
             )
         if not password:
-            per_env, per_app = neo4j_password_env_keys(app or "APP", env or "qa")
+            per_env, per_app = db_password_env_keys(app or "APP", env or "qa")
             missing.append(f"Neo4j password ({per_env} or {per_app})")
         if missing:
             raise RuntimeError(
                 "Neo4j connection is not configured for this test app:\n  - "
                 + "\n  - ".join(missing)
-                + "\nPut the password in gitignored `.env` (NEO4J_PASSWORD_<APP>)."
+                + "\nPut the password in gitignored `.env` (<APP>_DB_PASSWORD_<ENV>)."
             )
         self.endpoint = endpoint
         self.username = username
@@ -241,10 +241,10 @@ class Neo4jSource(MemgraphSource):
         except Exception as exc:
             msg = str(exc)
             if "Unauthenticated" in msg or "Authentication failure" in msg:
-                per_env, per_app = neo4j_password_env_keys(self._app or "APP", self._env or "qa")
+                per_env, per_app = db_password_env_keys(self._app or "APP", self._env or "qa")
                 raise RuntimeError(
                     f"Neo4j rejected login for {self._app or 'app'} ({self.username!r} @ {self.endpoint}). "
-                    f"Set {per_app} or {per_env} (or MEMGRAPH_PASSWORD_{self._app or 'APP'})."
+                    f"Set {per_env} or {per_app}."
                 ) from exc
             if (
                 exc.__class__.__name__ in ("ServiceUnavailable", "ValueError")

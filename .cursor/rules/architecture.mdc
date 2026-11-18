@@ -1,0 +1,65 @@
+---
+description: Shared architecture and rule routing for the Commons automation framework
+alwaysApply: true
+---
+
+# Commons automation architecture
+
+This repository runs Playwright + pytest tests for multiple independent portals.
+Read the relevant app adapter and configuration before changing behavior. Keep
+changes within the requested application unless a shared change is necessary.
+
+## Select the relevant guidance
+
+- Read `object-repository.mdc` for locators and filter groups.
+- Read `excel-testcases.mdc` for testcase/input workbooks and naming.
+- Read `expected-data.mdc` for every SQL or Cypher query change. Queries must be
+  correct, deterministic, and optimized; validate the plan and measure execution.
+- Read the relevant application rule: `c3dc.mdc`, `gc.mdc`, `ctdc.mdc`, `ins.mdc`,
+  `psdc.mdc`, `icdc.mdc`, `bento.mdc`, or `ccdi.mdc`.
+- Keep all app-specific guidance, including its query rules, in that app's one
+  rule file. Shared rules contain only conventions that apply across apps.
+- These rules also apply when creating new files before path matching is possible.
+  Shared rules own common conventions; app rules supply only app-specific details.
+  If a historical example conflicts with current code or requirements, investigate
+  the difference rather than copying it or silently changing the requirement.
+
+## Component responsibilities
+
+| Location | Responsibility |
+|---|---|
+| `Commons/base_app.py` | Shared application workflow, result checks, and output writing |
+| `Commons/browser_actions.py`, `Commons/utils.py` | Shared browser primitives |
+| `Commons/table_reader.py` | Table extraction and pagination; app-specific column rules |
+| `Commons/apps/<app>/` | App adapters and reusable app-specific functionality |
+| `Commons/object_repository.py`, `ObjectRepository/<APP>/` | Locator loading and YAML definitions |
+| `Commons/excel_testcase/` | Excel step profiles, dispatch, and shared handlers |
+| `Commons/query_reader.py`, `Commons/db_source.py`, `Commons/tsv_source.py` | Expected-data contracts and backend dispatch |
+| `Testcases/<APP>/` | Executable testcase workbooks and existing Python cases |
+| `InputFiles/<APP>/` | Query/static-data workbooks and expected-data sources |
+| `Config/` | Environments, backend settings, tab limits, enabled tabs, and suites |
+| `conftest.py`, `pytest.ini` | App fixtures, collection, and marker registration |
+| `OutputFiles/`, `Reports/` | Generated results and diagnostics |
+
+## Change boundaries
+
+- Prefer reusable, plainly named app methods with comments explaining non-obvious
+  behavior. Testcases describe actions; adapters implement portal behavior.
+- A new Excel action must resolve to an existing callable through its registered
+  profile or shared handlers. Trace the full dispatch path before adding aliases.
+- App adapters declare their actual tabs and stats. Do not copy another portal's
+  schema, backend, or table layout without verification.
+- Keep URLs and comparison limits in configuration. Read credentials from the
+  existing environment mechanism; do not put secrets in rules or workbooks.
+- When adding an app, check app registration, fixture, Excel profile import,
+  object repository, environment/backend settings, tab settings, and markers.
+  Add suite membership only for the intended app.
+- Shared-code changes must preserve existing app branches and defaults. Review
+  other apps' configuration blocks and run relevant existing checks.
+- Use existing readiness/pagination helpers. Validate that the intended filter
+  or page has rendered; unchanged old text alone does not prove completion.
+  Keep explicit user-requested delays scoped to the requested application.
+- Do not hide mismatches by skipping checks, dropping data, changing baselines
+  from UI observations, or retrying until a pass.
+- Report checks actually run and distinguish pre-existing failures from new ones.
+  Documentation-only changes need rule/reference validation, not live DB tests.

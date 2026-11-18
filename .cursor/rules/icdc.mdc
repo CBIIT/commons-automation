@@ -1,0 +1,24 @@
+---
+description: ICDC canine cases Neo4j queries and file association rules
+globs: Commons/apps/icdc/**/*.py,ObjectRepository/ICDC/**/*.yaml,InputFiles/ICDC/**/*,Testcases/ICDC/**/*
+alwaysApply: false
+---
+
+# ICDC / Integrated Canine Data Commons
+
+- Adapter: `Commons/apps/icdc/app.py`; fixture `icdc`; backend Neo4j. Use its
+  actual schema and supported Cypher; do not import Memgraph-only syntax or
+  C3DC/GC graph relationships without verification.
+- `open_cases()` opens Cases explore. Comparison tabs are Cases, Samples,
+  Case Files, Study Files; stats additionally include Programs and Studies.
+- `select_study()` uses `Cases/Study` and established checkbox keys such as
+  `Canine_Filter_Study-COTC021`. Preserve those tokens instead of replacing them
+  with a shortened study label. Resolve other groups from `ObjectRepository/ICDC/`.
+- Keep Case Files and Study Files associations separate in both expected queries
+  and UI locators. A case-level filter does not automatically imply every
+  study-level total has the same scope; verify each displayed metric.
+- Match `TabSpec.input_tab` and retained table headers, including the reader's
+  handling of Access columns, rather than copying another portal's column list.
+- Follow the existing `Testcases/ICDC/studies/` and paired input workbook naming.
+- Read `expected-data.mdc` for selective graph anchors, branch aggregation,
+  deterministic sorting, EXPLAIN, and before/after timing requirements.

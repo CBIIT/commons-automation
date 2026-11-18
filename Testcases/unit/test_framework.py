@@ -155,9 +155,6 @@ def test_pagination_xpaths_scope_to_active_table():
 def test_c3dc_resolve_table_body_xpath_nested_tables():
     from Commons.table_reader import resolve_table_body_xpath
 
-    assert resolve_table_body_xpath("C3DC", "//*[@id='survival_tab_table']") == (
-        "//*[@id='survival_tab_table']//table/tbody"
-    )
     assert resolve_table_body_xpath("C3DC", "//*[@id='participant_tab_table']") == (
         "//*[@id='participant_tab_table']//tbody"
     )
@@ -281,19 +278,19 @@ def test_environment_urls():
         get_app_url("GC", "nonexistent-env")
 
 
-def test_memgraph_password_is_never_read_from_config(monkeypatch):
+def test_database_password_uses_app_and_environment_variable(monkeypatch):
     for key in list(os.environ):
-        if key.startswith("MEMGRAPH_PASSWORD"):
+        if "_DB_PASSWORD" in key:
             monkeypatch.delenv(key, raising=False)
     for app in ("C3DC", "GC"):
         assert get_db_settings(app, "qa").expected_source == "memgraph"
         assert get_db_settings(app, "qa").password == ""
-    monkeypatch.setenv("MEMGRAPH_PASSWORD", "legacy-shared")
-    assert get_app_settings("GC", "qa").memgraph_password == ""
-    monkeypatch.setenv("MEMGRAPH_PASSWORD_GC", "gc-only")
-    monkeypatch.setenv("MEMGRAPH_PASSWORD_C3DC", "c3dc-only")
-    assert get_app_settings("GC", "qa").memgraph_password == "gc-only"
-    assert get_app_settings("C3DC", "qa").memgraph_password == "c3dc-only"
+    monkeypatch.setenv("GC_DB_PASSWORD", "gc-default")
+    monkeypatch.setenv("GC_DB_PASSWORD_QA", "gc-qa")
+    monkeypatch.setenv("C3DC_DB_PASSWORD_QA", "c3dc-qa")
+    assert get_app_settings("GC", "qa").memgraph_password == "gc-qa"
+    assert get_app_settings("GC", "stage").memgraph_password == "gc-default"
+    assert get_app_settings("C3DC", "qa").memgraph_password == "c3dc-qa"
 
 
 def test_ctdc_expected_source_is_tsv_without_bolt_password():
@@ -414,7 +411,7 @@ def test_parse_result_tab_count_from_tab_labels():
     assert parse_result_tab_count("Diagnosis") is None
 
 
-def test_browser_and_env_from_dotenv_style_vars(monkeypatch):
+def test_browser_and_env_use_yaml_defaults_with_optional_env_overrides(monkeypatch):
     monkeypatch.delenv("BROWSER", raising=False)
     monkeypatch.delenv("HEADLESS", raising=False)
     monkeypatch.delenv("HEADED", raising=False)
@@ -437,14 +434,11 @@ def test_c3dc_tab_label_matches_ui_counts():
     from Commons.apps.c3dc import C3DC
 
     assert C3DC._tab_label_matches("Participants (63,610)", "Participants")
-    assert C3DC._tab_label_matches("Survival (139,530)", "Survival")
-    assert C3DC._tab_label_matches("Treatments (215,423)", "Treatments")
+    assert C3DC._tab_label_matches("Samples (1,234)", "Samples")
     assert C3DC._tab_label_matches("Genetic Analyses (42,907)", "Genetic Analyses")
     assert C3DC._tab_label_matches("Genetic Analyses (42,907)", "Genetic Analysis")
     assert C3DC._tab_label_matches("GeneticAnalyses(42,907)", "Genetic Analyses")
     assert C3DC.TAB_VERIFY_ALIASES["Genetic Analysis"] == "GeneticAnalysis"
-    assert C3DC.TAB_VERIFY_ALIASES["Treatment Responses"] == "TreatmentResp"
-    assert C3DC._is_more_tab_button(": More(4)", "MuiButton-root more-button")
 
 
 def test_memgraph_endpoint_per_app(monkeypatch):
@@ -462,10 +456,10 @@ def test_memgraph_endpoint_per_app(monkeypatch):
 
 
 def test_tab_row_limit_from_tab_setting_yaml():
-    from Commons.tab_setting import apply_tab_row_limit, settings_for_app
+    from Commons.tab_setting import apply_tab_row_limit, load_tab_setting_config, settings_for_app
 
     gc = settings_for_app("GC")
-    assert gc.tab_row_limit == 100
+    assert gc.tab_row_limit == load_tab_setting_config()["apps"]["GC"]["tab_row_limit"]
     assert gc.pagination_max_pages >= 10
     cypher = "MATCH (n) RETURN n ORDER BY n.id\nLIMIT 50;"
     assert apply_tab_row_limit(cypher, 200).rstrip().endswith("LIMIT 200")
@@ -474,9 +468,11 @@ def test_tab_row_limit_from_tab_setting_yaml():
 
 def test_app_settings_includes_tab_row_limit():
     s = get_app_settings("C3DC", "qa")
-    assert s.tab_row_limit == 100
+    from Commons.tab_setting import load_tab_setting_config
+
+    assert s.tab_row_limit == load_tab_setting_config()["apps"]["C3DC"]["tab_row_limit"]
     assert s.pagination_max_pages >= 10
-    assert s.tab_execution.get("Diagnosis") is True
+    assert set(s.tab_execution) == {"Participants", "Studies", "Genetic Analysis", "Samples", "Files", "Imaging Data"}
 
 
 def test_tab_is_enabled_respects_yaml_and_c3dc_aliases():
@@ -498,13 +494,16 @@ def test_html_report_suite_slug_and_duration():
     assert format_duration_hms(101.8) == "0h 1m 41.8s"
 
 
-def test_html_report_enabled_reads_html_report_env(monkeypatch):
+def test_html_report_enabled_uses_yaml_default_with_optional_env_override(monkeypatch):
     from Commons import html_report
 
     monkeypatch.delenv("HTML_REPORT", raising=False)
     monkeypatch.delenv("HTML_Report", raising=False)
     monkeypatch.delenv("html_report", raising=False)
+    assert html_report.html_report_enabled() is True
+    monkeypatch.setenv("HTML_REPORT", "false")
     assert html_report.html_report_enabled() is False
+    monkeypatch.delenv("HTML_REPORT")
     monkeypatch.setenv("HTML_Report", "true")
     assert html_report.html_report_enabled() is True
 
@@ -543,7 +542,7 @@ def test_html_report_render_expandable_steps():
 
 def test_read_c3dc_query_file():
     qf = read_query_file("C3DC", "TC01_C3DC_phs000463_SexAtBirth-Female.xlsx")
-    assert {"StudiesTab", "ParticipantsTab", "SurvivalTab"} <= set(qf.queries_by_tab)
+    assert set(qf.queries_by_tab) == {"ParticipantsTab", "StudiesTab", "GeneticAnalysisTab", "SamplesTab", "FilesTab", "ImagingDataTab"}
     assert qf.stat_bar_query
     assert "phs000463" in qf.query_for_tab("StudiesTab")  # filter token appears in tab query text
 
@@ -620,9 +619,17 @@ def test_read_gc_study_listing_query_file():
     assert not qf.stat_bar_query
     cypher = qf.query_for_tab("StudiesListingTab")
     assert cypher.startswith("MATCH (st:study)")
-    assert "`Study`" in cypher
+    # Preserve the current UI column order and source-derived program metadata.
+    columns = [
+        "Study Accession", "Study Version", "Study Name", "Program Name",
+        "Data Types", "Study Access", "Number of Participants", "Number of Files",
+    ]
+    return_clause = cypher.rsplit("RETURN", 1)[1].split("ORDER BY", 1)[0]
+    assert re.findall(r"AS `([^`]+)`", return_clause) == columns
+    assert "[:of_program]" in cypher
+    assert "program.program_name" in cypher
     assert "nodes[0].study_name" not in cypher
-    assert "The Cancer Genome Atlas Glioblastoma Multiforme Collection" in cypher
+    assert "The Cancer Genome Atlas Glioblastoma Multiforme Collection" not in cypher
     assert "ParticipantsTab" not in qf.queries_by_tab
 
 

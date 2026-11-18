@@ -2,6 +2,7 @@
 Static marketing/info pages: compare UI text and links to InputFiles/<app>/*_StaticData.xlsx.
 Each sheet (e.g. HomePage) lists object names, expected copy, and optional link URLs (QA host in file;
 stage/prod URLs are derived when the object name contains Link).
+An optional verificationAttribute column selects an element attribute instead of its text.
 """
 import re
 from pathlib import Path
@@ -104,7 +105,9 @@ def verify_static_page(app: "BaseApp", sheet_name: str) -> List[str]:
     wb = openpyxl.load_workbook(path, data_only=True, read_only=True)
     if sheet_name not in wb.sheetnames:
         raise KeyError(f"Sheet '{sheet_name}' not in {path.name}. Sheets: {wb.sheetnames}")
-    rows = list(wb[sheet_name].iter_rows(values_only=True))[1:]
+    rows = list(wb[sheet_name].iter_rows(values_only=True))
+    header = rows.pop(0) if rows else ()
+    attribute_column = next((i for i, name in enumerate(header) if name == "verificationAttribute"), None)
     wb.close()
 
     problems: List[str] = []
@@ -115,6 +118,8 @@ def verify_static_page(app: "BaseApp", sheet_name: str) -> List[str]:
         obj = str(row[0]).strip()
         expected_text = _normalize_text(str(row[1]) if len(row) > 1 and row[1] is not None else "")
         expected_url = str(row[2]).strip() if len(row) > 2 and row[2] else ""
+        attribute = (str(row[attribute_column]).strip()
+                     if attribute_column is not None and len(row) > attribute_column and row[attribute_column] else "")
         actual = None
         got = None
         want = _link_href_for_env(expected_url, app.settings.env) if "Link" in obj else None
@@ -123,7 +128,9 @@ def verify_static_page(app: "BaseApp", sheet_name: str) -> List[str]:
             xp = app.repo.xpath(f"Static/{sheet_name}/{obj}")
             el = app.ui.loc(xp).first
             el.wait_for(state="visible", timeout=10000)
-            actual = _normalize_text(el.inner_text())
+            # Embedded content has no element text. A workbook can explicitly
+            # select an attribute (for example an iframe's title or source).
+            actual = _normalize_text((el.get_attribute(attribute) or "") if attribute else el.inner_text())
             text_ok = actual == expected_text
             if not text_ok:
                 problems.append(f"{obj}: text is '{actual}', expected '{expected_text}'")

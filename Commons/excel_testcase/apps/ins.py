@@ -45,7 +45,8 @@ def _open_datasets(app: "BaseApp", _p, _a, _b, _excel) -> None:
 
 
 def _verify_datasets_tab(app: "BaseApp", _p, _a, _b, _excel) -> None:
-    app.verify_datasets_tab()
+    """Route the existing Excel action to the INS dataset-card comparison."""
+    app.verify_datasets()
 
 
 def _click_step(app: "BaseApp", page: str, params: str, _flt, _excel) -> None:
