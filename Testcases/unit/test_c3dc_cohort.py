@@ -14,6 +14,7 @@ from Commons.excel_testcase.runner import run_testcase_excel
 
 pytestmark = pytest.mark.unit
 ROOT = Path(__file__).resolve().parents[2]
+PARTICIPANTS = (("P1", "phs002790"), ("P2", "phs002790"))
 CASE = ROOT / "Testcases/C3DC/cohorts/TC01_C3DC_Verify_Create_NewCohort_AllParticipants.xlsx"
 
 
@@ -21,8 +22,52 @@ def cohort_app():
     app = C3DC.__new__(C3DC)
     app.results, app.failures = [], []
     app.query_file = None
-    app._cohort_creation = CohortCreation(3, 2, "phs002790", (("P1", "phs002790"), ("P2", "phs002790")))
+    app._cohort_creation = CohortCreation(3, 2, "phs002790", ("P1", "P2"))
     return app
+
+
+def test_participant_reader_returns_full_ids_without_study_values():
+    from Commons.apps.c3dc.cohort import _visible_participant_rows
+
+    container = Mock()
+    container.evaluate.return_value = ['P001', 'P002']
+
+    assert _visible_participant_rows(container) == ('P001', 'P002')
+
+
+def test_participant_readiness_matches_filters_not_pagination():
+    from Commons.apps.c3dc.cohort import _participant_filters
+
+    requested = _participant_filters({'dbgap_accession': ['phs002790']})
+    assert _participant_filters({'participant_ids': [], 'offset': 0, 'first': 50}) != requested
+    assert _participant_filters({'dbgap_accession': ['phs002790'], 'offset': 50,
+                                 'order_by': 'participant_id', 'sort_direction': 'asc'}) == requested
+    assert _participant_filters({'dbgap_accession': ['phs000463']}) != requested
+
+
+def test_all_selected_ids_are_verified_without_a_study_filter(monkeypatch):
+    app = cohort_app()
+    app._cohort_creation = CohortCreation(0, 2, None, ('P1', 'P2'))
+    details = CohortDetails('New Cohort', 2, (('P2', 'any-study'), ('P1', 'another-study')))
+    monkeypatch.setattr('Commons.apps.c3dc.cohort.read_selected_cohort', lambda _: details)
+
+    verify_cohort_created(app)
+
+    app.assert_no_failures()
+
+
+@pytest.mark.parametrize('ids,message', [
+    ([], 'No participant IDs'),
+    (['P001', ''], 'No participant IDs'),
+    (['P001', 'P001'], 'Duplicate participants'),
+])
+def test_participant_reader_rejects_empty_or_duplicate_ids(ids, message):
+    from Commons.apps.c3dc.cohort import _visible_participant_rows
+
+    container = Mock()
+    container.evaluate.return_value = ids
+    with pytest.raises(AssertionError, match=message):
+        _visible_participant_rows(container)
 
 
 def test_same_count_with_wrong_participants_fails(monkeypatch):
@@ -31,13 +76,13 @@ def test_same_count_with_wrong_participants_fails(monkeypatch):
     details = CohortDetails("New Cohort", 2, (("P1", "phs002790"), ("WRONG", "phs002790")))
     monkeypatch.setattr("Commons.apps.c3dc.cohort.read_selected_cohort", lambda _: details)
     verify_cohort_created(app)
-    with pytest.raises(AssertionError, match="participant and study IDs"):
+    with pytest.raises(AssertionError, match="participant IDs"):
         app.assert_no_failures()
 
 
 def test_duplicate_participants_fail_even_when_all_expected_ids_are_present(monkeypatch):
     app = cohort_app()
-    details = CohortDetails("New Cohort", 2, app._cohort_creation.participants + (("P1", "phs002790"),))
+    details = CohortDetails("New Cohort", 2, PARTICIPANTS + (("P1", "phs002790"),))
     monkeypatch.setattr("Commons.apps.c3dc.cohort.read_selected_cohort", lambda _: details)
     verify_cohort_created(app)
     with pytest.raises(AssertionError, match="unique participant rows"):
@@ -49,12 +94,12 @@ def test_wrong_study_for_a_correct_participant_id_fails(monkeypatch):
     details = CohortDetails("New Cohort", 2, (("P1", "phs000463"), ("P2", "phs002790")))
     monkeypatch.setattr("Commons.apps.c3dc.cohort.read_selected_cohort", lambda _: details)
     verify_cohort_created(app)
-    assert any("participant and study IDs" in failure for failure in app.failures)
+    assert any("selected study IDs" in failure for failure in app.failures)
 
 
 def test_complete_cohort_passes_regardless_of_row_sort_order(monkeypatch):
     app = cohort_app()
-    details = CohortDetails("New Cohort 2", 2, tuple(reversed(app._cohort_creation.participants)))
+    details = CohortDetails("New Cohort 2", 2, tuple(reversed(PARTICIPANTS)))
     monkeypatch.setattr("Commons.apps.c3dc.cohort.read_selected_cohort", lambda _: details)
     assert verify_cohort_created(app) == details
     app.assert_no_failures()
@@ -300,7 +345,7 @@ def test_saved_metadata_verification_records_real_membership_failures(tmp_path, 
     path = tmp_path / 'metadata.json'
     path.write_text(json.dumps(data))
     app = cohort_app()
-    app._cohort_metadata = CohortMetadata(CohortDetails('New Cohort', 2, app._cohort_creation.participants), path)
+    app._cohort_metadata = CohortMetadata(CohortDetails('New Cohort', 2, PARTICIPANTS), path)
     verify_cohort_metadata(app)
     evidence = json.loads(path.with_suffix('.verification.json').read_text())
     if problem is None:
@@ -429,8 +474,8 @@ def test_duplicate_excel_case_is_independent_and_does_not_load_database():
 def test_selected_creation_keeps_ids_from_both_pages(monkeypatch):
     from Commons.apps.c3dc import cohort
     app = cohort_app()
-    page_one = (("P1", "phs002790"), ("P2", "phs002790"))
-    page_two = (("P3", "phs002790"), ("P4", "phs002790"))
+    page_one = ("P1", "P2")
+    page_two = ("P3", "P4")
     app._cohort_selected_pages = {1: page_one, 2: page_two}
     create = Mock()
     monkeypatch.setattr(cohort, '_create_cohort', create)
@@ -440,7 +485,7 @@ def test_selected_creation_keeps_ids_from_both_pages(monkeypatch):
 
 @pytest.mark.parametrize('pages,message', [
     ({}, 'Select participant pages'),
-    ({1: (("P1", "phs002790"),), 2: (("P1", "phs002790"),)}, 'overlapping participant IDs'),
+    ({1: ("P1",), 2: ("P1",)}, 'overlapping participant IDs'),
 ])
 def test_selected_creation_rejects_empty_or_overlapping_pages(monkeypatch, pages, message):
     from Commons.apps.c3dc import cohort

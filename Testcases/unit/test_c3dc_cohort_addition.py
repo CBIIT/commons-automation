@@ -16,7 +16,7 @@ CASE = Path(__file__).resolve().parents[2] / 'Testcases/C3DC/cohorts/TC10_C3DC_V
 
 def addition_baseline():
     source = cohort.CohortDetails('New Cohort', 2, (('P1', 'S1'), ('P2', 'S1')), 'Original description')
-    addition = cohort.CohortAddition(source, (('P2', 'S1'), ('P3', 'S2')), ('cohort-item-New Cohort',))
+    addition = cohort.CohortAddition(source, ('P2', 'P3'), ('cohort-item-New Cohort',))
     actual = replace(source, participant_count=3, participants=(('P3', 'S2'), ('P2', 'S1'), ('P1', 'S1')))
     return addition, actual
 
@@ -27,9 +27,8 @@ def test_addition_counts_overlapping_participants_once_and_ignores_row_order():
 
 
 @pytest.mark.parametrize('problem,failed_check', [
-    ('wrong_id', 'complete participant and study IDs'),
-    ('wrong_study', 'complete participant and study IDs'),
-    ('missing_original', 'complete participant and study IDs'),
+    ('wrong_id', 'complete participant IDs'),
+    ('missing_original', 'complete participant IDs'),
     ('duplicate', 'unique participant rows'),
     ('simple_sum', 'participant count'),
     ('renamed', 'same cohort name'),
@@ -41,8 +40,6 @@ def test_addition_rejects_incorrect_updates(problem, failed_check):
     ids = addition.item_ids
     if problem == 'wrong_id':
         actual = replace(actual, participants=(('P1', 'S1'), ('P2', 'S1'), ('WRONG', 'S2')))
-    elif problem == 'wrong_study':
-        actual = replace(actual, participants=(('P1', 'S1'), ('P2', 'S1'), ('P3', 'WRONG')))
     elif problem == 'missing_original':
         actual = replace(actual, participant_count=2, participants=(('P2', 'S1'), ('P3', 'S2')))
     elif problem == 'duplicate':
@@ -60,7 +57,7 @@ def test_addition_rejects_incorrect_updates(problem, failed_check):
 
 def test_addition_requires_at_least_one_new_participant():
     addition, _ = addition_baseline()
-    addition = replace(addition, incoming=addition.source.participants)
+    addition = replace(addition, incoming=tuple(p for p, _ in addition.source.participants))
     assert not cohort._cohort_addition_checks(addition, addition.source, addition.item_ids)['new participants present']
 
 
@@ -95,8 +92,8 @@ def test_persisted_addition_verification_records_membership_results(tmp_path, mo
     evidence = json.loads((tmp_path / 'cohort_addition.verification.json').read_text())
     assert evidence['expected_unique_participant_count'] == 3
     if wrong_id:
-        assert evidence['missing_ids'] == [['P3', 'S2']]
-        with pytest.raises(AssertionError, match='complete participant and study IDs'):
+        assert evidence['missing_ids'] == ['P3']
+        with pytest.raises(AssertionError, match='complete participant IDs'):
             app.assert_no_failures()
     else:
         assert all(evidence['checks_after_reload'].values())
@@ -120,7 +117,7 @@ def test_addition_excel_reuses_creation_then_replaces_filter_and_adds_all():
 def test_selected_addition_uses_only_the_checked_page_and_selected_menu_option(monkeypatch):
     app = Mock()
     app._cohort_addition, _ = addition_baseline()
-    page_two = (('P3', 'S2'), ('P4', 'S2'))
+    page_two = ('P3', 'P4')
     app._cohort_selected_pages = {2: page_two}
     app.ui.visible.return_value.locator.return_value.all.return_value = [Mock(), Mock()]
     monkeypatch.setattr(cohort, 'expect', lambda _: Mock())
@@ -137,8 +134,8 @@ def test_selected_addition_uses_only_the_checked_page_and_selected_menu_option(m
 def test_selected_addition_rejects_a_stale_page_snapshot(monkeypatch):
     app = Mock()
     app._cohort_addition, _ = addition_baseline()
-    app._cohort_selected_pages = {2: (('P3', 'S2'),)}
-    monkeypatch.setattr(cohort, '_visible_participant_rows', lambda _: (('WRONG', 'S2'),))
+    app._cohort_selected_pages = {2: ('P3',)}
+    monkeypatch.setattr(cohort, '_visible_participant_rows', lambda _: ('WRONG',))
     add = Mock()
     monkeypatch.setattr(cohort, '_add_participants_to_existing_cohort', add)
     with pytest.raises(AssertionError, match='Current participant rows differ'):
@@ -149,15 +146,15 @@ def test_selected_addition_rejects_a_stale_page_snapshot(monkeypatch):
 def test_selected_addition_rejects_multiple_remembered_pages():
     app = C3DC.__new__(C3DC)
     app._cohort_addition, _ = addition_baseline()
-    app._cohort_selected_pages = {1: (('P1', 'S1'),), 2: (('P3', 'S2'),)}
+    app._cohort_selected_pages = {1: ('P1',), 2: ('P3',)}
     with pytest.raises(AssertionError, match='Select only the participant page'):
         cohort.add_selected_participants_to_existing_cohort(app)
 
 
 def test_replacing_page_selection_rejects_stale_current_page_before_clearing(monkeypatch):
     app = Mock()
-    app._cohort_selected_pages = {1: (('P1', 'S1'),)}
-    monkeypatch.setattr(cohort, '_visible_participant_rows', lambda _: (('OTHER', 'S1'),))
+    app._cohort_selected_pages = {1: ('P1',)}
+    monkeypatch.setattr(cohort, '_visible_participant_rows', lambda _: ('OTHER',))
     with pytest.raises(AssertionError, match='Current participant page differs'):
         cohort.select_next_participant_page_only(app)
     app.ui.visible.return_value.locator.assert_not_called()

@@ -107,6 +107,9 @@ class C3DC(BaseApp):
 
     def open_explore(self):
         """Open Explore Participants via navbar (Katalon: clickTab Explore-Tab)."""
+        from Commons.apps.c3dc.cohort import observe_participant_results
+
+        observe_participant_results(self)
         action_log.say("open_explore (Navbar/Explore-Tab)")
         self._active_study_accession = None
         self.click("Navbar/Explore-Tab", ui_message="Explore Participants opened successfully.")
