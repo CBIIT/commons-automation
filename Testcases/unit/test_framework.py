@@ -155,9 +155,6 @@ def test_pagination_xpaths_scope_to_active_table():
 def test_c3dc_resolve_table_body_xpath_nested_tables():
     from Commons.table_reader import resolve_table_body_xpath
 
-    assert resolve_table_body_xpath("C3DC", "//*[@id='survival_tab_table']") == (
-        "//*[@id='survival_tab_table']//table/tbody"
-    )
     assert resolve_table_body_xpath("C3DC", "//*[@id='participant_tab_table']") == (
         "//*[@id='participant_tab_table']//tbody"
     )
@@ -437,14 +434,11 @@ def test_c3dc_tab_label_matches_ui_counts():
     from Commons.apps.c3dc import C3DC
 
     assert C3DC._tab_label_matches("Participants (63,610)", "Participants")
-    assert C3DC._tab_label_matches("Survival (139,530)", "Survival")
-    assert C3DC._tab_label_matches("Treatments (215,423)", "Treatments")
+    assert C3DC._tab_label_matches("Samples (1,234)", "Samples")
     assert C3DC._tab_label_matches("Genetic Analyses (42,907)", "Genetic Analyses")
     assert C3DC._tab_label_matches("Genetic Analyses (42,907)", "Genetic Analysis")
     assert C3DC._tab_label_matches("GeneticAnalyses(42,907)", "Genetic Analyses")
     assert C3DC.TAB_VERIFY_ALIASES["Genetic Analysis"] == "GeneticAnalysis"
-    assert C3DC.TAB_VERIFY_ALIASES["Treatment Responses"] == "TreatmentResp"
-    assert C3DC._is_more_tab_button(": More(4)", "MuiButton-root more-button")
 
 
 def test_memgraph_endpoint_per_app(monkeypatch):
@@ -462,10 +456,10 @@ def test_memgraph_endpoint_per_app(monkeypatch):
 
 
 def test_tab_row_limit_from_tab_setting_yaml():
-    from Commons.tab_setting import apply_tab_row_limit, settings_for_app
+    from Commons.tab_setting import apply_tab_row_limit, load_tab_setting_config, settings_for_app
 
     gc = settings_for_app("GC")
-    assert gc.tab_row_limit == 100
+    assert gc.tab_row_limit == load_tab_setting_config()["apps"]["GC"]["tab_row_limit"]
     assert gc.pagination_max_pages >= 10
     cypher = "MATCH (n) RETURN n ORDER BY n.id\nLIMIT 50;"
     assert apply_tab_row_limit(cypher, 200).rstrip().endswith("LIMIT 200")
@@ -474,9 +468,11 @@ def test_tab_row_limit_from_tab_setting_yaml():
 
 def test_app_settings_includes_tab_row_limit():
     s = get_app_settings("C3DC", "qa")
-    assert s.tab_row_limit == 100
+    from Commons.tab_setting import load_tab_setting_config
+
+    assert s.tab_row_limit == load_tab_setting_config()["apps"]["C3DC"]["tab_row_limit"]
     assert s.pagination_max_pages >= 10
-    assert s.tab_execution.get("Diagnosis") is True
+    assert set(s.tab_execution) == {"Participants", "Studies", "Genetic Analysis", "Samples", "Files", "Imaging Data"}
 
 
 def test_tab_is_enabled_respects_yaml_and_c3dc_aliases():
@@ -546,7 +542,7 @@ def test_html_report_render_expandable_steps():
 
 def test_read_c3dc_query_file():
     qf = read_query_file("C3DC", "TC01_C3DC_phs000463_SexAtBirth-Female.xlsx")
-    assert {"StudiesTab", "ParticipantsTab", "SurvivalTab"} <= set(qf.queries_by_tab)
+    assert set(qf.queries_by_tab) == {"ParticipantsTab", "StudiesTab", "GeneticAnalysisTab", "SamplesTab", "FilesTab", "ImagingDataTab"}
     assert qf.stat_bar_query
     assert "phs000463" in qf.query_for_tab("StudiesTab")  # filter token appears in tab query text
 

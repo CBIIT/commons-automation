@@ -15,6 +15,8 @@ if TYPE_CHECKING:
 C3DC_EXCEL_ACTIONS = [
     "accept_banner",
     "open_explore",
+    "open_explore_files",
+    "sort_result_tab",
     "open_studies_listing",
     "open_study_details",
     "begin_study_details_report",
@@ -79,6 +81,8 @@ def _c3dc_method_to_step() -> dict:
     return {
         "accept_banner": lambda _a: ("accept_banner", "", "", ""),
         "open_explore": lambda _a: ("open_explore", "", "", ""),
+        "open_explore_files": lambda _a: ("open_explore_files", "", "", ""),
+        "sort_result_tab": lambda a: ("sort_result_tab", str_arg(a[0]), str_arg(a[1]), ""),
         "open_studies_listing": lambda _a: ("open_studies_listing", "", "", ""),
         "verify_studies_listing": lambda _a: ("verify_studies_listing", "", "", ""),
         "open_study_details": lambda a: ("open_study_details", "StudyDetails", str_arg(a[0]), ""),
@@ -154,6 +158,8 @@ register_profile(
         parse_test_function=_parse_c3dc_test_function,
         case_subdirs=C3DC_CASE_SUBDIRS,
         extra_handlers={
+            "sort_result_tab": lambda app, tab, column, _f, _e: app.sort_result_tab(tab, column),
+            "open_explore_files": lambda app, _p, _a, _f, _e: app.open_explore_files(),
             "open_studies_listing": _open_studies_listing,
             "verify_studies_listing": _verify_studies_listing,
             "open_study_details": lambda app, _p, accession, _f, _e: app.open_study_details(accession),

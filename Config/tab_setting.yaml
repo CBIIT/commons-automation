@@ -27,17 +27,15 @@ apps:
   # Portal: clinicalcommons*.ccdi.cancer.gov
   # -------------------------------------------------------------------------
   C3DC:
-    tab_row_limit: 50
+    tab_row_limit: 100
     pagination_max_pages: 25
     tabs:
       Participants: true          # People in the study
       Studies: true               # Study records
-      Diagnosis: true             # Diagnosis details
       "Genetic Analysis": true    # Genomic / genetic analysis
-      Treatments: false           # Treatment records
-      "Treatment Responses": true # Response to treatment
-      Survival: true              # Survival data
       Samples: true               # Biospecimen samples
+      Files: true                 # Explore Files records
+      "Imaging Data": true        # Explore Files imaging studies/series
 
   # -------------------------------------------------------------------------
   # CCDI Hub — no explore page (Explore opens C3DC Explore Participants)
@@ -52,7 +50,7 @@ apps:
   # Portal: general-*.datacommons.cancer.gov / datacommons.cancer.gov
   # -------------------------------------------------------------------------
   GC:
-    tab_row_limit: 15
+    tab_row_limit: 100
     pagination_max_pages: 25
     tabs:
       Participants: true   # People / subjects
@@ -64,7 +62,7 @@ apps:
   # Portal: caninecommons*.cancer.gov
   # -------------------------------------------------------------------------
   ICDC:
-    tab_row_limit: 18
+    tab_row_limit: 100
     pagination_max_pages: 25
     tabs:
       Cases: true          # Canine cases
@@ -77,7 +75,7 @@ apps:
   # Portal: bento-tools.org
   # -------------------------------------------------------------------------
   Bento:
-    tab_row_limit: 15
+    tab_row_limit: 100
     pagination_max_pages: 25
     tabs:
       Cases: true
@@ -111,7 +109,7 @@ apps:
   # Portal: studycatalog*.cancer.gov
   # -------------------------------------------------------------------------
   INS:
-    tab_row_limit: 40
+    tab_row_limit: 100
     pagination_max_pages: 25
     tabs:
       Programs: true

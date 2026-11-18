@@ -461,6 +461,9 @@ class BaseApp:
         aliases = getattr(self, "TAB_VERIFY_ALIASES", None)
         return tab_is_enabled(self.settings.tab_execution, tabs_key, aliases)
 
+    def prepare_tab_comparison(self, spec: TabSpec, ui_table: Table, expected: Table) -> None:
+        """Allow an app to validate source representations before the shared comparison."""
+
     def verify_tab(self, name: str):
         """Katalon multiFunction: read the tab from the UI, run TabQuery, compare to Memgraph."""
         spec = self.TABS[name]
@@ -498,6 +501,7 @@ class BaseApp:
         expected = self.source.fetch_tab_table(
             self.query_file, spec.input_tab, tab_display_name=tab_label
         )
+        self.prepare_tab_comparison(spec, ui_table, expected)
         # Same sort as compare_tables so UI and DB Excel files line up row-for-row
         ui_table.rows.sort(key=lambda row: [str(c).strip() if c is not None else "" for c in row])
         expected.rows.sort(key=lambda row: [str(c).strip() if c is not None else "" for c in row])

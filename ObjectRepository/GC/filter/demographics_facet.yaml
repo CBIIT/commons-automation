@@ -12,6 +12,7 @@ groups:
     facet: (//*[text()="Demographics"])[1]
     dropdown: //*[@id="Sex"]
     checkboxes:
+      NotApplicable: //*[@id="checkbox_Sex_Not Applicable"]
       NotReported: //*[@id="checkbox_Gender_Not Reported"]
       NotSpecifiedinData: //*[@id="checkbox_Sex_Not specified in data"]
       Female: //*[@id="checkbox_Sex_Female"]

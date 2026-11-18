@@ -10,8 +10,18 @@ alwaysApply: false
 - Use the shared object-repository, expected-data, and Excel rules together with
   the C3DC-specific guidance below. All C3DC-specific rules live in this file.
 - Treat adapter `TABS`, `STATS`, and registered Excel profile as the current
-  authority. Internal keys such as `GeneticAnalysis` and `TreatmentResp` differ
-  from displayed labels. Configured enablement can omit some result tabs.
+  authority. Explore has only Participants, Studies, Genetic Analysis, and
+  Samples result tabs (`GeneticAnalysis` is the internal key). Explore Files has
+  separate Files and Imaging Data tabs; use `open_explore_files` after participant
+  tabs to preserve active filters. Do not add Files tabs to `STANDARD_VERIFY_TABS`.
+  Retired tab calls
+  in older workbooks are reported as SKIPPED; do not restore their readers.
+  Diagnosis, treatment, and survival facets remain available as filters.
+- For limited Genetic Analysis comparisons, use `sort_result_tab` with the YAML
+  Genetic Analysis ID column locator, then `ORDER BY g.genetic_analysis_id` in the
+  query. Participant IDs repeat and cannot determine a stable page boundary.
+- C3DC filter readiness waits for the matching GraphQL `search` response before
+  reading stats; do not replace this with table polling or captured expected totals.
 - Keep Explore, the Studies catalog (`studies.py`), study details
   (`study_details.py`), and cohort operations (`cohort.py`) in their own flows.
   Study-detail counts/manifest checks do not use an invented Explore tab.

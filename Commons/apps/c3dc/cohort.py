@@ -8,6 +8,8 @@ import csv
 import json
 from pathlib import Path
 import re
+import time
+from urllib.parse import parse_qs, urlparse
 
 from playwright.sync_api import expect
 
@@ -26,7 +28,7 @@ class CohortCreation:
     participant_count: int
     study_id: str | None = None
     # Optional exact membership for workflows that already know the selected IDs.
-    participants: tuple[tuple[str, str], ...] | None = None
+    participants: tuple[str, ...] | None = None
 
 
 @dataclass(frozen=True)
@@ -75,10 +77,10 @@ class CohortMetadata:
 
 @dataclass(frozen=True)
 class CohortAddition:
-    """Existing cohort and filtered IDs used to verify an addition independently."""
+    """Existing popup snapshot and incoming participant IDs for independent verification."""
 
     source: CohortDetails
-    incoming: tuple[tuple[str, str], ...]
+    incoming: tuple[str, ...]
     item_ids: tuple[str, ...]
 
 
@@ -139,7 +141,55 @@ def read_selected_cohort(app) -> CohortDetails:
 # Participant selection and cohort creation
 # ---------------------------------------------------------------------------
 
-def read_filtered_participants(app) -> tuple[tuple[str, str], ...]:
+def _participant_filters(values):
+    """Compare URL filters with a table request, excluding paging and sorting."""
+    options = {'offset', 'first', 'order_by', 'sort_direction', 'selectedTab'}
+    return {key: sorted(str(item) for item in (value if isinstance(value, list) else [value]))
+            for key, value in values.items()
+            if key not in options and value not in (None, '', [])}
+
+
+def observe_participant_results(app):
+    """Record UI table responses without making filter application wait for them."""
+    if getattr(app, '_cohort_observing_participants', False) is True:
+        return
+    app._cohort_participant_response = None
+
+    def remember(response):
+        if '/v1/graphql' not in response.url:
+            return
+        try:
+            request = json.loads(response.request.post_data or '{}')
+        except (ValueError, TypeError):
+            return
+        if request.get('operationName') == 'participantOverview':
+            app._cohort_participant_response = (response, request.get('variables', {}))
+
+    app.page.on('response', remember)
+    app._cohort_observing_participants = True
+
+
+def _wait_for_cohort_participants(app, container):
+    """Select only after the current filters' table response is rendered."""
+    if getattr(app, '_cohort_observing_participants', False) is not True:
+        return
+    filters = _participant_filters(parse_qs(urlparse(app.page.url).query))
+    deadline = time.monotonic() + app.ui.timeout_ms / 1000
+    while time.monotonic() < deadline:
+        observed = app._cohort_participant_response
+        if observed is not None and _participant_filters(observed[1]) == filters:
+            payload = observed[0].json()  # Wait for this response body to finish.
+            assert not payload.get('errors'), f'Participant results failed: {payload["errors"]}'
+            ids = [row['participant_id'] for row in payload['data']['participantOverview']]
+            headers = [text.strip() for text in container.locator('thead th').all_inner_texts()]
+            column = headers.index('Participant ID') + 1
+            expect(container.locator(f'tbody tr td:nth-child({column})')).to_have_text(ids, timeout=app.ui.timeout_ms)
+            return
+        app.page.wait_for_timeout(50)
+    raise AssertionError('Participants table did not receive results for the current cohort filters')
+
+
+def read_filtered_participants(app) -> tuple[str, ...]:
     """Read every filtered result page, rather than only the first 50 participants."""
     app.open_tab("Participants")
     app._wait_explore_results_ready()
@@ -149,6 +199,7 @@ def read_filtered_participants(app) -> tuple[tuple[str, str], ...]:
         raise AssertionError("Cannot create an all-participants cohort: the filters returned no participants")
 
     container = app.ui.visible(app.repo.xpath("ResultTabs/Participants-Tbl"))
+    _wait_for_cohort_participants(app, container)
     headers = [text.strip() for text in container.locator("thead th").all_inner_texts()]
     participant_column = headers.index("Participant ID") + 1
     first_participant = container.locator(f"tbody tr:first-child td:nth-child({participant_column})")
@@ -165,25 +216,12 @@ def read_filtered_participants(app) -> tuple[tuple[str, str], ...]:
 
     participants = []
     for _ in range(app.MAX_PAGES):
-        # Resolve columns by header, so optional CPI columns do not shift IDs.
-        page_rows = container.evaluate("""root => {
-            const table = root.querySelector('table');
-            const headers = Array.from(table.querySelectorAll('thead th'))
-                .map(cell => cell.innerText.trim());
-            const participantColumn = headers.indexOf('Participant ID');
-            const studyColumn = headers.indexOf('Study ID');
-            if (participantColumn < 0 || studyColumn < 0)
-                throw new Error('Participants table is missing ID columns');
-            return Array.from(table.querySelectorAll('tbody tr')).map(row => {
-                const cells = row.querySelectorAll('td');
-                return [cells[participantColumn].innerText.trim(), cells[studyColumn].innerText.trim()];
-            });
-        }""")
-        participants.extend(tuple(row) for row in page_rows)
+        page_rows = _visible_participant_rows(container)
+        participants.extend(page_rows)
         next_button = container.get_by_role("button", name="Next page", exact=True).first
         if not next_button.is_enabled():
             break
-        previous_id = page_rows[0][0]
+        previous_id = page_rows[0]
         next_button.click()
         # The page counter can advance before the async participant rows arrive.
         # Wait for the first actual ID to change before reading the next page.
@@ -261,19 +299,17 @@ def verify_selected_participants_option(app, state):
     action_log.ui_action(f"Selected Participants option is {state}.")
 
 
-def _visible_participant_rows(container):
-    """Read IDs from the current page by header, allowing optional CPI columns."""
+def _visible_participant_rows(container) -> tuple[str, ...]:
+    """Read participant IDs by header without requiring optional result columns."""
     rows = container.evaluate("""root => {
         const headers = Array.from(root.querySelectorAll('thead th')).map(h => h.innerText.trim());
-        const participant = headers.indexOf('Participant ID'), study = headers.indexOf('Study ID');
-        if (participant < 0 || study < 0) throw new Error('Participants table is missing ID columns');
-        return Array.from(root.querySelectorAll('tbody tr')).map(row => {
-            const cells = row.querySelectorAll('td');
-            return [cells[participant].innerText.trim(), cells[study].innerText.trim()];
-        });
+        const participant = headers.indexOf('Participant ID');
+        if (participant < 0) throw new Error('Participants table is missing the Participant ID column');
+        return Array.from(root.querySelectorAll('tbody tr')).map(row =>
+            row.querySelectorAll('td')[participant].innerText.trim());
     }""")
-    participants = tuple(tuple(row) for row in rows)
-    assert participants and all(participant and study for participant, study in participants), 'No participant IDs on the current page'
+    participants = tuple(rows)
+    assert participants and all(participants), 'No participant IDs on the current page'
     assert len(set(participants)) == len(participants), 'Duplicate participants on the current page'
     return participants
 
@@ -284,6 +320,7 @@ def select_participant_page(app, page_number, replace_selection=False):
         raise ValueError("Participant page numbers start at 1")
     container = app.ui.visible(app.repo.xpath("ResultTabs/Participants-Tbl"))
     if page_number == 1:
+        _wait_for_cohort_participants(app, container)
         previous = container.locator(f"xpath={app.repo.xpath('Cohort/TopPreviousPage')}")
         expect(previous).to_be_disabled()
         app._cohort_selected_pages = {}
@@ -297,7 +334,7 @@ def select_participant_page(app, page_number, replace_selection=False):
                 expect(checkbox).not_to_be_checked()
         else:
             assert set(pages) == set(range(1, page_number)), 'Select participant pages consecutively from page 1'
-        before = _visible_participant_rows(container)[0][0]
+        before = _visible_participant_rows(container)[0]
         headers = [h.strip() for h in container.locator('thead th').all_inner_texts()]
         first_id = container.locator(f"tbody tr:first-child td:nth-child({headers.index('Participant ID') + 1})")
         next_page = container.locator(f"xpath={app.repo.xpath('Cohort/TopNextPage')}")
@@ -342,7 +379,7 @@ def verify_cohort_created(app):
         raise AssertionError("Create a cohort before calling verify_cohort_created")
     details = read_selected_cohort(app)
     expected = set(creation.participants) if creation.participants is not None else None
-    actual = set(details.participants)
+    actual = {participant for participant, _ in details.participants}
     checks = {
         "new cohort name": bool(re.fullmatch(r"New Cohort(?: \d+)?", details.name)),
         "participant count": details.participant_count == creation.participant_count,
@@ -351,7 +388,7 @@ def verify_cohort_created(app):
     if creation.study_id:
         checks["selected study IDs"] = all(study == creation.study_id for _, study in details.participants)
     if expected is not None:
-        checks["participant and study IDs"] = actual == expected
+        checks["participant IDs"] = actual == expected
     for check, passed in checks.items():
         if not passed:
             app._fail(
@@ -376,7 +413,7 @@ def remember_cohort_for_addition(app):
     app._cohort_addition = None
     dialog = cohort_dialog(app)
     source = read_selected_cohort(app)
-    assert len(set(source.participants)) == len(source.participants) == source.participant_count, "Source cohort membership is incomplete or contains duplicates"
+    assert len({participant for participant, _ in source.participants}) == len(source.participants) == source.participant_count, "Source cohort membership is incomplete or contains duplicates"
     item_ids = tuple(dialog.locator(f"xpath={app.repo.xpath('Cohort/Items')}").evaluate_all('items => items.map(item => item.id)'))
     app._cohort_addition = CohortAddition(source, (), item_ids)
     action_log.ui_action(f"Remembered existing cohort {source.name!r}: {source.participant_count} participants.")
@@ -440,7 +477,7 @@ def _add_participants_to_existing_cohort(app, incoming, option_key):
     """Shared existing-cohort target selection and add operation for both modes."""
     baseline = app._cohort_addition
     app._cohort_addition = None
-    if not set(incoming) - set(baseline.source.participants):
+    if not set(incoming) - {participant for participant, _ in baseline.source.participants}:
         raise AssertionError('The incoming set must contain at least one new participant')
     app.ui.click(app.repo.xpath('Cohort/AddExisting'), repo_key='Cohort/AddExisting')
     menu = app.page.locator(app.repo.xpath('Cohort/AddExistingMenu'))
@@ -464,7 +501,7 @@ def _add_participants_to_existing_cohort(app, incoming, option_key):
     app._cohort_addition = CohortAddition(baseline.source, incoming, baseline.item_ids)
     dialog = open_cohorts(app)
     select_cohort(app, baseline.source.name)
-    expected_count = len(set(baseline.source.participants) | set(incoming))
+    expected_count = len({participant for participant, _ in baseline.source.participants} | set(incoming))
     expect(dialog.locator(f"xpath={app.repo.xpath('Cohort/ParticipantCount')}")).to_have_text(
         re.compile(rf'PARTICIPANTS IDs\s*\({expected_count}\)'), timeout=app.ui.timeout_ms,
     )
@@ -473,15 +510,17 @@ def _add_participants_to_existing_cohort(app, incoming, option_key):
 
 def _cohort_addition_checks(addition, actual, item_ids):
     """Compare the full union so overlaps cannot inflate the expected count."""
-    expected = set(addition.source.participants) | set(addition.incoming)
+    original_ids = {participant for participant, _ in addition.source.participants}
+    expected = original_ids | set(addition.incoming)
+    actual_ids = {participant for participant, _ in actual.participants}
     return {
         'same cohort name': actual.name == addition.source.name,
         'description unchanged': actual.description == addition.source.description,
         'cohort list unchanged': len(item_ids) == len(addition.item_ids) and set(item_ids) == set(addition.item_ids),
-        'new participants present': bool(set(addition.incoming) - set(addition.source.participants)),
+        'new participants present': bool(set(addition.incoming) - original_ids),
         'participant count': actual.participant_count == len(expected),
-        'unique participant rows': len(set(actual.participants)) == len(actual.participants) == actual.participant_count,
-        'complete participant and study IDs': set(actual.participants) == expected,
+        'unique participant rows': len(actual_ids) == len(actual.participants) == actual.participant_count,
+        'complete participant IDs': actual_ids == expected,
     }
 
 
@@ -502,15 +541,15 @@ def verify_participants_added_to_cohort(app, report_name='cohort_addition'):
     actual = read_selected_cohort(app)
     item_ids = tuple(dialog.locator(f"xpath={app.repo.xpath('Cohort/Items')}").evaluate_all('items => items.map(item => item.id)'))
     checks = _cohort_addition_checks(addition, actual, item_ids)
-    expected_ids = set(addition.source.participants) | set(addition.incoming)
-    actual_ids = set(actual.participants)
+    expected_ids = {participant for participant, _ in addition.source.participants} | set(addition.incoming)
+    actual_ids = {participant for participant, _ in actual.participants}
     evidence = {
         'cohort': addition.source.name, 'original_participant_count': addition.source.participant_count,
         'incoming_participant_count': len(addition.incoming),
         'expected_unique_participant_count': len(expected_ids), 'actual_participant_count': actual.participant_count,
-        'checks_after_reload': checks, 'original_participant_study_ids': sorted(addition.source.participants),
-        'incoming_participant_study_ids': sorted(addition.incoming), 'expected_participant_study_ids': sorted(expected_ids),
-        'actual_participant_study_ids': sorted(actual_ids), 'missing_ids': sorted(expected_ids - actual_ids),
+        'checks_after_reload': checks, 'original_participant_ids': sorted(participant for participant, _ in addition.source.participants),
+        'incoming_participant_ids': sorted(addition.incoming), 'expected_participant_ids': sorted(expected_ids),
+        'actual_participant_ids': sorted(actual_ids), 'missing_ids': sorted(expected_ids - actual_ids),
         'unexpected_ids': sorted(actual_ids - expected_ids),
     }
     output = app.output_dir / f'{Path(report_name).stem}.verification.json'
@@ -521,7 +560,7 @@ def verify_participants_added_to_cohort(app, report_name='cohort_addition'):
         else:
             app._fail(f'Cohort addition {check} failed after reload: expected {len(expected_ids)} participants, actual {actual.participant_count}; missing={sorted(expected_ids - actual_ids)}, unexpected={sorted(actual_ids - expected_ids)}')
     if all(checks.values()):
-        action_log.ui_action(f'Existing cohort {actual.name!r}: {addition.source.participant_count} original participants, {len(addition.incoming)} incoming, {actual.participant_count} total; all participant/study IDs persisted after reload.')
+        action_log.ui_action(f'Existing cohort {actual.name!r}: {addition.source.participant_count} original participants, {len(addition.incoming)} incoming, {actual.participant_count} total; all participant IDs persisted after reload.')
 
 
 # ---------------------------------------------------------------------------
