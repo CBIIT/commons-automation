@@ -510,6 +510,26 @@ class C3DC(BaseApp):
         from Commons.apps.c3dc.cohort import update_cohort_details
         update_cohort_details(self, name, description)
 
+    def verify_duplicate_cohort_name_rejected(self, expected_message):
+        """Save an existing name and verify rejection without changing cohorts."""
+        from Commons.apps.c3dc.cohort import verify_duplicate_cohort_name_rejected
+        verify_duplicate_cohort_name_rejected(self, expected_message)
+
+    def verify_cohort_participant_search(self):
+        """Verify full and partial search, no matches, and clearing the search."""
+        from Commons.apps.c3dc.cohort import verify_cohort_participant_search
+        verify_cohort_participant_search(self)
+
+    def remove_cohort_participant(self):
+        """Remove a searched participant and save the cohort."""
+        from Commons.apps.c3dc.cohort import remove_cohort_participant
+        remove_cohort_participant(self)
+
+    def verify_cohort_participant_removed(self):
+        """Verify exact remaining membership after reloading the page."""
+        from Commons.apps.c3dc.cohort import verify_cohort_participant_removed
+        verify_cohort_participant_removed(self)
+
     # -----------------------------------------------------------------------
     # Cohort removal confirmations and deletion
     # -----------------------------------------------------------------------

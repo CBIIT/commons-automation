@@ -1024,6 +1024,35 @@ def save_cohort_changes(app):
     action_log.ui_action(f"Saved cohort details for {edit.name!r}.")
 
 
+def verify_duplicate_cohort_name_rejected(app, expected_message):
+    """Save a duplicate name, verify the displayed error, and preserve both cohorts."""
+    edit = getattr(app, "_cohort_edit", None)
+    if edit is None or edit.name == edit.original.name:
+        raise AssertionError("Edit a different cohort to an existing name before verifying rejection")
+    dialog = cohort_dialog(app)
+    existing = dialog.get_by_role("option", name=f"Cohort: {edit.name}", exact=True)
+    expect(existing).to_have_count(1)
+    items = dialog.locator(f"xpath={app.repo.xpath('Cohort/Items')}")
+    before = items.evaluate_all("items => items.map(item => [item.id, item.getAttribute('aria-label')])")
+    save = dialog.locator(f"xpath={app.repo.xpath('Cohort/SaveChanges')}")
+    expect(save).to_be_enabled()
+
+    save.click()
+    error = dialog.locator(f"xpath={app.repo.xpath('Cohort/UpdateError')}")
+    expect(error).to_be_visible(timeout=app.ui.timeout_ms)
+    expect(error).to_have_text(expected_message)
+
+    after = items.evaluate_all("items => items.map(item => [item.id, item.getAttribute('aria-label')])")
+    assert after == before, "Rejected rename changed the cohort list"
+    actual = read_selected_cohort(app)
+    assert actual.name == edit.original.name, "Rejected rename changed the duplicate's saved name"
+    assert actual.participants == edit.original.participants, "Rejected rename changed cohort participants"
+    assert actual.participant_count == edit.original.participant_count, "Rejected rename changed participant count"
+    app._cohort_edit_saved = False
+    app.results.append({"check": "Duplicate cohort name rejected", "status": "PASSED", "detail": expected_message})
+    action_log.ui_action("Verified duplicate-name error; both cohorts and their participants remain unchanged.")
+
+
 def _cohort_edit_checks(edit, actual, cohort_count):
     """Compare saved metadata while guarding against unintended membership edits."""
     return {
@@ -1067,3 +1096,92 @@ def verify_cohort_details_saved(app):
     if all(checks.values()):
         action_log.ui_action(f"Cohort {edit.name!r}: name and description persisted after reload; membership unchanged.")
     return actual
+
+
+# ---------------------------------------------------------------------------
+# Participant search and individual removal
+# ---------------------------------------------------------------------------
+
+def _cohort_participant_rows(app, dialog):
+    """Read the currently displayed rows without assuming the search is empty."""
+    return dialog.locator(f"xpath={app.repo.xpath('Cohort/ParticipantRows')}")
+
+
+def verify_cohort_participant_search(app):
+    """Check full ID, partial ID, no matches, and clearing against a UI snapshot."""
+    app._cohort_search_snapshot = None
+    source = read_selected_cohort(app)
+    assert len(source.participants) > 1, "Create a cohort with multiple participants before testing search"
+    dialog = cohort_dialog(app)
+    search = dialog.locator(f"xpath={app.repo.xpath('Cohort/ParticipantSearch')}")
+    rows = _cohort_participant_rows(app, dialog)
+    target = source.participants[0][0]
+    # Compare complete participant/study pairs, including every partial match.
+    for query in (target, target[:max(1, len(target) // 2)], '__NO_SUCH_PARTICIPANT__'):
+        expected = [pair for pair in source.participants if query.lower() in pair[0].lower()]
+        search.fill(query)
+        expect(rows).to_have_count(len(expected), timeout=app.ui.timeout_ms)
+        actual = rows.evaluate_all("rows => rows.map(row => Array.from(row.children).slice(0, 2).map(cell => cell.innerText.trim()))")
+        assert actual == [list(pair) for pair in expected], f"Incorrect cohort search results for {query!r}"
+        expect(dialog.locator(f"xpath={app.repo.xpath('Cohort/ParticipantCount')}")).to_have_text(
+            re.compile(rf"PARTICIPANTS IDs\s*\({source.participant_count:,}\)"))
+    search.fill('')
+    assert read_selected_cohort(app) == source, "Searching or clearing search changed the cohort"
+    app._cohort_search_snapshot = source
+    app.results.append({'check': 'Cohort participant search', 'status': 'PASSED', 'detail': 'Full ID, partial ID, no matches, and clear verified'})
+    action_log.ui_action('Verified participant search and clearing; cohort membership unchanged.')
+
+
+def remove_cohort_participant(app):
+    """Find one participant through search, remove that row, and save the draft."""
+    app._cohort_participant_removal = None
+    source = getattr(app, '_cohort_search_snapshot', None)
+    if source is None:
+        raise AssertionError('Verify participant search before removing a participant')
+    assert read_selected_cohort(app) == source, 'Cohort changed since the search baseline'
+    dialog = cohort_dialog(app)
+    cohort_ids = tuple(dialog.locator(f"xpath={app.repo.xpath('Cohort/Items')}").evaluate_all('items => items.map(item => item.id)'))
+    target = source.participants[0]
+    search = dialog.locator(f"xpath={app.repo.xpath('Cohort/ParticipantSearch')}")
+    search.fill(target[0])
+    rows = _cohort_participant_rows(app, dialog)
+    expect(rows).to_have_count(1)
+    rows.locator(f"xpath={app.repo.xpath('Cohort/DeleteParticipant')}").click()
+    expect(rows).to_have_count(0)
+    search.fill('')
+    remaining = tuple(pair for pair in source.participants if pair != target)
+    draft = read_selected_cohort(app)
+    assert draft.participant_count == source.participant_count - 1, 'Participant count did not decrease by one'
+    assert draft.participants == remaining, 'Removal changed participants other than the selected row'
+    save = dialog.locator(f"xpath={app.repo.xpath('Cohort/SaveChanges')}")
+    expect(save).to_be_enabled()
+    save.click()
+    app._cohort_participant_removal = (source, target, cohort_ids)
+    action_log.ui_action(f'Removed participant {target[0]!r} and saved the cohort.')
+
+
+def verify_cohort_participant_removed(app):
+    """Reload and compare exact membership, metadata, and cohort IDs after saving."""
+    removal = getattr(app, '_cohort_participant_removal', None)
+    if removal is None:
+        raise AssertionError('Remove and save a participant before verifying persistence')
+    source, target, cohort_ids = removal
+    close_cohorts(app)
+    app.page.reload(wait_until='domcontentloaded')
+    app.ui.wait_idle()
+    for key in app.BANNER_KEYS:
+        if app.page.locator(app.repo.xpath(key)).is_visible():
+            app.accept_banner()
+            break
+    dialog = open_cohorts(app)
+    select_cohort(app, source.name)
+    actual = read_selected_cohort(app)
+    expected = tuple(pair for pair in source.participants if pair != target)
+    assert actual.participant_count == source.participant_count - 1, 'Saved participant count is incorrect'
+    assert set(actual.participants) == set(expected), 'Removed participant returned or other membership changed after reload'
+    assert len(actual.participants) == len(set(actual.participants)), 'Saved cohort contains duplicate participants'
+    assert (actual.name, actual.description) == (source.name, source.description), 'Removal changed cohort metadata'
+    actual_ids = tuple(dialog.locator(f"xpath={app.repo.xpath('Cohort/Items')}").evaluate_all('items => items.map(item => item.id)'))
+    assert actual_ids == cohort_ids, 'Participant removal changed the cohort list'
+    app.results.append({'check': 'Cohort participant removal persisted', 'status': 'PASSED', 'detail': f'{target[0]} removed; all other participants retained'})
+    action_log.ui_action(f'Verified participant {target[0]!r} stays removed after reload; all other participants retained.')
