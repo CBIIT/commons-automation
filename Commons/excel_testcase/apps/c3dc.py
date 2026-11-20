@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import ast
+from pathlib import Path
 from typing import TYPE_CHECKING, List
 
 from Commons.excel_testcase._step_parse import int_arg, parse_adapter_calls, str_arg
@@ -36,6 +37,34 @@ C3DC_EXCEL_ACTIONS = [
     "add_all_participants_to_existing_cohort", "verify_participants_added_to_cohort",
     "add_selected_participants_to_existing_cohort", "select_next_participant_page_only",
     "open_cohort_analyzer", "add_example_cohorts", "verify_example_cohorts_created",
+    "remember_analyzer_cohorts",
+    "verify_analyzer_empty_state",
+    "verify_analyzer_existing_cohorts",
+    "verify_analyzer_selection",
+    "verify_analyzer_selection_limit",
+    "verify_analyzer_sorting",
+    "verify_analyzer_removal",
+    "verify_analyzer_comparison",
+    "verify_analyzer_regions",
+    "create_analyzer_cohort_from_results",
+    "verify_analyzer_table",
+    "verify_analyzer_pagination",
+    "verify_analyzer_table_download",
+    "verify_analyzer_build_explore",
+    "verify_analyzer_chart_values",
+    "verify_analyzer_chart_types",
+    "verify_analyzer_chart_management",
+    "verify_analyzer_layout_reset",
+    "verify_analyzer_expanded_views",
+    "verify_analyzer_survival",
+    "verify_analyzer_venn_downloads",
+    "verify_analyzer_histogram_downloads",
+    "verify_analyzer_survival_downloads",
+    "verify_analyzer_data_downloads",
+    "verify_analyzer_image_downloads",
+    "verify_analyzer_tooltip",
+    "verify_analyzer_readme",
+
     "verify_selected_participants_option", "select_participant_page", "create_cohort_from_selected_participants",
     "select_filter",
     "read_statbar",
@@ -65,6 +94,15 @@ def _open_studies_listing(app: "BaseApp", _p, _a, _b, _excel) -> None:
 
 def _verify_studies_listing(app: "BaseApp", _p, _a, _b, _excel) -> None:
     app.verify_studies_listing()
+
+
+
+def _open_cohort_analyzer_step(app, _p, _a, _f, excel_name):
+    """Keep Analyzer evidence under this testcase, including UI-only checks."""
+    output = getattr(app, 'output_dir', None)
+    if isinstance(output, Path):
+        app._analyzer_output = output / Path(excel_name).stem
+    app.open_cohort_analyzer()
 
 
 def _c3dc_method_to_step() -> dict:
@@ -117,6 +155,33 @@ def _c3dc_method_to_step() -> dict:
         "add_selected_participants_to_existing_cohort": lambda _a: ("add_selected_participants_to_existing_cohort", "Cohort", "", ""),
         "select_next_participant_page_only": lambda _a: ("select_next_participant_page_only", "Cohort", "", ""),
         "verify_participants_added_to_cohort": lambda _a: ("verify_participants_added_to_cohort", "Cohort", "", ""),
+        "remember_analyzer_cohorts": lambda a: ("remember_analyzer_cohorts", "CohortAnalyzer", "", str_arg(a[1]) if len(a) > 1 else ""),
+        "verify_analyzer_empty_state": lambda _a: ("verify_analyzer_empty_state", "CohortAnalyzer", "", ""),
+        "verify_analyzer_existing_cohorts": lambda _a: ("verify_analyzer_existing_cohorts", "CohortAnalyzer", "", ""),
+        "verify_analyzer_selection": lambda _a: ("verify_analyzer_selection", "CohortAnalyzer", "", ""),
+        "verify_analyzer_selection_limit": lambda _a: ("verify_analyzer_selection_limit", "CohortAnalyzer", "", ""),
+        "verify_analyzer_sorting": lambda _a: ("verify_analyzer_sorting", "CohortAnalyzer", "", ""),
+        "verify_analyzer_removal": lambda a: ("verify_analyzer_removal", "CohortAnalyzer", str_arg(a[0]), str_arg(a[1])),
+        "verify_analyzer_comparison": lambda a: ("verify_analyzer_comparison", "CohortAnalyzer", str_arg(a[0]), ""),
+        "verify_analyzer_regions": lambda _a: ("verify_analyzer_regions", "CohortAnalyzer", "", ""),
+        "create_analyzer_cohort_from_results": lambda _a: ("create_analyzer_cohort_from_results", "CohortAnalyzer", "", ""),
+        "verify_analyzer_table": lambda _a: ("verify_analyzer_table", "CohortAnalyzer", "", ""),
+        "verify_analyzer_pagination": lambda _a: ("verify_analyzer_pagination", "CohortAnalyzer", "", ""),
+        "verify_analyzer_table_download": lambda a: ("verify_analyzer_table_download", "CohortAnalyzer", str_arg(a[0]), ""),
+        "verify_analyzer_build_explore": lambda a: ("verify_analyzer_build_explore", "CohortAnalyzer", "", str_arg(a[0])),
+        "verify_analyzer_chart_values": lambda _a: ("verify_analyzer_chart_values", "CohortAnalyzer", "", ""),
+        "verify_analyzer_chart_types": lambda _a: ("verify_analyzer_chart_types", "CohortAnalyzer", "", ""),
+        "verify_analyzer_chart_management": lambda _a: ("verify_analyzer_chart_management", "CohortAnalyzer", "", ""),
+        "verify_analyzer_layout_reset": lambda _a: ("verify_analyzer_layout_reset", "CohortAnalyzer", "", ""),
+        "verify_analyzer_expanded_views": lambda _a: ("verify_analyzer_expanded_views", "CohortAnalyzer", "", ""),
+        "verify_analyzer_survival": lambda _a: ("verify_analyzer_survival", "CohortAnalyzer", "", ""),
+        "verify_analyzer_venn_downloads": lambda _a: ("verify_analyzer_venn_downloads", "CohortAnalyzer", "", ""),
+        "verify_analyzer_histogram_downloads": lambda _a: ("verify_analyzer_histogram_downloads", "CohortAnalyzer", "", ""),
+        "verify_analyzer_survival_downloads": lambda _a: ("verify_analyzer_survival_downloads", "CohortAnalyzer", "", ""),
+        "verify_analyzer_data_downloads": lambda _a: ("verify_analyzer_data_downloads", "CohortAnalyzer", "", ""),
+        "verify_analyzer_image_downloads": lambda _a: ("verify_analyzer_image_downloads", "CohortAnalyzer", "", ""),
+        "verify_analyzer_tooltip": lambda a: ("verify_analyzer_tooltip", "CohortAnalyzer", str_arg(a[0]), str_arg(a[1])),
+        "verify_analyzer_readme": lambda _a: ("verify_analyzer_readme", "CohortAnalyzer", "", ""),
         "open_cohort_analyzer": lambda _a: ("open_cohort_analyzer", "CohortAnalyzer", "", ""),
         "add_example_cohorts": lambda _a: ("add_example_cohorts", "CohortAnalyzer", "", ""),
         "verify_example_cohorts_created": lambda a: ("verify_example_cohorts_created", "CohortAnalyzer", "", str_arg(a[0])),
@@ -198,7 +263,34 @@ register_profile(
             "add_selected_participants_to_existing_cohort": lambda app, _p, _a, _f, _e: app.add_selected_participants_to_existing_cohort(),
             "select_next_participant_page_only": lambda app, _p, _a, _f, _e: app.select_next_participant_page_only(),
             "verify_participants_added_to_cohort": lambda app, _p, _a, _f, excel: app.verify_participants_added_to_cohort(excel),
-            "open_cohort_analyzer": lambda app, _p, _a, _f, _e: app.open_cohort_analyzer(),
+            "remember_analyzer_cohorts": lambda app, _p, _a, metadata, excel: app.remember_analyzer_cohorts(excel, metadata),
+            "verify_analyzer_empty_state": lambda app, _p, _a, _f, _e: app.verify_analyzer_empty_state(),
+            "verify_analyzer_existing_cohorts": lambda app, _p, _a, _f, _e: app.verify_analyzer_existing_cohorts(),
+            "verify_analyzer_selection": lambda app, _p, _a, _f, _e: app.verify_analyzer_selection(),
+            "verify_analyzer_selection_limit": lambda app, _p, _a, _f, _e: app.verify_analyzer_selection_limit(),
+            "verify_analyzer_sorting": lambda app, _p, _a, _f, _e: app.verify_analyzer_sorting(),
+            "verify_analyzer_removal": lambda app, _p, value, expected, _e: app.verify_analyzer_removal(value, expected),
+            "verify_analyzer_comparison": lambda app, _p, value, _f, _e: app.verify_analyzer_comparison(value),
+            "verify_analyzer_regions": lambda app, _p, _a, _f, _e: app.verify_analyzer_regions(),
+            "create_analyzer_cohort_from_results": lambda app, _p, _a, _f, _e: app.create_analyzer_cohort_from_results(),
+            "verify_analyzer_table": lambda app, _p, _a, _f, _e: app.verify_analyzer_table(),
+            "verify_analyzer_pagination": lambda app, _p, _a, _f, _e: app.verify_analyzer_pagination(),
+            "verify_analyzer_table_download": lambda app, _p, value, _f, _e: app.verify_analyzer_table_download(value),
+            "verify_analyzer_build_explore": lambda app, _p, _a, message, _e: app.verify_analyzer_build_explore(message),
+            "verify_analyzer_chart_values": lambda app, _p, _a, _f, _e: app.verify_analyzer_chart_values(),
+            "verify_analyzer_chart_types": lambda app, _p, _a, _f, _e: app.verify_analyzer_chart_types(),
+            "verify_analyzer_chart_management": lambda app, _p, _a, _f, _e: app.verify_analyzer_chart_management(),
+            "verify_analyzer_layout_reset": lambda app, _p, _a, _f, _e: app.verify_analyzer_layout_reset(),
+            "verify_analyzer_expanded_views": lambda app, _p, _a, _f, _e: app.verify_analyzer_expanded_views(),
+            "verify_analyzer_survival": lambda app, _p, _a, _f, _e: app.verify_analyzer_survival(),
+            "verify_analyzer_venn_downloads": lambda app, _p, _a, _f, _e: app.verify_analyzer_venn_downloads(),
+            "verify_analyzer_histogram_downloads": lambda app, _p, _a, _f, _e: app.verify_analyzer_histogram_downloads(),
+            "verify_analyzer_survival_downloads": lambda app, _p, _a, _f, _e: app.verify_analyzer_survival_downloads(),
+            "verify_analyzer_data_downloads": lambda app, _p, _a, _f, _e: app.verify_analyzer_data_downloads(),
+            "verify_analyzer_image_downloads": lambda app, _p, _a, _f, _e: app.verify_analyzer_image_downloads(),
+            "verify_analyzer_tooltip": lambda app, _p, value, expected, _e: app.verify_analyzer_tooltip(value, expected),
+            "verify_analyzer_readme": lambda app, _p, _a, _f, _e: app.verify_analyzer_readme(),
+            "open_cohort_analyzer": _open_cohort_analyzer_step,
             "add_example_cohorts": lambda app, _p, _a, _f, _e: app.add_example_cohorts(),
             "verify_example_cohorts_created": lambda app, _p, _a, names, _e: app.verify_example_cohorts_created(names),
             "verify_selected_participants_option": lambda app, _p, state, _f, _e: app.verify_selected_participants_option(state),

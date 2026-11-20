@@ -608,3 +608,138 @@ class C3DC(BaseApp):
         """Verify the example names, participant counts and selected states."""
         from Commons.apps.c3dc.cohort_analyzer import verify_example_cohorts_created
         verify_example_cohorts_created(self, expected_names)
+
+    def remember_analyzer_cohorts(self, report_name, include_metadata=''):
+        """Snapshot popup membership before comparing Analyzer results."""
+        from Commons.apps.c3dc.cohort_analyzer import remember_analyzer_cohorts
+        return remember_analyzer_cohorts(self, report_name, include_metadata)
+
+    def verify_analyzer_empty_state(self):
+        """Verify analyzer empty state"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_empty_state
+        return verify_analyzer_empty_state(self)
+
+    def verify_analyzer_existing_cohorts(self):
+        """Verify analyzer existing cohorts"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_existing_cohorts
+        return verify_analyzer_existing_cohorts(self)
+
+    def verify_analyzer_selection(self):
+        """Verify analyzer selection"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_selection
+        return verify_analyzer_selection(self)
+
+    def verify_analyzer_selection_limit(self):
+        """Create a fourth cohort in Explore, then test the Analyzer's three-selection cap."""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_selection_limit
+        return verify_analyzer_selection_limit(self)
+
+    def verify_analyzer_sorting(self):
+        """Verify analyzer sorting"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_sorting
+        return verify_analyzer_sorting(self)
+
+    def verify_analyzer_removal(self, target, expected_message):
+        """Cancel first, then confirm; verify both the membership and persisted list."""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_removal
+        return verify_analyzer_removal(self, target, expected_message)
+
+    def verify_analyzer_comparison(self, category):
+        """Verify analyzer comparison"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_comparison
+        return verify_analyzer_comparison(self, category)
+
+    def verify_analyzer_regions(self):
+        """Verify analyzer regions"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_regions
+        return verify_analyzer_regions(self)
+
+    def create_analyzer_cohort_from_results(self):
+        """Create analyzer cohort from results"""
+        from Commons.apps.c3dc.cohort_analyzer import create_analyzer_cohort_from_results
+        return create_analyzer_cohort_from_results(self)
+
+    def verify_analyzer_table(self):
+        """Verify analyzer table"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_table
+        return verify_analyzer_table(self)
+
+    def verify_analyzer_pagination(self):
+        """Verify analyzer pagination"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_pagination
+        return verify_analyzer_pagination(self)
+
+    def verify_analyzer_table_download(self, fmt):
+        """Verify analyzer table download"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_table_download
+        return verify_analyzer_table_download(self, fmt)
+
+    def verify_analyzer_build_explore(self, expected_message):
+        """Verify analyzer build explore"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_build_explore
+        return verify_analyzer_build_explore(self, expected_message)
+
+    def verify_analyzer_chart_values(self):
+        """Verify count/percentage exports against independently downloaded metadata."""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_chart_values
+        return verify_analyzer_chart_values(self)
+
+    def verify_analyzer_chart_types(self):
+        """Verify analyzer chart types"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_chart_types
+        return verify_analyzer_chart_types(self)
+
+    def verify_analyzer_chart_management(self):
+        """Verify analyzer chart management"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_chart_management
+        return verify_analyzer_chart_management(self)
+
+    def verify_analyzer_layout_reset(self):
+        """Verify analyzer layout reset"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_layout_reset
+        return verify_analyzer_layout_reset(self)
+
+    def verify_analyzer_expanded_views(self):
+        """Verify analyzer expanded views"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_expanded_views
+        return verify_analyzer_expanded_views(self)
+
+    def verify_analyzer_survival(self):
+        """Verify analyzer survival"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_survival
+        return verify_analyzer_survival(self)
+
+    def verify_analyzer_venn_downloads(self):
+        """Verify analyzer venn downloads"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_venn_downloads
+        return verify_analyzer_venn_downloads(self)
+
+    def verify_analyzer_histogram_downloads(self):
+        """Verify analyzer histogram downloads"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_histogram_downloads
+        return verify_analyzer_histogram_downloads(self)
+
+    def verify_analyzer_survival_downloads(self):
+        """Verify analyzer survival downloads"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_survival_downloads
+        return verify_analyzer_survival_downloads(self)
+
+    def verify_analyzer_data_downloads(self):
+        """Cross-check CSV/TSV and JSON and independently validate exported membership."""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_data_downloads
+        return verify_analyzer_data_downloads(self)
+
+    def verify_analyzer_image_downloads(self):
+        """Verify analyzer image downloads"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_image_downloads
+        return verify_analyzer_image_downloads(self)
+
+    def verify_analyzer_tooltip(self, control, expected_text):
+        """Check documented native/HTML tooltips while preserving cohort selections."""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_tooltip
+        return verify_analyzer_tooltip(self, control, expected_text)
+
+    def verify_analyzer_readme(self):
+        """Verify analyzer readme"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_readme
+        return verify_analyzer_readme(self)
