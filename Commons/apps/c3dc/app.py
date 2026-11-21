@@ -102,6 +102,46 @@ class C3DC(BaseApp):
     }
 
     # -----------------------------------------------------------------------
+    # Static pages (home_page.py and static_pages.py)
+    # -----------------------------------------------------------------------
+
+    def open_home_page(self):
+        from Commons.apps.c3dc.home_page import open_home_page
+        return open_home_page(self)
+
+    def verify_home_page_content(self):
+        from Commons.apps.c3dc.home_page import verify_home_page_content
+        return verify_home_page_content(self)
+
+    def open_about_page(self):
+        from Commons.apps.c3dc.static_pages import open_about_page
+        return open_about_page(self)
+
+    def verify_about_page_content(self):
+        from Commons.apps.c3dc.static_pages import verify_about_page_content
+        return verify_about_page_content(self)
+
+    def open_release_notes(self):
+        from Commons.apps.c3dc.static_pages import open_release_notes
+        return open_release_notes(self)
+
+    def verify_release_notes_content(self):
+        from Commons.apps.c3dc.static_pages import verify_release_notes_content
+        return verify_release_notes_content(self)
+
+    def open_user_guide(self):
+        from Commons.apps.c3dc.static_pages import open_user_guide
+        return open_user_guide(self)
+
+    def verify_user_guide_content(self):
+        from Commons.apps.c3dc.static_pages import verify_user_guide_content
+        return verify_user_guide_content(self)
+
+    def verify_explore_help_content(self, sheet_name):
+        from Commons.apps.c3dc.static_pages import verify_explore_help_content
+        return verify_explore_help_content(self, sheet_name)
+
+    # -----------------------------------------------------------------------
     # Explore navigation
     # -----------------------------------------------------------------------
 
