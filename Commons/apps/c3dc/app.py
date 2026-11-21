@@ -591,6 +591,106 @@ class C3DC(BaseApp):
         return verify_cohort_details_saved(self)
 
     # -----------------------------------------------------------------------
+    # Participant set upload (upload_participants.py)
+    # -----------------------------------------------------------------------
+
+    def verify_unmatched_participants(self, count, report_name):
+        from Commons.apps.c3dc.upload_participants import verify_unmatched_participants
+        return verify_unmatched_participants(self, count, report_name)
+
+    def verify_participant_upload_limit(self, limit, report_name):
+        from Commons.apps.c3dc.upload_participants import verify_participant_upload_limit
+        return verify_participant_upload_limit(self, limit, report_name)
+
+    def remember_participant_upload_baseline(self):
+        from Commons.apps.c3dc.upload_participants import read_upload_baseline_count
+        self._participant_upload_baseline_count = read_upload_baseline_count(self)
+
+    def type_replacement_participant_ids(self):
+        from Commons.apps.c3dc.upload_participants import type_participant_ids
+        return type_participant_ids(self, self._participant_upload_replacement.submitted)
+
+    def close_participant_upload(self):
+        from Commons.apps.c3dc.upload_participants import close_participant_upload
+        return close_participant_upload(self)
+
+    def verify_participant_upload_empty(self):
+        from Commons.apps.c3dc.upload_participants import verify_participant_upload_empty
+        return verify_participant_upload_empty(self)
+
+    def remove_participant_upload(self):
+        from Commons.apps.c3dc.upload_participants import remove_participant_upload
+        return remove_participant_upload(self)
+
+    def verify_participant_upload_cleared(self):
+        from Commons.apps.c3dc.upload_participants import verify_participant_upload_cleared
+        return verify_participant_upload_cleared(self, self._participant_upload_baseline_count)
+
+    def prepare_participant_upload(self, count=2, unmatched_count=1):
+        from Commons.apps.c3dc.upload_participants import prepare_participant_upload
+        self._participant_upload = prepare_participant_upload(self, count, unmatched_count)
+        return self._participant_upload
+
+    def prepare_participant_upload_update(self, count=2, unmatched_count=1):
+        from Commons.apps.c3dc.upload_participants import prepare_participant_upload_update
+        self._participant_upload, self._participant_upload_replacement = prepare_participant_upload_update(self, count, unmatched_count)
+
+    def use_replacement_participant_upload(self):
+        """Select the previously captured replacement as the next upload baseline."""
+        self._participant_upload = self._participant_upload_replacement
+
+    def verify_participant_upload_draft(self, participant_ids=None):
+        from Commons.apps.c3dc.upload_participants import verify_participant_upload_draft
+        ids = self._participant_upload.submitted if participant_ids is None else participant_ids
+        return verify_participant_upload_draft(self, ids)
+
+    def open_participant_upload(self):
+        from Commons.apps.c3dc.upload_participants import open_participant_upload
+        return open_participant_upload(self)
+
+    def type_participant_ids(self, participant_ids=None):
+        from Commons.apps.c3dc.upload_participants import type_participant_ids
+        ids = self._participant_upload.submitted if participant_ids is None else participant_ids
+        return type_participant_ids(self, ids)
+
+    def type_formatted_participant_ids(self, repetitions=2):
+        from Commons.apps.c3dc.upload_participants import type_formatted_participant_ids
+        return type_formatted_participant_ids(self, self._participant_upload.submitted, repetitions)
+
+    def create_participant_upload_file(self, report_name, filename='participants.txt'):
+        from pathlib import Path
+        from Commons.apps.c3dc.upload_participants import write_participant_file
+        target = self.output_dir / Path(report_name).stem / Path(filename).name
+        self._participant_upload_file = write_participant_file(target, self._participant_upload.submitted)
+        return self._participant_upload_file
+
+    def attach_participant_file(self, path=None):
+        from Commons.apps.c3dc.upload_participants import attach_participant_file
+        source = self._participant_upload_file if path is None else path
+        return attach_participant_file(self, source)
+
+    def clear_participant_upload(self):
+        from Commons.apps.c3dc.upload_participants import clear_participant_upload
+        return clear_participant_upload(self)
+
+    def cancel_participant_upload(self):
+        from Commons.apps.c3dc.upload_participants import cancel_participant_upload
+        return cancel_participant_upload(self)
+
+    def submit_participant_upload(self):
+        from Commons.apps.c3dc.upload_participants import submit_participant_upload
+        return submit_participant_upload(self)
+
+    def verify_upload_preview(self, expected=None):
+        from Commons.apps.c3dc.upload_participants import verify_upload_preview
+        return verify_upload_preview(self, self._participant_upload if expected is None else expected)
+
+    def verify_uploaded_participants(self, report_name='participant_upload', participant_ids=None):
+        from Commons.apps.c3dc.upload_participants import verify_uploaded_participants
+        ids = self._participant_upload.matched if participant_ids is None else participant_ids
+        return verify_uploaded_participants(self, ids, report_name)
+
+    # -----------------------------------------------------------------------
     # Cohort Analyzer (cohort_analyzer.py)
     # -----------------------------------------------------------------------
 
