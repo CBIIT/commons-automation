@@ -1,0 +1,26 @@
+# Participant set controls, shared by Explore and downstream cohort workflows.
+page: UploadParticipants
+elements:
+  FacetPanel: (//*[text()="Demographics"])[1]
+  Open: //button[starts-with(translate(normalize-space(.),'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ'),'UPLOAD PARTICIPANTS SET') or starts-with(translate(normalize-space(.),'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ'),'VIEW PARTICIPANTS SET')]
+  View: //button[starts-with(translate(normalize-space(.),'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ'),'VIEW PARTICIPANTS SET')]
+  Dialog: //h1[span[normalize-space(.)='Upload Participants Set']]/parent::div
+  Ids: .//textarea[@id='local_find_upload_textarea']
+  File: .//input[@id='local_find_upload_input']
+  Clear: .//button[@id='local_find_upload_clear']
+  Cancel: .//button[@id='local_find_upload_cancel']
+  Submit: .//button[@id='local_find_upload_submit']
+  Matched: .//*[@id='uploadCaseSetMatched']
+  MatchedCount: .//*[@id='uploadCaseSetMatchedCount']
+  MatchedTable: .//*[@id='uploadCaseSetMatchedTable']
+  Unmatched: .//*[@id='uploadCaseSetUnMatched']
+  UnmatchedCount: .//*[@id='uploadCaseSetUnMatchedCount']
+  UnmatchedTable: .//*[@id='uploadCaseSetUnMatchedTable']
+  ExploreRows: //*[@id='participant_tab_table']//tbody/tr
+  PreviousPage: (.//button[@aria-label='Previous page'])[1]
+  NextPage: (.//button[@aria-label='Next page'])[1]
+  LimitFeedback: //*[@role='alert' or self::p or self::span][(contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'maximum') or contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'exceed') or contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'limit') or contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'up to')) and (contains(.,'{formatted_limit}') or contains(.,'{limit}')) and not(.//*[contains(.,'{formatted_limit}') or contains(.,'{limit}')])]
+  Upload: //button[starts-with(translate(normalize-space(.),'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ'),'UPLOAD PARTICIPANTS SET')]
+  Close: .//h1//img[@alt='close icon']
+  InputSet: //*[translate(normalize-space(text()),'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')='INPUT PARTICIPANT SET']
+  RemoveSet: //button[translate(normalize-space(.),'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')='CLEAR QUERY']
