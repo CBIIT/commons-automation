@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, List
 
 from Commons.excel_testcase._step_parse import int_arg, parse_adapter_calls, str_arg
+from Commons.excel_testcase.file_cart_steps import c3dc_cart_handlers
 from Commons.excel_testcase.profile import ExcelCaseProfile, StepRow
 from Commons.excel_testcase.registry import register_profile
 
@@ -14,6 +15,7 @@ if TYPE_CHECKING:
     from Commons.apps.base import BaseApp
 
 C3DC_EXCEL_ACTIONS = [
+    *c3dc_cart_handlers(),
     "verify_explore_help_content",
     "open_release_notes", "verify_release_notes_content", "open_user_guide", "verify_user_guide_content",
     "open_home_page", "verify_home_page_content", "open_about_page", "verify_about_page_content",
@@ -92,6 +94,7 @@ C3DC_STATIC_DATA_FILE = "C3DC_StaticData.xlsx"
 
 C3DC_CASE_SUBDIRS = (
     "studies",
+    "file_cart",
     "study_listing",
     "study_details",
     "cohorts",
@@ -274,6 +277,7 @@ register_profile(
         parse_test_function=_parse_c3dc_test_function,
         case_subdirs=C3DC_CASE_SUBDIRS,
         extra_handlers={
+            **c3dc_cart_handlers(),
             "sort_result_tab": lambda app, tab, column, _f, _e: app.sort_result_tab(tab, column),
             "open_explore_files": lambda app, _p, _a, _f, _e: app.open_explore_files(),
             "open_studies_listing": _open_studies_listing,

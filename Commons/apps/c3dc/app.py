@@ -11,6 +11,8 @@ from dataclasses import replace
 from typing import Dict, List, Optional
 
 from Commons import action_log
+from Commons.file_cart import FileCartApp
+from Commons.apps.c3dc.file_cart import C3DCFileCart
 from Commons.base_app import BaseApp, StatSpec, TabSpec
 from Commons.table_reader import active_result_tab_record_count
 
@@ -36,7 +38,8 @@ def _tab(name, label, input_tab, stat, ui, db, max_pages=2):
 # ---------------------------------------------------------------------------
 
 
-class C3DC(BaseApp):
+class C3DC(FileCartApp, BaseApp):
+    FILE_CART_CLASS = C3DCFileCart
     NAME = "C3DC"
     BANNER_KEYS = ["Navbar/WarningBan_Continue_Btn"]
     STATIC_DATA_EXCEL = "C3DC_StaticData.xlsx"

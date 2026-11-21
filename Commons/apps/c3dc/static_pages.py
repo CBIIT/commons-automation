@@ -40,9 +40,13 @@ def verify_release_notes_content(app):
 
 def open_user_guide(app):
     """Follow About > User Guide and retain the actual PDF URL for verification."""
-    from urllib.parse import urljoin
     app.click('Static/UserGuidePage/AboutMenu')
-    link = app.ui.visible(app.repo.xpath('Static/UserGuidePage/GuideLink'))
+    open_guide_pdf(app, app.ui.visible(app.repo.xpath('Static/UserGuidePage/GuideLink')))
+
+
+def open_guide_pdf(app, link):
+    """Follow a user-guide link from any C3DC page and retain its requested PDF URL."""
+    from urllib.parse import urljoin
     source = urljoin(app.page.url, link.get_attribute('href'))
     # Headless Chromium may expose a native PDF tab with no normal page URL.
     # Observe the actual request triggered by the click instead of waiting for HTML.

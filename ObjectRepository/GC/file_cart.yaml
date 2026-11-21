@@ -1,0 +1,23 @@
+# Repeated source toolbars are resolved to their top visible copy by FileCart.visible.
+page: FileCart
+elements:
+  Navigation: //a[contains(@href,'fileCentricCart')]
+  Badge: //a[contains(@href,'fileCentricCart')]//*[not(*) and string-length(normalize-space(.))>0
+    and translate(normalize-space(.),'0123456789,','')='']
+  Table: //table[thead/tr/th[normalize-space(.)='File Name']]
+  SourceTable: //table[thead/tr/th[normalize-space(.)='File Name']]
+  Next: //button[@aria-label='Next page']
+  Previous: //button[@aria-label='Previous page']
+  SourceNext: //button[@aria-label='Next page']
+  SourcePrevious: //button[@aria-label='Previous page']
+  PageStatus: //p[contains(translate(normalize-space(.),'OF','of'),'of ') and (contains(.,'-')
+    or contains(.,'–'))]
+  PageSize: //*[@role='button' and @aria-haspopup='listbox']
+  AddSelected: //button[translate(normalize-space(.),'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')='ADD
+    SELECTED FILES']
+  Export: //button[contains(translate(normalize-space(.),'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ'),'EXPORT')
+    and (contains(translate(normalize-space(.),'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ'),'OPTIONS')
+    or contains(translate(normalize-space(.),'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ'),'DOWNLOAD'))]
+  Manifest: //*[@role='menuitem'][contains(translate(normalize-space(.),'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ'),'DOWNLOAD')
+    and contains(translate(normalize-space(.),'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ'),'MANIFEST')]
+  SourceTab: //button[@role='tab' and starts-with(normalize-space(.),'Files')]

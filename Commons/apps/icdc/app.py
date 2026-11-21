@@ -4,6 +4,8 @@ ICDC (Integrated Canine Data Commons): https://caninecommons-qa.cancer.gov
 Cases explore: stat bar + result tabs (Cases, Samples, Case Files, Study Files).
 Expected data: Neo4j Cypher in InputFiles/ICDC/TC*.xlsx.
 """
+from Commons.file_cart import FileCartApp
+from Commons.apps.icdc.file_cart import ICDCFileCart
 from Commons.base_app import BaseApp, StatSpec, TabSpec
 
 # ---------------------------------------------------------------------------
@@ -32,7 +34,8 @@ def _tab(name, input_tab, stat, ui_sheet, db_sheet, tab_key, table, header, next
 # ---------------------------------------------------------------------------
 
 
-class ICDC(BaseApp):
+class ICDC(FileCartApp, BaseApp):
+    FILE_CART_CLASS = ICDCFileCart
     NAME = "ICDC"
     BANNER_KEYS = ["Canine_PopUp_Continue_Btn"]
 
