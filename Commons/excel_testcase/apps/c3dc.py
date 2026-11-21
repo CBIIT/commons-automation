@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     from Commons.apps.base import BaseApp
 
 C3DC_EXCEL_ACTIONS = [
+    "verify_uploaded_cohort_participants",
     "type_formatted_participant_ids",
     "verify_unmatched_participants",
     "remember_participant_upload_baseline", "type_replacement_participant_ids", "close_participant_upload", "verify_participant_upload_empty", "remove_participant_upload", "verify_participant_upload_cleared",
@@ -160,6 +161,7 @@ def _c3dc_method_to_step() -> dict:
         "begin_study_details_report": lambda a: ("begin_study_details_report", "StudyDetails", str_arg(a[0]) if a else "", ""),
         "verify_study_details": lambda a: ("verify_study_details", "StudyDetails", str_arg(a[0]), ""),
         "create_cohort_from_all_participants": lambda _a: ("create_cohort_from_all_participants", "Cohort", "", ""),
+        "verify_uploaded_cohort_participants": lambda _a: ("verify_uploaded_cohort_participants", "Cohort", "", ""),
         "verify_cohort_created": lambda _a: ("verify_cohort_created", "Cohort", "", ""),
         "open_cohorts": lambda _a: ("open_cohorts", "Cohort", "", ""),
         "close_cohorts": lambda _a: ("close_cohorts", "Cohort", "", ""),
@@ -268,6 +270,7 @@ register_profile(
             "begin_study_details_report": lambda app, _p, name, _f, _e: app.begin_study_details_report(name) if name else app.begin_study_details_report(),
             "verify_study_details": lambda app, _p, accession, _f, _e: app.verify_study_details(accession),
             "create_cohort_from_all_participants": lambda app, _p, _a, _f, _e: app.create_cohort_from_all_participants(),
+            "verify_uploaded_cohort_participants": lambda app, _p, _a, _f, _e: app.verify_uploaded_cohort_participants(),
             "verify_cohort_created": lambda app, _p, _a, _f, _e: app.verify_cohort_created(),
             "open_cohorts": lambda app, _p, _a, _f, _e: app.open_cohorts(),
             "close_cohorts": lambda app, _p, _a, _f, _e: app.close_cohorts(),

@@ -141,3 +141,10 @@ partial ID searches, no matching results, and clearing the search. It removes
 one searched participant, saves, reloads, and verifies that the participant stays
 removed, the count decreases by one, and all other members and cohort metadata
 are preserved. Expected membership comes from the original popup snapshot.
+
+`TC14_C3DC_Verify_Create_Cohort_UploadedParticipants.xlsx` chooses source IDs
+from the live Explore table, types and submits the participant set, and verifies
+its exact Explore membership. It then creates a cohort using All Participants
+and compares the popup's count and unique participant IDs with the original
+upload input. No study filter or fixed participant IDs are required. Existing
+upload and cohort controls are reused.

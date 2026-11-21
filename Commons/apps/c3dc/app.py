@@ -400,6 +400,11 @@ class C3DC(BaseApp):
 
         create_cohort_from_all_participants(self)
 
+    def verify_uploaded_cohort_participants(self):
+        """Compare the new cohort with the independent upload input baseline."""
+        from Commons.apps.c3dc.cohort import verify_cohort_created
+        return verify_cohort_created(self, participant_ids=self._participant_upload.matched)
+
     def verify_cohort_created(self):
         """Check the new cohort's popup, participant count, unique rows and study."""
         from Commons.apps.c3dc.cohort import verify_cohort_created

@@ -372,13 +372,14 @@ def create_cohort_from_selected_participants(app):
     _create_cohort(app, "Cohort/SelectedParticipants", len(participants), participants)
 
 
-def verify_cohort_created(app):
-    """Check the new cohort's name, count, unique rows and selected study."""
+def verify_cohort_created(app, participant_ids=None):
+    """Check creation and exact membership when the caller supplies known IDs."""
     creation = getattr(app, "_cohort_creation", None)
     if creation is None:
         raise AssertionError("Create a cohort before calling verify_cohort_created")
     details = read_selected_cohort(app)
-    expected = set(creation.participants) if creation.participants is not None else None
+    known_ids = creation.participants if participant_ids is None else participant_ids
+    expected = set(known_ids) if known_ids is not None else None
     actual = {participant for participant, _ in details.participants}
     checks = {
         "new cohort name": bool(re.fullmatch(r"New Cohort(?: \d+)?", details.name)),
