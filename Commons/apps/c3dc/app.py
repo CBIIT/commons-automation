@@ -591,6 +591,106 @@ class C3DC(BaseApp):
         return verify_cohort_details_saved(self)
 
     # -----------------------------------------------------------------------
+    # Participant set upload (upload_participants.py)
+    # -----------------------------------------------------------------------
+
+    def verify_unmatched_participants(self, count, report_name):
+        from Commons.apps.c3dc.upload_participants import verify_unmatched_participants
+        return verify_unmatched_participants(self, count, report_name)
+
+    def verify_participant_upload_limit(self, limit, report_name):
+        from Commons.apps.c3dc.upload_participants import verify_participant_upload_limit
+        return verify_participant_upload_limit(self, limit, report_name)
+
+    def remember_participant_upload_baseline(self):
+        from Commons.apps.c3dc.upload_participants import read_upload_baseline_count
+        self._participant_upload_baseline_count = read_upload_baseline_count(self)
+
+    def type_replacement_participant_ids(self):
+        from Commons.apps.c3dc.upload_participants import type_participant_ids
+        return type_participant_ids(self, self._participant_upload_replacement.submitted)
+
+    def close_participant_upload(self):
+        from Commons.apps.c3dc.upload_participants import close_participant_upload
+        return close_participant_upload(self)
+
+    def verify_participant_upload_empty(self):
+        from Commons.apps.c3dc.upload_participants import verify_participant_upload_empty
+        return verify_participant_upload_empty(self)
+
+    def remove_participant_upload(self):
+        from Commons.apps.c3dc.upload_participants import remove_participant_upload
+        return remove_participant_upload(self)
+
+    def verify_participant_upload_cleared(self):
+        from Commons.apps.c3dc.upload_participants import verify_participant_upload_cleared
+        return verify_participant_upload_cleared(self, self._participant_upload_baseline_count)
+
+    def prepare_participant_upload(self, count=2, unmatched_count=1):
+        from Commons.apps.c3dc.upload_participants import prepare_participant_upload
+        self._participant_upload = prepare_participant_upload(self, count, unmatched_count)
+        return self._participant_upload
+
+    def prepare_participant_upload_update(self, count=2, unmatched_count=1):
+        from Commons.apps.c3dc.upload_participants import prepare_participant_upload_update
+        self._participant_upload, self._participant_upload_replacement = prepare_participant_upload_update(self, count, unmatched_count)
+
+    def use_replacement_participant_upload(self):
+        """Select the previously captured replacement as the next upload baseline."""
+        self._participant_upload = self._participant_upload_replacement
+
+    def verify_participant_upload_draft(self, participant_ids=None):
+        from Commons.apps.c3dc.upload_participants import verify_participant_upload_draft
+        ids = self._participant_upload.submitted if participant_ids is None else participant_ids
+        return verify_participant_upload_draft(self, ids)
+
+    def open_participant_upload(self):
+        from Commons.apps.c3dc.upload_participants import open_participant_upload
+        return open_participant_upload(self)
+
+    def type_participant_ids(self, participant_ids=None):
+        from Commons.apps.c3dc.upload_participants import type_participant_ids
+        ids = self._participant_upload.submitted if participant_ids is None else participant_ids
+        return type_participant_ids(self, ids)
+
+    def type_formatted_participant_ids(self, repetitions=2):
+        from Commons.apps.c3dc.upload_participants import type_formatted_participant_ids
+        return type_formatted_participant_ids(self, self._participant_upload.submitted, repetitions)
+
+    def create_participant_upload_file(self, report_name, filename='participants.txt'):
+        from pathlib import Path
+        from Commons.apps.c3dc.upload_participants import write_participant_file
+        target = self.output_dir / Path(report_name).stem / Path(filename).name
+        self._participant_upload_file = write_participant_file(target, self._participant_upload.submitted)
+        return self._participant_upload_file
+
+    def attach_participant_file(self, path=None):
+        from Commons.apps.c3dc.upload_participants import attach_participant_file
+        source = self._participant_upload_file if path is None else path
+        return attach_participant_file(self, source)
+
+    def clear_participant_upload(self):
+        from Commons.apps.c3dc.upload_participants import clear_participant_upload
+        return clear_participant_upload(self)
+
+    def cancel_participant_upload(self):
+        from Commons.apps.c3dc.upload_participants import cancel_participant_upload
+        return cancel_participant_upload(self)
+
+    def submit_participant_upload(self):
+        from Commons.apps.c3dc.upload_participants import submit_participant_upload
+        return submit_participant_upload(self)
+
+    def verify_upload_preview(self, expected=None):
+        from Commons.apps.c3dc.upload_participants import verify_upload_preview
+        return verify_upload_preview(self, self._participant_upload if expected is None else expected)
+
+    def verify_uploaded_participants(self, report_name='participant_upload', participant_ids=None):
+        from Commons.apps.c3dc.upload_participants import verify_uploaded_participants
+        ids = self._participant_upload.matched if participant_ids is None else participant_ids
+        return verify_uploaded_participants(self, ids, report_name)
+
+    # -----------------------------------------------------------------------
     # Cohort Analyzer (cohort_analyzer.py)
     # -----------------------------------------------------------------------
 
@@ -608,3 +708,138 @@ class C3DC(BaseApp):
         """Verify the example names, participant counts and selected states."""
         from Commons.apps.c3dc.cohort_analyzer import verify_example_cohorts_created
         verify_example_cohorts_created(self, expected_names)
+
+    def remember_analyzer_cohorts(self, report_name, include_metadata=''):
+        """Snapshot popup membership before comparing Analyzer results."""
+        from Commons.apps.c3dc.cohort_analyzer import remember_analyzer_cohorts
+        return remember_analyzer_cohorts(self, report_name, include_metadata)
+
+    def verify_analyzer_empty_state(self):
+        """Verify analyzer empty state"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_empty_state
+        return verify_analyzer_empty_state(self)
+
+    def verify_analyzer_existing_cohorts(self):
+        """Verify analyzer existing cohorts"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_existing_cohorts
+        return verify_analyzer_existing_cohorts(self)
+
+    def verify_analyzer_selection(self):
+        """Verify analyzer selection"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_selection
+        return verify_analyzer_selection(self)
+
+    def verify_analyzer_selection_limit(self):
+        """Create a fourth cohort in Explore, then test the Analyzer's three-selection cap."""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_selection_limit
+        return verify_analyzer_selection_limit(self)
+
+    def verify_analyzer_sorting(self):
+        """Verify analyzer sorting"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_sorting
+        return verify_analyzer_sorting(self)
+
+    def verify_analyzer_removal(self, target, expected_message):
+        """Cancel first, then confirm; verify both the membership and persisted list."""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_removal
+        return verify_analyzer_removal(self, target, expected_message)
+
+    def verify_analyzer_comparison(self, category):
+        """Verify analyzer comparison"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_comparison
+        return verify_analyzer_comparison(self, category)
+
+    def verify_analyzer_regions(self):
+        """Verify analyzer regions"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_regions
+        return verify_analyzer_regions(self)
+
+    def create_analyzer_cohort_from_results(self):
+        """Create analyzer cohort from results"""
+        from Commons.apps.c3dc.cohort_analyzer import create_analyzer_cohort_from_results
+        return create_analyzer_cohort_from_results(self)
+
+    def verify_analyzer_table(self):
+        """Verify analyzer table"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_table
+        return verify_analyzer_table(self)
+
+    def verify_analyzer_pagination(self):
+        """Verify analyzer pagination"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_pagination
+        return verify_analyzer_pagination(self)
+
+    def verify_analyzer_table_download(self, fmt):
+        """Verify analyzer table download"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_table_download
+        return verify_analyzer_table_download(self, fmt)
+
+    def verify_analyzer_build_explore(self, expected_message):
+        """Verify analyzer build explore"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_build_explore
+        return verify_analyzer_build_explore(self, expected_message)
+
+    def verify_analyzer_chart_values(self):
+        """Verify count/percentage exports against independently downloaded metadata."""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_chart_values
+        return verify_analyzer_chart_values(self)
+
+    def verify_analyzer_chart_types(self):
+        """Verify analyzer chart types"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_chart_types
+        return verify_analyzer_chart_types(self)
+
+    def verify_analyzer_chart_management(self):
+        """Verify analyzer chart management"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_chart_management
+        return verify_analyzer_chart_management(self)
+
+    def verify_analyzer_layout_reset(self):
+        """Verify analyzer layout reset"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_layout_reset
+        return verify_analyzer_layout_reset(self)
+
+    def verify_analyzer_expanded_views(self):
+        """Verify analyzer expanded views"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_expanded_views
+        return verify_analyzer_expanded_views(self)
+
+    def verify_analyzer_survival(self):
+        """Verify analyzer survival"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_survival
+        return verify_analyzer_survival(self)
+
+    def verify_analyzer_venn_downloads(self):
+        """Verify analyzer venn downloads"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_venn_downloads
+        return verify_analyzer_venn_downloads(self)
+
+    def verify_analyzer_histogram_downloads(self):
+        """Verify analyzer histogram downloads"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_histogram_downloads
+        return verify_analyzer_histogram_downloads(self)
+
+    def verify_analyzer_survival_downloads(self):
+        """Verify analyzer survival downloads"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_survival_downloads
+        return verify_analyzer_survival_downloads(self)
+
+    def verify_analyzer_data_downloads(self):
+        """Cross-check CSV/TSV and JSON and independently validate exported membership."""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_data_downloads
+        return verify_analyzer_data_downloads(self)
+
+    def verify_analyzer_image_downloads(self):
+        """Verify analyzer image downloads"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_image_downloads
+        return verify_analyzer_image_downloads(self)
+
+    def verify_analyzer_tooltip(self, control, expected_text):
+        """Check documented native/HTML tooltips while preserving cohort selections."""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_tooltip
+        return verify_analyzer_tooltip(self, control, expected_text)
+
+    def verify_analyzer_readme(self):
+        """Verify analyzer readme"""
+        from Commons.apps.c3dc.cohort_analyzer import verify_analyzer_readme
+        return verify_analyzer_readme(self)
