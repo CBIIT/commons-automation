@@ -1,0 +1,4 @@
+page: Static/UserGuidePage
+elements:
+  AboutMenu: //div[@role='button' and normalize-space(.)='About']
+  GuideLink: //a[@href='/user-guide.pdf' and normalize-space(.)='User Guide']

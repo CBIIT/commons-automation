@@ -4,6 +4,8 @@ CTDC (Clinical Trials Data Commons): https://clinical-qa.datacommons.cancer.gov
 Explore: stat bar + result tabs (Participants, Biospecimens, Files, Study Files).
 Expected data: TSV snapshots under InputFiles/CTDC/<STUDY>/YYYY-MM-DD/ + SQL in TC*.xlsx.
 """
+from Commons.file_cart import FileCartApp
+from Commons.apps.ctdc.file_cart import CTDCFileCart
 from Commons.base_app import BaseApp, StatSpec, TabSpec
 
 # ---------------------------------------------------------------------------
@@ -32,7 +34,8 @@ def _tab(name, input_tab, stat, ui, db, max_pages=10):
 # ---------------------------------------------------------------------------
 
 
-class CTDC(BaseApp):
+class CTDC(FileCartApp, BaseApp):
+    FILE_CART_CLASS = CTDCFileCart
     NAME = "CTDC"
     BANNER_KEYS = ["Home/WarningBan_Continue_Btn"]
     STATIC_DATA_EXCEL = "TC01_CTDC_StaticData.xlsx"

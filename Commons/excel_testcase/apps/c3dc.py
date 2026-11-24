@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, List
 
 from Commons.excel_testcase._step_parse import int_arg, parse_adapter_calls, str_arg
+from Commons.excel_testcase.file_cart_steps import c3dc_cart_handlers
 from Commons.excel_testcase.profile import ExcelCaseProfile, StepRow
 from Commons.excel_testcase.registry import register_profile
 
@@ -14,6 +15,11 @@ if TYPE_CHECKING:
     from Commons.apps.base import BaseApp
 
 C3DC_EXCEL_ACTIONS = [
+    *c3dc_cart_handlers(),
+    "verify_explore_help_content",
+    "open_release_notes", "verify_release_notes_content", "open_user_guide", "verify_user_guide_content",
+    "open_home_page", "verify_home_page_content", "open_about_page", "verify_about_page_content",
+    "verify_uploaded_cohort_participants",
     "type_formatted_participant_ids",
     "verify_unmatched_participants",
     "remember_participant_upload_baseline", "type_replacement_participant_ids", "close_participant_upload", "verify_participant_upload_empty", "remove_participant_upload", "verify_participant_upload_cleared",
@@ -88,6 +94,7 @@ C3DC_STATIC_DATA_FILE = "C3DC_StaticData.xlsx"
 
 C3DC_CASE_SUBDIRS = (
     "studies",
+    "file_cart",
     "study_listing",
     "study_details",
     "cohorts",
@@ -160,6 +167,7 @@ def _c3dc_method_to_step() -> dict:
         "begin_study_details_report": lambda a: ("begin_study_details_report", "StudyDetails", str_arg(a[0]) if a else "", ""),
         "verify_study_details": lambda a: ("verify_study_details", "StudyDetails", str_arg(a[0]), ""),
         "create_cohort_from_all_participants": lambda _a: ("create_cohort_from_all_participants", "Cohort", "", ""),
+        "verify_uploaded_cohort_participants": lambda _a: ("verify_uploaded_cohort_participants", "Cohort", "", ""),
         "verify_cohort_created": lambda _a: ("verify_cohort_created", "Cohort", "", ""),
         "open_cohorts": lambda _a: ("open_cohorts", "Cohort", "", ""),
         "close_cohorts": lambda _a: ("close_cohorts", "Cohort", "", ""),
@@ -224,6 +232,15 @@ def _c3dc_method_to_step() -> dict:
         "select_filter": _filter,
         "verify_tab": _tab,
         "goto": _goto,
+        "open_home_page": lambda _a: ("open_home_page", "", "", ""),
+        "verify_home_page_content": lambda _a: ("verify_home_page_content", "", "", ""),
+        "open_about_page": lambda _a: ("open_about_page", "", "", ""),
+        "verify_about_page_content": lambda _a: ("verify_about_page_content", "", "", ""),
+        "open_release_notes": lambda _a: ("open_release_notes", "", "", ""),
+        "verify_release_notes_content": lambda _a: ("verify_release_notes_content", "", "", ""),
+        "open_user_guide": lambda _a: ("open_user_guide", "", "", ""),
+        "verify_user_guide_content": lambda _a: ("verify_user_guide_content", "", "", ""),
+        "verify_explore_help_content": lambda a: ("verify_explore_help_content", "", str_arg(a[0]), ""),
         "verify_static_data": _static,
     }
 
@@ -260,6 +277,7 @@ register_profile(
         parse_test_function=_parse_c3dc_test_function,
         case_subdirs=C3DC_CASE_SUBDIRS,
         extra_handlers={
+            **c3dc_cart_handlers(),
             "sort_result_tab": lambda app, tab, column, _f, _e: app.sort_result_tab(tab, column),
             "open_explore_files": lambda app, _p, _a, _f, _e: app.open_explore_files(),
             "open_studies_listing": _open_studies_listing,
@@ -267,7 +285,17 @@ register_profile(
             "open_study_details": lambda app, _p, accession, _f, _e: app.open_study_details(accession),
             "begin_study_details_report": lambda app, _p, name, _f, _e: app.begin_study_details_report(name) if name else app.begin_study_details_report(),
             "verify_study_details": lambda app, _p, accession, _f, _e: app.verify_study_details(accession),
+            "open_home_page": lambda app, _p, _a, _f, _e: app.open_home_page(),
+            "verify_home_page_content": lambda app, _p, _a, _f, _e: app.verify_home_page_content(),
+            "open_about_page": lambda app, _p, _a, _f, _e: app.open_about_page(),
+            "verify_about_page_content": lambda app, _p, _a, _f, _e: app.verify_about_page_content(),
+            "open_release_notes": lambda app, _p, _a, _f, _e: app.open_release_notes(),
+            "verify_release_notes_content": lambda app, _p, _a, _f, _e: app.verify_release_notes_content(),
+            "open_user_guide": lambda app, _p, _a, _f, _e: app.open_user_guide(),
+            "verify_user_guide_content": lambda app, _p, _a, _f, _e: app.verify_user_guide_content(),
+            "verify_explore_help_content": lambda app, _p, sheet, _f, _e: app.verify_explore_help_content(sheet),
             "create_cohort_from_all_participants": lambda app, _p, _a, _f, _e: app.create_cohort_from_all_participants(),
+            "verify_uploaded_cohort_participants": lambda app, _p, _a, _f, _e: app.verify_uploaded_cohort_participants(),
             "verify_cohort_created": lambda app, _p, _a, _f, _e: app.verify_cohort_created(),
             "open_cohorts": lambda app, _p, _a, _f, _e: app.open_cohorts(),
             "close_cohorts": lambda app, _p, _a, _f, _e: app.close_cohorts(),
