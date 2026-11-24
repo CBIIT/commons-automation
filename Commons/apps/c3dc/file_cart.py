@@ -7,16 +7,25 @@ from Commons.file_cart import FileCart, verify_csv_manifest, normalize_value
 
 
 class C3DCFileCart(FileCart):
+    # ----------------------------------------------------------------------------
+    # C3DC specification: file identity and source/cart column mappings
+    # ----------------------------------------------------------------------------
     identity_fields = ('name', 'study')
     source_columns = {'name': 'File Name', 'study': 'Study ID', 'participants': 'Participant ID',
                       'samples': 'Sample ID', 'type': 'File Type'}
     cart_columns = {**source_columns, 'size': 'File Size'}
 
+    # ----------------------------------------------------------------------------
+    # Source navigation: open Explore Files and reset selection
+    # ----------------------------------------------------------------------------
     def open_source(self):
         self.app.open_explore_files()
         self.selected.clear()
         expect(self.visible('SourceTable').locator('tbody input[type=checkbox]').first).to_be_visible(timeout=self.app.ui.timeout_ms)
 
+    # ----------------------------------------------------------------------------
+    # Filtered additions: choose a bounded study and add its files
+    # ----------------------------------------------------------------------------
     def prepare_small_filter(self, max_files=25):
         """Choose a bounded study from the live catalog, never an assumed accession."""
         assert max_files > 0
@@ -48,6 +57,9 @@ class C3DCFileCart(FileCart):
         self.expected.update((record.identity, record) for record in records)
         self.app.ui.wait_idle()
 
+    # ----------------------------------------------------------------------------
+    # Duplicate protection: re-add the same participant-file selection
+    # ----------------------------------------------------------------------------
     def verify_duplicate_addition(self):
         """Reselect the same source files after C3DC clears the submitted selection."""
         original = dict(self.selected)
@@ -57,6 +69,9 @@ class C3DCFileCart(FileCart):
         assert self.selected.keys() == original.keys(), 'The duplicate-addition fixture selected different source files'
         self.add_selected()
 
+    # ----------------------------------------------------------------------------
+    # Manifest export: open the menu, download CSV, and verify DRS/MD5 data
+    # ----------------------------------------------------------------------------
     def export_menu(self):
         self.visible('Export').click()
         expect(self.control('Manifest')).to_be_visible()
@@ -74,6 +89,9 @@ class C3DCFileCart(FileCart):
             assert re.fullmatch(r'[a-fA-F0-9]{32}', row['Md5sum']), f'Invalid manifest MD5: {row}'
         self.app.results.append({'check': 'Cart manifest', 'status': 'PASSED', 'detail': f'{len(rows)} file names and participant sets matched; DRS/MD5 formats verified'})
 
+    # ----------------------------------------------------------------------------
+    # Removal: delete one file or confirm/cancel removal of all files
+    # ----------------------------------------------------------------------------
     def remove_one(self):
         records = self.snapshot()
         assert records, 'Add a file before removing it'
@@ -101,6 +119,9 @@ class C3DCFileCart(FileCart):
             self.expected.clear()
         self.wait_for_total(len(self.expected))
 
+    # ----------------------------------------------------------------------------
+    # Empty state: verify message, export availability, and pagination
+    # ----------------------------------------------------------------------------
     def verify_empty(self, report_name):
         assert not self.expected, 'Expected cart must be empty before empty-state verification'
         self.verify(report_name)
@@ -109,6 +130,9 @@ class C3DCFileCart(FileCart):
         expect(self.visible('Next')).to_be_disabled()
         expect(self.visible('Previous')).to_be_disabled()
 
+    # ----------------------------------------------------------------------------
+    # Static content and help: verify cart text and the PDF user guide
+    # ----------------------------------------------------------------------------
     def verify_static(self):
         self.app.verify_static_data('FileCartPage')
 
@@ -117,6 +141,9 @@ class C3DCFileCart(FileCart):
         open_guide_pdf(self.app, self.visible('Guide'))
         verify_user_guide_content(self.app)
 
+    # ----------------------------------------------------------------------------
+    # CGC export: verify the login destination without signing in
+    # ----------------------------------------------------------------------------
     def verify_cgc_entry(self, expected_host):
         """Verify the unauthenticated CGC launch, then close before signing in."""
         from urllib.parse import urlparse

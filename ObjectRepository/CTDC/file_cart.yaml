@@ -1,17 +1,15 @@
-# Repeated source toolbars are resolved to their top visible copy by FileCart.visible.
 page: FileCart
 elements:
   Navigation: //a[contains(@href,'fileCentricCart')]
-  Badge: //a[contains(@href,'fileCentricCart')]//*[not(*) and string-length(normalize-space(.))>0
-    and translate(normalize-space(.),'0123456789,','')='']
+  Badge: //a[contains(@href,'fileCentricCart')]//*[not(*) and string-length(normalize-space(.))>0 and translate(normalize-space(.),'0123456789,','')='']
   Table: //table[thead/tr/th[normalize-space(.)='File Name']]
   SourceTable: //table[thead/tr/th[normalize-space(.)='File Name']]
   Next: //button[@aria-label='Next page']
   Previous: //button[@aria-label='Previous page']
   SourceNext: //button[@aria-label='Next page']
   SourcePrevious: //button[@aria-label='Previous page']
-  PageStatus: //p[contains(translate(normalize-space(.),'OF','of'),'of ') and (contains(.,'-')
-    or contains(.,'–'))]
+  PageStatus: "//p[contains(translate(normalize-space(.),'OF','of'),'of ') and (contains(.,'-') or contains(.,'\u2013\
+    '))]"
   PageSize: //*[@role='button' and @aria-haspopup='listbox']
   AddSelected: //button[translate(normalize-space(.),'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')='ADD
     SELECTED FILES']
@@ -21,3 +19,20 @@ elements:
   Manifest: //*[@role='menuitem'][contains(translate(normalize-space(.),'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ'),'DOWNLOAD')
     and contains(translate(normalize-space(.),'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ'),'MANIFEST')]
   SourceTab: //button[@role='tab' and starts-with(normalize-space(.),'Files')]
+  AddAll: //button[translate(normalize-space(.),'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')='ADD
+    ALL FILES']
+  RowRemove: .//button[contains(@class,'del_row_btn')]
+  RemoveAll: //thead//button[normalize-space(.)='Clear Cart']
+  RemovalDialog: //*[@role='dialog' and @aria-describedby='alert-dialog-description']
+  RemovalMessage: //*[@id='alert-dialog-description']
+  Empty: //*[not(*) and normalize-space(.)='No files have been added to the cart']
+  Guide: //button[translate(normalize-space(.),'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')='README']
+  GuideDialog: //*[@role='dialog' and .//*[@id='readMe_content']]
+  GuideClose: //*[@role='dialog' and .//*[@id='readMe_content']]//button[.//*[local-name()='svg']]
+  CGC: //*[@role='menuitem'][contains(translate(normalize-space(.),'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ'),'EXPORT
+    TO CANCER GENOMICS CLOUD')]
+  SelectedScope: //input[@type='radio' and @value='false']
+  StudySourceTab: //button[@role='tab' and starts-with(normalize-space(.),'Study Files')]
+  AddAllDialog: //*[@role='dialog' and .//*[contains(normalize-space(.),'files to My Files?')]]
+  AddAllMessage: //*[@role='dialog']//*[contains(normalize-space(.),'files to My Files?') and not(*[contains(normalize-space(.),'files
+    to My Files?')])]

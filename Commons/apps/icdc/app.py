@@ -37,6 +37,7 @@ def _tab(name, input_tab, stat, ui_sheet, db_sheet, tab_key, table, header, next
 class ICDC(FileCartApp, BaseApp):
     FILE_CART_CLASS = ICDCFileCart
     NAME = "ICDC"
+    STATIC_DATA_EXCEL = "ICDC_StaticData.xlsx"
     BANNER_KEYS = ["Canine_PopUp_Continue_Btn"]
 
     # --- Stat bar and result tabs ---

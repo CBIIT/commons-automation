@@ -76,6 +76,11 @@ Use app fixtures from `conftest.py` (`gc`, `c3dc`, `ctdc`, `ins`, …). Markers 
 
 Per-app layout: `Commons/apps/<app>/`, `Testcases/<APP>/`, `InputFiles/<APP>/`, `ObjectRepository/<APP>/`.
 
+File-cart adapters in `Commons/apps/<app>/file_cart.py` inherit directly from
+`Commons.file_cart.FileCart`. The shared class owns reusable cart mechanics;
+app adapters own column mappings, manifest schemas, messages, rendering options,
+navigation, and behavior overrides.
+
 ## Expected data
 
 | App | Source | Workbook | Password env |

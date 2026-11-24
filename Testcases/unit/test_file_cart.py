@@ -162,3 +162,97 @@ def test_full_page_selection_uses_one_header_click_without_row_clicks():
     assert not any(call.args == ('tbody tr',) for call in table.locator.call_args_list)
     expect.return_value.to_have_count.assert_called_once_with(50)
     assert tuple(cart.selected.values()) == rows
+
+
+@pytest.mark.parametrize('app_name,app_type', [('GC', GC), ('CTDC', CTDC), ('ICDC', ICDC)])
+def test_bento_cart_suites_dispatch_and_are_in_regression(app_name, app_type):
+    """Workbook actions must reach the app adapter and remain discoverable in CI."""
+    import yaml
+    suite = yaml.safe_load((ROOT / 'Config/suites.yaml').read_text())[app_name]['regression']
+    assert 'file_cart/TC*.xlsx' in suite
+    cases = sorted((ROOT / 'Testcases' / app_name / 'file_cart').glob('TC*.xlsx'))
+    assert cases
+    for case in cases:
+        app = Mock(spec=app_type)
+        run_testcase_excel(app, case)
+        app.accept_banner.assert_called_once_with()
+        app.assert_no_failures.assert_called_once_with()
+        assert any(call[0].startswith('file_cart.') for call in app.method_calls)
+
+
+def test_gc_selection_keeps_distinguishable_files_without_merging_source_rows():
+    """GC's cart lacks File ID, so ambiguous fixture rows must remain unselected."""
+    from unittest.mock import patch
+    from Commons.apps.gc.file_cart import GCFileCart
+    cart = GCFileCart(Mock())
+    rows = (record('a.bam'), record('a.bam'), record('b.bam'), record('c.bam'))
+    table = Mock()
+    with patch.object(cart, 'read_page', return_value=rows), patch.object(cart, 'visible', return_value=table):
+        cart.select_files(3)
+    assert tuple(cart.selected) == ('a.bam', 'b.bam', 'c.bam')
+    assert [call.args[0] for call in table.locator.return_value.nth.call_args_list] == [0, 2, 3]
+
+
+def test_gc_refuses_insufficient_distinguishable_rows():
+    from unittest.mock import patch
+    from Commons.apps.gc.file_cart import GCFileCart
+    cart = GCFileCart(Mock())
+    with patch.object(cart, 'read_page', return_value=(record(), record())), pytest.raises(AssertionError, match='distinguishable'):
+        cart.select_files(2)
+    assert not cart.selected
+
+
+def test_selected_manifest_rejects_unselected_file(tmp_path):
+    path = tmp_path / 'selected.csv'
+    path.write_text('name,Case ID,drs_uri\na.txt,C1,drs://one\nb.txt,C2,drs://two\n')
+    with pytest.raises(AssertionError, match='membership differs'):
+        verify_csv_manifest(path, (record('a.txt', participants='C1'),), name_column='name',
+                            participant_column='Case ID', required_columns=('drs_uri',))
+
+
+@pytest.mark.parametrize('app_type,participant_column,checksum_column', [
+    (GC, None, 'Md5sum'), (CTDC, 'participant_id', 'Md5sum'), (ICDC, 'Case ID', 'md5sum'),
+])
+def test_app_manifest_verification_uses_selected_subset_and_portal_schema(
+        tmp_path, app_type, participant_column, checksum_column):
+    import csv
+    app = Mock(results=[])
+    cart = app_type.FILE_CART_CLASS(app)
+    selected = record('selected.txt', participants='P1;P2')
+    cart.expected = {'selected.txt': selected, 'other.txt': record('other.txt', participants='P3')}
+    cart.export_records = (selected,)
+    cart.manifest_path = tmp_path / 'manifest.csv'
+    row = {'name': 'selected.txt', 'drs_uri': 'drs://selected', checksum_column: 'a' * 32,
+           'Accession': 'study', 'Sample Id': 'S1'}
+    if participant_column:
+        row[participant_column] = 'P2;P1'
+    with cart.manifest_path.open('w', newline='') as stream:
+        writer = csv.DictWriter(stream, fieldnames=list(row))
+        writer.writeheader()
+        writer.writerow(row)
+    cart.verify_manifest()
+    assert len(cart.expected) == 2
+    assert app.results[-1]['status'] == 'PASSED'
+    # A file with the right name must still fail if the portal schema is missing.
+    cart.manifest_path.write_text('name,drs_uri\nselected.txt,drs://selected\n')
+    with pytest.raises(AssertionError, match='manifest headers'):
+        cart.verify_manifest()
+
+
+@pytest.mark.parametrize('app_type,confirm_label,cancel_label', [
+    (GC, 'OK', 'Cancel'), (CTDC, 'Yes', 'No'), (ICDC, 'OK', 'Cancel'),
+])
+@pytest.mark.parametrize('confirm', [False, True])
+def test_app_removal_preserves_cancel_and_confirm_behavior(app_type, confirm_label, cancel_label, confirm):
+    from unittest.mock import patch
+    cart = app_type.FILE_CART_CLASS(Mock())
+    original = {'a.txt': record('a.txt')}
+    cart.expected = dict(original)
+    dialog = Mock()
+    with patch.object(cart, 'visible', return_value=dialog), patch.object(cart, 'control'), \
+            patch.object(cart, 'wait_for_total') as wait, patch('Commons.file_cart.expect'):
+        cart.remove_all(confirm)
+    label = dialog.get_by_role.call_args.kwargs['name']
+    assert label.fullmatch(confirm_label if confirm else cancel_label)
+    assert cart.expected == ({} if confirm else original)
+    wait.assert_called_once_with(0 if confirm else 1)

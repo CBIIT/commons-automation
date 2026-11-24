@@ -6,12 +6,12 @@ import ast
 from typing import List
 
 from Commons.excel_testcase._step_parse import parse_adapter_calls, str_arg
-from Commons.excel_testcase.file_cart_steps import file_cart_handlers
+from Commons.excel_testcase.file_cart_steps import bento_cart_handlers
 from Commons.excel_testcase.profile import ExcelCaseProfile, StepRow
 from Commons.excel_testcase.registry import register_profile
 
 ICDC_EXCEL_ACTIONS = [
-    *file_cart_handlers(),
+    *bento_cart_handlers(study_files=True),
     "accept_banner",
     "open_cases",
     "select_study",
@@ -55,6 +55,6 @@ register_profile(
         excel_actions=ICDC_EXCEL_ACTIONS,
         parse_test_function=_parse_icdc_test_function,
         case_subdirs=("studies", "file_cart"),
-        extra_handlers=file_cart_handlers(),
+        extra_handlers=bento_cart_handlers(study_files=True),
     )
 )

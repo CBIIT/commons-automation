@@ -6,7 +6,7 @@ import ast
 from typing import TYPE_CHECKING, List
 
 from Commons.excel_testcase._step_parse import parse_adapter_calls, str_arg
-from Commons.excel_testcase.file_cart_steps import file_cart_handlers
+from Commons.excel_testcase.file_cart_steps import bento_cart_handlers
 from Commons.excel_testcase.profile import ExcelCaseProfile, StepRow
 from Commons.excel_testcase.registry import register_profile
 
@@ -14,7 +14,7 @@ if TYPE_CHECKING:
     from Commons.apps.base import BaseApp
 
 CTDC_EXCEL_ACTIONS = [
-    *file_cart_handlers(),
+    *bento_cart_handlers(study_files=True),
     "accept_banner",
     "click",
     "open_explore",
@@ -104,6 +104,6 @@ register_profile(
         excel_actions=CTDC_EXCEL_ACTIONS,
         parse_test_function=_parse_ctdc_test_function,
         case_subdirs=CTDC_CASE_SUBDIRS,
-        extra_handlers={**file_cart_handlers(), "click": _click_step},
+        extra_handlers={**bento_cart_handlers(study_files=True), "click": _click_step},
     )
 )

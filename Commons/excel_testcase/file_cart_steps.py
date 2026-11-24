@@ -37,3 +37,28 @@ def _remove_all(app, _page, decision, _filter, _excel):
     if decision not in ('confirm', 'cancel'):
         raise ValueError('Remove All decision must be confirm or cancel')
     app.file_cart.remove_all(decision == 'confirm')
+
+
+def bento_cart_handlers(*, study_files=False, small_filter=False):
+    """Cart features shared by GC, CTDC and ICDC; app adapters own the details."""
+    handlers = {
+        **file_cart_handlers(),
+        'verify_duplicate_cart_addition': lambda app, _p, _a, _f, _e: app.file_cart.verify_duplicate_addition(),
+        'download_cart_manifest': lambda app, _p, _a, _f, excel: app.file_cart.download_manifest(excel),
+        'verify_cart_manifest': lambda app, _p, _a, _f, _e: app.file_cart.verify_manifest(),
+        'remove_cart_file': lambda app, _p, _a, _f, _e: app.file_cart.remove_one(),
+        'remove_all_cart_files': _remove_all,
+        'add_all_filtered_files_to_cart': lambda app, _p, maximum, _f, _e: app.file_cart.add_all_filtered(int(maximum or 25)),
+        'verify_empty_file_cart': lambda app, _p, _a, _f, excel: app.file_cart.verify_empty(excel),
+        'verify_cart_static_content': lambda app, _p, _a, _f, _e: app.file_cart.verify_static(),
+        'verify_cart_user_guide': lambda app, _p, _a, _f, _e: app.file_cart.verify_guide(),
+        'verify_cart_cgc_entry': lambda app, _p, host, _f, _e: app.file_cart.verify_cgc_entry(host),
+    }
+    if study_files:
+        handlers.update({
+            'open_cart_study_file_source': lambda app, _p, _a, _f, _e: app.file_cart.open_study_source(),
+            'verify_cart_selected_export': lambda app, _p, count, _f, excel: app.file_cart.verify_selected_export(excel, int(count)),
+        })
+    if small_filter:
+        handlers['prepare_small_cart_filter'] = lambda app, _p, maximum, _f, _e: app.file_cart.prepare_small_filter(int(maximum or 25))
+    return handlers

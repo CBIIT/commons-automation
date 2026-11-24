@@ -37,6 +37,7 @@ GC:
     - "studies/phs001713/TC05_GC_phs001713_LibrarySource-Genomic_LibraryLayout-PairedEnd.xlsx"
     - "studies/phs002430/TC06_GC_phs002430_RefGenAsbly-NSD_PrimDiag-Acutemyloidleukemia.xlsx"
   regression:
+    - "file_cart/TC*.xlsx"
     - "studies/**/TC*.xlsx"
     - "static/TC*.xlsx"
     - "study_listing/TC*.xlsx"
@@ -87,6 +88,7 @@ CTDC:
     - "studies/CMB/TC01_CTDC_CMB_Sex-Male.xlsx"
     - "studies/CMB/TC01_CTDC_CMB_Diagnosis-ColorctlCarcin.xlsx"
   regression:
+    - "file_cart/TC*.xlsx"
     - "studies/**/TC*.xlsx"
     - "static/TC*.xlsx"
 
@@ -131,6 +133,7 @@ ICDC:
   smoke:
     - "studies/COTC021/TC*.xlsx"
   regression:
+    - "file_cart/TC*.xlsx"
     - "studies/**/TC*.xlsx"
 
 # ---------------------------------------------------------------------------
