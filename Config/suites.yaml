@@ -66,6 +66,7 @@ C3DC:
     - "study_listing/TC*.xlsx"
     - "cohorts/TC*.xlsx"
     - "cohort_analyzer/TC*.xlsx"
+    - "result_tabs/**/TC*.xlsx"
     - "upload_participants/TC*.xlsx"
     - "file_cart/TC*.xlsx"
   datarelease:

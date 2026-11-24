@@ -1,0 +1,7 @@
+page: GeneticAnalysisResultTab
+elements:
+  # -------------------------------------------------------------------------
+  # Downloads: scope both copies of the toolbar to the Genetic Analyses table
+  # -------------------------------------------------------------------------
+  Download: //*[@id='genetic_analysis_tab_table']//button[@title='Download filtered results']
+  CSV: //*[@id='genetic_analysis_tab_table']//*[@id='dropdownListItemCSV']

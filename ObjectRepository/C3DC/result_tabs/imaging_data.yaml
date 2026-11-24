@@ -1,0 +1,7 @@
+page: ImagingDataResultTab
+elements:
+  # -------------------------------------------------------------------------
+  # Downloads: scope both copies of the toolbar to the Imaging Data table
+  # -------------------------------------------------------------------------
+  Download: //*[@id='imaging_data_tab_table']//button[@title='Download filtered results']
+  CSV: //*[@id='imaging_data_tab_table']//*[@id='dropdownListItemCSV']

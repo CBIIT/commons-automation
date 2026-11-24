@@ -26,6 +26,7 @@ class QueryFile:
     queries_by_tab: Dict[str, str] = field(default_factory=dict)
     stat_bar_query: str = ""
     ui_output_workbook: str = ""  # UIExcel or WebExcel column, if present
+    parameters: dict = field(default_factory=dict)
 
     @property
     def name(self) -> str:
@@ -91,6 +92,13 @@ def _load_query_workbook(path: Path) -> QueryFile:
     wb = openpyxl.load_workbook(path, data_only=True, read_only=True)
     ws = wb.worksheets[0]
     rows = list(ws.iter_rows(values_only=True))
+    parameters = {}
+    if 'Parameters' in wb.sheetnames:
+        for key, value, *_ in wb['Parameters'].iter_rows(min_row=2, values_only=True):
+            if key:
+                if key in parameters:
+                    raise ValueError(f'Duplicate query parameter: {key}')
+                parameters[str(key)] = value
     wb.close()
     if not rows:
         raise ValueError(f"Query workbook is empty: {path}")
@@ -100,6 +108,7 @@ def _load_query_workbook(path: Path) -> QueryFile:
     query_col = col.get("TabQuery", col.get("query"))
 
     doc = QueryFile(path=path)
+    doc.parameters = parameters
     for row in rows[1:]:
         tab_name = _row_cell(row, col, "TabName")
         if not tab_name:

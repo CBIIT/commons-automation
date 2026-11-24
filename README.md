@@ -81,6 +81,15 @@ File-cart adapters in `Commons/apps/<app>/file_cart.py` inherit directly from
 app adapters own column mappings, manifest schemas, messages, rendering options,
 navigation, and behavior overrides.
 
+Result-tab export mechanics live in `Commons/result_tabs.py`, with app-specific
+controls and schemas in `Commons/apps/<app>/result_tabs.py`. C3DC objects are
+grouped per tab under `ObjectRepository/C3DC/result_tabs/`; test cases follow
+`Testcases/C3DC/result_tabs/<tab>/`. The CSV cases for all six result tabs filter
+only by `Abdominal fibromatosis` and verify all exported columns
+against Memgraph. Its query workbook has a `Parameters` sheet for the
+diagnosis and query safety limit. Export queries bypass display row limits,
+and an independent count query fails verification if expected data is truncated.
+
 ## Expected data
 
 | App | Source | Workbook | Password env |

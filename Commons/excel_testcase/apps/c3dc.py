@@ -16,6 +16,7 @@ if TYPE_CHECKING:
 
 C3DC_EXCEL_ACTIONS = [
     *c3dc_cart_handlers(),
+    "download_result_tab", "verify_result_tab_download",
     "verify_explore_help_content",
     "open_release_notes", "verify_release_notes_content", "open_user_guide", "verify_user_guide_content",
     "open_home_page", "verify_home_page_content", "open_about_page", "verify_about_page_content",
@@ -94,6 +95,7 @@ C3DC_STATIC_DATA_FILE = "C3DC_StaticData.xlsx"
 
 C3DC_CASE_SUBDIRS = (
     "studies",
+    "result_tabs",
     "file_cart",
     "study_listing",
     "study_details",
@@ -278,6 +280,8 @@ register_profile(
         case_subdirs=C3DC_CASE_SUBDIRS,
         extra_handlers={
             **c3dc_cart_handlers(),
+            "download_result_tab": lambda app, tab, fmt, _f, case: app.result_tabs.download(tab, fmt, case),
+            "verify_result_tab_download": lambda app, tab, fmt, _f, _e: app.result_tabs.verify_download(tab, fmt),
             "sort_result_tab": lambda app, tab, column, _f, _e: app.sort_result_tab(tab, column),
             "open_explore_files": lambda app, _p, _a, _f, _e: app.open_explore_files(),
             "open_studies_listing": _open_studies_listing,

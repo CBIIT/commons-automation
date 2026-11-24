@@ -1,0 +1,7 @@
+page: SamplesResultTab
+elements:
+  # -------------------------------------------------------------------------
+  # Downloads: scope both copies of the toolbar to the Samples table
+  # -------------------------------------------------------------------------
+  Download: //*[@id='sample_tab_table']//button[@title='Download filtered results']
+  CSV: //*[@id='sample_tab_table']//*[@id='dropdownListItemCSV']

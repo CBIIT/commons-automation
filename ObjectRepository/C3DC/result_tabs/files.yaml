@@ -1,0 +1,7 @@
+page: FilesResultTab
+elements:
+  # -------------------------------------------------------------------------
+  # Downloads: scope both copies of the toolbar to the Files table
+  # -------------------------------------------------------------------------
+  Download: //*[@id='file_tab_table']//button[@title='Download filtered results']
+  CSV: //*[@id='file_tab_table']//*[@id='dropdownListItemCSV']
