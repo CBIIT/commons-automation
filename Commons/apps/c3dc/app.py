@@ -11,6 +11,8 @@ from dataclasses import replace
 from typing import Dict, List, Optional
 
 from Commons import action_log
+from Commons.file_cart import FileCartApp
+from Commons.apps.c3dc.file_cart import C3DCFileCart
 from Commons.base_app import BaseApp, StatSpec, TabSpec
 from Commons.table_reader import active_result_tab_record_count
 
@@ -36,7 +38,8 @@ def _tab(name, label, input_tab, stat, ui, db, max_pages=2):
 # ---------------------------------------------------------------------------
 
 
-class C3DC(BaseApp):
+class C3DC(FileCartApp, BaseApp):
+    FILE_CART_CLASS = C3DCFileCart
     NAME = "C3DC"
     BANNER_KEYS = ["Navbar/WarningBan_Continue_Btn"]
     STATIC_DATA_EXCEL = "C3DC_StaticData.xlsx"
@@ -100,6 +103,46 @@ class C3DC(BaseApp):
         "ImagingData": _tab("ImagingData", "Imaging Data", "ImagingDataTab", "Files",
                             "UI_ImagingData", "DB_ImagingData"),
     }
+
+    # -----------------------------------------------------------------------
+    # Static pages (home_page.py and static_pages.py)
+    # -----------------------------------------------------------------------
+
+    def open_home_page(self):
+        from Commons.apps.c3dc.home_page import open_home_page
+        return open_home_page(self)
+
+    def verify_home_page_content(self):
+        from Commons.apps.c3dc.home_page import verify_home_page_content
+        return verify_home_page_content(self)
+
+    def open_about_page(self):
+        from Commons.apps.c3dc.static_pages import open_about_page
+        return open_about_page(self)
+
+    def verify_about_page_content(self):
+        from Commons.apps.c3dc.static_pages import verify_about_page_content
+        return verify_about_page_content(self)
+
+    def open_release_notes(self):
+        from Commons.apps.c3dc.static_pages import open_release_notes
+        return open_release_notes(self)
+
+    def verify_release_notes_content(self):
+        from Commons.apps.c3dc.static_pages import verify_release_notes_content
+        return verify_release_notes_content(self)
+
+    def open_user_guide(self):
+        from Commons.apps.c3dc.static_pages import open_user_guide
+        return open_user_guide(self)
+
+    def verify_user_guide_content(self):
+        from Commons.apps.c3dc.static_pages import verify_user_guide_content
+        return verify_user_guide_content(self)
+
+    def verify_explore_help_content(self, sheet_name):
+        from Commons.apps.c3dc.static_pages import verify_explore_help_content
+        return verify_explore_help_content(self, sheet_name)
 
     # -----------------------------------------------------------------------
     # Explore navigation
@@ -399,6 +442,11 @@ class C3DC(BaseApp):
         from Commons.apps.c3dc.cohort import create_cohort_from_all_participants
 
         create_cohort_from_all_participants(self)
+
+    def verify_uploaded_cohort_participants(self):
+        """Compare the new cohort with the independent upload input baseline."""
+        from Commons.apps.c3dc.cohort import verify_cohort_created
+        return verify_cohort_created(self, participant_ids=self._participant_upload.matched)
 
     def verify_cohort_created(self):
         """Check the new cohort's popup, participant count, unique rows and study."""

@@ -726,3 +726,32 @@ def test_participant_removal_requires_its_ui_baseline(action, message):
     from Commons.apps.c3dc import cohort
     with pytest.raises(AssertionError, match=message):
         getattr(cohort, action)(C3DC.__new__(C3DC))
+
+
+def test_tc14_uploads_before_creating_all_participants_cohort():
+    app = Mock(spec=C3DC)
+    name = 'TC14_C3DC_Verify_Create_Cohort_UploadedParticipants.xlsx'
+    run_testcase_excel(app, ROOT / 'Testcases/C3DC/cohorts' / name)
+    actions = [call[0] for call in app.method_calls]
+    assert actions == ['accept_banner', 'open_explore', 'prepare_participant_upload',
+                       'open_participant_upload', 'type_participant_ids', 'verify_upload_preview',
+                       'submit_participant_upload', 'verify_uploaded_participants',
+                       'create_cohort_from_all_participants', 'verify_uploaded_cohort_participants',
+                       'assert_no_failures']
+    app.prepare_participant_upload.assert_called_once_with(3, 0)
+
+
+@pytest.mark.parametrize('second_id,passes', [('P2', True), ('WRONG', False)])
+def test_uploaded_cohort_compares_exact_input_ids_not_only_count(monkeypatch, second_id, passes):
+    from Commons.apps.c3dc.upload_participants import ParticipantUpload
+    app = cohort_app()
+    app._cohort_creation = CohortCreation(0, 2)
+    app._participant_upload = ParticipantUpload(('P1', 'P2'))
+    details = CohortDetails('New Cohort', 2, (('P1', 'any-study'), (second_id, 'other-study')))
+    monkeypatch.setattr('Commons.apps.c3dc.cohort.read_selected_cohort', lambda _: details)
+    app.verify_uploaded_cohort_participants()
+    if passes:
+        app.assert_no_failures()
+    else:
+        with pytest.raises(AssertionError, match='participant IDs'):
+            app.assert_no_failures()

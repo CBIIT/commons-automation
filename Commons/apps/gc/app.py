@@ -4,6 +4,8 @@ GC (General Commons): https://datacommons.cancer.gov
 Data explore: stat bar + result tabs (Participants, Samples, Files). Studies catalog: studies.py.
 Expected data: Memgraph Cypher in InputFiles/GC/TC*.xlsx.
 """
+from Commons.file_cart import FileCartApp
+from Commons.apps.gc.file_cart import GCFileCart
 from Commons.base_app import BaseApp, StatSpec, TabSpec
 
 # ---------------------------------------------------------------------------
@@ -28,7 +30,8 @@ def _tab(name, index_key, table, input_tab, stat, ui, db, max_pages=10):
 # ---------------------------------------------------------------------------
 
 
-class GC(BaseApp):
+class GC(FileCartApp, BaseApp):
+    FILE_CART_CLASS = GCFileCart
     NAME = "GC"
     BANNER_KEYS = ["NavBar/Popup_Continue_Btn"]
     STATIC_DATA_EXCEL = "GC_StaticData.xlsx"

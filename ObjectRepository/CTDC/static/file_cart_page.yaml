@@ -1,0 +1,11 @@
+page: Static/FileCartPage
+elements:
+  Title: //span[normalize-space(.)='Cart > Selected Files']
+  Readme: //button[translate(normalize-space(.),'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')='README']
+  Header1: //table/thead/tr/th[normalize-space(.)='File Name']
+  Header2: //table/thead/tr/th[normalize-space(.)='Format']
+  Header3: //table/thead/tr/th[normalize-space(.)='File Type']
+  Header4: //table/thead/tr/th[normalize-space(.)='Size']
+  Header5: //table/thead/tr/th[normalize-space(.)='Description']
+  Header6: //table/thead/tr/th[normalize-space(.)='Specimen Record ID']
+  Header7: //table/thead/tr/th[normalize-space(.)='Participant ID']

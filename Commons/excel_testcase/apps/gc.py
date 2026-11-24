@@ -6,6 +6,7 @@ import ast
 from typing import TYPE_CHECKING, List
 
 from Commons.excel_testcase._step_parse import parse_adapter_calls, str_arg
+from Commons.excel_testcase.file_cart_steps import bento_cart_handlers
 from Commons.excel_testcase.profile import ExcelCaseProfile, StepRow
 from Commons.excel_testcase.registry import register_profile
 
@@ -19,6 +20,7 @@ GC_TAB_FROM_PARAMS = {
 }
 
 GC_EXCEL_ACTIONS = [
+    *bento_cart_handlers(small_filter=True),
     "accept_banner",
     "click",
     "open_data",
@@ -39,6 +41,7 @@ GC_STATIC_DATA_FILE = "GC_StaticData.xlsx"
 
 GC_CASE_SUBDIRS = (
     "studies",
+    "file_cart",
     "study_listing",
     "static",
 )
@@ -133,6 +136,7 @@ register_profile(
         parse_test_function=_parse_gc_test_function,
         case_subdirs=GC_CASE_SUBDIRS,
         extra_handlers={
+            **bento_cart_handlers(small_filter=True),
             "multi_function": _multi_function,
             "verify_tab_memgraph": _multi_function,
             "open_studies_listing": _open_studies_listing,
