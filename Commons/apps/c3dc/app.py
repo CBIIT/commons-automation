@@ -349,6 +349,10 @@ class C3DC(ResultTabsApp, FileCartApp, BaseApp):
             f"{self._tab_select_labels(name, spec)!r})."
         )
 
+    def result_tab_sorting_options(self, tab):
+        from Commons.apps.c3dc.table_sorting import sorting_options
+        return sorting_options(self, tab)
+
     def sort_result_tab(self, name: str, column_key: str):
         """Use an explicit ascending UI sort before comparing a limited result page."""
         name = self.TAB_VERIFY_ALIASES.get(name, name)

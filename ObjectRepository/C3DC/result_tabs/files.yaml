@@ -5,3 +5,4 @@ elements:
   # -------------------------------------------------------------------------
   Download: //*[@id='file_tab_table']//button[@title='Download filtered results']
   CSV: //*[@id='file_tab_table']//*[@id='dropdownListItemCSV']
+  JSON: //*[@id='file_tab_table']//*[@id='dropdownListItemJSON']

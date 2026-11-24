@@ -89,6 +89,28 @@ only by `Abdominal fibromatosis` and verify all exported columns
 against Memgraph. Its query workbook has a `Parameters` sheet for the
 diagnosis and query safety limit. Export queries bypass display row limits,
 and an independent count query fails verification if expected data is truncated.
+JSON cases for all six tabs check the full typed record, including arrays, nulls,
+and internal IDs, against each tab's `*JSONExportTab` query. Federated Participants
+CPI mappings are checked against a separate `participantOverview` API request for the database's
+participant IDs. Participant clinical array order remains significant. Other tabs
+compare unordered metadata arrays by complete values; duplicate values remain significant. Shared file
+names must match an alias from the database for that file GUID.
+
+Sorting checks use `Commons/table_sorting.py` through
+`app.verify_result_tab_sorting("Participants", report_name)` or the shared Excel action
+`verify_result_tab_sorting` (Page = tab name). The checker discovers enabled ARIA/MUI
+sort controls, skips non-sortable columns, checks ascending and descending order,
+and compares complete row membership across every page. It refuses truncated
+baselines; filter large tables to fewer than 500 rows or adjust `SortingOptions`.
+Applications can override `result_tab_sorting_options()` for column types, multi-value
+sort keys, link destinations, or response readiness. C3DC TC03 sorting cases cover all
+six result tabs using only Abdominal fibromatosis. Files and Imaging Data retain that
+filter when switching to Explore Files. Checks wait for the exact field/direction
+response, or a previously observed cached order. Complete investigator names are
+preserved despite embedded commas, and viewer columns compare actual URLs.
+Evidence is saved as `<tab>_sorting.json` under the test case's
+`OutputFiles/.../result_tabs/` folder. Constant-value directions are reported as
+inconclusive rather than counted as meaningful order checks.
 
 ## Expected data
 

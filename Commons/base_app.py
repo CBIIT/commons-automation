@@ -438,6 +438,17 @@ class BaseApp:
         """Override in apps that hide extra tabs under a 'More' menu."""
         raise RuntimeError(f"Tab '{spec.name}' is not visible and {self.NAME} has no 'More' menu handler")
 
+    def result_tab_sorting_options(self, tab):
+        """Override only column semantics or readiness when an application needs them."""
+        from Commons.table_sorting import SortingOptions
+        return SortingOptions()
+
+    def verify_result_tab_sorting(self, tab, report_name='sorting'):
+        """Discover and verify all sortable columns through the shared table checker."""
+        from Commons.table_sorting import TableSorting
+        tab = getattr(self, 'TAB_VERIFY_ALIASES', {}).get(tab, tab)
+        return TableSorting(self, tab, self.result_tab_sorting_options(tab)).verify(report_name)
+
     def read_results_table(self, spec: TabSpec) -> Table:
         """Read the result table (Katalon ReadCasesTableKatalon). Per-app rules: table_reader.read_table_data."""
         return read_table_data(

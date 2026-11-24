@@ -136,6 +136,7 @@ def common_handlers() -> Dict[str, Handler]:
         "read_statbar": read_statbar,
         "verify_tab": verify_tab,
         "verify_all_tabs": verify_all_tabs,
+        "verify_result_tab_sorting": lambda app, tab, params, _f, case: app.verify_result_tab_sorting(tab or params, case),
         "assert_no_failures": assert_no_failures,
         "assert_results": assert_no_failures,
         "goto": goto,

@@ -42,6 +42,25 @@ def read_csv_export(path: Path) -> Table:
     return Table(headers, data)
 
 
+def read_json_records(path: Path) -> list[dict]:
+    """Read a JSON record array without accepting duplicate keys or non-JSON numbers."""
+    def unique_object(pairs):
+        result = {}
+        for key, value in pairs:
+            assert key not in result, f'Duplicate JSON key: {key}'
+            result[key] = value
+        return result
+
+    def invalid_constant(value):
+        raise AssertionError(f'Invalid JSON number: {value}')
+
+    with path.open(encoding='utf-8-sig') as stream:
+        records = json.load(stream, object_pairs_hook=unique_object, parse_constant=invalid_constant)
+    assert isinstance(records, list), 'JSON export must contain an array of records'
+    assert all(isinstance(record, dict) for record in records), 'JSON export records must be objects'
+    return records
+
+
 def compare_export(expected: Table, actual: Table, identity_columns: tuple[str, ...]) -> dict:
     """Require the same schema and exact records, independently of row order."""
     assert actual.header == expected.header, f'Export headers differ: {actual.header} != {expected.header}'
@@ -86,6 +105,10 @@ class ResultTabs:
     # Navigation and download capture
     # -----------------------------------------------------------------------
 
+    def export_spec(self, tab, fmt='CSV'):
+        """Adapters may provide a different schema or query for another format."""
+        return self.EXPORTS[tab]
+
     def open_tab(self, tab):
         if tab not in self.EXPORTS:
             raise ValueError(f'No export specification for {tab!r}')
@@ -99,7 +122,7 @@ class ResultTabs:
 
     def download(self, tab, fmt, report_name):
         fmt = fmt.upper()
-        spec = self.EXPORTS[tab]
+        spec = self.export_spec(tab, fmt)
         if fmt not in spec.format_keys:
             raise ValueError(f'{tab} does not support a configured {fmt} export')
         self.open_tab(tab)
@@ -124,8 +147,8 @@ class ResultTabs:
     # Independent expected data and full-export verification
     # -----------------------------------------------------------------------
 
-    def expected_table(self, tab):
-        spec = self.EXPORTS[tab]
+    def expected_table(self, tab, fmt='CSV'):
+        spec = self.export_spec(tab, fmt)
         assert self.app.query_file is not None, 'Load the expected-data workbook first'
         source = self.app.source
         expected = source.fetch_tab_table(self.app.query_file, spec.query_tab,
@@ -139,7 +162,7 @@ class ResultTabs:
         assert tuple(expected.header) == spec.headers, f'Expected-data schema differs from {tab} specification'
         return expected
 
-    def prepare_comparison(self, tab, expected, actual):
+    def prepare_comparison(self, tab, expected, actual, fmt='CSV'):
         return expected, actual
 
     def read_export(self, tab, fmt, path):
@@ -150,10 +173,10 @@ class ResultTabs:
     def verify_download(self, tab, fmt):
         fmt = fmt.upper()
         path = self.downloads[(tab, fmt)]
-        expected = self.expected_table(tab)
+        expected = self.expected_table(tab, fmt)
         actual = self.read_export(tab, fmt, path)
-        expected, actual = self.prepare_comparison(tab, expected, actual)
-        spec = self.EXPORTS[tab]
+        expected, actual = self.prepare_comparison(tab, expected, actual, fmt)
+        spec = self.export_spec(tab, fmt)
         difference = compare_export(expected, actual, spec.identity_columns)
         report = {'headers': actual.header, 'expected_count': len(expected.rows),
                   'actual_count': len(actual.rows), 'difference': difference}

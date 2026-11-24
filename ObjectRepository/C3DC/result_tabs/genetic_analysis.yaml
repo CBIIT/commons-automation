@@ -5,3 +5,4 @@ elements:
   # -------------------------------------------------------------------------
   Download: //*[@id='genetic_analysis_tab_table']//button[@title='Download filtered results']
   CSV: //*[@id='genetic_analysis_tab_table']//*[@id='dropdownListItemCSV']
+  JSON: //*[@id='genetic_analysis_tab_table']//*[@id='dropdownListItemJSON']
