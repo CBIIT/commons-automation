@@ -449,6 +449,16 @@ class BaseApp:
         tab = getattr(self, 'TAB_VERIFY_ALIASES', {}).get(tab, tab)
         return TableSorting(self, tab, self.result_tab_sorting_options(tab)).verify(report_name)
 
+    def result_tab_pagination_options(self, tab):
+        """Override controls, record identities, or resizing policy for an application."""
+        from Commons.table_pagination import PaginationOptions
+        return PaginationOptions()
+
+    def verify_result_tab_pagination(self, tab, page_sizes=None, report_name='pagination'):
+        from Commons.table_pagination import TablePagination
+        tab = getattr(self, 'TAB_VERIFY_ALIASES', {}).get(tab, tab)
+        return TablePagination(self, tab, self.result_tab_pagination_options(tab)).verify(report_name, page_sizes)
+
     def read_results_table(self, spec: TabSpec) -> Table:
         """Read the result table (Katalon ReadCasesTableKatalon). Per-app rules: table_reader.read_table_data."""
         return read_table_data(

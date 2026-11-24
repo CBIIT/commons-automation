@@ -34,6 +34,7 @@ C3DC_EXCEL_ACTIONS = [
     "open_explore_files",
     "sort_result_tab",
     "verify_result_tab_sorting",
+    "verify_result_tab_pagination",
     "open_studies_listing",
     "open_study_details",
     "begin_study_details_report",

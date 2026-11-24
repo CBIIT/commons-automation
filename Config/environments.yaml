@@ -162,7 +162,7 @@ apps:
         endpoint: bolt://gen-qa2-cdk-nlb-a4d830d9cb17f0ac.elb.us-east-1.amazonaws.com:7687
         username: memgraph  
       stage:
-        endpoint: bolt://gen-qa2-cdk-nlb-a4d830d9cb17f0ac.elb.us-east-1.amazonaws.com:7687
+        endpoint: bolt://gen-stage-cdk-nlb-c907a08cc86ea5ce.elb.us-east-1.amazonaws.com:7687
         username: memgraph
       prod:
         endpoint: bolt://gen-dev-cdk-nlb-ecd70c3cab6cb63f.elb.us-east-1.amazonaws.com:7687

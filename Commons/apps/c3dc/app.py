@@ -349,6 +349,10 @@ class C3DC(ResultTabsApp, FileCartApp, BaseApp):
             f"{self._tab_select_labels(name, spec)!r})."
         )
 
+    def result_tab_pagination_options(self, tab):
+        from Commons.apps.c3dc.table_pagination import pagination_options
+        return pagination_options(self, tab)
+
     def result_tab_sorting_options(self, tab):
         from Commons.apps.c3dc.table_sorting import sorting_options
         return sorting_options(self, tab)

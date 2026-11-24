@@ -112,6 +112,21 @@ Evidence is saved as `<tab>_sorting.json` under the test case's
 `OutputFiles/.../result_tabs/` folder. Constant-value directions are reported as
 inconclusive rather than counted as meaningful order checks.
 
+Page-size and pagination checks live in `Commons/table_pagination.py`; sorting and
+pagination share `Commons/table_navigation.py` for table snapshots and Next/Previous
+navigation. Call `app.verify_result_tab_pagination("Files", page_sizes=[50, 100])`, or
+use the shared Excel action `verify_result_tab_pagination` with the tab in Page and
+comma-separated sizes in Params. Omit sizes to discover all positive numeric choices;
+an explicitly required unavailable size fails rather than being skipped.
+The checker verifies every forward/backward page, ranges, row counts, disabled boundary
+controls, complete data retention, and size changes from a later page. It returns to
+the first page at the original size. App adapters provide identities, independent
+result counts, custom control keys, or expected resizing behavior.
+C3DC TC04 cases for all six result tabs use only Abdominal fibromatosis and require the
+currently offered 50/100-row sizes. The common native/MUI tests also exercise 10/25,
+empty/small result sets, exact page boundaries, and alternative resizing policies.
+Evidence is saved as `<tab>_pagination.json` in the test case's output folder.
+
 ## Expected data
 
 | App | Source | Workbook | Password env |
