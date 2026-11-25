@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     from Commons.apps.base import BaseApp
 
 CTDC_EXCEL_ACTIONS = [
+    "download_result_tab", "verify_result_tab_download", "verify_result_tab_sorting",
     *bento_cart_handlers(study_files=True),
     "accept_banner",
     "click",
@@ -33,6 +34,7 @@ CTDC_CASE_SUBDIRS = (
     "studies",
     "static",
     "file_cart",
+    "result_tabs",
 )
 
 

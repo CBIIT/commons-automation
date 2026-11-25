@@ -7,6 +7,8 @@ Expected data: TSV from Programs.zip / DataSetsTab.zip (extracted under InputFil
 from collections import Counter
 
 from Commons import action_log, excel_writer
+from Commons.result_tabs import ResultTabsApp
+from Commons.apps.ins.result_tabs import INSResultTabs
 from Commons.base_app import BaseApp, StatSpec, TabSpec
 from Commons.compare import compare_tables
 from Commons.apps.ins.tsv_source import InsTsvSource, read_ins_datasets_page_table
@@ -37,7 +39,8 @@ def _tab(name: str, input_tab: str, stat: str, ui: str, db: str, max_pages: int 
 # ---------------------------------------------------------------------------
 
 
-class INS(BaseApp):
+class INS(ResultTabsApp, BaseApp):
+    RESULT_TABS_CLASS = INSResultTabs
     NAME = "INS"
     BANNER_KEYS = ["Navbar/WarningBan_Continue_Btn"]
     STATIC_DATA_EXCEL = "INS_StaticData.xlsx"
@@ -129,3 +132,11 @@ class INS(BaseApp):
             highlight_cells=db_hi,
         )
         self._record("Datasets", cmp, ui_count=len(ui_table.rows), exp_count=len(expected.rows))
+
+    # -----------------------------------------------------------------------
+    # Result-table sorting: reuse discovery, both directions, and row retention
+    # -----------------------------------------------------------------------
+
+    def result_tab_sorting_options(self, tab):
+        from Commons.apps.ins.table_sorting import sorting_options
+        return sorting_options(self, tab)

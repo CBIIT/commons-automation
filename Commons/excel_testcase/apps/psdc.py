@@ -51,12 +51,13 @@ register_profile(
         input_files_prefix="InputFiles/PSDC",
         parse_test_function=_parse_test_function,
         excel_actions=[
+            "download_result_tab", "verify_result_tab_download", "verify_result_tab_sorting",
             "accept_banner", "click", "open_explore", "select_study", "select_filter",
             "read_statbar", "verify_tab", "verify_all_tabs", "verify_static_data",
             "open_study", "assert_no_failures",
             "verify_home_link", "verify_home_control", "write_home_control_results",
         ],
-        case_subdirs=("studies", "static", "functional"),
+        case_subdirs=("studies", "static", "functional", "result_tabs"),
         extra_handlers={
             "open_study": _open_study, "click": _click_step,
             "verify_home_link": lambda app, p, a, f, _e: app.verify_home_link(repo_key(p, a), f),

@@ -1,0 +1,4 @@
+page: StudiesResultTab
+elements:
+  Table: //table[thead//th[contains(@class,'study_short_name')]]
+  CSV: //button[@title='Download Table Contents As CSV']

@@ -123,6 +123,12 @@ def common_handlers() -> Dict[str, Handler]:
         lo, hi = text.split(",", 1)
         app.set_age_range(int(lo.strip()), int(hi.strip()))
 
+    def verify_result_tab_pagination(app, tab, params, _flt, case):
+        if not tab:
+            raise ValueError('verify_result_tab_pagination needs the tab name in Page')
+        sizes = [int(value.strip()) for value in params.split(',')] if params else None
+        app.verify_result_tab_pagination(tab, page_sizes=sizes, report_name=case)
+
     return {
         "dismiss_popup": accept_banner,
         "accept_banner": accept_banner,
@@ -136,6 +142,10 @@ def common_handlers() -> Dict[str, Handler]:
         "read_statbar": read_statbar,
         "verify_tab": verify_tab,
         "verify_all_tabs": verify_all_tabs,
+        "verify_result_tab_pagination": verify_result_tab_pagination,
+        "verify_result_tab_sorting": lambda app, tab, params, _f, case: app.verify_result_tab_sorting(tab or params, case),
+        "download_result_tab": lambda app, tab, fmt, _f, case: app.result_tabs.download(tab, fmt, case),
+        "verify_result_tab_download": lambda app, tab, fmt, _f, _case: app.result_tabs.verify_download(tab, fmt),
         "assert_no_failures": assert_no_failures,
         "assert_results": assert_no_failures,
         "goto": goto,

@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     from Commons.apps.base import BaseApp
 
 INS_EXCEL_ACTIONS = [
+    "download_result_tab", "verify_result_tab_download", "verify_result_tab_sorting",
     "accept_banner",
     "click",
     "open_programs",
@@ -31,6 +32,7 @@ INS_CASE_SUBDIRS = (
     "Programs/SpecialTopic",
     "DataSets",
     "static",
+    "result_tabs",
 )
 
 INS_STATIC_DATA_FILE = "INS_StaticData.xlsx"
