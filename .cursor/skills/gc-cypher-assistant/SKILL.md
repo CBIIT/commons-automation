@@ -1,5 +1,5 @@
 ---
-name: memgraph-cypher-assistant
+name: gc-cypher-assistant
 description: Generate, validate, debug and test Memgraph Cypher queries.
 ---
 
@@ -11,12 +11,12 @@ This skill helps users:
 2. Debug failed queries.
 3. Explain Memgraph errors.
 4. Test generated queries using scripts/query_memgraph.py.
-5. Suggest corrections based on references/backend-index-query/indices.yaml..
+5. Suggest corrections based on backend-index-query/indices.yaml..
 
 # Available References
 
 ## Backend Index Query
-- references/backend-index-query/indices.yaml
+- backend-index-query/indices.yaml
 
 ## Database Model
 - references/model/cds-model.yml
@@ -31,9 +31,9 @@ This skill helps users:
 When asked to generate/create/add a query:
 
 1. If the user provides host, port, username, password, skip, and limit, replace the defaults with those values.
-2. Read all files in the references/backend-index-query folder.
+2. Read all files in the backend-index-query folder.
 3. Read all files in the references/model folder.
-4. If either the references/backend-index-query folder or the references/model folder has no files, stop and ask the user to provide references files.
+4. If either the backend-index-query folder or the references/model folder has no files, stop and ask the user to provide references files.
 5. Generate Cypher.
 6. Execute using scripts/query_memgraph.py with the generated Cypher query.
 7. If successful:
@@ -51,9 +51,9 @@ When asked to generate/create/add a query:
 When asked to test/debug/validate a query:
 
 1. If the user provides host, port, username, password, skip, and limit, replace the defaults with those values.
-2. Read all files in the references/backend-index-query folder.
+2. Read all files in the backend-index-query folder.
 3. Read all files in the references/model folder.
-4. If either the references/backend-index-query folder or the references/model folder has no files, stop and ask the user to provide references files.
+4. If either the backend-index-query folder or the references/model folder has no files, stop and ask the user to provide references files.
 5. Execute using scripts/query_memgraph.py with given query.
 6. If successful:
    - Return query.
@@ -100,7 +100,10 @@ Actions:
 Always:
 
 - Use parameterized Cypher.
-- Include LIMIT.
+- Bound tab/exploratory queries with LIMIT; do not limit aggregate stat totals.
 - Avoid APOC.
 - Validate labels and relationship names against files in Backend Index Query and Database Model.
 - Test query with scripts/query_memgraph.py before returning.
+Use this application’s configured environment and credentials. Local script defaults
+are examples, not the QA connection. Never copy credentials into committed files.
+Follow `.cursor/rules/expected-data.mdc` for correctness, query plans, and timings.

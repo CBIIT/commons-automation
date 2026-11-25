@@ -7,7 +7,7 @@ Agent skill for generating and validating Memgraph Cypher queries. It helps back
 ## Prepare references file
 
 - Put the existing backend indices query file(i.e. indices.yaml) to the references/backend-index-query folder.
-- Put the database model files(i.e. cds-model.yml, cds-model-props.yml) to the references/model folder.
+- Put the database model files(i.e. ccdi-dcc-model.yml, ccdi-dcc-model-props.yml) to the references/model folder.
 
 ## Set up Memgraph connection
 
@@ -31,3 +31,7 @@ Agent skill for generating and validating Memgraph Cypher queries. It helps back
 - On success: returns the query and summarizes results.
 - On failure: explains the error, suggests a fix, and re-runs until it succeeds.
 - The user can override host, port, username, password, skip, and limit when asking the agent.
+
+Use this application’s configured environment and credentials. Local script defaults
+are examples, not the QA connection. Never copy credentials into committed files.
+Follow `.cursor/rules/expected-data.mdc` for correctness, query plans, and timings.
