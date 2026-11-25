@@ -1,11 +1,10 @@
 """C3DC result-tab controls and export specifications."""
 import json
-from functools import lru_cache
 
 from playwright.sync_api import expect
 
 from Commons.db_source import Table
-from Commons.result_tabs import ResultTabs, ResultTabExportSpec, read_json_records
+from Commons.result_tabs import ResultTabs, ResultTabExportSpec, read_json_records, category_text_matches
 
 
 PARTICIPANT_JSON_FIELDS = (
@@ -123,20 +122,6 @@ def canonical_result_json(tab, record):
     return json.dumps(normalized, sort_keys=True, ensure_ascii=False)
 
 
-def category_text_matches(text, categories):
-    """Compare an unordered flattened list without splitting commas inside labels."""
-    @lru_cache(None)
-    def consume(remaining_text, remaining_values):
-        if not remaining_values:
-            return remaining_text == ''
-        for index, value in enumerate(remaining_values):
-            suffix = ', ' if len(remaining_values) > 1 else ''
-            prefix = value + suffix
-            if remaining_text.startswith(prefix) and consume(
-                    remaining_text[len(prefix):], remaining_values[:index] + remaining_values[index + 1:]):
-                return True
-        return False
-    return consume(text.strip(), tuple(sorted(categories)))
 
 
 class C3DCResultTabs(ResultTabs):

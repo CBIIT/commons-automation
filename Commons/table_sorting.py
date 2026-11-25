@@ -26,6 +26,7 @@ class SortRule:
     casefold: bool = False
     missing: tuple[str, ...] = ('',)
     unknown_number: Decimal | None = None
+    nulls_smallest: bool = False
 
     def key(self, text, direction):
         values = list(text) if isinstance(text, (list, tuple)) else (text.split(self.separator) if self.separator else [text])
@@ -36,7 +37,12 @@ class SortRule:
                 if value and self.unknown_number is not None:
                     keys.append(self.unknown_number)
                 continue
-            if self.kind == 'number':
+            if self.kind == 'size':
+                match = re.fullmatch(r'([\d,.]+)\s*(B|Bytes|KB|MB|GB|TB)', value, re.IGNORECASE)
+                assert match, f'Invalid file size: {value!r}'
+                unit = match[2].upper().replace('BYTES', 'B')
+                keys.append(Decimal(match[1].replace(',', '')) * 1024 ** ('B', 'KB', 'MB', 'GB', 'TB').index(unit))
+            elif self.kind == 'number':
                 try:
                     number = Decimal(value.replace(',', ''))
                     assert number.is_finite(), f'Non-finite sort value: {value!r}'
@@ -77,10 +83,12 @@ def infer_rule(name, values):
     return SortRule()
 
 
-def assert_sorted(values, direction):
-    """Compare numeric/text keys with missing values last in both directions."""
+def assert_sorted(values, direction, nulls_smallest=False):
+    """Compare keys using the application's explicit missing-value order."""
     present = [value for value in values if value is not None]
-    wanted = sorted(present, reverse=direction == 'desc') + [None] * (len(values) - len(present))
+    ordered = sorted(present, reverse=direction == 'desc')
+    missing = [None] * (len(values) - len(present))
+    wanted = missing + ordered if nulls_smallest and direction == 'asc' else ordered + missing
     assert values == wanted, f'Values are not sorted {direction}: {values}'
 
 
@@ -88,7 +96,9 @@ def assert_sorted(values, direction):
 # DOM discovery: native ARIA headers and Material UI sort labels
 # ---------------------------------------------------------------------------
 
-SORT_CONTROL = '[class*="MuiTableSortLabel-root"], button[data-sort], [role="button"][data-sort]'
+SORT_CONTROL = ('[class*="MuiTableSortLabel-root"], button[data-sort], '
+                '[role="button"][data-sort], [role="button"][title="sort"], '
+                ':scope[direction] > [role="button"]')
 
 
 class TableSorting(TableNavigation):
@@ -104,7 +114,8 @@ class TableSorting(TableNavigation):
             name = ' '.join(header.inner_text().split())
             self.header_names.append(name)
             controls = header.locator(SORT_CONTROL)
-            if controls.count() and controls.first.is_visible() and controls.first.is_enabled():
+            if (controls.count() and controls.first.is_visible() and controls.first.is_enabled()
+                    and controls.first.get_attribute('aria-disabled') != 'true'):
                 self.columns.append((index, name))
             elif not controls.count() and header.get_attribute('aria-sort') is not None:
                 self.columns.append((index, name))
@@ -131,6 +142,9 @@ class TableSorting(TableNavigation):
                 return 'asc'
             if control.locator('[class*="iconDirectionDesc"]').count():
                 return 'desc'
+            return header.get_attribute('direction')
+        # ICDC hashes MUI class names, but preserves the active arrow and direction.
+        if control.locator('svg').count() and header.get_attribute('direction') in ('asc', 'desc'):
             return header.get_attribute('direction')
         return None
 
@@ -180,7 +194,7 @@ class TableSorting(TableNavigation):
             def ordered():
                 try:
                     rows = self.snapshot()
-                    assert_sorted([self.key(index, name, row, direction) for row in rows], direction)
+                    assert_sorted([self.key(index, name, row, direction) for row in rows], direction, rule.nulls_smallest)
                     return bool(rows)
                 except AssertionError:
                     return False
@@ -235,7 +249,7 @@ class TableSorting(TableNavigation):
                     if not self.options.response_matches:
                         def ordered():
                             try:
-                                assert_sorted([self.key(index, name, row, direction) for row in self.snapshot()], direction)
+                                assert_sorted([self.key(index, name, row, direction) for row in self.snapshot()], direction, rule.nulls_smallest)
                                 return bool(self.snapshot())
                             except AssertionError:
                                 return False
@@ -249,7 +263,7 @@ class TableSorting(TableNavigation):
                     values = [self.key(index, name, row, direction) for row in rows]
                     entry = {'column': name, 'direction': direction, 'values': [str(v) if v is not None else None for v in values]}
                     try:
-                        assert_sorted(values, direction)
+                        assert_sorted(values, direction, rule.nulls_smallest)
                         entry['status'] = 'PASSED' if len(set(values)) > 1 else 'INCONCLUSIVE'
                         if entry['status'] == 'INCONCLUSIVE':
                             entry['reason'] = 'Only one distinct sort value; direction and row retention checked'

@@ -10,6 +10,7 @@ from Commons.excel_testcase.profile import ExcelCaseProfile, StepRow
 from Commons.excel_testcase.registry import register_profile
 
 BENTO_EXCEL_ACTIONS = [
+    "verify_result_tab_sorting",
     "accept_banner",
     "open_cases",
     "select_filter",
@@ -57,6 +58,6 @@ register_profile(
         input_files_prefix="InputFiles/BENTO",
         excel_actions=BENTO_EXCEL_ACTIONS,
         parse_test_function=_parse_bento_test_function,
-        case_subdirs=BENTO_ARM_SUBDIRS,
+        case_subdirs=(*BENTO_ARM_SUBDIRS, "result_tabs"),
     )
 )

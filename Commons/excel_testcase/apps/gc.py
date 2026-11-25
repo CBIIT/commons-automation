@@ -20,6 +20,7 @@ GC_TAB_FROM_PARAMS = {
 }
 
 GC_EXCEL_ACTIONS = [
+    "download_result_tab", "verify_result_tab_download", "verify_result_tab_sorting",
     *bento_cart_handlers(small_filter=True),
     "accept_banner",
     "click",
@@ -44,6 +45,7 @@ GC_CASE_SUBDIRS = (
     "file_cart",
     "study_listing",
     "static",
+    "result_tabs",
 )
 
 

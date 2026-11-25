@@ -144,6 +144,8 @@ def common_handlers() -> Dict[str, Handler]:
         "verify_all_tabs": verify_all_tabs,
         "verify_result_tab_pagination": verify_result_tab_pagination,
         "verify_result_tab_sorting": lambda app, tab, params, _f, case: app.verify_result_tab_sorting(tab or params, case),
+        "download_result_tab": lambda app, tab, fmt, _f, case: app.result_tabs.download(tab, fmt, case),
+        "verify_result_tab_download": lambda app, tab, fmt, _f, _case: app.result_tabs.verify_download(tab, fmt),
         "assert_no_failures": assert_no_failures,
         "assert_results": assert_no_failures,
         "goto": goto,

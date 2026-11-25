@@ -4,6 +4,8 @@ GC (General Commons): https://datacommons.cancer.gov
 Data explore: stat bar + result tabs (Participants, Samples, Files). Studies catalog: studies.py.
 Expected data: Memgraph Cypher in InputFiles/GC/TC*.xlsx.
 """
+from Commons.result_tabs import ResultTabsApp
+from Commons.apps.gc.result_tabs import GCResultTabs
 from Commons.file_cart import FileCartApp
 from Commons.apps.gc.file_cart import GCFileCart
 from Commons.base_app import BaseApp, StatSpec, TabSpec
@@ -30,7 +32,8 @@ def _tab(name, index_key, table, input_tab, stat, ui, db, max_pages=10):
 # ---------------------------------------------------------------------------
 
 
-class GC(FileCartApp, BaseApp):
+class GC(ResultTabsApp, FileCartApp, BaseApp):
+    RESULT_TABS_CLASS = GCResultTabs
     FILE_CART_CLASS = GCFileCart
     NAME = "GC"
     BANNER_KEYS = ["NavBar/Popup_Continue_Btn"]
@@ -71,3 +74,11 @@ class GC(FileCartApp, BaseApp):
         from Commons.apps.gc.studies import verify_studies_listing
 
         verify_studies_listing(self)
+
+    # -----------------------------------------------------------------------
+    # Result-table sorting: reuse discovery, both directions, and row retention
+    # -----------------------------------------------------------------------
+
+    def result_tab_sorting_options(self, tab):
+        from Commons.apps.gc.table_sorting import sorting_options
+        return sorting_options(self, tab)

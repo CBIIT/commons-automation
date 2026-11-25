@@ -27,7 +27,8 @@ class TableNavigation:
     # -----------------------------------------------------------------------
 
     def headers(self):
-        return self.root.locator('thead tr').last.locator(':scope > th, :scope > [role="columnheader"]')
+        # Some portals render the selection header as td rather than th.
+        return self.root.locator('thead tr').last.locator(':scope > th, :scope > td, :scope > [role="columnheader"]')
 
     def snapshot(self):
         count = self.headers().count()

@@ -6,7 +6,7 @@ All query workbooks live **flat** in this folder (`InputFiles/BENTO/`), same as 
 |-----------|---------|
 | `Bento_StaticData.xlsx` | Static page checks |
 
-Testcase Steps live under `Testcases/BENTO/arm-*/`; edit query workbooks here directly. Arm/facet naming matrix: `Commons/bento_arm_filters.py`.
+Testcase Steps live under `Testcases/BENTO/arm-*/` and specify the arm/facet selections. Edit query workbooks here directly; filter locators live in `ObjectRepository/BENTO/filters/`.
 
 `TabQuery` / `StatQuery` are Neo4j Cypher (`expected_source: neo4j` in `Config/environments.yaml`).
 

@@ -127,6 +127,28 @@ currently offered 50/100-row sizes. The common native/MUI tests also exercise 10
 empty/small result sets, exact page boundaries, and alternative resizing policies.
 Evidence is saved as `<tab>_pagination.json` in the test case's output folder.
 
+### Result-tab coverage in other applications
+
+The C3DC layout is reused under `Testcases/<APP>/result_tabs/<tab>/`:
+
+| Application | CSV cases | JSON cases | Sorting cases |
+| --- | ---: | ---: | ---: |
+| C3DC (existing) | 6 | 6 | 6 |
+| GC | 3 | No UI control | 3 |
+| CTDC | 4 | No UI control | 4 |
+| ICDC | 4 | No UI control | 4 |
+| INS | 4 | No UI control | 4 |
+| PSDC | 1 | No UI control | 1 |
+| Bento | No UI control | No UI control | 3 |
+
+`DirectCSVResultTabs` reuses the same download capture, strict file parsing,
+independent count checks, and complete-record comparison as C3DC. Application
+adapters own schemas, query keys, and rendering semantics. SQL/Cypher projections
+are organized by tab in `<APP>_ResultTabDownloads.xlsx`, with visible gridlines
+and compact rows. Per-app result-tab READMEs list the filters and run commands.
+CTDC and PSDC currently expose differences from the dated TSV references; the
+CSV checks retain those failures rather than accepting live exports as expected data.
+
 ## Expected data
 
 | App | Source | Workbook | Password env |

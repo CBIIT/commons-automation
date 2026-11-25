@@ -1,0 +1,4 @@
+page: ProgramsResultTab
+elements:
+  Table: //*[@id='program_tab_table']
+  CSV: //*[@id='program_tab_table']//button[contains(@title,'Download') and contains(@title,'CSV')]

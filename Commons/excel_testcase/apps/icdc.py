@@ -11,6 +11,7 @@ from Commons.excel_testcase.profile import ExcelCaseProfile, StepRow
 from Commons.excel_testcase.registry import register_profile
 
 ICDC_EXCEL_ACTIONS = [
+    "download_result_tab", "verify_result_tab_download", "verify_result_tab_sorting",
     *bento_cart_handlers(study_files=True),
     "accept_banner",
     "open_cases",
@@ -54,7 +55,7 @@ register_profile(
         input_files_prefix="InputFiles/ICDC",
         excel_actions=ICDC_EXCEL_ACTIONS,
         parse_test_function=_parse_icdc_test_function,
-        case_subdirs=("studies", "file_cart"),
+        case_subdirs=("studies", "file_cart", "result_tabs"),
         extra_handlers=bento_cart_handlers(study_files=True),
     )
 )

@@ -6,6 +6,7 @@ import json
 import re
 from collections import Counter
 from dataclasses import dataclass
+from functools import lru_cache
 from pathlib import Path
 from typing import Mapping
 
@@ -59,6 +60,23 @@ def read_json_records(path: Path) -> list[dict]:
     assert isinstance(records, list), 'JSON export must contain an array of records'
     assert all(isinstance(record, dict) for record in records), 'JSON export records must be objects'
     return records
+
+
+def category_text_matches(text, categories, separator=', '):
+    """Compare an unordered flattened list without splitting commas inside labels."""
+    @lru_cache(None)
+    def consume(remaining_text, remaining_values):
+        if not remaining_values:
+            return remaining_text == ''
+        for index, value in enumerate(remaining_values):
+            suffix = separator if len(remaining_values) > 1 else ''
+            prefix = value + suffix
+            if remaining_text.startswith(prefix) and consume(
+                    remaining_text[len(prefix):], remaining_values[:index] + remaining_values[index + 1:]):
+                return True
+        return False
+    return consume(text.strip(), tuple(sorted(categories)))
+
 
 
 def compare_export(expected: Table, actual: Table, identity_columns: tuple[str, ...]) -> dict:
@@ -185,3 +203,15 @@ class ResultTabs:
         self.app.results.append({'check': f'{tab} {fmt} contents', 'status': 'PASSED',
                                  'detail': f'All {len(actual.rows)} records and {len(actual.header)} columns matched independent expected data'})
         return actual
+
+
+class DirectCSVResultTabs(ResultTabs):
+    """Portals with one CSV button instead of a format menu."""
+
+    def export_spec(self, tab, fmt='CSV'):
+        if fmt != 'CSV':
+            raise ValueError(f'{tab} supports CSV only; no {fmt} control is configured')
+        return super().export_spec(tab, fmt)
+
+    def download_trigger(self, tab, fmt):
+        return self.app.ui.visible(self.app.repo.xpath(self.export_spec(tab, fmt).download_key)).first

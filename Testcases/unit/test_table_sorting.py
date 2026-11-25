@@ -38,7 +38,12 @@ def sorting_app(page, tmp_path, style='aria', broken=False, drop=False, initial_
       let rows = [['A1','10'],['B2','2'],['C3','100'],['D4',''],['E5','30']];
       let current = 0, active = initialAge ? 3 : 1, direction = 'asc';
       if(initialAge) rows.sort((a,b)=>a[1]===''?1:b[1]===''?-1:Number(a[1])-Number(b[1]));
-      const headers = [...document.querySelectorAll('th')];
+      const headers = [...document.querySelector('thead tr').children];
+      if (style === 'hashed') {
+        const selection = document.createElement('td');
+        selection.innerHTML = headers[0].innerHTML;
+        headers[0].replaceWith(selection);
+      }
       const previous = document.querySelector('[aria-label="Previous page"]');
       const next = document.querySelector('[aria-label="Next page"]');
       function indicators() {
@@ -47,8 +52,8 @@ def sorting_app(page, tmp_path, style='aria', broken=False, drop=False, initial_
           if (style === 'aria') headers[index].setAttribute('aria-sort', selected ? (direction==='asc'?'ascending':'descending'):'none');
           else {
             headers[index].setAttribute('direction',direction);
-            headers[index].innerHTML = '<span role="button" class="MuiTableSortLabel-root-17 ' +
-              (selected?'MuiTableSortLabel-active-18':'')+'">'+(index===1?'ID':'Age')+
+            headers[index].innerHTML = '<span role="button" '+(style==='hashed'?'aria-describedby="tooltip"':'title="sort"')+' class="' +
+              (style==='hashed'?'mui-jss-jss123':('MuiTableSortLabel-root-17 '+(selected?'MuiTableSortLabel-active-18':'')))+'">'+(index===1?'ID':'Age')+
               (selected?'<svg class="MuiTableSortLabel-iconDirection'+(direction==='asc'?'Asc':'Desc')+'-19"></svg>':'')+'</span>';
           }
         }
@@ -79,7 +84,7 @@ def sorting_app(page, tmp_path, style='aria', broken=False, drop=False, initial_
                 TABS={'People': SimpleNamespace(table='Table', next='Next')})
 
 
-@pytest.mark.parametrize('style', ['aria', 'mui'])
+@pytest.mark.parametrize('style', ['aria', 'mui', 'hashed'])
 def test_dynamic_sorting_reads_all_pages_and_skips_non_sortable_cells(page, tmp_path, style):
     app = sorting_app(page, tmp_path, style)
     evidence = TableSorting(app, 'People').verify('case.xlsx')
@@ -189,6 +194,41 @@ def test_cached_initial_order_does_not_require_another_http_response(page, tmp_p
     evidence = TableSorting(app,'People',options).verify('cached.xlsx')
     assert all(entry['status']=='PASSED' for entry in evidence['columns'])
     assert requests==[('ID','asc'),('ID','desc'),('Age','desc')]
+
+
+def test_sort_waits_for_render_after_response_when_old_values_already_look_sorted(page, tmp_path):
+    app = sorting_app(page, tmp_path, initial_age=True)
+    app.ui.timeout_ms = 2000
+    page.locator('th').nth(1).evaluate("el => el.setAttribute('aria-sort', 'ascending')")
+    page.locator('th').nth(3).evaluate("el => el.setAttribute('aria-sort', 'none')")
+    page.route('https://sorting.test/slow-age', lambda route: route.fulfill(
+        content_type='application/json', headers={'access-control-allow-origin': '*'},
+        body=json.dumps({'ids': ['C3', 'E5'], 'ages': ['100', '30']})))
+    page.evaluate('''() => {
+      const header = document.querySelectorAll('th')[3];
+      header.onclick = () => {
+        header.setAttribute('aria-sort', 'ascending');
+        fetch('https://sorting.test/slow-age').then(r => r.json()).then(data => {
+          setTimeout(() => {
+            document.querySelector('tbody').innerHTML = data.ids.map((id, i) =>
+              '<tr><td></td><td>'+id+'</td><td></td><td>'+data.ages[i]+'</td></tr>').join('');
+          }, 350);
+        });
+      };
+    }''')
+    options = SortingOptions(identity_column='ID',
+        response_matches=lambda response, name, direction: response.url == 'https://sorting.test/slow-age',
+        response_ids=lambda response: response.json()['ids'])
+    helper = TableSorting(app, 'People', options)
+    helper.discover()
+    helper.rules = {'Age': SortRule(kind='number')}
+    # The old page is ascending already; its indicator or short DOM stability is insufficient.
+    assert [row[3] for row in helper.snapshot()] == ['2', '10']
+    helper.set_direction(3, 'Age', 'asc')
+    rows = helper.snapshot()
+    assert [row[1] for row in rows] == ['C3', 'E5']
+    with pytest.raises(AssertionError, match='not sorted'):
+        assert_sorted([helper.key(3, 'Age', row, 'asc') for row in rows], 'asc')
 
 
 def test_link_columns_compare_urls_when_labels_are_identical(page, tmp_path):

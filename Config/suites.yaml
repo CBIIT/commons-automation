@@ -37,6 +37,7 @@ GC:
     - "studies/phs001713/TC05_GC_phs001713_LibrarySource-Genomic_LibraryLayout-PairedEnd.xlsx"
     - "studies/phs002430/TC06_GC_phs002430_RefGenAsbly-NSD_PrimDiag-Acutemyloidleukemia.xlsx"
   regression:
+    - "result_tabs/**/TC*.xlsx"
     - "file_cart/TC*.xlsx"
     - "studies/**/TC*.xlsx"
     - "static/TC*.xlsx"
@@ -89,6 +90,7 @@ CTDC:
     - "studies/CMB/TC01_CTDC_CMB_Sex-Male.xlsx"
     - "studies/CMB/TC01_CTDC_CMB_Diagnosis-ColorctlCarcin.xlsx"
   regression:
+    - "result_tabs/**/TC*.xlsx"
     - "file_cart/TC*.xlsx"
     - "studies/**/TC*.xlsx"
     - "static/TC*.xlsx"
@@ -101,6 +103,7 @@ PSDC:
     - "functional/TC01_*.xlsx"
     - "studies/**/TC01_*.xlsx"
   regression:
+    - "result_tabs/**/TC*.xlsx"
     - "functional/TC*.xlsx"
     - "studies/**/TC*.xlsx"
     - "static/TC*.xlsx"
@@ -122,6 +125,7 @@ BENTO:
     - "arm-d/TC01_Bento_arm-d_Diagnosis-TubularCarcinoma.xlsx"
     - "arm-d/TC02_Bento_arm-d_RecurrScore-26-30.xlsx"
   regression:
+    - "result_tabs/**/TC*.xlsx"
     - "arm-*/TC*.xlsx"
 
 # ---------------------------------------------------------------------------
@@ -134,6 +138,7 @@ ICDC:
   smoke:
     - "studies/COTC021/TC*.xlsx"
   regression:
+    - "result_tabs/**/TC*.xlsx"
     - "file_cart/TC*.xlsx"
     - "studies/**/TC*.xlsx"
 
@@ -151,6 +156,7 @@ INS:
     - "Programs/SpecialTopic/TC01_INS_SpecialTopic-CancerMoonshot.xlsx"
     - "Programs/SpecialTopic/TC04_INS_SpecialTopic-General.xlsx"
   regression:
+    - "result_tabs/**/TC*.xlsx"
     - "Programs/**/TC*.xlsx"
     - "DataSets/TC*.xlsx"
     - "static/TC*.xlsx"
