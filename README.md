@@ -71,7 +71,7 @@ Use app fixtures from `conftest.py` (`gc`, `c3dc`, `ctdc`, `ins`, …). Markers 
 | Portal-specific behavior | `Commons/apps/<app>/app.py`, `Commons/table_reader.py` |
 | Tests | `Testcases/<APP>/` |
 
-Per-app layout: `Commons/apps/<app>/app.py`, `Testcases/<APP>/`, `InputFiles/<APP>/`, `ObjectRepository/<APP>/`. **Tools/** contains optional migration/build utilities and is not used at pytest runtime.
+Per-app layout: `Commons/apps/<app>/app.py`, `Testcases/<APP>/`, `InputFiles/<APP>/`, `ObjectRepository/<APP>/`.
 
 ## Expected data
 

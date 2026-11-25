@@ -220,9 +220,9 @@ diagnosis, recurrence score, tumor size, chemotherapy, tumor grade, ER status,
 PR status, endocrine therapy, menopause status, age, tissue type, tissue
 composition, file association, and file type.
 
-`Commons/bento_arm_filters.py` defines arm labels, distinct per-arm choices,
-filenames, and age ranges. Age uses `set_age_range`, not a checkbox. Cases,
-Samples, and Files queries use Neo4j. Input workbooks are flat; Steps are in arm
+The Python cases under `Testcases/Bento/arm-*/` define each arm’s facet choices,
+input workbook filenames, and age ranges. Age uses `set_age_range`, not a checkbox. Cases,
+Samples, and Files queries use Neo4j. Input workbooks are flat; Python cases are in arm
 subfolders. Samples/files facets have their own sidebar sections.
 
 ### CTDC
