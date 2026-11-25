@@ -1,0 +1,54 @@
+---
+description: Native Python testcase layout markers and input workbook contracts
+globs: Testcases/**/*.py,InputFiles/**/*.xlsx,Commons/query_reader.py,conftest.py,pytest.ini
+alwaysApply: false
+---
+
+# Python testcases and input workbooks
+
+This branch executes native pytest tests for every application. Read
+`docs/PYTHON_MIGRATION.md`, the app adapter, and a nearby Python testcase/input
+pair before editing. The Excel-driven checkout is a reference, not a runtime
+dependency.
+
+## Testcases
+
+- Place executable cases under `Testcases/<APP>/**/test_*.py`, preserving the
+  existing feature/tab folders. Use the app's pytest fixture and call adapter
+  methods directly. Keep browser behavior in reusable helpers and locators in
+  `ObjectRepository/<APP>/`.
+- Define suite membership using native `@pytest.mark.quickrun`, `smoke`,
+  `regression`, and `datarelease` markers as appropriate. Do not recreate
+  `Config/suites.yaml`, Excel Steps, Excel collectors, or Excel action profiles.
+- Resolve filter group/value keys from the app's YAML. Preserve action order,
+  filters, assertions, report names, and intended coverage when porting a case.
+- End comparison cases with the existing framework failure assertion. Functional
+  cases need no query workbook unless they actually compare independent data.
+- Input/output Excel workbooks remain supported; they are separate from the
+  executable Python testcase. Resolve the actual `load_query_file()` argument.
+
+## Query/static input workbooks
+
+- Store expected-data inputs under `InputFiles/<APP>/`. Follow neighboring
+  headers (`TabName`, `TabQuery`, `StatQuery`, and supported output-name fields).
+  `Commons/query_reader.py` defines the accepted aliases and parser contract.
+- Match `TabName` to the adapter's `TabSpec.input_tab` and projected columns to
+  the retained UI headers. Stat aliases must match the app's stat names.
+- Read `Config/tab_setting.yaml`; sort deterministically before a tab row limit.
+  Do not paginate or limit total stat counts. Follow `expected-data.mdc` for all
+  SQL/Cypher changes and use static inputs' own existing contracts.
+- Preserve established input names, exact capitalization, unrelated cells,
+  styles, widths, sheets, dropdowns, and freeze panes. Keep gridlines visible.
+  Retain identifiers and leading zeros as text; store readable query text.
+- On a rename, update the Python `load_query_file()` call, real input filename,
+  output names, and current references. Handle case-only renames safely on macOS.
+
+## Verification
+
+- Collect affected tests; verify fixture, marker, input, method, and locator
+  references. Run relevant existing unit checks for shared behavior changes.
+- Reopen changed workbooks and validate their contents and parser compatibility.
+  Run affected live cases when the environment and expected source are available.
+- Inspect matching UI/DB output sheets for failures. Distinguish source drift,
+  query defects, scraping defects, and readiness issues. Report unperformed
+  checks separately from passes; never weaken comparisons to get a green run.

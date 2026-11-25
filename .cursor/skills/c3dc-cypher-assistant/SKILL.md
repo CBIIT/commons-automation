@@ -1,5 +1,5 @@
 ---
-name: memgraph-cypher-assistant
+name: c3dc-cypher-assistant
 description: Generate, validate, debug and test Memgraph Cypher queries.
 ---
 
@@ -19,8 +19,8 @@ This skill helps users:
 - references/backend-index-query/indices.yaml
 
 ## Database Model
-- references/model/cds-model.yml
-- references/model/cds-model-props.yml
+- references/model/ccdi-dcc-model.yml
+- references/model/ccdi-dcc-model-props.yml
 
 # Available Script
 
@@ -100,7 +100,10 @@ Actions:
 Always:
 
 - Use parameterized Cypher.
-- Include LIMIT.
+- Bound tab/exploratory queries with LIMIT; do not limit aggregate stat totals.
 - Avoid APOC.
 - Validate labels and relationship names against files in Backend Index Query and Database Model.
 - Test query with scripts/query_memgraph.py before returning.
+Use this application’s configured environment and credentials. Local script defaults
+are examples, not the QA connection. Never copy credentials into committed files.
+Follow `.cursor/rules/expected-data.mdc` for correctness, query plans, and timings.
