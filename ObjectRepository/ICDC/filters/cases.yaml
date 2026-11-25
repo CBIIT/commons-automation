@@ -31,6 +31,8 @@ groups:
       Canine_Filter_Study-UBC02: //*[@id='checkbox_Study_UBC02 (000005)']
       Canine_Filter_Study-UBC03: //*[@id='checkbox_Study_UBC03 (000010)']
       Canine_Filter_Study-UBC: //*[@id='checkbox_Study_UBC01 (000004)']
+      Canine_Filter_Study-TCL01: //*[@id='checkbox_Study_TCL01 (000008)']
+      Canine_Filter_Study-UC01: //*[@id='checkbox_Study_UC01 (000015)']
       TCL01: //*[@id='checkbox_Study_TCL01 (000008)']
       UC01: //*[@id='checkbox_Study_UC01 (000015)']
   Cases/StudyType:

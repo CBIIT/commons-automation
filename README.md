@@ -157,6 +157,12 @@ CSV checks retain those failures rather than accepting live exports as expected 
 | ICDC, Bento | Neo4j | Cypher | `<APP>_DB_PASSWORD_<ENV>` |
 | CTDC, INS, PSDC | TSV snapshots + in-memory SQL | SQL | none |
 
+OSA04 study-comparison cases and their input workbooks were removed on
+November 25, 2026 because the QA UI and configured Neo4j reference disagree:
+Neo4j links the samples and files to `MOCK-STUDY-2026`, while the UI associates
+them with the original OSA04 cases. OSA04 study comparisons are not currently
+covered by this suite.
+
 CTDC node TSVs live under `InputFiles/CTDC/<STUDY>/YYYY-MM-DD/`. INS keeps `Programs.zip` / `DataSetsTab.zip` in git; the first test run extracts `InputFiles/INS/Programs/` (node TSVs) and dated folders under `InputFiles/INS/` or `DataSetsTab/` (gitignored—do not commit). When publication counts drift, refresh the zips from [ins-data](https://github.com/CBIIT/ins-data) and remove `stat_bar_omit` for Publications in `Config/environments.yaml`.
 
 ## Test shape
