@@ -141,14 +141,14 @@ class MemgraphSource(ExpectedDataSource):
     def _tab_cypher(self, query_file: QueryFile, tab_key: str) -> str:
         return apply_tab_row_limit(query_file.query_for_tab(tab_key), self._tab_row_limit)
 
-    def run_cypher_as_table(self, cypher: str, query_label: str = "tab query from memgraph") -> Table:
+    def run_cypher_as_table(self, cypher: str, query_label: str = "tab query from memgraph", *, parameters=None) -> Table:
         if not self._logged_connection:
             action_log.memgraph_connection(self.username, self.endpoint)
             self._logged_connection = True
         action_log.memgraph_query(query_label, cypher)
         try:
             with self.get_bolt_driver().session() as session:
-                records = list(session.run(cypher))
+                records = list(session.run(cypher, parameters=parameters)) if parameters else list(session.run(cypher))
         except Exception as exc:
             msg = str(exc)
             if "Unauthenticated" in msg or "Authentication failure" in msg:
@@ -170,7 +170,10 @@ class MemgraphSource(ExpectedDataSource):
         apply_row_limit: bool = True,
     ) -> Table:
         cypher = self._tab_cypher(query_file, tab_key) if apply_row_limit else query_file.query_for_tab(tab_key)
-        return self.run_cypher_as_table(cypher, memgraph_tab_query_label(tab_key, tab_display_name))
+        label = memgraph_tab_query_label(tab_key, tab_display_name)
+        if query_file.parameters:
+            return self.run_cypher_as_table(cypher, label, parameters=query_file.parameters)
+        return self.run_cypher_as_table(cypher, label)
 
     def fetch_stat_bar_table(self, query_file: QueryFile) -> Table:
         if not query_file.stat_bar_query:

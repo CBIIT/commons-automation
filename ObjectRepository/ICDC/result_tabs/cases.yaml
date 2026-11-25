@@ -1,0 +1,4 @@
+page: CasesResultTab
+elements:
+  Table: //*[@id='case_tab_table']
+  CSV: //*[@id='case_tab_table']//button[contains(@title,'Download') and contains(@title,'CSV')]

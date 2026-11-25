@@ -1,0 +1,4 @@
+page: ParticipantsResultTab
+elements:
+  Table: //div[@id="case_tab_table"]
+  CSV: //div[@id="case_tab_table"]//button[@title='Download Table Content As CSV']
