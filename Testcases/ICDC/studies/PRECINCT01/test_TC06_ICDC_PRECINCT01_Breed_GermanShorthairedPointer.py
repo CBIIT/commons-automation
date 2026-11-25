@@ -1,21 +1,19 @@
-"""Open Explore for study PRECINCT01, filter Breed GermanShorthairedPointer, then compare stat bar and result tabs to DB queries."""
+"""TC06_ICDC_PRECINCT01_Breed-GermanShorthairedPointer — Python regression case."""
 
 import pytest
-
-_INPUT = "TC06_ICDC_PRECINCT01_Breed-GermanShorthairedPointer.xlsx"
 
 
 @pytest.mark.icdc
 @pytest.mark.regression
 def test_TC06_ICDC_PRECINCT01_Breed_GermanShorthairedPointer(icdc):
-    icdc.load_query_file(_INPUT)
+    icdc.load_query_file('TC06_ICDC_PRECINCT01_Breed-GermanShorthairedPointer.xlsx')
     icdc.accept_banner()
     icdc.open_cases()
     icdc.select_study('Canine_Filter_Study-PRECINCT01')
-    icdc.select_filter("Cases/Breed", 'GermanShthrPntr')
+    icdc.select_filter('Cases/Breed', 'GermanShthrPntr')
     icdc.read_statbar()
-    icdc.verify_tab("Cases")
-    icdc.verify_tab("Samples")
-    icdc.verify_tab("Case Files")
-    icdc.verify_tab("Study Files")
+    icdc.verify_tab('Cases')
+    icdc.verify_tab('Samples')
+    icdc.verify_tab('Case Files')
+    icdc.verify_tab('Study Files')
     icdc.assert_no_failures()

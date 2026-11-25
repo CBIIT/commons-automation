@@ -1,0 +1,72 @@
+type	study.study_short_name	data_collection_record_id	data_collection_category	data_collection_category_annotation_count
+data_collection	NLST	NLST-01	Age	1
+data_collection	NLST	NLST-02	Biological Sex	1
+data_collection	NLST	NLST-03	Sexual Orientation and Gender Identity	0
+data_collection	NLST	NLST-04	Ethnicity and Race	1
+data_collection	NLST	NLST-05	Education Level	1
+data_collection	NLST	NLST-06	Employment Status	1
+data_collection	NLST	NLST-07	Residential Information	1
+data_collection	NLST	NLST-08	Language/Country of Origin	1
+data_collection	NLST	NLST-09	"Life Events, Beliefs, Values"	0
+data_collection	NLST	NLST-10	Marital Status	1
+data_collection	NLST	NLST-11	Quality of Life	1
+data_collection	NLST	NLST-12	Social Support	0
+data_collection	NLST	NLST-13	Socio-Economic Status	1
+data_collection	NLST	NLST-14	Alcohol Consumption	1
+data_collection	NLST	NLST-15	Cigarette Smoking	1
+data_collection	NLST	NLST-16	Other Tobacco Products	1
+data_collection	NLST	NLST-17	Drug Use	0
+data_collection	NLST	NLST-18	Dietary Intake	0
+data_collection	NLST	NLST-19	Dietary Supplement Use	0
+data_collection	NLST	NLST-20	Physical Activity	0
+data_collection	NLST	NLST-21	Physical Function Measures	1
+data_collection	NLST	NLST-22	Self-Reported Anthropometry	1
+data_collection	NLST	NLST-23	Measured Anthropometry	0
+data_collection	NLST	NLST-24	"Puberty, Menstruation, and Menopause"	0
+data_collection	NLST	NLST-25	Pregnancy and Parity	0
+data_collection	NLST	NLST-26	Breastfeeding	0
+data_collection	NLST	NLST-27	Contraception	0
+data_collection	NLST	NLST-28	Hormone Replacement	0
+data_collection	NLST	NLST-29	Sexual Behavior and Health	0
+data_collection	NLST	NLST-30	Housing Exposures	1
+data_collection	NLST	NLST-31	Workplace Exposures	1
+data_collection	NLST	NLST-32	Radiation Exposure	0
+data_collection	NLST	NLST-33	Chemical Exposure	0
+data_collection	NLST	NLST-34	Health Insurance Status	0
+data_collection	NLST	NLST-35	Screening	1
+data_collection	NLST	NLST-36	Immunization	0
+data_collection	NLST	NLST-37	Sleep Habits	0
+data_collection	NLST	NLST-38	Fatigue	0
+data_collection	NLST	NLST-39	Cognitive Function	0
+data_collection	NLST	NLST-40	Depression	1
+data_collection	NLST	NLST-41	Family History of Cancer	1
+data_collection	NLST	NLST-42	Family History of Heart Disease	0
+data_collection	NLST	NLST-43	Family History of Diabetes	0
+data_collection	NLST	NLST-44	Other Family History	0
+data_collection	NLST	NLST-45	Prescription Medication Use	0
+data_collection	NLST	NLST-46	Complementary and Alternative Medicine	0
+data_collection	NLST	NLST-47	Non-Prescription Medication	0
+data_collection	NLST	NLST-48	Other Medical Conditions	1
+data_collection	NLST	NLST-49	Other Psychosocial Variables	1
+data_collection	NLST	NLST-50	Psychological Measures	0
+data_collection	NLST	NLST-51	Cancer Treatment	1
+data_collection	NLST	NLST-52	Other Medical Treatments	1
+data_collection	NLST	NLST-53	Infectious and Parasitic Diseases	0
+data_collection	NLST	NLST-54	Neoplasms	1
+data_collection	NLST	NLST-55	"Neoplasms, Blood, Blood-forming Organs"	1
+data_collection	NLST	NLST-56	"Endocrine, Nutritional, Metabolic"	1
+data_collection	NLST	NLST-57	Mental and Behavioral Disorders	1
+data_collection	NLST	NLST-58	Nervous System	0
+data_collection	NLST	NLST-59	"Eye and Adnexa, Ear and Mastoid Process"	0
+data_collection	NLST	NLST-60	Circulatory System	1
+data_collection	NLST	NLST-61	Respiratory System	1
+data_collection	NLST	NLST-62	Digestive System	0
+data_collection	NLST	NLST-63	Skin and Subcutaneous Tissue	0
+data_collection	NLST	NLST-64	Musculoskeletal and Connective Tissue	0
+data_collection	NLST	NLST-65	Genitourinary System	0
+data_collection	NLST	NLST-66	"Pregnancy, Childbirth and the Puerperium"	0
+data_collection	NLST	NLST-67	Certain Conditions Originating in the Perinatal Period	0
+data_collection	NLST	NLST-68	"Congenital Malformations, Deformations and Chromosomal Abnormalities"	0
+data_collection	NLST	NLST-69	"Symptoms, Signs and Abnormal Clinical and Lab Findings"	1
+data_collection	NLST	NLST-70	"Injury, Poisoning, Certain Other Consequences of External Causes"	0
+data_collection	NLST	NLST-71	Vital Status	1

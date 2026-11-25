@@ -1,0 +1,20 @@
+page: HomeControls
+elements:
+  HeaderLogo: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@id='header-logo-home-link']
+  CartLink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@href='#/fileCentricCart']
+  BackToTop: //*[@id='stt' and @role='button']
+  NCILogoLink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@href='https://www.cancer.gov' and contains(concat(' ',normalize-space(@class),' '),' logoText
+    ')]
+  LiveChatLink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@href='https://livehelp.cancer.gov/']
+  PhoneLink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@href='tel:+18004226237']
+  ContactEmailLink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@href='mailto:NCIinfo@nih.gov']
+  SiteFeedbackLink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@href='https://nci.az1.qualtrics.com/jfe/form/SV_aeLLobt6ZeGVn5I']
+  FacebookLink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@href='https://www.facebook.com/cancer.gov']
+  TwitterLink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@href='https://twitter.com/thenci']
+  InstagramLink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@href='https://www.instagram.com/nationalcancerinstitute/']
+  YouTubeLink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@href='https://www.youtube.com/NCIgov']
+  LinkedInLink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@href='https://www.linkedin.com/company/nationalcancerinstitute/']
+  HHSLink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@href='https://www.hhs.gov']
+  NIHLink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@href='https://www.nih.gov']
+  NCILink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@href='https://www.cancer.gov' and normalize-space(.)='National Cancer Institute']
+  USAGovLink: //div[contains(concat(' ',normalize-space(@class),' '),' desktop ')]//a[@href='https://www.usa.gov']

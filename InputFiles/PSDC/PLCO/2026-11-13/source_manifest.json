@@ -1,0 +1,85 @@
+{
+  "archive": "InputFiles/PSDC/PLCO.zip",
+  "snapshot_prepared": "2026-11-13",
+  "notes": "Preparation date, not asserted data-release date. Selected final loading files; source text retained and decoded to UTF-8.",
+  "files": [
+    {
+      "target": "participant.tsv",
+      "archive_member": "PLCO/PLCO Data Loading Files/PLCO_participant_data_20260305_final_151383_records.txt",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "024c91d12efdb1cc77da2e3f581fd2ad6e0cbefec5ca9291ad5bf430963cc3cc"
+    },
+    {
+      "target": "data_collection.tsv",
+      "archive_member": "PLCO/PLCO Data Loading Files/PLCO-data_collection v08-28-24 EM but using 0 (No) versus 1 (Yes) - typo fixed.txt",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "97da42112e1f3720b010c24d35dc29191d7df70936d721c5cd19af46b09c889c"
+    },
+    {
+      "target": "publication.tsv",
+      "archive_member": "PLCO/PLCO Data Loading Files/PLCO_Data_Loading_Template - publication.tsv",
+      "source_encoding": "cp1252",
+      "source_sha256": "000bd1f301aa6733d4355f3f64c067973886a1e0f7e190c0dbf2136b9b08673b"
+    },
+    {
+      "target": "study_country.tsv",
+      "archive_member": "PLCO/PLCO Data Loading Files/PLCO_Data_Loading_Template - study_country.tsv",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "4dac2c947e4a354e5138eccf273daf68ecd31c1a5dabb372faaf76b5f99d5f0a"
+    },
+    {
+      "target": "associated_link.tsv",
+      "archive_member": "PLCO/PLCO Data Loading Files/PLCO_Data_Loading_Template - associated_link.tsv",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "b40150af2b9b1c1efbcda47871de6b4b10856f989e20989a86b0eb4b39d698ac"
+    },
+    {
+      "target": "study_state_province_territory.tsv",
+      "archive_member": "PLCO/PLCO Data Loading Files/PLCO_Data_Loading_Template - study_state_province_territory.tsv",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "d2dee99634a9ed91978bda132bb11ee62c1433153c0a4a66a829b62c1ab36295"
+    },
+    {
+      "target": "study_personnel.tsv",
+      "archive_member": "PLCO/PLCO Data Loading Files/PLCO_Data_Loading_Template - study_personnel.tsv",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "8f2d6fbefe1f7bd6e496ec9f0bff4d781ce6950f036ef20a265c38cab039e669"
+    },
+    {
+      "target": "study.tsv",
+      "archive_member": "PLCO/PLCO Data Loading Files/PLCO_Data_Loading_Template - study.tsv",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "e978a6561e06d03f1036cf6a0e5b77e6e105a59b3c8caf7f168fc4543df0d613"
+    },
+    {
+      "target": "file_part_1.tsv",
+      "archive_member": "PLCO/PLCO Study Files/Second Set of PLCO Data Dictionaries - n of 24/PLCO_File_Transfer_Manifest \u0393\u00c7\u00f4 2 of 2 for study files.tsv",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "8ffeaa69500179b2185d0c6d8f41e8a4c8b76d0ef7c77824986c886863ce71d9"
+    },
+    {
+      "target": "file_part_2.tsv",
+      "archive_member": "PLCO/PLCO Study Files/First Set of PLCO Data Dictionaries - n of 8/PLCO_File_Transfer_Manifest - 1of 2 for study files - file extensions added to names.tsv",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "c5ccac41b5fd30f9d826448346edcf73245a90ea609bbc5af9a62fb97d6d7299"
+    }
+  ],
+  "excluded": [
+    {
+      "archive_member": "PLCO/PLCO Data Loading Files/5PLCO_participant_data_uberon_02262026_valid.txt",
+      "reason": "Earlier participant export; replaced by the explicitly final March 5 export"
+    },
+    {
+      "archive_member": "PLCO/PLCO Study Files/Second Set of PLCO Data Dictionaries - n of 24/Superseded or Depracated/2PLCO_File_Transfer_Manifest \u0393\u00c7\u00f4 study files.tsv",
+      "reason": "Superseded/deprecated manifest"
+    },
+    {
+      "archive_member": "PLCO/PLCO Study Files/Second Set of PLCO Data Dictionaries - n of 24/Superseded or Depracated/PLCO_File_Transfer_Manifest \u0393\u00c7\u00f4 2 of 2 for study files - errors in file names.tsv",
+      "reason": "Superseded/deprecated manifest"
+    },
+    {
+      "archive_member": "PLCO/PLCO Study Files/First Set of PLCO Data Dictionaries - n of 8/Superseded or Deprecated/PLCO_File_Transfer_Manifest \u0393\u00c7\u00f4 study files.tsv",
+      "reason": "Superseded/deprecated manifest"
+    }
+  ]
+}

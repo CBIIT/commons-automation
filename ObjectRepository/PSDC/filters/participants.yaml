@@ -1,0 +1,26 @@
+page: Filters/Participants
+groups:
+  Participants/Race:
+    facet: //*[@role='button' and contains(., 'Filter by Participants') and @aria-expanded]
+    dropdown: //*[@id='Race' and @role='button']
+    checkboxes:
+      american indian or alaska native: //*[@id='checkbox_Race_american indian or
+        alaska native']
+      asian: //*[@id='checkbox_Race_asian']
+      black or african american: //*[@id='checkbox_Race_black or african american']
+      native hawaiian or other pacific islander: //*[@id='checkbox_Race_native hawaiian
+        or other pacific islander']
+      unknown: //*[@id='checkbox_Race_unknown']
+      white: //*[@id='checkbox_Race_white']
+  Participants/Ethnicity:
+    facet: //*[@role='button' and contains(., 'Filter by Participants') and @aria-expanded]
+    dropdown: //*[@id='Ethnicity' and @role='button']
+    checkboxes:
+      hispanic or latino: //*[@id='checkbox_Ethnicity_hispanic or latino']
+      not hispanic or latino: //*[@id='checkbox_Ethnicity_not hispanic or latino']
+  Participants/Sex:
+    facet: //*[@role='button' and contains(., 'Filter by Participants') and @aria-expanded]
+    dropdown: //*[@id='Sex' and @role='button']
+    checkboxes:
+      female: //*[@id='checkbox_Sex_female']
+      male: //*[@id='checkbox_Sex_male']

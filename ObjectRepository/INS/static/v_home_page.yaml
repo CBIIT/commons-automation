@@ -1,21 +1,21 @@
 # Converted from Katalon Object Repository/INS/Static/V_HomePage
 page: Static/V_HomePage
 elements:
-  BannerDescription: //div[@class='MuiGrid-root MuiGrid-container']/div/div/div[2]
-  BannerTitle: //div[@class='MuiGrid-root MuiGrid-container']/div/div/div[1]
-  BodyText: //div[@id='root']/div[4]/div/div[3]/div/div/div
-  FooterAboutINSLink: //div[text() = 'About INS']/..
-  FooterContactINSLink: //div[text() = 'Contact INS']/..
-  FooterMoreInfoLabel: //div[(text() = 'More Information')]
-  FooterPoliciesAccessibilityLink: //div[(text() = 'Accessibility')]/..
-  FooterPoliciesDisclaimerLink: //div[(text() = 'Disclaimer')]/..
-  FooterPoliciesFOIALink: //div[(text() = 'FOIA')]/..
-  FooterPoliciesLabel: //div[text() = 'NIH Policies']
-  FooterPoliciesLink: //a[@href='https://www.cancer.gov/policies']
-  FooterPoliciesVulnerabilityLink: //div[(text() = 'HHS Vulnerability Disclosure')]/..
-  FooterReleaseNotesLink: //div[(text() = 'Release Notes')]/..
-  FooterSystemInfoLabel: //div[(text() = 'System Info')]
-  HeaderMessage: //div[@id='root']/div[3]
+  BannerDescription: //div[div/a[@href='#/programs']/button]/div[2]
+  BannerTitle: //div[div/a[@href='#/programs']/button]/div[1]
+  BodyText: //div[starts-with(normalize-space(.),'INS compiles programs, projects, and outputs funded by the NCI.') and br]
+  FooterAboutINSLink: //a[contains(concat(' ',normalize-space(@class),' '),' footItemLink ') and @href='#/about']
+  FooterContactINSLink: //a[contains(concat(' ',normalize-space(@class),' '),' footItemLink ') and normalize-space(.)='Contact Us']
+  FooterMoreInfoLabel: //div[@class='footItemTitle' and normalize-space(.)='About']
+  FooterPoliciesAccessibilityLink: //a[contains(concat(' ',normalize-space(@class),' '),' footItemLink ') and @href='https://www.cancer.gov/policies/accessibility']
+  FooterPoliciesDisclaimerLink: //a[contains(concat(' ',normalize-space(@class),' '),' footItemLink ') and @href='https://www.cancer.gov/policies/disclaimer']
+  FooterPoliciesFOIALink: //a[contains(concat(' ',normalize-space(@class),' '),' footItemLink ') and @href='https://www.cancer.gov/policies/foia']
+  FooterPoliciesLabel: //div[@class='footItemTitle' and normalize-space(.)='Policies']
+  FooterPrivacySecurityLink: //a[contains(concat(' ',normalize-space(@class),' '),' footItemLink ') and @href='https://www.cancer.gov/policies/privacy-security']
+  FooterPoliciesVulnerabilityLink: //a[contains(concat(' ',normalize-space(@class),' '),' footItemLink ') and @href='https://www.hhs.gov/vulnerability-disclosure-policy/index.html']
+  FooterReleaseNotesLink: //a[contains(concat(' ',normalize-space(@class),' '),' footItemLink ') and normalize-space(.)='Release Notes']
+  FooterAboutCCDILink: //a[contains(concat(' ',normalize-space(@class),' '),' footItemLink ') and normalize-space(.)='About CCDI']
+  HeaderMessage: //p[starts-with(normalize-space(.),'The INS website currently includes research output')]/parent::div
   SpotlightPanelDescription1: //*[@id = 'tile1_description']
   SpotlightPanelDescription2: //*[@id = 'tile2_description']
   SpotlightPanelDescription3: //*[@id = 'tile3_description']

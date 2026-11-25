@@ -1,0 +1,61 @@
+{
+  "archive": "InputFiles/PSDC/PBCS.zip",
+  "snapshot_prepared": "2026-11-13",
+  "notes": "Snapshot preparation date, not an asserted data release date. Contents retained; text decoded to UTF-8 for the TSV loader.",
+  "files": [
+    {
+      "target": "file.tsv",
+      "archive_member": "PBCS/PBCS Study Files/PBCS_File_Transfer_Manifest \u0393\u00c7\u00f4 study files.tsv",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "86e7900685f41c24a0361410c6cfc4ecc4f0ab268411f325ffc43a4c6824cde0"
+    },
+    {
+      "target": "publication.tsv",
+      "archive_member": "PBCS/PBCS Data Loading Files/PBCS_PSCDC_Data_Loading_Template - publication.tsv",
+      "source_encoding": "cp1252",
+      "source_sha256": "e192083b67293aa18a3396291fee98e485a2ca37fc55694a32fb2994a303ea90"
+    },
+    {
+      "target": "associated_link.tsv",
+      "archive_member": "PBCS/PBCS Data Loading Files/PBCS_PSDC_Data_Loading_Template - associated_link.tsv",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "da745111cf88cd991ef29a95d155e1b8b9e6394220811a9da0f772458bc6ab46"
+    },
+    {
+      "target": "study.tsv",
+      "archive_member": "PBCS/PBCS Data Loading Files/PBCS_Data_Loading_Template - study.tsv.txt",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "3af43bd4e1680e9381c495f6a03b54c695ece7ccbd792db988053ee59aeb9df4"
+    },
+    {
+      "target": "study_personnel.tsv",
+      "archive_member": "PBCS/PBCS Data Loading Files/PBCS_PSDC_Data_Loading_Template - study_personnel.tsv",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "ecc97f66932016c921aa311eaf312fd259286291f7064869e83b074f765ae2d2"
+    },
+    {
+      "target": "study_country.tsv",
+      "archive_member": "PBCS/PBCS Data Loading Files/PBCS_PSDC_Data_Loading_Template - study_country.tsv",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "4380c0cd41889d465d2cde5d1218de482e0a4f7268cb8d7af72dea22475b998f"
+    },
+    {
+      "target": "data_collection.tsv",
+      "archive_member": "PBCS/PBCS Data Loading Files/PBCS_PSDC_Data_Loading_Template - data_collection using 0 (No) versus 1 (Yes).txt",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "033bae81a2605bc03626b0af055f86f63f918084c770425a20d7cebf5c828fe1"
+    },
+    {
+      "target": "participant.tsv",
+      "archive_member": "PBCS/PBCS Data Loading Files/PBCS_PSDC_Data_Loading_Template - participant.tsv",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "1668c024b06f5e6b5da32aeda6f75ff7f27223e2f3350e64dc4c79357b6ef0ac"
+    },
+    {
+      "target": "study_state_province_territory.tsv",
+      "archive_member": "PBCS/PBCS Data Loading Files/PBCS_Data_Loading_Template - study_state_province_territory.tsv.txt",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "fcb35de84263671c3e255b88be653fa59464112d95dc9e325147242889bbc920"
+    }
+  ]
+}

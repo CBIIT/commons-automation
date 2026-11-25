@@ -6,6 +6,7 @@ elements:
   About-Tab: //a[contains(@href,'/about') or normalize-space(.)='About']
   DataModel-Tab: //a[contains(@href,'/data-model') or normalize-space(.)='Data Model']
   Explore-Tab: //a[contains(@href,'exploreParticipants') and contains(normalize-space(.), 'Explore Participants')]
+  Explore-Files-Tab: //a[contains(@href,'exploreFiles') and normalize-space(.)='Explore Files']
   Explore-Participants-Link: //a[contains(@href,'exploreParticipants') and contains(normalize-space(.), 'Explore Participants')]
   Home-Tab: //a[contains(@href,'/home') or normalize-space(.)='Home']
   Studies-Listing: (//a[@href='/studies' and normalize-space(.)='Studies'])[1]

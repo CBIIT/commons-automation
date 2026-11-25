@@ -1,0 +1,25 @@
+type	 study.study_short_name	data_file_name	data_file_type	data_file_description	data_file_access_control
+data_file	PLCO	chron_cond-dictionary-20240416.pdf	Data Dictionary	Select conditions obtained from Medicare data	Open Access
+data_file	PLCO	colo_endo-dictionary-t20241011.pdf	Data Dictionary	Specifics of the endoscopies	Open Access
+data_file	PLCO	colo_med-dictionary-t20241011.pdf	Data Dictionary	Medical complications from diagnostic workup	Open Access
+data_file	PLCO	colo_polyp-dictionary-t20241011.pdf	Data Dictionary	Data about individual polyps found from screening	Open Access
+data_file	PLCO	colo_proc-dictionary-t20241011.pdf	Data Dictionary	Diagnostic procedures after positive screen	Open Access
+data_file	PLCO	colo_screen-dictionary-t20241011.pdf	Data Dictionary	Information from flexible sigmoidoscopy cancer screens	Open Access
+data_file	PLCO	colo_scrsub-dictionary-t20241011.pdf	Data Dictionary	Information for each lesion found during the FSG screen exam	Open Access
+data_file	PLCO	colo_trt-dictionary-t20241011.pdf	Data Dictionary	Specifics of the initial treatment following diagnosis	Open Access
+data_file	PLCO	lung_med-dictionary-t20241011.pdf	Data Dictionary	Medical complications from diagnostic workup	Open Access
+data_file	PLCO	lung_proc-dictionary-t20241011.pdf	Data Dictionary	Diagnostic procedures after positive screen	Open Access
+data_file	PLCO	lung_screen-dictionary-t20241011.pdf	Data Dictionary	Information from chest x-ray cancer screens	Open Access
+data_file	PLCO	lung_scrsub-dictionary-t20241011.pdf	Data Dictionary	Abnormalities found during x-ray screen	Open Access
+data_file	PLCO	lung_trt-dictionary-t20241011.pdf	Data Dictionary	Specifics of the initial treatment following the diagnosis	Open Access
+data_file	PLCO	lung_xryimg25-dictionary-t20241011.pdf	Data Dictionary	Identifiers necessary to link x-rays with participants' screens	Open Access
+data_file	PLCO	ovar_med-dictionary-t20241011.pdf	Data Dictionary	Medical complications from diagnostic workup	Open Access
+data_file	PLCO	ovar_proc-dictionary-t20241011.pdf	Data Dictionary	Diagnostic procedures after positive screen	Open Access
+data_file	PLCO	ovar_screen-dictionary-t20241011.pdf	Data Dictionary	Information from the TVU and CA-125 screens	Open Access
+data_file	PLCO	ovar_scrsub-dictionary-t20241011.pdf	Data Dictionary	Abnormalities found during the TVU screen	Open Access
+data_file	PLCO	ovar_trt-dictionary-t20241011.pdf	Data Dictionary	Specifics of the initial treatment following the diagnosis	Open Access
+data_file	PLCO	pros_med-dictionary-t20241011.pdf	Data Dictionary	Medical complications from diagnostic workup	Open Access
+data_file	PLCO	pros_proc-dictionary-t20241011.pdf	Data Dictionary	Diagnostic procedures after positive screen	Open Access
+data_file	PLCO	pros_screen-dictionary-t20241011.pdf	Data Dictionary	Information from PSA and Digital Rectal Exam screens	Open Access
+data_file	PLCO	pros_scrsub-dictionary-t20241011.pdf	Data Dictionary	Information for each induration found during the DRE screen	Open Access
+data_file	PLCO	pros_trt-dictionary-t20241011.pdf	Data Dictionary	Specifics of the initial treatment following the diagnosis	Open Access

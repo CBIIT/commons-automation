@@ -1,0 +1,8 @@
+page: ParticipantsResultTab
+elements:
+  # -------------------------------------------------------------------------
+  # Downloads: scope both copies of the toolbar to the Participants table
+  # -------------------------------------------------------------------------
+  Download: //*[@id='participant_tab_table']//button[@title='Download filtered results']
+  CSV: //*[@id='participant_tab_table']//*[@id='dropdownListItemCSV']
+  JSON: //*[@id='participant_tab_table']//*[@id='dropdownListItemJSON']

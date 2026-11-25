@@ -1,0 +1,12 @@
+page: Static/FileCartPage
+elements:
+  Title: //span[normalize-space(.)='My Files']
+  Description: //span[contains(@class,'cart_description_text')]
+  UserGuideLink: //a[normalize-space(.)='USER GUIDE' and @href='/user-guide.pdf']
+  HeaderName: //th[normalize-space(.)='File Name']
+  HeaderStudyName: //th[normalize-space(.)='Study Name']
+  HeaderStudyID: //th[normalize-space(.)='Study ID']
+  HeaderParticipants: //th[normalize-space(.)='Participant ID']
+  HeaderSamples: //th[normalize-space(.)='Sample ID']
+  HeaderType: //th[normalize-space(.)='File Type']
+  HeaderSize: //th[normalize-space(.)='File Size']

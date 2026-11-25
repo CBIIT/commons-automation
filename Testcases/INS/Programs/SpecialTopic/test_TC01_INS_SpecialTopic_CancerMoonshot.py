@@ -1,4 +1,4 @@
-"""Migrated from Katalon INS_TestCases/SpecialTopic/TC01_INS_SpecialTopic-CancerMoonshot/Script1729886033833.groovy."""
+"""TC01_INS_SpecialTopic-CancerMoonshot — Python regression case."""
 
 import pytest
 
@@ -8,13 +8,13 @@ import pytest
 @pytest.mark.regression
 @pytest.mark.smoke
 def test_TC01_INS_SpecialTopic_CancerMoonshot(ins):
-    ins.load_query_file("TC01_INS_SpecialTopic-CancerMoonshot.xlsx")
+    ins.load_query_file('TC01_INS_SpecialTopic-CancerMoonshot.xlsx')
     ins.accept_banner()
     ins.open_programs()
-    ins.select_filter("SpecialTopic/SpecialTopic", "Moonshot")
+    ins.select_filter('SpecialTopic/SpecialTopic', 'Moonshot')
     ins.read_statbar()
-    ins.verify_tab("Programs")
-    ins.verify_tab("Projects")
-    ins.verify_tab("Grants")
-    ins.verify_tab("Publications")
+    ins.verify_tab('Programs')
+    ins.verify_tab('Projects')
+    ins.verify_tab('Grants')
+    ins.verify_tab('Publications')
     ins.assert_no_failures()

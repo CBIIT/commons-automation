@@ -6,18 +6,8 @@ All query workbooks live **flat** in this folder (`InputFiles/BENTO/`), same as 
 |-----------|---------|
 | `Bento_StaticData.xlsx` | Static page checks |
 
-Regenerate tests and Cypher workbooks from Katalon sources:
-
-```bash
-python Tools/generate_bento_arm_tests.py
-```
-
-Refresh Cypher only (after editing `Tools/cypher/bento_cypher.py`):
-
-```bash
-python Tools/convert_bento_sql_to_cypher.py
-```
+Testcase Steps live under `Testcases/BENTO/arm-*/` and specify the arm/facet selections. Edit query workbooks here directly; filter locators live in `ObjectRepository/BENTO/filters/`.
 
 `TabQuery` / `StatQuery` are Neo4j Cypher (`expected_source: neo4j` in `Config/environments.yaml`).
 
-Credentials: `NEO4J_PASSWORD_BENTO`, optional `NEO4J_ENDPOINT_BENTO`, `URL_BENTO_QA` in `.env`.
+Credentials: `BENTO_DB_PASSWORD_<ENV>`, optional `NEO4J_ENDPOINT_BENTO`, `URL_BENTO_QA` in `.env`.

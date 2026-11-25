@@ -1,0 +1,2 @@
+type	 study.study_short_name	data_file_name	data_file_type	data_file_description	data_file_access_control
+data_file	PBCS	PBCS_Data_Dictionary_PSDC_Core_Variables.xls	Data Dictionary	The Polish Breast Cancer Data Dictionary for the core variables delivered in the first round of data deposition to the PSDC.	Open Access

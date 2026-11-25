@@ -1,0 +1,18 @@
+type	 study.study_short_name	data_file_name	data_file_type	data_file_description	data_file_access_control
+data_file	NLST	participant.dictionary.d040722.pdf	Data Dictionary	"Data needed for most analyses of lung cancer screening, incidence, and mortality"	Open Access
+data_file	NLST	sct_screening.dictionary.d040722.pdf	Data Dictionary	Spiral CT screening exams	Open Access
+data_file	NLST	cxr_screening.dictionary.d040722.pdf	Data Dictionary	Chest X-Ray screening exams	Open Access
+data_file	NLST	sct_abnormalities.dictionary.d040722.pdf	Data Dictionary	Abnormalities observed on the Spiral CT screening exams	Open Access
+data_file	NLST	cxr_abnormalities.dictionary.d040722.pdf	Data Dictionary	Information about each abnormality observed on the Chest X-Ray screening exams	Open Access
+data_file	NLST	sct_comparison_abnorm.dictionary.d040722.pdf	Data Dictionary	Information about two types of abnormalities observed on CT exams	Open Access
+data_file	NLST	cxr_comparison_abnorm.dictionary.d040722.pdf	Data Dictionary	Information about two types of abnormalities observed on X-rays	Open Access
+data_file	NLST	diagnostic_procedures.dictionary.d040722.pdf	Data Dictionary	Diagnostic procedures prompted by a positive screening exam or lung cancer	Open Access
+data_file	NLST	medical_complications.dictionary.d040722.pdf	Data Dictionary	Complications related to diagnostic evaluation	Open Access
+data_file	NLST	lung_cancer.dictionary.d040722.pdf	Data Dictionary	Lung cancers diagnosed during the trial	Open Access
+data_file	NLST	treatment.dictionary.d040722.pdf	Data Dictionary	Procedures received in the initial course of treatment for lung cancer	Open Access
+data_file	NLST	cause_of_death.dictionary.d040722.pdf	Data Dictionary	All conditions listed on the death certificate and the cause of death	Open Access
+data_file	NLST	lss_noncanc_conditions.dictionary.d040722.pdf	Data Dictionary	Diagnosed non-cancer conditions (LSS)	Open Access
+data_file	NLST	acrin_noncanc_conditions.dictionary.d040722.pdf	Data Dictionary	Diagnosed non-cancer conditions (ACRIN)	Open Access
+data_file	NLST	lss_haq.dictionary.d040722.pdf	Data Dictionary	Annual survey of LSS participants about medical procedures	Open Access
+data_file	NLST	sct_image_series.dictionary.d040722.pdf	Data Dictionary	Technical parameters of the CT scanner	Open Access
+data_file	NLST	pathology_images.dictionary.d040722.pdf	Data Dictionary	Tissue block and regions of interest indicated in the pathology report	Open Access

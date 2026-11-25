@@ -1,0 +1,11 @@
+type	 study.study_short_name	study_state_record_id	study_state_province_territory
+study_state_province_territory	PLCO	PLCO-Alabama	Alabama
+study_state_province_territory	PLCO	PLCO-Utah	Utah
+study_state_province_territory	PLCO	PLCO-Colorado	Colorado
+study_state_province_territory	PLCO	PLCO-WashingtonDC	Washington D.C.
+study_state_province_territory	PLCO	PLCO-Hawaii	Hawaii
+study_state_province_territory	PLCO	PLCO-Michigan	Michigan
+study_state_province_territory	PLCO	PLCO-Wisconsin	Wisconsin
+study_state_province_territory	PLCO	PLCO-Minnesota	Minnesota
+study_state_province_territory	PLCO	PLCO-Missouri	Missouri
+study_state_province_territory	PLCO	PLCO-Pennsylvania	Pennsylvania

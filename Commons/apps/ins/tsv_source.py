@@ -1,6 +1,7 @@
 """INS expected data: Programs TSVs, DataSetsTab.zip, and Datasets Explore UI scrape."""
 from __future__ import annotations
 
+import json
 import sqlite3
 import time
 import zipfile
@@ -270,63 +271,127 @@ def load_ins_dataset_frames(tsv_root: Path) -> Dict[str, pd.DataFrame]:
 # ---------------------------------------------------------------------------
 
 
-def _playwright_card_cell_text(card, relative_xpath: str) -> str:
-    try:
-        loc = card.locator(f"xpath={relative_xpath}")
-        if loc.count() == 0:
-            return ""
-        return (loc.first.inner_text() or "").strip()
-    except Exception:
-        return ""
+_DATASET_PAGE_SIZE = 100
+
+# Read the range and every card field in one browser evaluation. Separate
+# locator calls can otherwise read different React renders of the same card.
+_DATASET_PAGE_SNAPSHOT_JS = r"""() => {
+    const counter = document.querySelector('#total_records_count');
+    const rangeText = counter?.parentElement.innerText || '';
+    const range = rangeText.replace(/,/g, '').match(/(\d+)\s*-\s*(\d+)\s*OF\s*(\d+)/i);
+    const pageSize = document.querySelector('.dropdown button')?.innerText.trim();
+    const titles = document.querySelectorAll('[data-testid="dataset-title-link"]');
+    return {
+        range: rangeText,
+        start: range ? Number(range[1]) : null,
+        end: range ? Number(range[2]) : null,
+        total: range ? Number(range[3]) : null,
+        page_size: Number(pageSize) || null,
+        records: Array.from(titles).map(title => {
+            const card = title.closest('div.container');
+            const text = selector => card?.querySelector(selector)?.innerText.trim() || '';
+            return {
+                id: title.getAttribute('href'),
+                row: [title.innerText.trim(), text('.resultSubTitle a[href]'),
+                      text('[data-testid="primary-disease"]'), text('[data-testid="sample-count"]')]
+            };
+        })
+    };
+}"""
+
+def _dataset_page_ready(page: dict, expected: dict) -> bool:
+    """The counter, card count and first identity must describe the same page."""
+    total = page["total"]
+    if total is None or page["page_size"] != expected["pageSize"]:
+        return False
+    if expected["total"] is not None and total != expected["total"]:
+        return False
+    start = expected["start"] if total else 0
+    end = min(start + expected["pageSize"] - 1, total) if total else 0
+    records = page["records"]
+    if (page["start"], page["end"]) != (start, end) or len(records) != (end - start + 1 if total else 0):
+        return False
+    if any(not record["id"] or not record["row"][0] or not record["row"][1] for record in records):
+        return False
+    return not expected["previousFirst"] or records[0]["id"] != expected["previousFirst"]
 
 
-def read_ins_datasets_page_table(ui: "Ui", repo: "ObjectRepository") -> Table:
-    """Paginated Datasets card grid (Katalon verifyUiAgainstTsvForInsDatasetsTab)."""
-    title_rel = ".//a[starts-with(@href, '#/dataset/')]"
-    source_rel = (
-        ".//a[starts-with(@href, 'https://cedcd') or starts-with(@href, 'https://www.ncbi.nlm')]"
-    )
-    disease_rel = ".//*[@class='itemSpan']"
-    sample_rel = ".//*[@class='textSpan sampleCountHighlight']"
-
-    ui.click(repo.xpath("DataSets/RowsPerPage-Dd"), repo_key="DataSets/RowsPerPage-Dd")
-    ui.click(repo.xpath("DataSets/RowPerPaDd-Value"), repo_key="DataSets/RowPerPaDd-Value")
-    ui.wait_idle()
-    time.sleep(1.5)
-
-    rows: List[List[str]] = []
-    next_xp = repo.xpath("DataSets/Next-Btn")
+def _wait_dataset_page(ui: "Ui", expected: dict) -> dict:
+    """Poll complete DOM snapshots until ready, returning the exact snapshot checked."""
+    deadline = time.monotonic() + ui.timeout_ms / 1000
     while True:
-        cards = ui.page.locator("xpath=//*[@class='container']")
-        count = cards.count()
-        action_log.say(f"INS DataSets cards on page: {count}")
-        for i in range(count):
-            card = cards.nth(i)
-            title = _playwright_card_cell_text(card, title_rel)
-            if not title:
-                continue
-            rows.append(
-                [
-                    title,
-                    _playwright_card_cell_text(card, source_rel),
-                    _playwright_card_cell_text(card, disease_rel),
-                    _playwright_card_cell_text(card, sample_rel),
-                ]
+        page = ui.page.evaluate(_DATASET_PAGE_SNAPSHOT_JS)
+        if _dataset_page_ready(page, expected):
+            return page
+        if time.monotonic() >= deadline:
+            raise TimeoutError(
+                f"INS Datasets page starting at {expected['start']} did not finish loading: "
+                f"observed range={page['range']!r}, cards={len(page['records'])}, "
+                f"page size={page['page_size']}."
             )
+        # This is a bounded readiness poll, not an assumed network/load delay.
+        ui.page.wait_for_timeout(100)
 
-        next_btn = ui.page.locator(f"xpath={next_xp}")
-        if next_btn.count() == 0:
-            break
-        cls = next_btn.first.get_attribute("class") or ""
-        if "disabled" in cls:
-            break
-        ui.scroll_into_view(next_xp)
-        time.sleep(2)
-        ui.click(next_xp, repo_key="DataSets/Next-Btn")
-        ui.wait_idle()
-        time.sleep(1)
 
-    return Table(header=list(INS_DATASETS_UI_HEADER), rows=rows)
+def _validate_dataset_page(page: dict, seen_ids: dict) -> None:
+    """Reject repeated dataset cards instead of hiding them by deduplicating rows."""
+    current_ids = set()
+    for record in page["records"]:
+        dataset_id = record["id"]
+        if dataset_id in current_ids or dataset_id in seen_ids:
+            previous = seen_ids.get(dataset_id, page["range"])
+            raise AssertionError(
+                f"Repeated INS dataset {record['row'][1]} ({dataset_id}) in range {page['range']}; "
+                f"previously read in {previous}. Possible stale or overlapping pages."
+            )
+        current_ids.add(dataset_id)
+    for dataset_id in current_ids:
+        seen_ids[dataset_id] = page["range"]
+
+
+def read_ins_datasets_page_table(
+    ui: "Ui", repo: "ObjectRepository", diagnostics_path: Optional[Path] = None,
+) -> Table:
+    """Read complete, non-overlapping pages even when CI renders more slowly."""
+    rows: List[List[str]] = []
+    seen_ids: dict = {}
+    diagnostics = {"reader": "atomic-pages-v1", "url": ui.page.url, "pages": []}
+    action_log.ui_action("INS Datasets reader: atomic page snapshots (v1).")
+    try:
+        ui.click(repo.xpath("DataSets/RowsPerPage-Dd"), repo_key="DataSets/RowsPerPage-Dd")
+        ui.click(repo.xpath("DataSets/RowPerPaDd-Value"), repo_key="DataSets/RowPerPaDd-Value")
+        expected = {"start": 1, "pageSize": _DATASET_PAGE_SIZE, "total": None, "previousFirst": None}
+        while True:
+            # Return the ready snapshot itself. Reading the DOM again after the
+            # wait would introduce another opportunity to mix page generations.
+            page = _wait_dataset_page(ui, expected)
+            diagnostics["pages"].append(page)
+            _validate_dataset_page(page, seen_ids)
+            rows.extend(record["row"] for record in page["records"])
+            action_log.say(f"INS Datasets collected {page['range']} ({len(rows)} rows so far)")
+            if page["end"] == page["total"]:
+                break
+
+            next_button = ui.loc(repo.xpath("DataSets/Next-Btn")).first
+            if next_button.count() == 0 or "disabled" in (next_button.get_attribute("class") or "").split():
+                raise AssertionError(f"INS Next page is unavailable at {page['range']} before all records were read")
+            expected = {"start": page["end"] + 1, "pageSize": _DATASET_PAGE_SIZE,
+                        "total": page["total"], "previousFirst": page["records"][0]["id"]}
+            ui.click(repo.xpath("DataSets/Next-Btn"), repo_key="DataSets/Next-Btn")
+        diagnostics["collected_rows"] = len(rows)
+        diagnostics["unique_dataset_ids"] = len(seen_ids)
+        return Table(header=list(INS_DATASETS_UI_HEADER), rows=rows)
+    except Exception as error:
+        diagnostics["error"] = str(error)
+        try:
+            diagnostics["last_observed_page"] = ui.page.evaluate(_DATASET_PAGE_SNAPSHOT_JS)
+        except Exception as capture_error:
+            diagnostics["capture_error"] = str(capture_error)
+        raise
+    finally:
+        if diagnostics_path is not None:
+            diagnostics_path.parent.mkdir(parents=True, exist_ok=True)
+            diagnostics_path.write_text(json.dumps(diagnostics, indent=2), encoding="utf-8")
 
 
 class InsTsvSource(TsvSourceBackend):

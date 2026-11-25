@@ -1,0 +1,62 @@
+{
+  "archive": "InputFiles/PSDC/NLST.zip",
+  "snapshot_prepared": "2026-11-13",
+  "notes": "Preparation date, not asserted data-release date. Selected final loading files; source text retained and decoded to UTF-8.",
+  "files": [
+    {
+      "target": "associated_link.tsv",
+      "archive_member": "NLST/NLST Data Loading Files/NLST_Data_Loading_Template - associated_link.tsv",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "42989da2207354cbe4bba6c240c00a1011f9805f50c92f65f390820c75967b56"
+    },
+    {
+      "target": "participant.tsv",
+      "archive_member": "NLST/NLST Data Loading Files/NLST - participant - non-case controls (46802) plus lung cancer cases (2058).txt",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "d75c23ef38be5ffc80f8e5a1a93d8456fa35f079f753ed8cacc1c85935130fb2"
+    },
+    {
+      "target": "study_personnel.tsv",
+      "archive_member": "NLST/NLST Data Loading Files/NLST_Data_Loading_Template - study_personnel.tsv",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "5b4a337cce18e7a1b3a7b0f4aada575f1445335fe5da1cb0c860337a55f17975"
+    },
+    {
+      "target": "study_country.tsv",
+      "archive_member": "NLST/NLST Data Loading Files/NLST_Data_Loading_Template - study_country.tsv",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "1a566ff1628fdbccde59f1aef1da1b5680b669af55afbfd7c15c7fc9bdec3f24"
+    },
+    {
+      "target": "study_state_province_territory.tsv",
+      "archive_member": "NLST/NLST Data Loading Files/NLST_Data_Loading_Template - study_state_province_territory.tsv",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "6889148a7d9cd87cc56d6cff7a379db7e5491f60ee22d3f1691978e3d2923992"
+    },
+    {
+      "target": "study.tsv",
+      "archive_member": "NLST/NLST Data Loading Files/NLST_Data_Loading_Template - study.tsv",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "a88bee94611c93eb3a82f80e68a9835db09b3677b9116a55eae04256a9e28ab1"
+    },
+    {
+      "target": "publication.tsv",
+      "archive_member": "NLST/NLST Data Loading Files/NLST_Data_Loading_Template - publication.tsv",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "5640d184b79e4a6da68fff36e3e6492677e8fe6a6b3ce733657602088007467a"
+    },
+    {
+      "target": "data_collection.tsv",
+      "archive_member": "NLST/NLST Data Loading Files/NLST - data_collection - using 0 (No) versus 1 (Yes) v03-05-26 - typo corrected.txt",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "ef195b5a96ccba37feaef471c90c5f17cdc010de27e738f178ec3c56e25a59c3"
+    },
+    {
+      "target": "file.tsv",
+      "archive_member": "NLST/NLST Study Files/NLST_File_Transfer_Manifest \u0393\u00c7\u00f4 study files.tsv",
+      "source_encoding": "utf-8-sig",
+      "source_sha256": "fd1da2052112bbb19429369c668ebf4884eaf36647098a25684df5da7b170218"
+    }
+  ],
+  "excluded": []
+}

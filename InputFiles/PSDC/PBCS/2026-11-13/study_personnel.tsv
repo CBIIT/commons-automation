@@ -1,0 +1,3 @@
+type	 study.study_short_name	study_personnel_record_id	person_first_name	person_last_name	person_middle_name	person_institution	person_role
+study_personnel	PBCS	PBCS-01	Mustapha	Abubakar		"Division of Cancer Epidemiology and Genetics, National Cancer Institute"	Principal Investigator
+study_personnel	PBCS	PBCS-02	Thomas	Ahearn		"Division of Cancer Epidemiology and Genetics, National Cancer Institute"	Data Manager

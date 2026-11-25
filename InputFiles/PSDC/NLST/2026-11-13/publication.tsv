@@ -1,0 +1,4 @@
+type	 study.study_short_name	publication_record_id	publication_title	authorship	year_of_publication	journal_citation	digital_object_id	pubmed_id
+publication	NLST	NLST-Publication-01	Reduced lung-cancer mortality with low-dose computed tomographic screening	National Lung Screening Trial Research Team et al.	2011	N Engl J Med. 2011 Aug 4;365(5):395-409.  		21714641
+publication	NLST	NLST-Publication-02	Lung Cancer Incidence and Mortality with Extended Follow-up in the National Lung Screening Trial	National Lung Screening Trial Research Team	2019	J Thorac Oncol. 2019 Oct;14(10):1732-1742.		31260833
+publication	NLST	NLST-Publication-03	The National Lung Screening Trial: overview and study design	National Lung Screening Trial Research Team et al.	2011	Radiology. 2011 Jan;258(1):243-53.		21045183

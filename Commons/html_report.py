@@ -1,10 +1,8 @@
 """
 Pytest HTML suite report (one module: hooks, step capture, and HTML).
 
-Turn on in gitignored .env (any of these keys, value true / 1 / yes / on):
-
-  HTML_REPORT=true
-  HTML_Report=true
+Enabled by ``framework.html_report`` in ``Config/environments.yaml``.
+``HTML_REPORT`` remains available as an optional shell override.
 
 After a suite run (not -m unit, not pytest -n):
 
@@ -29,7 +27,7 @@ from typing import List, Optional, Sequence
 import pytest
 
 from Commons.base_app import BaseApp
-from Commons.settings import ROOT
+from Commons.settings import ROOT, get_browser_settings, load_config, resolve_test_env
 
 # ---------------------------------------------------------------------------
 # Paths and flags
@@ -52,12 +50,13 @@ def _truthy(raw: str) -> bool:
     return str(raw).strip().lower() in ("1", "true", "yes", "on")
 
 
-def html_report_enabled() -> bool:
-    """True when HTML_REPORT / HTML_Report is set in the environment (.env or shell)."""
+def html_report_enabled(cfg: dict | None = None) -> bool:
+    """Return the environment override, or the YAML HTML-report default."""
     for key in _FLAG_KEYS:
-        if key in os.environ and _truthy(os.environ[key]):
-            return True
-    return False
+        if key in os.environ:
+            return _truthy(os.environ[key])
+    cfg = cfg or load_config()
+    return bool((cfg.get("framework") or {}).get("html_report", False))
 
 
 def format_duration_hms(seconds: float) -> str:
@@ -645,28 +644,27 @@ def pytest_configure(config: pytest.Config) -> None:
     from Commons.settings import _load_local_env
 
     _load_local_env()
-    enabled = html_report_enabled()
+    cfg = load_config()
+    enabled = html_report_enabled(cfg)
     if enabled:
         _install_action_log_hooks()
     try:
-        from Commons.settings import resolve_test_env
-
-        env = resolve_test_env(config.getoption("--env"))
+        env = resolve_test_env(config.getoption("--env"), cfg)
     except Exception:
-        env = os.environ.get("ENV", "qa")
-    browser = config.getoption("--browser", default=None) or os.environ.get("BROWSER", "chromium")
-    if config.getoption("--headed", default=False):
-        headless = False
-    else:
-        headless = str(os.environ.get("HEADLESS", "true")).strip().lower() not in ("0", "false", "no")
+        env = "qa"
+    browser_settings = get_browser_settings(
+        cfg,
+        name=config.getoption("--browser", default=None),
+        headless=False if config.getoption("--headed", default=False) else None,
+    )
     inv = getattr(config, "invocation_params", None)
     argv = " ".join(inv.args) if inv else "pytest"
     config.stash[_stash_key] = HtmlReportSession(
         enabled=enabled,
         started_at=time.time(),
         env=env,
-        browser=browser,
-        headless=headless,
+        browser=browser_settings.name,
+        headless=browser_settings.headless,
         markexpr=getattr(config.option, "markexpr", "") or "",
         argv_command=argv,
     )
@@ -727,7 +725,7 @@ def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:
     if not data.enabled:
         if data.e2e_planned > 0:
             print(
-                "\nHTML report: off (set HTML_REPORT=true in commons-automation/.env)",
+                "\nHTML report: off (enable framework.html_report in Config/environments.yaml)",
                 flush=True,
             )
         return

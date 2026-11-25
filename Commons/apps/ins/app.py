@@ -4,7 +4,11 @@ INS (Index of NCI Studies): https://studycatalog.cancer.gov
 Programs or Datasets explore: stat bar + result tabs (Programs, Projects, Grants, Publications).
 Expected data: TSV from Programs.zip / DataSetsTab.zip (extracted under InputFiles/INS/) + SQL in TC*.xlsx.
 """
+from collections import Counter
+
 from Commons import action_log, excel_writer
+from Commons.result_tabs import ResultTabsApp
+from Commons.apps.ins.result_tabs import INSResultTabs
 from Commons.base_app import BaseApp, StatSpec, TabSpec
 from Commons.compare import compare_tables
 from Commons.apps.ins.tsv_source import InsTsvSource, read_ins_datasets_page_table
@@ -35,7 +39,8 @@ def _tab(name: str, input_tab: str, stat: str, ui: str, db: str, max_pages: int 
 # ---------------------------------------------------------------------------
 
 
-class INS(BaseApp):
+class INS(ResultTabsApp, BaseApp):
+    RESULT_TABS_CLASS = INSResultTabs
     NAME = "INS"
     BANNER_KEYS = ["Navbar/WarningBan_Continue_Btn"]
     STATIC_DATA_EXCEL = "INS_StaticData.xlsx"
@@ -75,21 +80,40 @@ class INS(BaseApp):
         """Open Datasets explore via navbar (Katalon: INS/Navbar/Datasets-Btn)."""
         self.click("Navbar/Datasets-Btn", ui_message="INS Datasets page opened successfully.")
 
+    def read_statbar(self):
+        # Give INS one extra second to refresh counts before reading the stat bar.
+        self.page.wait_for_timeout(1000)
+        return super().read_statbar()
+
     def verify_datasets(self):
         """Katalon verifyUiAgainstTsvForInsDatasetsTab: card grid vs DatasetsTab SQL + DataSetsTab TSV."""
         if self.query_file is None:
             raise RuntimeError("Call load_query_file() first")
+        base = self.output_dir / self.query_file.name
         action_log.ui_action("Reading INS Datasets cards from UI.")
-        ui_table = read_ins_datasets_page_table(self.ui, self.repo)
+        ui_table = read_ins_datasets_page_table(
+            self.ui, self.repo, diagnostics_path=base.with_name(base.name + "_dataset_pages.json"),
+        )
         source = self.connected_source()
         if not isinstance(source, InsTsvSource):
             raise RuntimeError("INS Datasets compare requires expected_source: tsv")
         expected = source.fetch_ins_datasets_table(self.query_file)
         ui_table.rows.sort(key=lambda row: [str(c).strip() if c is not None else "" for c in row])
         expected.rows.sort(key=lambda row: [str(c).strip() if c is not None else "" for c in row])
-        base = self.output_dir / self.query_file.name
         action_log.compare_step("UI_Datasets", "DB_Datasets")
         cmp = compare_tables(ui_table.rows, expected.rows, ui_table.header, expected.header)
+        if not cmp.passed:
+            # Report stable Source IDs as well as shifted row positions. One
+            # missing card can otherwise cause hundreds of highlighted rows.
+            ui_records = Counter(tuple(row) for row in ui_table.rows)
+            expected_records = Counter(tuple(row) for row in expected.rows)
+            for label, differences in (("UI only", ui_records - expected_records),
+                                       ("Expected only", expected_records - ui_records)):
+                for row in list(differences.elements())[:5]:
+                    cmp.problems.append(
+                        f"{label}: Source ID={row[1]!r}, Title={row[0]!r}, "
+                        f"Primary Disease={row[2]!r}, Sample Count={row[3]!r}"
+                    )
         ui_cols = len(ui_table.header) or max((len(r) for r in ui_table.rows), default=0)
         exp_cols = len(expected.header) or max((len(r) for r in expected.rows), default=0)
         ui_hi, db_hi = excel_writer.highlight_sets_from_comparison(cmp, ui_cols, exp_cols)
@@ -108,3 +132,11 @@ class INS(BaseApp):
             highlight_cells=db_hi,
         )
         self._record("Datasets", cmp, ui_count=len(ui_table.rows), exp_count=len(expected.rows))
+
+    # -----------------------------------------------------------------------
+    # Result-table sorting: reuse discovery, both directions, and row retention
+    # -----------------------------------------------------------------------
+
+    def result_tab_sorting_options(self, tab):
+        from Commons.apps.ins.table_sorting import sorting_options
+        return sorting_options(self, tab)

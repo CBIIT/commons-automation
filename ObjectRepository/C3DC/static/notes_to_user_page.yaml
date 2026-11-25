@@ -1,0 +1,9 @@
+page: Static/NotesToUserPage
+elements:
+  Open: //div[normalize-space(text())='Notes to User']/parent::div/button
+  Content: //*[@role='presentation'][.//h2[normalize-space(.)='Notes to User']]
+  Close: //*[@role='presentation'][.//h2[normalize-space(.)='Notes to User']]//button[@aria-label='close']
+  Title: //*[@role='presentation'][.//h2[normalize-space(.)='Notes to User']]//h2
+  Note01: (//*[@role='presentation'][.//h2[normalize-space(.)='Notes to User']]//li)[1]
+  Note02: (//*[@role='presentation'][.//h2[normalize-space(.)='Notes to User']]//li)[2]
+  Note03: (//*[@role='presentation'][.//h2[normalize-space(.)='Notes to User']]//li)[3]

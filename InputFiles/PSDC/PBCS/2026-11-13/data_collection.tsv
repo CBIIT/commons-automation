@@ -1,0 +1,72 @@
+type	study.study_short_name	data_collection_record_id	data_collection_category	data_collection_category_annotation_count
+data_collection	PBCS	PBCS-01	Age	1
+data_collection	PBCS	PBCS-02	Biological Sex	1
+data_collection	PBCS	PBCS-03	Sexual Orientation and Gender Identity	0
+data_collection	PBCS	PBCS-04	Ethnicity and Race	0
+data_collection	PBCS	PBCS-05	Education Level	1
+data_collection	PBCS	PBCS-06	Employment Status	1
+data_collection	PBCS	PBCS-07	Residential Information	1
+data_collection	PBCS	PBCS-08	Language/Country of Origin	0
+data_collection	PBCS	PBCS-09	"Life Events, Beliefs, Values"	0
+data_collection	PBCS	PBCS-10	Marital Status	1
+data_collection	PBCS	PBCS-11	Quality of Life	0
+data_collection	PBCS	PBCS-12	Social Support	0
+data_collection	PBCS	PBCS-13	Socio-Economic Status	0
+data_collection	PBCS	PBCS-14	Alcohol Consumption	1
+data_collection	PBCS	PBCS-15	Cigarette Smoking	1
+data_collection	PBCS	PBCS-16	Other Tobacco Products	0
+data_collection	PBCS	PBCS-17	Drug Use	0
+data_collection	PBCS	PBCS-18	Dietary Intake	1
+data_collection	PBCS	PBCS-19	Dietary Supplement Use	1
+data_collection	PBCS	PBCS-20	Physical Activity	1
+data_collection	PBCS	PBCS-21	Physical Function Measures	0
+data_collection	PBCS	PBCS-22	Self-Reported Anthropometry	1
+data_collection	PBCS	PBCS-23	Measured Anthropometry	0
+data_collection	PBCS	PBCS-24	"Puberty, Menstruation, and Menopause"	1
+data_collection	PBCS	PBCS-25	Pregnancy and Parity	1
+data_collection	PBCS	PBCS-26	Breastfeeding	1
+data_collection	PBCS	PBCS-27	Contraception	1
+data_collection	PBCS	PBCS-28	Hormone Replacement	1
+data_collection	PBCS	PBCS-29	Sexual Behavior and Health	0
+data_collection	PBCS	PBCS-30	Housing Exposures	0
+data_collection	PBCS	PBCS-31	Workplace Exposures	1
+data_collection	PBCS	PBCS-32	Radiation Exposure	0
+data_collection	PBCS	PBCS-33	Chemical Exposure	0
+data_collection	PBCS	PBCS-34	Health Insurance Status	0
+data_collection	PBCS	PBCS-35	Screening	1
+data_collection	PBCS	PBCS-36	Immunization	0
+data_collection	PBCS	PBCS-37	Sleep Habits	1
+data_collection	PBCS	PBCS-38	Fatigue	0
+data_collection	PBCS	PBCS-39	Cognitive Function	0
+data_collection	PBCS	PBCS-40	Depression	0
+data_collection	PBCS	PBCS-41	Family History of Cancer	1
+data_collection	PBCS	PBCS-42	Family History of Heart Disease	0
+data_collection	PBCS	PBCS-43	Family History of Diabetes	0
+data_collection	PBCS	PBCS-44	Other Family History	0
+data_collection	PBCS	PBCS-45	Prescription Medication Use	0
+data_collection	PBCS	PBCS-46	Complementary and Alternative Medicine	0
+data_collection	PBCS	PBCS-47	Non-Prescription Medication	0
+data_collection	PBCS	PBCS-48	Other Medical Conditions	0
+data_collection	PBCS	PBCS-49	Other Psychosocial Variables	0
+data_collection	PBCS	PBCS-50	Psychological Measures	0
+data_collection	PBCS	PBCS-51	Cancer Treatment	0
+data_collection	PBCS	PBCS-52	Other Medical Treatments	0
+data_collection	PBCS	PBCS-53	Infectious and Parasitic Diseases	0
+data_collection	PBCS	PBCS-54	Neoplasms	1
+data_collection	PBCS	PBCS-55	"Neoplasms, Blood, Blood-forming Organs"	0
+data_collection	PBCS	PBCS-56	"Endocrine, Nutritional, Metabolic"	0
+data_collection	PBCS	PBCS-57	Mental and Behavioral Disorders	0
+data_collection	PBCS	PBCS-58	Nervous System	0
+data_collection	PBCS	PBCS-59	"Eye and Adnexa, Ear and Mastoid Process"	0
+data_collection	PBCS	PBCS-60	Circulatory System	0
+data_collection	PBCS	PBCS-61	Respiratory System	0
+data_collection	PBCS	PBCS-62	Digestive System	0
+data_collection	PBCS	PBCS-63	Skin and Subcutaneous Tissue	0
+data_collection	PBCS	PBCS-64	Musculoskeletal and Connective Tissue	0
+data_collection	PBCS	PBCS-65	Genitourinary System	0
+data_collection	PBCS	PBCS-66	"Pregnancy, Childbirth and the Puerperium"	0
+data_collection	PBCS	PBCS-67	Certain Conditions Originating in the Perinatal Period	0
+data_collection	PBCS	PBCS-68	"Congenital Malformations, Deformations and Chromosomal Abnormalities"	0
+data_collection	PBCS	PBCS-69	"Symptoms, Signs and Abnormal Clinical and Lab Findings"	0
+data_collection	PBCS	PBCS-70	"Injury, Poisoning, Certain Other Consequences of External Causes"	0
+data_collection	PBCS	PBCS-71	Vital Status	1

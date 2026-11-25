@@ -1,0 +1,41 @@
+"""TC03_C3DC_Verify_StudyDetails_Set-3 — Python regression case."""
+
+import pytest
+
+
+@pytest.mark.c3dc
+def test_TC03_C3DC_Verify_StudyDetails_Set_3(c3dc):
+    c3dc.load_query_file('C3DC_StudyDetails.xlsx')
+    c3dc.accept_banner()
+    c3dc.begin_study_details_report('StudyDetails_Set-3')
+    c3dc.open_studies_listing()
+    c3dc.open_study_details('phs002276')
+    c3dc.verify_study_details('phs002276')
+    c3dc.goto('studies')
+    c3dc.open_study_details('phs002322')
+    c3dc.verify_study_details('phs002322')
+    c3dc.goto('studies')
+    c3dc.open_study_details('phs002371')
+    c3dc.verify_study_details('phs002371')
+    c3dc.goto('studies')
+    c3dc.open_study_details('phs002430')
+    c3dc.verify_study_details('phs002430')
+    c3dc.goto('studies')
+    c3dc.open_study_details('phs002431')
+    c3dc.verify_study_details('phs002431')
+    c3dc.goto('studies')
+    c3dc.open_study_details('phs002504')
+    c3dc.verify_study_details('phs002504')
+    c3dc.goto('studies')
+    c3dc.open_study_details('phs002517')
+    c3dc.verify_study_details('phs002517')
+    c3dc.goto('studies')
+    c3dc.open_study_details('phs002518')
+    c3dc.verify_study_details('phs002518')
+    c3dc.goto('studies')
+    c3dc.open_study_details('phs002529')
+    c3dc.verify_study_details('phs002529')
+    c3dc.goto('studies')
+    c3dc.open_study_details('phs002599')
+    c3dc.verify_study_details('phs002599')
+    c3dc.assert_no_failures()
