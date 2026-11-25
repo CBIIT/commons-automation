@@ -1,0 +1,52 @@
+# Cohort controls shared by Explore Participants and the Cohort Analyzer modal.
+# Text, roles and icon labels avoid generated React class names.
+page: Cohort
+elements:
+  CreateNew: //div[normalize-space(.)='CREATE NEW COHORT' and not(*)]
+  AllParticipants: //li[normalize-space(.)='All Participants']
+  AddExisting: //div[normalize-space(.)='ADD PARTICIPANTS TO EXISTING COHORT' and not(*)]
+  AddExistingMenu: //li[contains(@class,'existing-cohort-item')]/parent::ul
+  ExistingCohortOptions: .//li[contains(@class,'existing-cohort-item')]
+  ExistingCohortCheckbox: .//img[starts-with(@alt,'checkbox ')]
+  AddAllParticipants: .//li[normalize-space(.)='All Participants']
+  AddSelectedParticipants: .//li[normalize-space(.)='Selected Participants']
+  SelectedParticipants: //li[normalize-space(.)='Selected Participants' and contains(@class,'new-cohort-item')]
+  # Relative to Participants-Tbl. The table has linked top and bottom pagers;
+  # deliberately use the top pager, without navigating any extra pages.
+  PageCheckbox: .//thead//input[@type='checkbox' and @aria-label='Select all checkbox']
+  RowCheckboxes: .//tbody//input[@type='checkbox' and @aria-label='Checkbox item']
+  TopNextPage: (.//button[@aria-label='Next page'])[1]
+  TopPreviousPage: (.//button[@aria-label='Previous page'])[1]
+  ViewAll: //button[starts-with(normalize-space(.),'VIEW ALL COHORTS(')]
+  Dialog: //h1[.//span[normalize-space(.)='View of All Cohorts']]/parent::div
+  Items: .//*[@role='option' and starts-with(@id,'cohort-item-')]
+  SelectedItem: .//*[@role='option' and @aria-selected='true']
+  # At 20 cohorts the same native button changes its label to Cohort limit reached.
+  DuplicateSelected: .//*[@role='option' and @aria-selected='true']//button[starts-with(@aria-label,'Duplicate cohort ') or @aria-label='Cohort limit reached']
+  DuplicateButtons: .//*[@role='option']//button[starts-with(@aria-label,'Duplicate cohort ') or @aria-label='Cohort limit reached']
+  Description: .//textarea[@name='cohortDescription']
+  NameDisplay: .//span[starts-with(normalize-space(.),'PARTICIPANTS IDs (')]/preceding-sibling::div//span[not(*)]
+  NameInput: .//input[@name='cohortName']
+  UpdateError: .//*[@role='alert']
+  SaveChanges: .//button[normalize-space(.)='Save Changes']
+  ParticipantCount: .//span[starts-with(normalize-space(.),'PARTICIPANTS IDs (')]
+  ParticipantSearch: .//input[@aria-label='Search participants by ID']
+  DeleteParticipant: .//img[@alt='delete participant icon']
+  ParticipantRows: .//img[@alt='delete participant icon']/parent::div/parent::div
+  Close: .//h1//img[@alt='close icon']
+  # The red table-header trash removes the cohort; blue row icons remove participants.
+  DeleteFromTable: .//img[@alt='delete cohort icon']
+  DeleteSelected: .//*[@role='option' and @aria-selected='true']//button[starts-with(@aria-label,'Delete cohort ')]
+  DeleteAll: .//button[@aria-label='Delete all cohorts']
+  RemovalConfirmation: //div[div/button[normalize-space(.)='Confirm'] and div/button[normalize-space(.)='Cancel']]
+  RemovalMessage: ./div[span]
+  ConfirmRemoval: .//button[normalize-space(.)='Confirm']
+  CancelRemoval: .//button[normalize-space(.)='Cancel']
+  DownloadSelected: .//button[@aria-label='Download cohort data - select format']
+  ManifestCSV: .//div[normalize-space(.)='Manifest CSV' and not(*)]
+  MetadataJSON: .//div[normalize-space(.)='Metadata JSON' and not(*)]
+  # Help icons are siblings of their own control wrappers, not positional page images.
+  CreateNewHelp: //div[normalize-space(.)='CREATE NEW COHORT' and not(*)]/parent::div/parent::div/following-sibling::img[@alt='tooltipIcon'][1]
+  AddExistingHelp: //div[normalize-space(.)='ADD PARTICIPANTS TO EXISTING COHORT' and not(*)]/parent::div/parent::div/following-sibling::img[@alt='tooltipIcon'][1]
+  ViewAllHelp: //button[starts-with(normalize-space(.),'VIEW ALL COHORTS(')]/parent::div/following-sibling::img[@alt='tooltipIcon'][1]
+  Tooltip: //*[@role='tooltip']

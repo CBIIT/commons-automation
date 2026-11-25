@@ -4,6 +4,10 @@ ICDC (Integrated Canine Data Commons): https://caninecommons-qa.cancer.gov
 Cases explore: stat bar + result tabs (Cases, Samples, Case Files, Study Files).
 Expected data: Neo4j Cypher in InputFiles/ICDC/TC*.xlsx.
 """
+from Commons.result_tabs import ResultTabsApp
+from Commons.apps.icdc.result_tabs import ICDCResultTabs
+from Commons.file_cart import FileCartApp
+from Commons.apps.icdc.file_cart import ICDCFileCart
 from Commons.base_app import BaseApp, StatSpec, TabSpec
 
 # ---------------------------------------------------------------------------
@@ -32,8 +36,11 @@ def _tab(name, input_tab, stat, ui_sheet, db_sheet, tab_key, table, header, next
 # ---------------------------------------------------------------------------
 
 
-class ICDC(BaseApp):
+class ICDC(ResultTabsApp, FileCartApp, BaseApp):
+    RESULT_TABS_CLASS = ICDCResultTabs
+    FILE_CART_CLASS = ICDCFileCart
     NAME = "ICDC"
+    STATIC_DATA_EXCEL = "ICDC_StaticData.xlsx"
     BANNER_KEYS = ["Canine_PopUp_Continue_Btn"]
 
     # --- Stat bar and result tabs ---
@@ -105,3 +112,11 @@ class ICDC(BaseApp):
     def select_study(self, study_checkbox: str = "Canine_Filter_Study-COTC021"):
         """Tick the study checkbox before other filters (default COTC021)."""
         self.select_filter("Cases/Study", study_checkbox)
+
+    # -----------------------------------------------------------------------
+    # Result-table sorting: reuse discovery, both directions, and row retention
+    # -----------------------------------------------------------------------
+
+    def result_tab_sorting_options(self, tab):
+        from Commons.apps.icdc.table_sorting import sorting_options
+        return sorting_options(self, tab)

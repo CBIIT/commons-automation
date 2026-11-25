@@ -1,0 +1,4 @@
+page: StudyFilesResultTab
+elements:
+  Table: //table
+  CSV: //button[@title='Download Table Contents As CSV']

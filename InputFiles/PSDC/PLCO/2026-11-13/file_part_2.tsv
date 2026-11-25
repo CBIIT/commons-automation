@@ -1,0 +1,9 @@
+type	 study.study_short_name	data_file_name	data_file_type	data_file_description	data_file_access_control
+data_file	PLCO	Breast.Registry.Dictionary.pdf	Data Dictionary	For breast cancer incidence and mortality analyses	Open Access
+data_file	PLCO	Colo.Registry.Dictionary.pdf	Data Dictionary	For colorectal cancer incidence and mortality analyses	Open Access
+data_file	PLCO	DHQ.Dictionary.pdf	Data Dictionary	Diet History Questionnaire - both study arms	Open Access
+data_file	PLCO	DQX.Dictionary.pdf	Data Dictionary	Dietary Questionnaire - intervention arm only	Open Access
+data_file	PLCO	Lung.Registry.Dictionary.pdf	Data Dictionary	For lung cancer incidence and mortality analyses	Open Access
+data_file	PLCO	Ovar.Registry.Dictionary.pdf	Data Dictionary	For ovarian cancer incidence and mortality analyses	Open Access
+data_file	PLCO	Pros.Registry.Dictionary.pdf	Data Dictionary	For prostate cancer incidence and mortality analyses	Open Access
+data_file	PLCO	SQX.Dictionary.pdf	Data Dictionary	Supplemental Questionnaire - both study arms	Open Access

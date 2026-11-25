@@ -1,4 +1,4 @@
-"""Migrated from Katalon INS_TestCases/CancerType/TC23_INS_CancerType-SkinCancer/Script1730854236673.groovy."""
+"""TC23_INS_CancerType-SkinCancer — Python regression case."""
 
 import pytest
 
@@ -6,13 +6,13 @@ import pytest
 @pytest.mark.ins
 @pytest.mark.regression
 def test_TC23_INS_CancerType_SkinCancer(ins):
-    ins.load_query_file("TC23_INS_CancerType-SkinCancer.xlsx")
+    ins.load_query_file('TC23_INS_CancerType-SkinCancer.xlsx')
     ins.accept_banner()
     ins.open_programs()
-    ins.select_filter("CancerType/CancerType", "SkinCancer")
+    ins.select_filter('CancerType/CancerType', 'SkinCancer')
     ins.read_statbar()
-    ins.verify_tab("Programs")
-    ins.verify_tab("Projects")
-    ins.verify_tab("Grants")
-    ins.verify_tab("Publications")
+    ins.verify_tab('Programs')
+    ins.verify_tab('Projects')
+    ins.verify_tab('Grants')
+    ins.verify_tab('Publications')
     ins.assert_no_failures()

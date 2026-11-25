@@ -1,0 +1,4 @@
+page: StudyFilesResultTab
+elements:
+  Table: //*[@id="study_file_tab_table"]
+  CSV: //*[@id="study_file_tab_table"]//button[contains(@title,'Download') and contains(@title,'CSV')]

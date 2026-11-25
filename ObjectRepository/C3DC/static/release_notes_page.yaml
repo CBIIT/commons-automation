@@ -1,0 +1,3 @@
+page: Static/ReleaseNotesPage
+elements:
+  ViewerTitle: //iframe[@title='C3DC Release Notes PDF']

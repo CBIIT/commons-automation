@@ -1,0 +1,15 @@
+"""TC01_INS_Verify_Programs_Tab_CSV_Download — Python regression case."""
+
+import pytest
+
+
+@pytest.mark.ins
+@pytest.mark.regression
+def test_TC01_INS_Verify_Programs_Tab_CSV_Download(ins):
+    ins.load_query_file('INS_ResultTabDownloads.xlsx')
+    ins.accept_banner()
+    ins.open_programs()
+    ins.select_filter('CancerType/CancerType', 'ThyroidCancer')
+    ins.result_tabs.download('Programs', 'CSV', 'TC01_INS_Verify_Programs_Tab_CSV_Download')
+    ins.result_tabs.verify_download('Programs', 'CSV')
+    ins.assert_no_failures()

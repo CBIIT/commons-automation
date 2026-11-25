@@ -4,6 +4,10 @@ CTDC (Clinical Trials Data Commons): https://clinical-qa.datacommons.cancer.gov
 Explore: stat bar + result tabs (Participants, Biospecimens, Files, Study Files).
 Expected data: TSV snapshots under InputFiles/CTDC/<STUDY>/YYYY-MM-DD/ + SQL in TC*.xlsx.
 """
+from Commons.result_tabs import ResultTabsApp
+from Commons.apps.ctdc.result_tabs import CTDCResultTabs
+from Commons.file_cart import FileCartApp
+from Commons.apps.ctdc.file_cart import CTDCFileCart
 from Commons.base_app import BaseApp, StatSpec, TabSpec
 
 # ---------------------------------------------------------------------------
@@ -32,7 +36,9 @@ def _tab(name, input_tab, stat, ui, db, max_pages=10):
 # ---------------------------------------------------------------------------
 
 
-class CTDC(BaseApp):
+class CTDC(ResultTabsApp, FileCartApp, BaseApp):
+    RESULT_TABS_CLASS = CTDCResultTabs
+    FILE_CART_CLASS = CTDCFileCart
     NAME = "CTDC"
     BANNER_KEYS = ["Home/WarningBan_Continue_Btn"]
     STATIC_DATA_EXCEL = "TC01_CTDC_StaticData.xlsx"
@@ -87,3 +93,11 @@ class CTDC(BaseApp):
     def select_study(self, study: str):
         """Tick the study checkbox (CMB, AHEP0731) before other filters, same idea as ICDC/GC."""
         self.select_filter("Studies/Study", study)
+
+    # -----------------------------------------------------------------------
+    # Result-table sorting: reuse discovery, both directions, and row retention
+    # -----------------------------------------------------------------------
+
+    def result_tab_sorting_options(self, tab):
+        from Commons.apps.ctdc.table_sorting import sorting_options
+        return sorting_options(self, tab)

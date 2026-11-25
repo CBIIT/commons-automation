@@ -1,0 +1,6 @@
+type	 study.study_short_name	associated_link_record_id	associated_link_name	associated_link_url
+associated_link	PLCO	PLCO-associated_link-01	Explore PLCO	https://cdas.cancer.gov/plco/
+associated_link	PLCO	PLCO-associated_link-02	ClinicalTrials.gov-NCT01696994	https://clinicaltrials.gov/study/NCT00002540
+associated_link	PLCO	PLCO-associated_link-03	ClinicalTrials.gov-NCT01696994	https://clinicaltrials.gov/study/NCT01696994
+associated_link	PLCO	PLCO-associated_link-04	ClinicalTrials.gov-NCT01696968	https://clinicaltrials.gov/study/NCT01696968
+associated_link	PLCO	PLCO-associated_link-05	ClinicalTrials.gov-NCT01696981	https://clinicaltrials.gov/study/NCT01696981

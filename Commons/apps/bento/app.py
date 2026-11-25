@@ -2,7 +2,7 @@
 BENTO (TAILORx demo portal): https://bento-tools.org
 
 Explore Cases view with stat bar (Programs … Files) and result tabs Cases / Samples / Files.
-Expected data: Neo4j Cypher in InputFiles/BENTO/TC*.xlsx. Arm + facet matrix: Tools/bento_arm_filters.py.
+Expected data: Neo4j Cypher in InputFiles/BENTO/TC*.xlsx. Arm and facet selections live in testcase Steps sheets.
 """
 from Commons.base_app import BaseApp, StatSpec, TabSpec
 
@@ -115,3 +115,11 @@ class Bento(BaseApp):
     def verify_standard_tabs(self):
         for tab in self.STANDARD_VERIFY_TABS:
             self.verify_tab(tab)
+
+    # -----------------------------------------------------------------------
+    # Result-table sorting: reuse discovery, both directions, and row retention
+    # -----------------------------------------------------------------------
+
+    def result_tab_sorting_options(self, tab):
+        from Commons.apps.bento.table_sorting import sorting_options
+        return sorting_options(self, tab)

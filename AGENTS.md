@@ -1,5 +1,10 @@
 # Working in commons-automation
 
+On `update-py-tests`, all eight apps execute `Testcases/<APP>/**/test_*.py`, not
+Excel Steps. Read `docs/PYTHON_MIGRATION.md` for the current coverage and branch
+differences before using the historical Excel inventory below. Query/static-data
+workbooks remain under `InputFiles`; do not enable Excel testcase collection.
+
 Read `docs/PROJECT_GUIDE.md` before changing this repository. It explains the
 framework, seven apps, current test coverage, known exceptions, and validation
 baseline. `docs/repository-index.json` is a searchable static snapshot of the
@@ -11,10 +16,10 @@ the whole file. Re-read the actual source before relying on snapshot details.
 
 - Read the applicable `.cursor/rules/*.mdc` and app skill references before query
   or locator work. Some rules describe historical UI snapshots and legacy Python
-  tests; reconcile them with current Excel Steps, code, configuration, and evidence.
-- `Testcases/<APP>/.../TC*.xlsx` contains the test's Steps. The matching
+  tests; reconcile them with current Python cases, code, configuration, and evidence.
+- `Testcases/<APP>/.../test_*.py` contains each test's actions. The matching
   `InputFiles/<APP>/...xlsx` contains expected queries or static data. Resolve the
-  Steps row-2 reference; do not infer the input solely from its filename.
+  `load_query_file()` argument; do not infer the input solely from its filename.
 - Query-only requests belong in the specified input workbook and tab. Preserve
   unrelated cells, styles, testcase steps, configuration, and other cases.
 - Resolve current environment, endpoint, row limit, enabled tabs, and UI filters
@@ -36,8 +41,7 @@ the whole file. Re-read the actual source before relying on snapshot details.
 - Keep C3DC and GC schemas, clusters, and credentials separate. Local C3DC
   `bolt://localhost:7687` is distinct from the default configured QA cluster.
 - Use `ObjectRepository/<APP>/` for locators and filter tokens. App adapters are
-  `Commons/apps/<app>/app.py`; app step handlers are under
-  `Commons/excel_testcase/apps/`.
+  `Commons/apps/<app>/app.py`; Python testcases call their methods directly.
 - Validate the changed query against the intended backend and rerun the exact
   testcase. For shared framework changes, run relevant unit tests and affected
   cases. Report skips and unperformed checks separately from passing checks.

@@ -1,0 +1,15 @@
+"""TC01_C3DC_Verify_Genetic_Analysis_Tab_CSV_Download — Python regression case."""
+
+import pytest
+
+
+@pytest.mark.c3dc
+@pytest.mark.regression
+def test_TC01_C3DC_Verify_Genetic_Analysis_Tab_CSV_Download(c3dc):
+    c3dc.load_query_file('C3DC_ResultTabDownloads.xlsx')
+    c3dc.accept_banner()
+    c3dc.open_explore()
+    c3dc.select_filter('Diagnosis/Diagnosis', 'AbdominalFibromatosis')
+    c3dc.result_tabs.download('GeneticAnalysis', 'CSV', 'TC01_C3DC_Verify_Genetic_Analysis_Tab_CSV_Download')
+    c3dc.result_tabs.verify_download('GeneticAnalysis', 'CSV')
+    c3dc.assert_no_failures()

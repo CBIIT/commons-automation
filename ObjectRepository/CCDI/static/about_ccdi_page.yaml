@@ -1,5 +1,5 @@
-# Converted from Katalon Object Repository/CCDI/Static/AboutCCDIPage
-page: Static/AboutCCDIPage
+# Static About page content; page name matches the shared input workbook sheet.
+page: Static/AboutPage
 elements:
   BannerTitle: //div[@class='aboutHeaderText']
   CCDIDescription: //div[@class='aboutBody']

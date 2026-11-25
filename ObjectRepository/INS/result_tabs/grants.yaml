@@ -1,0 +1,4 @@
+page: GrantsResultTab
+elements:
+  Table: //*[@id='grant_tab_table']
+  CSV: //*[@id='grant_tab_table']//button[contains(@title,'Download') and contains(@title,'CSV')]

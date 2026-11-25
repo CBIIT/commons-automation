@@ -1,4 +1,4 @@
-"""Migrated from Katalon INS_TestCases/CancerType/TC04_INS_CancerType-GynecologicCancer/Script1730759763513.groovy."""
+"""TC04_INS_CancerType-GynecologicCancer — Python regression case."""
 
 import pytest
 
@@ -6,13 +6,13 @@ import pytest
 @pytest.mark.ins
 @pytest.mark.regression
 def test_TC04_INS_CancerType_GynecologicCancer(ins):
-    ins.load_query_file("TC04_INS_CancerType-GynecologicCancer.xlsx")
+    ins.load_query_file('TC04_INS_CancerType-GynecologicCancer.xlsx')
     ins.accept_banner()
     ins.open_programs()
-    ins.select_filter("CancerType/CancerType", "GynecologicCancer")
+    ins.select_filter('CancerType/CancerType', 'GynecologicCancer')
     ins.read_statbar()
-    ins.verify_tab("Programs")
-    ins.verify_tab("Projects")
-    ins.verify_tab("Grants")
-    ins.verify_tab("Publications")
+    ins.verify_tab('Programs')
+    ins.verify_tab('Projects')
+    ins.verify_tab('Grants')
+    ins.verify_tab('Publications')
     ins.assert_no_failures()

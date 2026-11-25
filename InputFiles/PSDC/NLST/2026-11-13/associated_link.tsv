@@ -1,0 +1,5 @@
+type	 study.study_short_name	associated_link_record_id	associated_link_name	associated_link_url
+associated_link	NLST	NLST-associated_link-01	Explore NLST	https://cdas.cancer.gov/nlst/
+associated_link	NLST	NLST-associated_link-02 	ClinicalTrials.gov-NCT00047385	https://clinicaltrials.gov/study/NCT00047385
+associated_link	NLST	NLST-associated_link-03	The Cancer Imaging Archive	https://www.cancerimagingarchive.net/collection/nlst/
+associated_link	NLST	NLST-associated_link-04	NCI Imaging Data Commons	https://portal.imaging.datacommons.cancer.gov/

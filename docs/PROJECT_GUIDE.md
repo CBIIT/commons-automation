@@ -1,7 +1,14 @@
 # Commons automation project guide
 
-This repository tests seven NCI Data Commons portals using pytest and Playwright.
-Excel Steps drive UI actions; separate input workbooks supply the expected Cypher,
+**Python branch update, November 25, 2026:** the historical inventory below
+describes the older Excel framework. All eight apps now execute 765 Python cases
+with current reference helpers, locators, queries, and native pytest markers.
+Start with [migration coverage and validation](PYTHON_MIGRATION.md). The old Diagnosis,
+Treatment Responses, Survival, and Treatments tab inventory is historical;
+current C3DC cases verify the six result tabs in that migration note.
+
+This repository tests eight NCI Data Commons portals using pytest and Playwright.
+Python testcases drive UI actions; separate input workbooks supply the expected Cypher,
 SQL, or static page content. Fixes depend on the active filter, app schema, UI
 ordering, and configured comparison limits.
 
@@ -18,18 +25,18 @@ validation baseline, not a claim that every UI case or query passes.
 
 | Task | Start here |
 | --- | --- |
-| Find a testcase's actual filters and steps | `Testcases/<APP>/.../TC*.xlsx`, `Steps` sheet |
-| Find its input workbook | `Steps!A2`; runtime also supports a legacy row-2 column-C fallback |
+| Find a testcase's actual filters and steps | `Testcases/<APP>/.../test_*.py` |
+| Find its input workbook | The Python case's `load_query_file()` argument |
 | Change expected tab data | Input workbook, first sheet, `TabQuery` or legacy `query` column |
 | Change expected stat counts | First nonempty `StatQuery` in the input workbook |
 | Fix a UI selector or filter key | `ObjectRepository/<APP>/**/*.yaml` |
 | Change app navigation or tab behavior | `Commons/apps/<app>/app.py` |
-| Change an app-only Excel action | `Commons/excel_testcase/apps/<app>.py` |
+| Change an app-only action | `Commons/apps/<app>/app.py` and its feature modules |
 | Change shared comparison or table reading | `Commons/compare.py`, `Commons/table_reader.py` |
 | Change URLs, backend type, or hosts | `Config/environments.yaml` |
 | Inspect secrets or local overrides | Local `.env` and shell environment; never reproduce values in documentation |
 | Change row limits, pagination caps, enabled tabs | `Config/tab_setting.yaml` |
-| Change suite membership | `Config/suites.yaml` |
+| Change suite membership | `@pytest.mark.smoke`, `regression`, `quickrun`, or `datarelease` on Python tests |
 | Inspect the actual mismatch | `OutputFiles/<APP>/<ENV>/<case>_UI.xlsx` and `_DB.xlsx` |
 | Inspect the execution | `Reports/<suite>_<timestamp>.html`; `latest.html` changes with runs |
 
@@ -61,17 +68,14 @@ PY
 
 ## Execution and comparison
 
-1. `conftest.py` installs the Excel collector and HTML reporter, resolves CLI and
-   environment settings, launches one browser per session, and makes a fresh
-   browser context and app fixture per case.
-2. `Commons/excel_pytest_collect.py` collects `TC*.xlsx` under registered app
-   directories when `framework.test_case_source` is `excel`. Current profiles
-   include studies, static pages, listings, Bento arms, and INS Programs/Datasets.
-   Collection does not itself enforce `case_subdirs`; profile registration and
-   the testcase path determine the app.
-3. `Commons/excel_testcase/runner.py` reads the `Steps` sheet, loads the input
-   workbook's basename, and dispatches actions to app-specific handlers first,
-   then shared handlers. Static-data workbooks are loaded by static verification.
+1. `conftest.py` installs the HTML reporter, resolves CLI and environment
+   settings, launches one browser per session, and makes a fresh browser context
+   and app fixture per case.
+2. Pytest collects `test_*.py` files. There is no Excel testcase collector or
+   execution-mode switch in this branch. Suite membership comes from pytest
+   marker decorators on each Python testcase.
+3. Each Python test calls app methods directly and loads its query workbook with
+   `load_query_file()`. Static-data workbooks are loaded by static verification.
 4. `Commons/query_reader.py` reads the first input sheet, maps `TabName` to query
    text, and takes only the first nonempty `StatQuery`. Output filename columns
    are legacy metadata; main comparison output paths come from the app and case.
@@ -263,7 +267,7 @@ adapter merely because the Hub links to them.
 `Commons/settings.py` loads `.env` without replacing existing process variables.
 CLI selects environment/browser/headed behavior where provided; YAML supplies
 defaults. Backend credentials and endpoints support app/environment-specific
-overrides. `TEST_CASE_SOURCE` can override Excel collection. `INPUTFILES_ROOT`
+overrides. `INPUTFILES_ROOT`
 and `OUTPUT_ROOT` can redirect file roots.
 
 `TAB_ROW_LIMIT_<APP>` or `TAB_ROW_LIMIT` overrides the YAML row cap;
@@ -316,7 +320,7 @@ Further findings to assess when working on the affected cases:
 
 ## Working on the next failure
 
-Resolve the exact Steps and input reference first. Read applicable Cursor rules,
+Resolve the Python testcase and its input reference first. Read applicable Cursor rules,
 current config, relevant model/index references, and adapter tab wiring. Compare
 the affected saved UI/DB sheet to distinguish a cohort mismatch, subset/ordering
 problem, count scope, display transformation, stale source, or read/sync defect.

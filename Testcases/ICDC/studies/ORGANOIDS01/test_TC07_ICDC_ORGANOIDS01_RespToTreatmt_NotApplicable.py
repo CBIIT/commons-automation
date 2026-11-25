@@ -1,21 +1,19 @@
-"""Open Explore for study ORGANOIDS01, filter RespToTreatmt NotApplicable, then compare stat bar and result tabs to DB queries."""
+"""TC07_ICDC_ORGANOIDS01_RespToTreatmt-NotApplicable — Python regression case."""
 
 import pytest
-
-_INPUT = "TC07_ICDC_ORGANOIDS01_RespToTreatmt-NotApplicable.xlsx"
 
 
 @pytest.mark.icdc
 @pytest.mark.regression
 def test_TC07_ICDC_ORGANOIDS01_RespToTreatmt_NotApplicable(icdc):
-    icdc.load_query_file(_INPUT)
+    icdc.load_query_file('TC07_ICDC_ORGANOIDS01_RespToTreatmt-NotApplicable.xlsx')
     icdc.accept_banner()
     icdc.open_cases()
     icdc.select_study('Canine_Filter_Study-ORGANOIDS01')
-    icdc.select_filter("Cases/ResponseToTreatment", 'NotApplicable')
+    icdc.select_filter('Cases/ResponseToTreatment', 'NotApplicable')
     icdc.read_statbar()
-    icdc.verify_tab("Cases")
-    icdc.verify_tab("Samples")
-    icdc.verify_tab("Case Files")
-    icdc.verify_tab("Study Files")
+    icdc.verify_tab('Cases')
+    icdc.verify_tab('Samples')
+    icdc.verify_tab('Case Files')
+    icdc.verify_tab('Study Files')
     icdc.assert_no_failures()

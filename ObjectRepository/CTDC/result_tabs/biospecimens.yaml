@@ -1,0 +1,4 @@
+page: BiospecimensResultTab
+elements:
+  Table: //*[@id="biospecimens_tab_table"]
+  CSV: //*[@id="biospecimens_tab_table"]//button[contains(@title,'Download') and contains(@title,'CSV')]

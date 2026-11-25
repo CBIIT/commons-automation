@@ -2,7 +2,7 @@
 page: Navbar
 elements:
   WarningBan_Continue_Btn: //*[contains(text(),"Continue")]
-  About-Btn: //span[@class='menuLabel' and text()='About']
-  About-INS-Btn: //a[contains(text(),'About INS')]
+  About-Btn: //*[@id='navbar-dropdown-about' and @role='button']
+  About-INS-Btn: //a[@id='navbar-dropdown-item-about-ins' and @href='#/about']
   Datasets-Btn: //a[@href='#/datasets']
   Programs-Btn: //a[@href='#/programs']

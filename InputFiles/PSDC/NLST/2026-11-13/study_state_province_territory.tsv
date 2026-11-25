@@ -1,0 +1,28 @@
+type	 study.study_short_name	study_state_record_id	study_state_province_territory
+study_state_province_territory	NLST	NLST-Alabama	Alabama
+study_state_province_territory	NLST	NLST-Utah	Utah
+study_state_province_territory	NLST	NLST-Colorado	Colorado
+study_state_province_territory	NLST	NLST-WashingtonDC	Washington D.C.
+study_state_province_territory	NLST	NLST-Hawaii	Hawaii
+study_state_province_territory	NLST	NLST-Michigan	Michigan
+study_state_province_territory	NLST	NLST-Wisconsin	Wisconsin
+study_state_province_territory	NLST	NLST-Minnesota	Minnesota
+study_state_province_territory	NLST	NLST-Missouri	Missouri
+study_state_province_territory	NLST	NLST-Pennsylvania	Pennsylvania
+study_state_province_territory	NLST	NLST-Massachusetts	Massachusetts
+study_state_province_territory	NLST	NLST-Rhode Island	Rhode Island
+study_state_province_territory	NLST	NLST-New Jersey	New Jersey
+study_state_province_territory	NLST	NLST-New Hampshire	New Hampshire
+study_state_province_territory	NLST	NLST-Georgia	Georgia
+study_state_province_territory	NLST	NLST-Kentucky	Kentucky
+study_state_province_territory	NLST	NLST-Maryland	Maryland
+study_state_province_territory	NLST	NLST-Florida	Florida
+study_state_province_territory	NLST	NLST-South Carolina	South Carolina
+study_state_province_territory	NLST	NLST-Illinois	Illinois
+study_state_province_territory	NLST	NLST-Louisianna	Louisianna
+study_state_province_territory	NLST	NLST-Ohio	Ohio
+study_state_province_territory	NLST	NLST-California	California
+study_state_province_territory	NLST	NLST-Iowa	Iowa
+study_state_province_territory	NLST	NLST-Texas	Texas
+study_state_province_territory	NLST	NLST-Tennessee	Tennessee
+study_state_province_territory	NLST	NLST-North Carolina	North Carolina
